@@ -54,7 +54,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button layoutX="364.0" layoutY="309.0" mnemonicParsing="false" onAction="#onRegister" text="Register">
+        <Button defaultButton="true" layoutX="364.0" layoutY="309.0" mnemonicParsing="false" onAction="#onRegister" text="Register">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
