@@ -4,9 +4,11 @@ import server.model.UserModel;
 import transferobjects.ErrorMessage;
 import transferobjects.LoginRequest;
 import transferobjects.User;
+import util.LogInException;
 
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ServerHandler implements Runnable
 {
@@ -44,11 +46,14 @@ public class ServerHandler implements Runnable
   public void sendObject(Serializable o){
     try{
       // Send the object here
-      toClient.writeUnshared(o);
+      System.out.println(o);
+      toClient.writeObject(o);
+
     }
     catch (IOException | NullPointerException e) {
       // If an IOException happens during the sending process, it means that there is something
       // wrong with the stream, and therefore should close the client.
+      e.printStackTrace();
       closeClient();
     }
   }
@@ -90,7 +95,7 @@ public class ServerHandler implements Runnable
 
             // Send the Logged in - User object back to the client
             sendObject(user);
-          } catch (Exception e){
+          } catch (SQLException | LogInException e){
             // This exception type above should be more specific after we implement the model
 
             // Constructing the Error Message object
@@ -103,6 +108,7 @@ public class ServerHandler implements Runnable
     } catch (IOException | NullPointerException e){
       // If an IOException happens during the reading process, it means that there is something
       // wrong with the stream (e.g. lost connection), and therefore should close the client.
+      e.printStackTrace();
       closeClient();
     }
   }
@@ -112,6 +118,8 @@ public class ServerHandler implements Runnable
    */
   public void closeClient(){
 
+    if(1==1)
+    throw new RuntimeException();
     // todo fire "Closing" event here for the connection pool (later)
     //      so the pool can remove it form the list when the connection is closed
 

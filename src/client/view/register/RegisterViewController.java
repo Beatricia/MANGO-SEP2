@@ -49,7 +49,7 @@ public class RegisterViewController implements ViewController
     {
       errorMessage.setText("Empty field");
     }
-    else if (!password.equals(passwordRepeat))  //checks if the password and passwordRepeat do match
+    else if (!password.getText().equals(passwordRepeat.getText()))  //checks if the password and passwordRepeat do match
     {
       errorMessage.setText("Passwords do not match");
     }
