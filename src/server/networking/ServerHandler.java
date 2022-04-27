@@ -10,6 +10,20 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 
+/**
+ * <p>The <code>ServerHandler</code> is having a role of handling a client connection on the server side
+ * of the <b>CanEat</b> application.
+ * </p>
+ * <p>
+ *   As a <code>ServerHandler</code> object can handle one client connection in it's lifetime,
+ *   therefore for each connection request from the clients, a new instance is created.
+ * </p>
+ * <p>
+ *   To fully take advantage of the features of the <code>ServerHandler</code>, it must be put on a new Thread,
+ *   so that it can listen simultaneously to the client while the other parts of the program can work
+ *   on their job.
+ * </p>
+ */
 public class ServerHandler implements Runnable
 {
   private Socket clientSocket; //Client socket
@@ -19,7 +33,7 @@ public class ServerHandler implements Runnable
   private UserModel userModel;
 
   /**
-   * Constructs the ServerHandler object, which is responsible for one client socket's connection handling.
+   * Constructs the ServerHandler object, sets up the base streams.
    * @param clientSocket Client Socket to be taken care of.
    * @param userModel User model to forward data to.
    */
@@ -40,7 +54,7 @@ public class ServerHandler implements Runnable
   }
 
   /**
-   * Send a serializable object to the Client.
+   * Send a <code>Serializable</code> object to the Client.
    * @param o Object to be sent.
    */
   public void sendObject(Serializable o){
@@ -118,8 +132,6 @@ public class ServerHandler implements Runnable
    */
   public void closeClient(){
 
-    if(1==1)
-    throw new RuntimeException();
     // todo fire "Closing" event here for the connection pool (later)
     //      so the pool can remove it form the list when the connection is closed
 
@@ -135,7 +147,7 @@ public class ServerHandler implements Runnable
   }
 
   /**
-   * Close a closeable (e.g. streams or socket) without raising an exception.
+   * Close a <code>Closeable</code> (e.g. streams or socket) without raising an exception.
    * @param closeable Object to close
    */
   private void closeObject(Closeable closeable){

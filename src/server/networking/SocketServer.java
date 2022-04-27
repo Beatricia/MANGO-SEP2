@@ -9,8 +9,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * The class which is responsible for initializing the <code>DatabaseConn</code>, the model, and accept
+ * incoming socket connections.
+ * @author Gergo
+ * @version 1
+ */
 public class SocketServer
 {
+  /**
+   * Initializing the <code>ServerSocket</code> and waiting for the new <code>Socket</code> connections to accept.
+   * @throws IOException Throws IOException if a Fatal error happens.
+   */
   public void startServer() throws IOException {
 
     // Create server socket on specific port
