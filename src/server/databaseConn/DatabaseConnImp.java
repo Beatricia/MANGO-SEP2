@@ -18,6 +18,9 @@ public class DatabaseConnImp implements DatabaseConn
 
   private String getPass()
   {
+    if(password != null)
+      return password;
+
     File file = new File("Resources/DataBase_password.txt");
     try
     {
