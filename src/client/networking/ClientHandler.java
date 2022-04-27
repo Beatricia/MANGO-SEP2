@@ -28,6 +28,8 @@ public class ClientHandler implements Runnable {
             while(true){
                 Object obj = fromServer.readObject();
 
+                System.out.println(obj);
+
                 if(obj instanceof User){
                     client.userReceivedFromServer((User)obj);
                 }

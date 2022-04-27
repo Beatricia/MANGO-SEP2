@@ -1,6 +1,9 @@
 package server.networking;
 
+import server.databaseConn.DatabaseConn;
+import server.databaseConn.DatabaseConnImp;
 import server.model.UserModel;
+import server.model.UserModelImp;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,8 +17,9 @@ public class SocketServer
     ServerSocket serverSocket = new ServerSocket(1111);
     System.out.println("Server Running");
 
-    // todo: init usermodel here
-    UserModel userModel = null;
+
+    DatabaseConn databaseConn = new DatabaseConnImp();
+    UserModel userModel = new UserModelImp(databaseConn);
 
     while(true){
       // Accept a new socket
