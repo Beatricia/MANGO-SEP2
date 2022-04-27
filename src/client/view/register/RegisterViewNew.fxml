@@ -6,6 +6,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -25,12 +26,15 @@
                 <Cursor fx:constant="TEXT" />
             </cursor>
         </TextField>
-        <RadioButton fx:id="radioCustomer" layoutX="177.0" layoutY="313.0" mnemonicParsing="false" text="Customer">
+        <RadioButton fx:id="radioCustomer" layoutX="177.0" layoutY="313.0" mnemonicParsing="false" selected="true" text="Customer">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
+         <toggleGroup>
+            <ToggleGroup fx:id="user" />
+         </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="radioEmployee" layoutX="265.0" layoutY="313.0" mnemonicParsing="false" text="Employee">
+        <RadioButton fx:id="radioEmployee" layoutX="265.0" layoutY="313.0" mnemonicParsing="false" text="Employee" toggleGroup="$user">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
