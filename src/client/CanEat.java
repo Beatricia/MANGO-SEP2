@@ -7,6 +7,12 @@ import client.core.ViewModelFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * The class' responsibility is to creat the ClientFactory, ModelFactory,
+ * ViewModelFactory and ViewHandler objects and to call the start() method in
+ * the ViewHandler. The class extends the Java build in class Application,
+ * therefore overrides its start method.
+ */
 public class CanEat extends Application
 {
   @Override public void start(Stage stage) throws Exception

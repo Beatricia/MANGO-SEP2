@@ -1,5 +1,6 @@
 package client.networking;
 
+import transferobjects.ErrorMessage;
 import transferobjects.LoginRequest;
 import transferobjects.User;
 
@@ -43,7 +44,7 @@ public class SocketClient implements Client{
         support.firePropertyChange(LOGGED_IN_RECEIVED, null,obj);
     }
 
-    public void errorReceivedFromServer(Error obj) {
+    public void errorReceivedFromServer(Object obj) {
         support.firePropertyChange(ERROR_RECEIVED, null, obj);
     }
 }

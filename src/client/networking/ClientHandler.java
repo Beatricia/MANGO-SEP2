@@ -1,5 +1,6 @@
 package client.networking;
 
+import transferobjects.ErrorMessage;
 import transferobjects.LoginRequest;
 import transferobjects.User;
 
@@ -28,13 +29,11 @@ public class ClientHandler implements Runnable {
             while(true){
                 Object obj = fromServer.readObject();
 
-                System.out.println(obj);
-
                 if(obj instanceof User){
                     client.userReceivedFromServer((User)obj);
                 }
-                else if(obj instanceof Error){
-                    client.errorReceivedFromServer((Error)obj);
+                else if(obj instanceof ErrorMessage){
+                    client.errorReceivedFromServer(obj);
                 }
             }
         } catch (IOException | ClassNotFoundException e){

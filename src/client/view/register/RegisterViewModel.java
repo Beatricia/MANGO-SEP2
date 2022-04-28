@@ -1,10 +1,14 @@
 package client.view.register;
 
 import client.model.UserModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.UserType;
+import transferobjects.ErrorMessage;
 import transferobjects.User;
+
+import java.beans.PropertyChangeEvent;
 
 /**
  * Class responsible for connecting the RegisterViewController and UserModel interface.
@@ -24,6 +28,23 @@ public class RegisterViewModel
   {
     this.userModel = userModel;
     errorMessage = new SimpleStringProperty("");
+
+    userModel.addListener(UserModel.LOGGED_IN_RECEIVED, this::loggedInReceived);
+    userModel.addListener(UserModel.ERROR_RECEIVED, this::errorReceived);
+  }
+
+  private void errorReceived(PropertyChangeEvent event) {
+    ErrorMessage errorMess = (ErrorMessage) event.getNewValue();
+
+    printErrorMessage(errorMess.getMessage());
+  }
+
+  private void printErrorMessage(String message){
+    Platform.runLater(() -> errorMessage.setValue("Error: " + message));
+  }
+
+  private void loggedInReceived(PropertyChangeEvent event) {
+    System.out.println("Login received");
   }
 
   /**
@@ -40,7 +61,7 @@ public class RegisterViewModel
       String password, String passwordRepeat, UserType userType)
   {
 
-    if (firstName.equals("") || lastName.equals("") || username.equals("")
+    if (firstName.isBlank() || lastName.equals("") || username.equals("")
         || password.equals("")) // checks for empty fields
     {
       errorMessage.setValue("Empty field");

@@ -61,7 +61,7 @@ public class ServerHandler implements Runnable
     try{
       // Send the object here
       toClient.writeObject(o);
-
+      System.out.println("Object sent: " + o);
     }
     catch (IOException | NullPointerException e) {
       // If an IOException happens during the sending process, it means that there is something
@@ -121,7 +121,6 @@ public class ServerHandler implements Runnable
     } catch (IOException | NullPointerException e){
       // If an IOException happens during the reading process, it means that there is something
       // wrong with the stream (e.g. lost connection), and therefore should close the client.
-      e.printStackTrace();
       closeClient();
     }
   }
