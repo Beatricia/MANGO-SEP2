@@ -61,8 +61,8 @@ public class RegisterViewModel
       String password, String passwordRepeat, UserType userType)
   {
 
-    if (firstName.isBlank() || lastName.equals("") || username.equals("")
-        || password.equals("")) // checks for empty fields
+    if (firstName.isBlank() || lastName.isBlank() || username.isBlank()
+        || password.isBlank()) // checks for empty fields
     {
       errorMessage.setValue("Empty field");
     }
@@ -73,6 +73,8 @@ public class RegisterViewModel
     }
     else // everything is correct
     {
+      errorMessage.setValue("");
+
       userModel.register(firstName, lastName, username, password, userType);
 
       return new User(username, userType, firstName, lastName);
