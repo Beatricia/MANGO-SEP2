@@ -21,12 +21,32 @@
                 <Cursor fx:constant="TEXT" />
             </cursor>
         </Label>
-        <TextField fx:id="firstName" layoutX="180.0" layoutY="90.0" prefHeight="25.0" prefWidth="248.0">
+        <TextField id="1" fx:id="firstName" layoutX="180.0" layoutY="90.0" prefHeight="25.0" prefWidth="248.0">
             <cursor>
                 <Cursor fx:constant="TEXT" />
             </cursor>
         </TextField>
-        <RadioButton fx:id="radioCustomer" layoutX="180.0" layoutY="294.0" mnemonicParsing="false" selected="true" text="Customer">
+        <TextField id="2" fx:id="lastName" layoutX="179.0" layoutY="129.0" prefHeight="25.0" prefWidth="248.0">
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <TextField id="3" fx:id="username" layoutX="179.0" layoutY="169.0" prefHeight="25.0" prefWidth="248.0">
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <PasswordField id="4" fx:id="password" layoutX="180.0" layoutY="211.0" prefHeight="25.0" prefWidth="248.0">
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </PasswordField>
+        <PasswordField fx:id="passwordRepeat" layoutX="179.0" layoutY="248.0" prefHeight="25.0" prefWidth="248.0">
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </PasswordField>
+        <RadioButton id="6" fx:id="radioCustomer" layoutX="180.0" layoutY="294.0" mnemonicParsing="false" selected="true" text="Customer">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
@@ -34,27 +54,17 @@
             <ToggleGroup fx:id="user" />
          </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="radioEmployee" layoutX="268.0" layoutY="294.0" mnemonicParsing="false" text="Employee" toggleGroup="$user">
+        <RadioButton id="7" fx:id="radioEmployee" layoutX="268.0" layoutY="294.0" mnemonicParsing="false" text="Employee" toggleGroup="$user">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </RadioButton>
-        <TextField fx:id="lastName" layoutX="179.0" layoutY="129.0" prefHeight="25.0" prefWidth="248.0">
-            <cursor>
-                <Cursor fx:constant="TEXT" />
-            </cursor>
-        </TextField>
-        <TextField fx:id="username" layoutX="179.0" layoutY="169.0" prefHeight="25.0" prefWidth="248.0">
-            <cursor>
-                <Cursor fx:constant="TEXT" />
-            </cursor>
-        </TextField>
-        <Button layoutX="545.0" layoutY="361.0" mnemonicParsing="false" onAction="#onBack" text="Back">
+        <Button id="8" defaultButton="true" layoutX="367.0" layoutY="290.0" mnemonicParsing="false" onAction="#onRegister" text="Register">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button defaultButton="true" layoutX="367.0" layoutY="290.0" mnemonicParsing="false" onAction="#onRegister" text="Register">
+        <Button id="9" layoutX="545.0" layoutY="361.0" mnemonicParsing="false" onAction="#onBack" text="Back">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
@@ -89,16 +99,6 @@
                 <Cursor fx:constant="TEXT" />
             </cursor>
         </Label>
-        <PasswordField fx:id="password" layoutX="180.0" layoutY="211.0" prefHeight="25.0" prefWidth="248.0">
-            <cursor>
-                <Cursor fx:constant="TEXT" />
-            </cursor>
-        </PasswordField>
-        <PasswordField fx:id="passwordRepeat" layoutX="179.0" layoutY="248.0" prefHeight="25.0" prefWidth="248.0">
-            <cursor>
-                <Cursor fx:constant="TEXT" />
-            </cursor>
-        </PasswordField>
         <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="334.0" prefHeight="17.0" prefWidth="578.0" text="ErrorMessage" textFill="RED" />
     </children>
 
