@@ -6,23 +6,12 @@ import javafx.beans.property.StringProperty;
 import shared.UserType;
 import transferobjects.User;
 
-/**
- * The class which providing methods for LoginViewModel.
- * @author Agata
- * @version 1
- */
-
 public class LoginViewModel
 {
   private UserModel userModel;
   private StringProperty username;
   private StringProperty password;
   private StringProperty error;
-
-  /**
-   * Constructs the LoginViewModel object, initial base variable.
-   * @param userModel User model to forward data to.
-   */
 
   public LoginViewModel(UserModel userModel)
   {
@@ -32,41 +21,20 @@ public class LoginViewModel
     error = new SimpleStringProperty();
   }
 
-  /**
-   * call the login method from UserModel class
-   * @param username user's username
-   * @param password user's password
-   */
-
   public void login(String username, String password)
   {
     userModel.login(username,password);
   }
-
-  /**
-   * Gets the username StringProperty
-   * @return username StringProperty
-   */
 
   public StringProperty getUsername()
   {
     return username;
   }
 
-  /**
-   * Gets the password StringProperty
-   * @return password StringProperty
-   */
-
   public StringProperty getPassword()
   {
     return password;
   }
-
-  /**
-   * Gets the error StringProperty
-   * @return error StringProperty
-   */
 
   public StringProperty getError()
   {
