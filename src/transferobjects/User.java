@@ -63,6 +63,7 @@ public class User implements Serializable
     return lastName;
   }
 
+
   /**
    * Gets the userType
    * @return the user's type
