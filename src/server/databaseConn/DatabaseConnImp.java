@@ -87,6 +87,11 @@ public class DatabaseConnImp implements DatabaseConn
           return new User(username, userType, firstName, lastName);
         }
       }
+    } catch (Throwable e){
+      System.out.println("Message: " + e.getMessage());
+      if(e.getMessage().contains("Username not unique"))
+        throw new LogInException("Username not unique");
+      else throw e;
     }
     throw new LogInException("User does not exist");
   }

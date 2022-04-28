@@ -31,12 +31,16 @@ public class UserModelImp implements UserModel
     support = new PropertyChangeSupport(this);
 
     client.addListener(LOGGED_IN_RECEIVED, this:: sendLogin);
+    client.addListener(ERROR_RECEIVED, this::sendError);
   }
 
   private void sendLogin(PropertyChangeEvent event)
   {
+    support.firePropertyChange(LOGGED_IN_RECEIVED, null, event.getNewValue());
+  }
 
-    support.firePropertyChange(LOGGED_IN_RECEIVED, -1, event.getNewValue());
+  private void sendError(PropertyChangeEvent event){
+    support.firePropertyChange(ERROR_RECEIVED, null, event.getNewValue());
   }
 
   /**
