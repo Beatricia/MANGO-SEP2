@@ -9,21 +9,40 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * A class that handles the opening of the fxml view files
+ * @author Uafa
+ */
 public class ViewHandler
 {
   private ViewModelFactory viewModelFactory;
   private Stage stage;
 
+  /**
+   * Constructor for the class
+   * @param viewModelFactory  a viewModelFactory object
+   * @param stage  a Stage object
+   */
   public ViewHandler(ViewModelFactory viewModelFactory, Stage stage)
   {
     this.viewModelFactory = viewModelFactory;
     this.stage = stage;
   }
 
+  /**
+   * A method that is responsible for opening the login view, which is the first
+   * view shown when the program start
+   */
   public void start()
   {
     openLoginView();
   }
+
+  /**
+   * A method that loads the login view, instantiates the LoginViewController,
+   * calls the init() method in the controller, sets a title for the stage and
+   * displays the view.
+   */
 
   public void openLoginView()
   {
@@ -49,6 +68,12 @@ public class ViewHandler
     stage.setScene(scene);
     stage.show();
   }
+
+  /**
+   * A method that loads the register view, instantiates the
+   * RegisterViewController, calls the init() method in the controller, sets a
+   * title for the stage and displays the view.
+   */
 
   public void openRegisterView()
   {
