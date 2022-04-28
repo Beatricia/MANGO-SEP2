@@ -20,7 +20,7 @@ public class LoginViewModel
   private StringProperty error;
 
   /**
-   * Constructs the LoginViewModel object, initial base variable.
+   * Construct the LoginViewModel object, initial base variable.
    * @param userModel User model to forward data to.
    */
 
