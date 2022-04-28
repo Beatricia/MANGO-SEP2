@@ -60,7 +60,6 @@ public class ServerHandler implements Runnable
   public void sendObject(Serializable o){
     try{
       // Send the object here
-      System.out.println(o);
       toClient.writeObject(o);
 
     }

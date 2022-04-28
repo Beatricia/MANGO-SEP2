@@ -15,79 +15,70 @@ public class DatabaseConnImp implements DatabaseConn
 
   private String password;
 
-
-  private String getPass()
-  {
-    if(password != null)
+  private String getPass() {
+    if (password != null)
       return password;
 
     File file = new File("Resources/DataBase_password.txt");
-    try
-    {
+    try {
       Scanner scanner = new Scanner(file);
       password = scanner.nextLine();
       System.out.println(password);
     }
-    catch (FileNotFoundException e)
-    {
+    catch (FileNotFoundException e) {
       e.printStackTrace();
     }
 
     return password;
   }
 
-  private Connection getConnection() throws SQLException
-  {
-      return DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=caneat","postgres",getPass());
+  private Connection getConnection() throws SQLException {
+    return DriverManager.getConnection(
+        "jdbc:postgresql://localhost:5432/postgres?currentSchema=caneat", "postgres", getPass());
 
   }
 
-  @Override public User login(String username, String password) throws LogInException,SQLException
-  {
+  @Override public User login(String username, String password)
+      throws LogInException, SQLException {
 
-    try(Connection connection = getConnection())
-    {
-      for (UserType userType: UserType.values())
-      {
-        String str = "SELECT firstName, lastName, password FROM " + userType.toString().toLowerCase(
-            Locale.ROOT) + " Where username = ?";
+    try (Connection connection = getConnection()) {
+      for (UserType userType : UserType.values()) {
+        String table = userType.toString().toLowerCase(Locale.ROOT);
+        String str = "SELECT firstname, lastname, password FROM " + table + " Where username = ?";
 
         PreparedStatement statement = connection.prepareStatement(str);
-        statement.setString(1,username);
+        statement.setString(1, username);
         ResultSet set = statement.executeQuery();
 
-        if(set.next())
-        {
+        if (set.next()) {
           String firstName = set.getString("firstName");
           String lastName = set.getString("lastName");
           String passwordFromDB = set.getString("password");
 
-          if(!passwordFromDB.equals(password))
-          {
+          if (!passwordFromDB.equals(password)) {
             throw new LogInException("Password does not match");
           }
 
-          return new User(username,userType,firstName,lastName);
+          return new User(username, userType, firstName, lastName);
         }
       }
     }
     throw new LogInException("User does not exist");
   }
 
-  @Override public User register(String firstName, String lastName,
-      String username, String password, UserType userType) throws SQLException
-  {
-    try(Connection connection= getConnection())
-    {
-      String str = "INSERT INTO " + userType.toString().toLowerCase(Locale.ROOT) + "(firstName, lastName,username, password) VALUES(?,?,?,?);";
-        PreparedStatement statement = connection.prepareStatement(str);
+  @Override public User register(String firstName, String lastName, String username,
+      String password, UserType userType) throws SQLException {
+    try (Connection connection = getConnection()) {
+      String str = "INSERT INTO " + userType.toString().toLowerCase(Locale.ROOT)
+          + "(firstName, lastName,username, password) VALUES(?,?,?,?);";
+      PreparedStatement statement = connection.prepareStatement(str);
 
-        statement.setString(1,firstName);
-        statement.setString(2,lastName);
-        statement.setString(3,username);
-        statement.setString(4,password);
-        statement.executeUpdate();
-        return new User(username,userType,firstName,lastName);
+      statement.setString(1, firstName);
+      statement.setString(2, lastName);
+      statement.setString(3, username);
+      statement.setString(4, password);
+      statement.executeUpdate();
+      return new User(username, userType, firstName, lastName);
 
     }
   }
