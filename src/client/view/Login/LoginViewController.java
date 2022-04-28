@@ -38,9 +38,7 @@ public class LoginViewController implements ViewController
     this.viewHandler = viewHandler;
     this.viewModel = viewModelFactory.getLoginViewModel();
 
-    username.textProperty().bindBidirectional(viewModel.getUsername());
-    password.textProperty().bindBidirectional(viewModel.getPassword());
-    errorLabel.textProperty().bind(viewModel.getError());
+    errorLabel.textProperty().bindBidirectional(viewModel.getError());
   }
 
   /**
@@ -50,11 +48,7 @@ public class LoginViewController implements ViewController
 
   public void onLogIn(ActionEvent actionEvent)
   {
-    if (username.getText().equals("") || password.getText().equals(""))
-    {
-      errorLabel.setText("Empty field");
-    }
-     viewModel.login(username.getText(), password.getText());
+      viewModel.login(username.getText(), password.getText());
   }
 
   /**

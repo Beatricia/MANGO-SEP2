@@ -40,7 +40,14 @@ public class LoginViewModel
 
   public void login(String username, String password)
   {
-    userModel.login(username,password);
+    if (username.equals("") || password.equals(""))
+    {
+      error.setValue("Empty field");
+    }
+    else
+    {
+      userModel.login(username,password);
+    }
   }
 
   /**
