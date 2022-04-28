@@ -9,7 +9,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import server.networking.SocketServer;
 import shared.UserType;
+
+/**
+ * Class responsible for connecting RegisterViewNew.fxml with RegisterViewModel and therefore providing the functionality to the GUI.
+ * @author Simon
+ * @version 1
+ */
 
 public class RegisterViewController implements ViewController
 {
@@ -25,6 +32,11 @@ public class RegisterViewController implements ViewController
   private ViewHandler viewHandler;
   private RegisterViewModel viewModel;
 
+  /**
+   * Binding all necessary fields with RegisterViewModel and initializing fo the @parameters.
+   * @param viewHandler responsible for managing the GUI views.
+   * @param viewModelFactory creating the RegisterViewModel with which the RegisterViewController is connected
+   */
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory)
   {
@@ -34,28 +46,22 @@ public class RegisterViewController implements ViewController
     errorMessage.textProperty().bindBidirectional(viewModel.getErrorMessage()); // binds with the errorMessage in VM
   }
 
+  /**
+   * Changing GUI from RegisterViewNew to LoginView
+   * @param actionEvent from GUI (Button click)
+   */
   @FXML private void onBack(ActionEvent actionEvent)
   {
     viewHandler.openLoginView();
   }
 
+  /**
+   * Checks for UserType selected in GUI and sends a request to create new User
+   * @param actionEvent from GUI (Button click)
+   */
   @FXML private void onRegister(ActionEvent actionEvent)
   {
     UserType userType = null;
-
-    if (firstName.getText().equals("") || lastName.getText().equals("")
-        || username.getText().equals("") || password.getText()
-        .equals("")) // checks for empty fields
-    {
-      errorMessage.setText("Empty field");
-    }
-    else if (!password.getText().equals(passwordRepeat.getText()))  //checks if the password and passwordRepeat do match
-    {
-      errorMessage.setText("Passwords do not match");
-    }
-    else
-    {
-
       if (radioCustomer.isSelected()) // checks for the selected radio button
       {
         userType = UserType.CUSTOMER;
@@ -66,9 +72,7 @@ public class RegisterViewController implements ViewController
       }
 
       viewModel.register(firstName.getText(), lastName.getText(),
-          username.getText(), password.getText(), userType);
+          username.getText(), password.getText(), passwordRepeat.getText(), userType);
     }
-
-  }
 
 }
