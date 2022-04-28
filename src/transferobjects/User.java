@@ -5,7 +5,7 @@ import shared.UserType;
 import java.io.Serializable;
 
 /**
- * The class representing a user with username, userType, firstName, lastName.
+ * The class representing a user object  with username, userType, firstName, lastName.
  * @author Agata
  * @version 1
  */
@@ -18,7 +18,7 @@ public class User implements Serializable
   private String lastName;
 
   /**
-   * Contractor the User object
+   * Construct the User object
    * @param username user's username
    * @param userType user' type
    * @param firstName user's first name
