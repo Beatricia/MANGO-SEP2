@@ -4,7 +4,10 @@ import client.model.UserModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.UserType;
+import transferobjects.ErrorMessage;
 import transferobjects.User;
+
+import java.beans.PropertyChangeEvent;
 
 /**
  * The class which providing methods for LoginViewModel.
@@ -30,6 +33,20 @@ public class LoginViewModel
     username = new SimpleStringProperty();
     password = new SimpleStringProperty();
     error = new SimpleStringProperty();
+
+    userModel.addListener(UserModel.LOGGED_IN_RECEIVED, this::loggedInReceived);
+    userModel.addListener(UserModel.ERROR_RECEIVED, this::errorReceived);
+  }
+
+  private void loggedInReceived(PropertyChangeEvent propertyChangeEvent)
+  {
+    User user = propertyChangeEvent.getNewValue()
+  }
+
+  private void errorReceived(PropertyChangeEvent propertyChangeEvent)
+  {
+    ErrorMessage errorMes =(ErrorMessage) propertyChangeEvent.getNewValue();
+    error.setValue(errorMes.getMessage());
   }
 
   /**
