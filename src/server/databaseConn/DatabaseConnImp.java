@@ -10,11 +10,23 @@ import java.sql.*;
 import java.util.Locale;
 import java.util.Scanner;
 
+/**
+ * A concrete implementation of the {@link DatabaseConn}.
+ * @author Mango
+ * @version 1
+ */
 public class DatabaseConnImp implements DatabaseConn
 {
 
+  /**
+   * Password to the SQL Server.
+   */
   private String password;
 
+  /**
+   * Returns the password if it is loaded, else it loads the password from the file.
+   * @return The password to access the database.
+   */
   private String getPass() {
     if (password != null)
       return password;
@@ -32,12 +44,25 @@ public class DatabaseConnImp implements DatabaseConn
     return password;
   }
 
+  /**
+   * Get database connection for the sql server.
+   * @return A connection object to access the database.
+   * @throws SQLException When an unexpected exception happens.
+   */
   private Connection getConnection() throws SQLException {
     return DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/postgres?currentSchema=caneat", "postgres", getPass());
 
   }
 
+  /**
+   * Log in with the specified username and the password.
+   * @param username username
+   * @param password password
+   * @return A user object representing the logged-in user if the log-in was successful
+   * @throws SQLException When an unexpected sql exception happens
+   * @throws LogInException When the user has not provided the correct data
+   */
   @Override public User login(String username, String password)
       throws LogInException, SQLException {
 
@@ -66,6 +91,16 @@ public class DatabaseConnImp implements DatabaseConn
     throw new LogInException("User does not exist");
   }
 
+  /**
+   * Register a user with the specified username, password, first name and last name.
+   * @param firstName first name
+   * @param lastName last name
+   * @param username username
+   * @param password password
+   * @param userType type of the user
+   * @return A user object representing the registered user if the register was successful
+   * @throws SQLException When the user has not provided the correct data
+   */
   @Override public User register(String firstName, String lastName, String username,
       String password, UserType userType) throws SQLException {
     try (Connection connection = getConnection()) {
@@ -79,7 +114,6 @@ public class DatabaseConnImp implements DatabaseConn
       statement.setString(4, password);
       statement.executeUpdate();
       return new User(username, userType, firstName, lastName);
-
     }
   }
 }
