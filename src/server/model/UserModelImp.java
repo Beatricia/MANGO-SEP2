@@ -40,7 +40,7 @@ public class UserModelImp implements UserModel
    * Sends a register request to the DatabaseConn.
    * @param request custom transfer object with information about non-registered user.
    */
-  @Override public User register(LoginRequest request) throws SQLException
+  @Override public User register(LoginRequest request) throws SQLException, LogInException
   {
     return databaseConn.register(request.getFirstName(), request.getLastName(),
         request.getUsername(), request.getPassword(), request.getUserType());

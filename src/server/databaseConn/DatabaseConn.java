@@ -33,5 +33,5 @@ public interface DatabaseConn
    * @throws SQLException When the user has not provided the correct data
    */
   User register(String firstName, String lastName, String username, String password, UserType userType) throws
-      SQLException;
+      SQLException, LogInException;
 }

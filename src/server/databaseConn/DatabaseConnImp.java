@@ -88,7 +88,6 @@ public class DatabaseConnImp implements DatabaseConn
         }
       }
     } catch (Throwable e){
-      System.out.println("Message: " + e.getMessage());
       if(e.getMessage().contains("Username not unique"))
         throw new LogInException("Username not unique");
       else throw e;
@@ -107,7 +106,7 @@ public class DatabaseConnImp implements DatabaseConn
    * @throws SQLException When the user has not provided the correct data
    */
   @Override public User register(String firstName, String lastName, String username,
-      String password, UserType userType) throws SQLException {
+      String password, UserType userType) throws SQLException, LogInException {
     try (Connection connection = getConnection()) {
       String str = "INSERT INTO " + userType.toString().toLowerCase(Locale.ROOT)
           + "(firstName, lastName,username, password) VALUES(?,?,?,?);";
@@ -119,6 +118,10 @@ public class DatabaseConnImp implements DatabaseConn
       statement.setString(4, password);
       statement.executeUpdate();
       return new User(username, userType, firstName, lastName);
+    } catch (Throwable e){
+      if(e.getMessage().contains("Username not unique"))
+        throw new LogInException("Username not unique");
+      else throw e;
     }
   }
 }

@@ -23,5 +23,5 @@ public interface UserModel
    * Sends a register request to the DatabaseConn.
    * @param request custom transfer object with information about non-registered user.
    */
-  User register(LoginRequest request) throws SQLException;
+  User register(LoginRequest request) throws SQLException, LogInException;
 }

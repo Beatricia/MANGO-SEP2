@@ -1,6 +1,7 @@
 package client.view.Login;
 
 import client.model.UserModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.UserType;
@@ -40,13 +41,18 @@ public class LoginViewModel
 
   private void loggedInReceived(PropertyChangeEvent propertyChangeEvent)
   {
-    User user = propertyChangeEvent.getNewValue()
+    User user = (User) propertyChangeEvent.getNewValue();
+    System.out.println(user);
   }
 
   private void errorReceived(PropertyChangeEvent propertyChangeEvent)
   {
     ErrorMessage errorMes =(ErrorMessage) propertyChangeEvent.getNewValue();
-    error.setValue(errorMes.getMessage());
+    displayError(errorMes.getMessage());
+  }
+
+  private void displayError(String message){
+    Platform.runLater(() -> error.setValue(message));
   }
 
   /**
