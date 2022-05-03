@@ -1,6 +1,5 @@
 package client.networking;
 
-import transferobjects.ErrorMessage;
 import transferobjects.LoginRequest;
 import transferobjects.MenuItem;
 import transferobjects.User;
@@ -9,10 +8,19 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 
+/**
+ *
+ */
 public class SocketClient implements Client{
     private ClientHandler clientHandler;
     private PropertyChangeSupport support;
 
+    /**
+     * Initializes a new SocketClient instance, tries to connect to the server, and if the connection
+     * attempt succeeds, the SocketClient is listening to the server on a separate thread, so it won't
+     * block the original one.
+     * @throws IOException if the Server is unavailable, or if any other network error occurs
+     */
     public SocketClient() throws IOException {
         support = new PropertyChangeSupport(this);
         clientHandler = new ClientHandler(this);
@@ -20,36 +28,63 @@ public class SocketClient implements Client{
         t.start();
     }
 
+    /**
+     * Sends the LoginRequest to the server
+     * @param request the LoginRequest object
+     */
     @Override
     public void login(LoginRequest request) {
         clientHandler.send(request);
     }
 
+    /**
+     * Sends the LoginRequest to the server
+     * @param request the LoginRequest object
+     */
     @Override
     public void register(LoginRequest request) {
         clientHandler.send(request);
     }
 
-    @Override public void addItem(MenuItem menuItem)
-    {
-        //needed it for the model that's why I created it (Uafa)
+    /**
+     * Sends the MenuItem to the server
+     * @param menuItem object to send to the server
+     */
+    @Override public void addItem(MenuItem menuItem) {
+        clientHandler.send(menuItem);
     }
 
+    /**
+     * Adds an event listener for a specific event fired in the SocketClient
+     * @param event the event name to listen to
+     * @param listener the listener instance
+     */
     @Override
     public void addListener(String event, PropertyChangeListener listener) {
         support.addPropertyChangeListener(event,listener);
     }
 
+    /**
+     * Adds an event listener for all events fired in the SocketClient
+     * @param listener the listener instance
+     */
     @Override
     public void addListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
-
+    /**
+     * Fires the LOGGED_IN_RECEIVED event when a User object has been received from the server
+     * @param obj the User object
+     */
     public void userReceivedFromServer(User obj) {
         support.firePropertyChange(LOGGED_IN_RECEIVED, null,obj);
     }
 
+    /**
+     * Fires the ERROR_RECEIVED event when an error has been received from the server
+     * @param obj the ErrorMessage object
+     */
     public void errorReceivedFromServer(Object obj) {
         support.firePropertyChange(ERROR_RECEIVED, null, obj);
     }
