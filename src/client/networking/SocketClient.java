@@ -2,6 +2,7 @@ package client.networking;
 
 import transferobjects.ErrorMessage;
 import transferobjects.LoginRequest;
+import transferobjects.MenuItem;
 import transferobjects.User;
 
 import java.beans.PropertyChangeListener;
@@ -27,6 +28,11 @@ public class SocketClient implements Client{
     @Override
     public void register(LoginRequest request) {
         clientHandler.send(request);
+    }
+
+    @Override public void addItem(MenuItem menuItem)
+    {
+        //needed it for the model that's why I created it (Uafa)
     }
 
     @Override
