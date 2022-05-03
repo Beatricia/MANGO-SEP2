@@ -1,8 +1,10 @@
 package server.networking;
 
+import server.model.MenuModel;
 import server.model.UserModel;
 import transferobjects.ErrorMessage;
 import transferobjects.LoginRequest;
+import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;
 
@@ -31,13 +33,14 @@ public class ServerHandler implements Runnable
   private ObjectOutputStream toClient; //Stream to send objects to client
 
   private UserModel userModel;
+  private MenuModel menuModel;
 
   /**
    * Constructs the ServerHandler object, sets up the base streams.
    * @param clientSocket Client Socket to be taken care of.
    * @param userModel User model to forward data to.
    */
-  public ServerHandler(Socket clientSocket, UserModel userModel) {
+  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel) {
     try{
       System.out.printf("Client connected (%s:%s)%n", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort());
 
@@ -45,6 +48,7 @@ public class ServerHandler implements Runnable
       toClient = new ObjectOutputStream(clientSocket.getOutputStream());
       fromClient = new ObjectInputStream(clientSocket.getInputStream());
       this.userModel = userModel;
+      this.menuModel = menuModel;
 
     } catch (IOException e){
       // If an IOException happens during the initialization of the streams, it means that there is
@@ -116,6 +120,12 @@ public class ServerHandler implements Runnable
             // Sending the Error Message object back to client
             sendObject(errorMessage);
           }
+        }
+        // in case the received object is a MenuItem object
+        else if(receivedObj instanceof MenuItem){
+          MenuItem menuItem = (MenuItem) receivedObj;
+
+          menuModel.addItem(menuItem);
         }
       }
     } catch (IOException | NullPointerException e){

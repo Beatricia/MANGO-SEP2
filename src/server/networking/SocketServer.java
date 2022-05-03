@@ -2,6 +2,8 @@ package server.networking;
 
 import server.databaseConn.DatabaseConn;
 import server.databaseConn.DatabaseConnImp;
+import server.model.MenuModel;
+import server.model.MenuModelImp;
 import server.model.UserModel;
 import server.model.UserModelImp;
 
@@ -30,12 +32,13 @@ public class SocketServer
 
     DatabaseConn databaseConn = new DatabaseConnImp();
     UserModel userModel = new UserModelImp(databaseConn);
+    MenuModel menuModel = new MenuModelImp(databaseConn);
 
     while(true){
       // Accept a new socket
       Socket clientSocket = serverSocket.accept();
       // Init server socket handler
-      ServerHandler handler = new ServerHandler(clientSocket, userModel);
+      ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel);
       // put the handler on a different thread
       Thread handlerThread = new Thread(handler);
       handlerThread.start();
