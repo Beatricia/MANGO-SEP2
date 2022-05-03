@@ -42,7 +42,7 @@ public class SerializableImage implements Serializable
    * @return the BufferedImage given in the constructor
    */
   public BufferedImage toImage(){
-    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
     int index = 0;
     for (int i = 0; i < width; i++) {
