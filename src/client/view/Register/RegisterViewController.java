@@ -1,4 +1,4 @@
-package client.view.register;
+package client.view.Register;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import server.networking.SocketServer;
 import shared.UserType;
 
 /**

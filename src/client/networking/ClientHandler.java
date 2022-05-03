@@ -7,24 +7,27 @@ import transferobjects.User;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.net.Socket;
 
+
 /**
- *
+ *  A class that is responsible for handling all the new incoming client connections
+ *  @author Beatricia
+ *  @version 1
  */
+
+
 public class ClientHandler implements Runnable {
-    private final Socket socket;
-    private final ObjectInputStream fromServer;
-    private final ObjectOutputStream toServer;
+    private final Socket socket; // An unconnected socket
+    private final ObjectInputStream fromServer; //Stream to receive objects from server
+    private final ObjectOutputStream toServer; //Stream to send objects to server
     private final SocketClient client;
 
-    //lets decide about try/catch or throwing exceptions
-
     /**
-     * Initializes a Socket object, with all the required streams.
-     * @param client The SocketClient belonging to this ClientHandler
-     * @throws IOException if the Server is unavailable, or if any other network error occurs
+     * Creates a stream socket and connects it to the 1111 port number at the "localhost" address
+     * Sets up the base streams
+     * @param client to be taken care of
+     * @throws IOException thrown if an I/O error occurs when creating the socket
      */
     public ClientHandler(SocketClient client) throws IOException {
         socket = new Socket("localhost", 1111);
@@ -34,8 +37,7 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * This method is put on a separate thread when the SocketClient is created,
-     * the main input from the server
+     * Listen to Server and handle the receiving object
      */
     @Override
     public void run() {
@@ -43,9 +45,11 @@ public class ClientHandler implements Runnable {
             while(true){
                 Object obj = fromServer.readObject();
 
+                //in case the received object is a User
                 if(obj instanceof User){
                     client.userReceivedFromServer((User)obj);
                 }
+                // in case the received object is a ErrorMessage
                 else if(obj instanceof ErrorMessage){
                     client.errorReceivedFromServer(obj);
                 }
@@ -56,12 +60,12 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * Sends a Serializable object to the server
-     * @param object the object to be sent to the server
+     * Sends the LoginRequest object to the Server
+     * @param request to be sent
      */
-    public void send(Serializable object) {
+    public void send(LoginRequest request) {
         try {
-            toServer.writeObject(object);
+            toServer.writeObject(request);
         } catch (IOException e){
             e.printStackTrace();
         }

@@ -1,7 +1,8 @@
 package client.core;
 
 import client.view.Login.LoginViewModel;
-import client.view.register.RegisterViewModel;
+import client.view.MenuEmpl.MenuEmplViewModel;
+import client.view.Register.RegisterViewModel;
 
 /**
  * A class that returns the different types if view models the system uses
@@ -12,6 +13,7 @@ public class ViewModelFactory
   private ModelFactory modelFactory;
   private LoginViewModel loginViewModel;
   private RegisterViewModel registerViewModel;
+  private MenuEmplViewModel menuEmplViewModel;
 
   /**
    * Constructor for the class
@@ -47,5 +49,14 @@ public class ViewModelFactory
       registerViewModel = new RegisterViewModel(modelFactory.getUserModel());
     }
     return registerViewModel;
+  }
+
+  //bety
+  public MenuEmplViewModel getMenuEmplViewModel(){
+    if(menuEmplViewModel == null)
+    {
+      menuEmplViewModel = new MenuEmplViewModel();//put the modelFactory blabla
+    }
+    return menuEmplViewModel;
   }
 }
