@@ -1,12 +1,12 @@
 package client.networking;
 
 import transferobjects.ErrorMessage;
-import transferobjects.LoginRequest;
 import transferobjects.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 
 
@@ -60,12 +60,12 @@ public class ClientHandler implements Runnable {
     }
 
     /**
-     * Sends the LoginRequest object to the Server
-     * @param request to be sent
+     * Sends the Serializable object to the Server
+     * @param serializable to be sent
      */
-    public void send(LoginRequest request) {
+    public void send(Serializable serializable) {
         try {
-            toServer.writeObject(request);
+            toServer.writeObject(serializable);
         } catch (IOException e){
             e.printStackTrace();
         }
