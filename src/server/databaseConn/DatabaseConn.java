@@ -1,6 +1,7 @@
 package server.databaseConn;
 
 import shared.UserType;
+import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;
 
@@ -13,25 +14,30 @@ public interface DatabaseConn
 {
   /**
    * Log in with the specified username and the password.
+   *
    * @param username username
    * @param password password
    * @return A user object representing the logged-in user if the log-in was successful
-   * @throws SQLException When an unexpected sql exception happens
+   * @throws SQLException   When an unexpected sql exception happens
    * @throws LogInException When the user has not provided the correct data
    */
-  User login(String username, String password) throws SQLException,
-      LogInException;
+  User login(String username, String password)
+      throws SQLException, LogInException;
 
   /**
    * Register a user with the specified username, password, first name and last name.
+   *
    * @param firstName first name
-   * @param lastName last name
-   * @param username username
-   * @param password password
-   * @param userType type of the user
+   * @param lastName  last name
+   * @param username  username
+   * @param password  password
+   * @param userType  type of the user
    * @return A user object representing the registered user if the register was successful
    * @throws SQLException When the user has not provided the correct data
    */
-  User register(String firstName, String lastName, String username, String password, UserType userType) throws
-      SQLException, LogInException;
+  User register(String firstName, String lastName, String username,
+      String password, UserType userType) throws SQLException, LogInException;
+
+  void addItem(
+      MenuItem menuItem); //I guess we should unpack the menuItem in Model and send the raw formats here to the Database as we do in the methods above??? -- Simon
 }
