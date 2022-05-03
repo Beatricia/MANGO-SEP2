@@ -1,5 +1,6 @@
 package client.networking;
 
+import transferobjects.ErrorMessage;
 import transferobjects.LoginRequest;
 import transferobjects.MenuItem;
 import transferobjects.User;
@@ -85,7 +86,7 @@ public class SocketClient implements Client{
      * Fires the ERROR_RECEIVED event when an error has been received from the server
      * @param obj the ErrorMessage object
      */
-    public void errorReceivedFromServer(Object obj) {
+    public void errorReceivedFromServer(ErrorMessage obj) {
         support.firePropertyChange(ERROR_RECEIVED, null, obj);
     }
 }

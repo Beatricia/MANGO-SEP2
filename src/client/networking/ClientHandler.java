@@ -51,7 +51,7 @@ public class ClientHandler implements Runnable {
                 }
                 // in case the received object is a ErrorMessage
                 else if(obj instanceof ErrorMessage){
-                    client.errorReceivedFromServer(obj);
+                    client.errorReceivedFromServer((ErrorMessage) obj);
                 }
             }
         } catch (IOException | ClassNotFoundException e){
