@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
- * Class to transfer images over the network with sockets. It has an extremely low noise, it is not
- * noticeable though.
+ * Class to transfer images over the network with sockets. It has an extremely
+ * low noise, it is not noticeable though.
  *
  * @author Gergo
  * @version 1

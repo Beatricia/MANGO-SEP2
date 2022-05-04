@@ -1,6 +1,7 @@
 package server.databaseConn;
 
 import shared.UserType;
+import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;
 
@@ -123,5 +124,10 @@ public class DatabaseConnImp implements DatabaseConn
         throw new LogInException("Username not unique");
       else throw e;
     }
+  }
+
+  @Override public void addItem(MenuItem menuItem)
+  {
+
   }
 }

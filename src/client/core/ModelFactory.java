@@ -1,7 +1,10 @@
 package client.core;
 
+import client.model.MenuModel;
+import client.model.MenuModelImp;
 import client.model.UserModel;
 import client.model.UserModelImp;
+import client.view.MenuEmpl.MenuEmplViewModel;
 
 /**
  * A class that creates a model object and returns it#
@@ -11,6 +14,7 @@ public class ModelFactory
 {
   private ClientFactory clientFactory;
   private UserModel userModel;
+  private MenuModel menuModel;
 
   /**
    * Constructor for the class
@@ -34,5 +38,12 @@ public class ModelFactory
     return userModel;
   }
 
-
+  public MenuModel getMenuModel()
+  {
+    if(menuModel == null)
+    {
+      menuModel = new MenuModelImp(clientFactory.getClient());
+    }
+    return menuModel;
+  }
 }
