@@ -6,6 +6,7 @@ import transferobjects.User;
 import util.LogInException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Abstract Model for accessing the Database.
@@ -38,6 +39,6 @@ public interface DatabaseConn
   User register(String firstName, String lastName, String username,
       String password, UserType userType) throws SQLException, LogInException;
 
-  void addItem(
-      MenuItem menuItem); //I guess we should unpack the menuItem in Model and send the raw formats here to the Database as we do in the methods above??? -- Simon
+  void addItem(String name, ArrayList<String> ingredients, double price, String imgPath)
+      throws SQLException;
 }

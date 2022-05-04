@@ -8,6 +8,7 @@ import util.LogInException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -97,7 +98,8 @@ public class DatabaseConnImp implements DatabaseConn
   }
 
 
-  @Override public void addItem(MenuItem menuItem) {
-    menuDatabaseConn.addItem(menuItem);
+  @Override public void addItem(String name, ArrayList<String> ingredients, double price, String imgPath)
+      throws SQLException {
+    menuDatabaseConn.addItem(name, ingredients, price, imgPath);
   }
 }
