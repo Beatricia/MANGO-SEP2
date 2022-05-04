@@ -2,6 +2,7 @@ package client.core;
 
 import client.networking.Client;
 import client.networking.SocketClient;
+import client.networking.TestClient;
 
 import java.io.IOException;
 
@@ -23,7 +24,8 @@ public class ClientFactory
     {
       try
       {
-        client = new SocketClient();
+        //client = new SocketClient();
+        client = new TestClient();
       }
       catch (IOException e)
       {
