@@ -11,6 +11,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.MenuEmpl.MenuEmplController">
    <children>
+      <Pane layoutX="14.0" layoutY="76.0" prefHeight="163.0" prefWidth="200.0" style="-fx-border-color: black;">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="163.0" fitWidth="191.0" layoutX="5.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
       <Button layoutX="467.0" layoutY="326.0" mnemonicParsing="false" onAction="#addButton" text="Add" />
       <Label layoutX="266.0" layoutY="115.0" text="Name">
          <font>
@@ -29,7 +34,6 @@
       </Label>
       <TextField fx:id="nameTextField" layoutX="356.0" layoutY="113.0" />
       <TextField fx:id="priceTextField" layoutX="356.0" layoutY="281.0" />
-      <ImageView fx:id="imageView" fitHeight="137.0" fitWidth="191.0" layoutX="14.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
       <Text layoutX="232.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add Item" wrappingWidth="159.6978759765625">
          <font>
             <Font size="38.0" />
