@@ -39,6 +39,14 @@ public interface DatabaseConn
   User register(String firstName, String lastName, String username,
       String password, UserType userType) throws SQLException, LogInException;
 
+  /**
+   * Adds a Menu item to the database with the ingredients
+   * @param name menu item name
+   * @param ingredients ingredients
+   * @param price price of the menu item
+   * @param imgPath img path for the menu
+   * @throws SQLException When the menu item name already exists.
+   */
   void addItem(String name, ArrayList<String> ingredients, double price, String imgPath)
       throws SQLException;
 }
