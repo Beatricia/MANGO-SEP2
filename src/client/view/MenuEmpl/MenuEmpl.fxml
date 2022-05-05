@@ -9,13 +9,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.MenuEmpl.MenuEmplController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.MenuEmpl.MenuEmplViewController">
    <children>
-      <Pane layoutX="14.0" layoutY="76.0" prefHeight="163.0" prefWidth="200.0" style="-fx-border-color: black;">
-         <children>
-            <ImageView fx:id="imageView" fitHeight="163.0" fitWidth="191.0" layoutX="5.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </Pane>
       <Button layoutX="467.0" layoutY="326.0" mnemonicParsing="false" onAction="#addButton" text="Add" />
       <Label layoutX="266.0" layoutY="115.0" text="Name">
          <font>
@@ -42,5 +37,6 @@
       <Button layoutX="196.0" layoutY="258.0" mnemonicParsing="false" onAction="#selectButton" text="Select" />
       <Label fx:id="errorLabel" layoutX="243.0" layoutY="330.0" prefHeight="8.0" prefWidth="218.0" textFill="RED" />
       <TextArea fx:id="ingredientsAreaField" layoutX="356.0" layoutY="157.0" prefHeight="101.0" prefWidth="191.0" promptText="Insert the ingredients with a comma in between" />
+      <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>
