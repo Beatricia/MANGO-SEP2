@@ -10,6 +10,9 @@ class MenuDatabaseConn
   public void addItem(String name, ArrayList<String> ingredients, double price, String imgPath) throws
       SQLException
   {
+
+    /*TODO Greg all of our tables are named with lowercase letters so you will have to change it from MenuItem to menuItem*/
+
     try (Connection connection = DatabaseConnImp.getConnection()) {
       String sql = "INSERT INTO MenuItem (name, price, imgPath) " +
           "VALUES (?, ?, ?)";
