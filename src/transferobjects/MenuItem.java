@@ -14,6 +14,7 @@ public class MenuItem implements Serializable
   private String name;
   private ArrayList<String> ingredients;
   private double price;
+  private String imgPath;
 
   /**
    * Construct the LoginRequest object
@@ -21,13 +22,15 @@ public class MenuItem implements Serializable
    * @param name item's name
    * @param ingredients list of item's ingredients
    * @param price item's price
+   * @param imgPath the path to the image
    */
 
-  public MenuItem(String name,ArrayList<String> ingredients, double price)
+  public MenuItem(String name,ArrayList<String> ingredients, double price, String imgPath)
   {
     this.name = name;
     this.ingredients = ingredients;
     this.price = price;
+    this.imgPath = imgPath;
   }
 
   /**
@@ -58,6 +61,15 @@ public class MenuItem implements Serializable
   public double getPrice()
   {
     return price;
+  }
+
+  /**
+   * get the path of the image
+   * @return image's path
+   */
+  public String getImgPath()
+  {
+    return imgPath;
   }
 
 }

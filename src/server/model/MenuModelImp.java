@@ -27,6 +27,6 @@ public class MenuModelImp implements MenuModel
    */
   @Override public void addItem(MenuItem menuItem)
   {
-    databaseConn.addItem(menuItem);
+    //databaseConn.addItem(menuItem);
   }
 }

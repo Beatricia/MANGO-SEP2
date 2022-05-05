@@ -1,46 +1,123 @@
 package client.view.MenuEmpl;
 
 import client.model.MenuModel;
+import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import transferobjects.ErrorMessage;
 
+import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MenuEmplViewModel {
-    private StringProperty errorMessage;
-    private MenuModel menuModel;
+/**
+ * A View Model class, which connects the MenuModel and the MenuEmpl view. This
+ * class listens to the Model to get any ErrorMessage objects that have to be
+ * displayed in the view. Also this class send the provided in the view
+ * information about the Items to the model.
+ * @author Uafa
+ */
 
-    public MenuEmplViewModel(MenuModel menuModel)
+public class MenuEmplViewModel
+{
+  private StringProperty errorMessage;
+  private MenuModel menuModel;
+
+  /**
+   * Constructor for the class, initializes the private variable errorMassage to
+   * be a SimpleStringProperty, and adds the class to be a Listener to the
+   * MenuModel class.
+   * @param menuModel the model that is subject for the class
+   */
+  public MenuEmplViewModel(MenuModel menuModel)
+  {
+    this.menuModel = menuModel;
+    errorMessage = new SimpleStringProperty("error");
+
+    menuModel.addListener(MenuModel.ERROR_RECEIVED, this:: errorReceived);
+  }
+
+  /**
+   * Returns the Error Message send by the model
+   * @return the error message
+   */
+  public Property<String> getErrorMessage()
+  {
+    return errorMessage;
+  }
+
+  /**
+   * Send the provided in the GUI information about an item to the model.
+   * Calls the private method separateIngredients to convert the String
+   * provided by the user to create an ArrayList of all ingredients. Also
+   * parses the price value to a double.
+   * @param name the unique name of an item
+   * @param ingredients a String that has all the ingredients separated
+   *                    by a coma
+   * @param price a String that holds the value of the price
+   * @param imgPath the path of the selected image
+   */
+  public void addItem(String name, String ingredients, String price,
+      String imgPath)
+  {
+    menuModel.addItem(name, separateIngredients(ingredients),
+        Double.parseDouble(price), imgPath);
+  }
+
+  /**
+   * A private method that takes the String containing all ingredients separated
+   * by commas and adds each individual ingredient to an ArrayList 7. This is
+   * done with a Regex Pattern and a matcher that groups each ingredient
+   * one by one.
+   * @param ingredients a String that has all the ingredients separated
+   *    *               by a coma
+   * @return an ArrayList containing all separated ingredients
+   */
+  private ArrayList<String> separateIngredients(String ingredients)
+  {
+    // The pattern will group word/words that do not have comma in between
+    String pattern = "((\\w|\\s)+),?";
+
+    // Create a Pattern object
+    Pattern r = Pattern.compile(pattern);
+
+    // Now create matcher object.
+    Matcher m = r.matcher(ingredients);
+
+    ArrayList<String> ingr = new ArrayList<>();
+
+    // Add each ingredient (without the comma or any space) to the ArrayList
+    while (m.find())
     {
-        this.menuModel = menuModel;
-        errorMessage = new SimpleStringProperty("error");
-    }
-    
-    public Property<String> getErrorMessage() {
-        return errorMessage;
+      System.out.println("Found value: " + m.group(1).trim());
+      ingr.add(m.group(1).trim());
     }
 
-    public void addItem(String text, String text1, String text2)
-    {
-        String line = "This order was placed for QT3000! OK?";
-        String pattern = "(((\\w|\\s)+),?)+";
+    return ingr;
+  }
 
-        // Create a Pattern object
-        Pattern r = Pattern.compile(pattern);
+  /**
+   * A method that catches the event fired by the MenuModel class and
+   * gets the value of the ErrorMessage object that has been sent.
+   * The method calls the private method printErrorMessage to safely modify
+   * the private String errorMessage.
+   * @param event the event that has been fired by the MenuModel class
+   */
+  private void errorReceived(PropertyChangeEvent event) {
+    ErrorMessage errorMess = (ErrorMessage) event.getNewValue();
 
-        // Now create matcher object.
-        Matcher m = r.matcher(line);
+    printErrorMessage(errorMess.getMessage());
+  }
 
-        if (m.find( )) {
-            System.out.println("Found value: " + m.group(0) );
-            System.out.println("Found value: " + m.group(1) );
-            System.out.println("Found value: " + m.group(2) );
-        } else {
-            System.out.println("NO MATCH");
-        }
-    }
-
+  /**
+   * Safely modifies the errorMessage private variable
+   * @param message the value of the ErrorMessage that has been sent by the
+   *                MenuModel class
+   */
+  private void printErrorMessage(String message){
+    Platform.runLater(() -> errorMessage.setValue("Error: " + message));
+  }
 
 }

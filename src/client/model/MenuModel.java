@@ -1,8 +1,13 @@
 package client.model;
 
+import util.PropertyChangeSubject;
+
 import java.util.ArrayList;
 
-public interface MenuModel
+public interface MenuModel extends PropertyChangeSubject
 {
-  public void addItem(String name, ArrayList<String> ingredients, double price);
+  String ERROR_RECEIVED = "ErrorReceived";
+
+  public void addItem(String name, ArrayList<String> ingredients, double price,
+      String imgPath);
 }

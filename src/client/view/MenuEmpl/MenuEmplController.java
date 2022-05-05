@@ -50,7 +50,7 @@ public class MenuEmplController implements ViewController {
      * @param actionEvent from GUI(Button click)
      */
     public void addButton(ActionEvent actionEvent) {
-        viewModel.addItem(nameTextField.getText(), ingredientsAreaField.getText(),priceTextField.getText());
+        viewModel.addItem(nameTextField.getText(), ingredientsAreaField.getText(),priceTextField.getText(), pictureFile); //added the picture file here
     }
 
     /**
