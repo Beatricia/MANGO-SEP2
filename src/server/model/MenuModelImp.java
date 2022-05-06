@@ -3,6 +3,8 @@ package server.model;
 import server.databaseConn.DatabaseConn;
 import transferobjects.MenuItem;
 
+import java.sql.SQLException;
+
 /**
  * Class responsible for connecting the networking part of the Server with Database connection and sending Menu Items into the Database.
  * @author Simon
@@ -23,10 +25,11 @@ public class MenuModelImp implements MenuModel
 
   /**
    * Passes the menu item onto the Database connection.
-   * @param menuItem which is passed onto the class Databaseconn
+   * @param menuItem which is unwrapped and passed onto the class Databaseconn
    */
-  @Override public void addItem(MenuItem menuItem)
+  @Override public void addItem(MenuItem menuItem) throws SQLException
   {
-    //databaseConn.addItem(menuItem);
+    databaseConn.addItem(menuItem.getName(), menuItem.getIngredients(),
+        menuItem.getPrice(), menuItem.getImgPath());
   }
 }
