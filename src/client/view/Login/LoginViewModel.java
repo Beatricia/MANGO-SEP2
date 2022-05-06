@@ -42,7 +42,7 @@ public class LoginViewModel
   private void loggedInReceived(PropertyChangeEvent propertyChangeEvent)
   {
     User user = (User) propertyChangeEvent.getNewValue();
-    System.out.println(user);
+    System.out.println("Message from LoginViewModel: "+user);
   }
 
   private void errorReceived(PropertyChangeEvent propertyChangeEvent)
