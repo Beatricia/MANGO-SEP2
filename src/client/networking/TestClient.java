@@ -16,7 +16,7 @@ public class TestClient implements Client
   public TestClient() throws IOException {
     new Thread(() -> {
       try {
-        Thread.sleep(3000);
+        Thread.sleep(7000);
         support.firePropertyChange(Client.LOGGED_IN_RECEIVED, null, new User("test-user", UserType.EMPLOYEE, "first-test-name", "last-test-name"));
       }
       catch (InterruptedException e) {

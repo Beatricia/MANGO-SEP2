@@ -37,9 +37,6 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
 
     public ViewHandler viewHandler;
     public MenuEmplViewModel viewModel;
-    public ViewModelFactory viewModelFactory;
-    private File lastSelected;
-    private String pictureFile;
 
     private FileChooser fileChooser;
     private File filePath;

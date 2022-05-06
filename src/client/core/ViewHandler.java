@@ -1,14 +1,21 @@
 package client.core;
 
+import client.networking.Client;
+import client.networking.SocketClient;
 import client.view.Login.LoginViewController;
 import client.view.Register.RegisterViewController;
 import client.view.ViewController;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import shared.UserType;
+import transferobjects.User;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 /**
@@ -16,10 +23,11 @@ import java.io.IOException;
  *
  * @author Uafa
  */
-public class ViewHandler
+public class ViewHandler implements PropertyChangeListener
 {
   private ViewModelFactory viewModelFactory;
   private Stage stage;
+  private ClientFactory clientFactory;
 
   public Stage getStage() {
     return stage;
@@ -31,9 +39,13 @@ public class ViewHandler
    * @param viewModelFactory a viewModelFactory object
    * @param stage            a Stage object
    */
-  public ViewHandler(ViewModelFactory viewModelFactory, Stage stage) {
+  public ViewHandler(ViewModelFactory viewModelFactory, Stage stage, ClientFactory clientFactory) throws IOException {
     this.viewModelFactory = viewModelFactory;
     this.stage = stage;
+
+    this.clientFactory=clientFactory;
+
+    clientFactory.getClient().addListener(this);
   }
 
   /**
@@ -41,9 +53,7 @@ public class ViewHandler
    * view shown when the program start
    */
   public void start() {
-    //openLoginView();
-
-    openAddDishesView();
+    openLoginView();
   }
 
   /**
@@ -82,10 +92,14 @@ public class ViewHandler
     String path = "../view/MenuEmpl/MenuEmpl.fxml";
     Pane p = openView(path);
 
-    stage.setTitle("Add items to the menu");
-    Scene scene = new Scene(p);
-    stage.setScene(scene);
-    stage.show();
+    //We used platform.runLater because right now it will run on a javafx thread
+    Platform.runLater(()->{
+      stage.setTitle("Add items to the menu");
+      Scene scene = new Scene(p);
+      stage.setScene(scene);
+      stage.show();
+    });
+
   }
 
   private Pane openView(String path) {
@@ -106,5 +120,15 @@ public class ViewHandler
     controller.init(this, viewModelFactory);
 
     return root;
+  }
+
+  @Override
+  public void propertyChange(PropertyChangeEvent evt) {
+    if(evt.getPropertyName().equals(Client.LOGGED_IN_RECEIVED) ){
+      User user = (User)evt.getNewValue();
+      if(user.getUserType() == (UserType.EMPLOYEE)){
+        openAddDishesView();
+      }
+    }
   }
 }

@@ -20,7 +20,7 @@ public class CanEat extends Application
     ClientFactory clientFactory= new ClientFactory();
     ModelFactory modelFactory = new ModelFactory(clientFactory);
     ViewModelFactory viewModelFactory  = new ViewModelFactory(modelFactory);
-    ViewHandler viewHandler = new ViewHandler(viewModelFactory, stage);
+    ViewHandler viewHandler = new ViewHandler(viewModelFactory, stage, clientFactory);
 
     viewHandler.start();
   }
