@@ -65,7 +65,12 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
      * @param actionEvent from GUI(Button click)
      */
     public void addButton(ActionEvent actionEvent) {
-        viewModel.addItem(nameTextField.getText(), ingredientsAreaField.getText(),priceTextField.getText(), filePath.toString()); //added the picture file here
+        try{
+            viewModel.addItem(nameTextField.getText(), ingredientsAreaField.getText(),priceTextField.getText(), filePath.toString()); //added the picture file here
+        } catch (NullPointerException e){
+            errorLabel.setText("Please select an image!");
+        }
+
     }
 
     /**
@@ -94,7 +99,7 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
             BufferedImage bufferedImage = ImageIO.read(filePath);
             image = SwingFXUtils.toFXImage(bufferedImage,null);
             imageView.setImage(image);
-        }catch (IOException e){
+        } catch (IOException | RuntimeException e){
             System.out.println(e.getMessage());
         }
     }

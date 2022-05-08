@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import transferobjects.ErrorMessage;
 
 import java.beans.PropertyChangeEvent;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,8 +63,12 @@ public class MenuEmplViewModel
   public void addItem(String name, String ingredients, String price,
       String imgPath)
   {
-    menuModel.addItem(name, separateIngredients(ingredients),
-        Double.parseDouble(price), imgPath);
+    try{
+      menuModel.addItem(name, separateIngredients(ingredients),
+          Double.parseDouble(price), imgPath);
+    } catch (NumberFormatException e){
+      printErrorMessage("Incorrect price format");
+    }
   }
 
   /**
