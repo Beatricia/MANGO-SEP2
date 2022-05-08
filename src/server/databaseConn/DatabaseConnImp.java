@@ -1,7 +1,6 @@
 package server.databaseConn;
 
 import shared.UserType;
-import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;
 
@@ -9,7 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -60,8 +58,27 @@ public class DatabaseConnImp implements DatabaseConn
 
   }
 
-  private UserDatabaseConn userDatabaseConn;
-  private MenuDatabaseConn menuDatabaseConn;
+  /**
+   * Format sql exception message so that it makes sense for the end user
+   * @param e Exception which was thrown
+   * @return the exception with a descriptive error message
+   */
+  private static SQLException formatExceptionMessage(SQLException e) {
+    String message = e.getMessage();
+
+    // Check if the error message is about duplicate primary keys
+    if(message.startsWith("ERROR: duplicate key value violates unique constraint "))
+      e = new SQLException("Item already exists");
+
+    // Remove that weird capital error text from the beginning of the message
+    else if(message.startsWith("ERROR: "))
+      e = new SQLException(message.substring("ERROR: ".length()));
+
+    return e;
+  }
+
+  private final UserDatabaseConn userDatabaseConn;
+  private final MenuDatabaseConn menuDatabaseConn;
 
   public DatabaseConnImp() {
     userDatabaseConn = new UserDatabaseConn();
@@ -79,7 +96,11 @@ public class DatabaseConnImp implements DatabaseConn
    */
   @Override public User login(String username, String password)
       throws LogInException, SQLException {
-    return userDatabaseConn.login(username, password);
+    try{
+      return userDatabaseConn.login(username, password);
+    } catch (SQLException e){
+      throw formatExceptionMessage(e);
+    }
   }
 
   /**
@@ -95,12 +116,27 @@ public class DatabaseConnImp implements DatabaseConn
    */
   @Override public User register(String firstName, String lastName, String username,
       String password, UserType userType) throws SQLException, LogInException {
-    return userDatabaseConn.register(firstName, lastName, username, password, userType);
+    try{
+      return userDatabaseConn.register(firstName, lastName, username, password, userType);
+    } catch (SQLException e){
+      throw formatExceptionMessage(e);
+    }
   }
 
-
+  /**
+   * Adds a Menu item to the database with the ingredients
+   * @param name menu item name
+   * @param ingredients ingredients
+   * @param price price of the menu item
+   * @param imgPath img path for the menu
+   * @throws SQLException When the menu item name already exists.
+   */
   @Override public void addItem(String name, ArrayList<String> ingredients, double price, String imgPath)
       throws SQLException {
-    menuDatabaseConn.addItem(name, ingredients, price, imgPath);
+    try{
+      menuDatabaseConn.addItem(name, ingredients, price, imgPath);
+    } catch (SQLException e){
+      throw formatExceptionMessage(e);
+    }
   }
 }
