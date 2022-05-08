@@ -42,18 +42,28 @@ class UserDatabaseConn
 
         PreparedStatement statement = connection.prepareStatement(str);
         statement.setString(1, username);
+        System.out.println(str);
         ResultSet set = statement.executeQuery();
 
-        if (set.next()) {
-          String firstName = set.getString("firstName");
-          String lastName = set.getString("lastName");
-          String passwordFromDB = set.getString("password");
+        try
+        {
+          if (set.next())
+          {
+            String firstName = set.getString("firstName");
+            String lastName = set.getString("lastName");
+            String passwordFromDB = set.getString("password");
 
-          if (!passwordFromDB.equals(password)) {
-            throw new LogInException("Password does not match");
+            if (!passwordFromDB.equals(password))
+            {
+              throw new LogInException("Password does not match");
+            }
+
+            return new User(username, userType, firstName, lastName);
           }
-
-          return new User(username, userType, firstName, lastName);
+        }
+        catch (SQLException e)
+        {
+          e.printStackTrace();
         }
       }
     } catch (Throwable e){

@@ -24,9 +24,9 @@ public class ClientFactory
     {
       try
       {
-        //client = new SocketClient();
+        client = new SocketClient();
         //
-        client = new TestClient();
+        //client = new TestClient();
       }
       catch (IOException e)
       {

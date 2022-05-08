@@ -34,7 +34,7 @@ class MenuDatabaseConn
       stringBuilder.append("INSERT INTO " + INGREDIENTS_INPUT_TABLE + " (itemName, ingredientName) VALUES ");
 
       for (String ingredient : ingredients){
-        String ingredientString = String.format("(%s, %s),", name, ingredient);
+        String ingredientString = String.format("('%s', '%s'),", name, ingredient);
         stringBuilder.append(ingredientString);
       }
       //Remove the last comma from the sql code

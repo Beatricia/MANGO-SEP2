@@ -65,6 +65,7 @@ public class DatabaseConnImp implements DatabaseConn
 
   public DatabaseConnImp() {
     userDatabaseConn = new UserDatabaseConn();
+    menuDatabaseConn = new MenuDatabaseConn();
   }
 
   /**

@@ -2,7 +2,12 @@ package server.model;
 
 import server.databaseConn.DatabaseConn;
 import transferobjects.MenuItem;
+import transferobjects.SerializableImage;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -29,7 +34,19 @@ public class MenuModelImp implements MenuModel
    */
   @Override public void addItem(MenuItem menuItem) throws SQLException
   {
+    SerializableImage serializableImage = menuItem.getImage();
+    String imgPath = "Resources/MenuItemImages/" + menuItem.getName() + "." + serializableImage.getFormat();
     databaseConn.addItem(menuItem.getName(), menuItem.getIngredients(),
-        menuItem.getPrice(), menuItem.getImgPath());
+        menuItem.getPrice(), imgPath);
+
+    BufferedImage image = serializableImage.toImage();
+    try
+    {
+      ImageIO.write(image, serializableImage.getFormat(), new File(imgPath));
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 }

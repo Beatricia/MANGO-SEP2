@@ -53,7 +53,7 @@ public class ServerHandler implements Runnable
     } catch (IOException e){
       // If an IOException happens during the initialization of the streams, it means that there is
       // something wrong with the socket, and therefore should close the client.
-      closeClient();
+      closeClient(e);
     }
   }
 
@@ -71,7 +71,7 @@ public class ServerHandler implements Runnable
       // If an IOException happens during the sending process, it means that there is something
       // wrong with the stream, and therefore should close the client.
       e.printStackTrace();
-      closeClient();
+      closeClient(e);
     }
   }
 
@@ -114,7 +114,7 @@ public class ServerHandler implements Runnable
             sendObject(user);
           } catch (SQLException | LogInException e){
             // This exception type above should be more specific after we implement the model
-
+              e.printStackTrace();
             // Constructing the Error Message object
             ErrorMessage errorMessage = new ErrorMessage(e.getMessage());
             // Sending the Error Message object back to client
@@ -125,21 +125,29 @@ public class ServerHandler implements Runnable
         else if(receivedObj instanceof MenuItem){
           MenuItem menuItem = (MenuItem) receivedObj;
 
-          menuModel.addItem(menuItem);
+          try
+          {
+            menuModel.addItem(menuItem);
+          }
+          catch (SQLException e)
+          {
+            e.printStackTrace();
+          }
         }
       }
     } catch (IOException | NullPointerException e){
       // If an IOException happens during the reading process, it means that there is something
       // wrong with the stream (e.g. lost connection), and therefore should close the client.
-      closeClient();
+      closeClient(e);
     }
   }
 
   /**
    * Close client and fire closing event.
    */
-  public void closeClient(){
+  public void closeClient(Exception e){
 
+    e.printStackTrace();
     // todo fire "Closing" event here for the connection pool (later)
     //      so the pool can remove it form the list when the connection is closed
 

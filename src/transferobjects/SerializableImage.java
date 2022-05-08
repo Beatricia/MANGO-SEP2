@@ -16,13 +16,15 @@ public class SerializableImage implements Serializable
   private int height; //height of the image
 
   private int[] colors; // each pixel color stored
+  private String format;
 
   /**
    * Initializes a SerializableImage, and converts the BufferedImage object into the right
    * format, so that it can be sent by sockets
    * @param image the image object to convert
    */
-  public SerializableImage(BufferedImage image){
+  public SerializableImage(BufferedImage image, String format){
+    this.format = format;
     width = image.getWidth(null);
     height = image.getHeight(null);
 
@@ -53,5 +55,10 @@ public class SerializableImage implements Serializable
     }
 
     return image;
+  }
+
+  public String getFormat()
+  {
+    return format;
   }
 }

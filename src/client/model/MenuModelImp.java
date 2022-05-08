@@ -1,12 +1,18 @@
 package client.model;
 
 import client.networking.Client;
+import transferobjects.ErrorMessage;
 import transferobjects.MenuItem;
+import transferobjects.SerializableImage;
 import util.PropertyChangeSubject;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -55,7 +61,20 @@ public class MenuModelImp implements MenuModel
   @Override public void addItem(String name, ArrayList<String> ingredients,
       double price, String imgPath)
   {
-    client.addItem(new MenuItem(name,ingredients,price, imgPath)); //added the image path here
+    try {
+      BufferedImage bufferedImage = ImageIO.read(new File(imgPath));
+      String format = imgPath.substring(imgPath.lastIndexOf(".") + 1);
+      SerializableImage serializableImage = new SerializableImage(bufferedImage, format);
+
+      MenuItem item = new MenuItem(name,ingredients,price);
+      item.setImage(serializableImage);
+
+      client.addItem(item); //added the image path here
+    } catch (IOException e) {
+      PropertyChangeEvent evt = new PropertyChangeEvent(this, "", null, new ErrorMessage(e.getMessage()));
+      sendError(evt);
+    }
+
   }
 
 
