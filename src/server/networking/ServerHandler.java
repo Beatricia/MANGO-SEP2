@@ -70,7 +70,6 @@ public class ServerHandler implements Runnable
     catch (IOException | NullPointerException e) {
       // If an IOException happens during the sending process, it means that there is something
       // wrong with the stream, and therefore should close the client.
-      e.printStackTrace();
       closeClient(e);
     }
   }
@@ -96,50 +95,53 @@ public class ServerHandler implements Runnable
           continue;
         }
 
-        // in case the received object is a LoginRequest object
-        if(receivedObj instanceof LoginRequest){
-          LoginRequest request = (LoginRequest) receivedObj;
-
-          try{
-            // User variable to load the object we receive from the model
-            User user;
-
-            // Check if the request is actually a login or a register request
-            if(request.getIsRegister())
-              user = userModel.register(request);
-            else
-              user = userModel.login(request);
-
-            // Send the Logged in - User object back to the client
-            sendObject(user);
-          } catch (SQLException | LogInException e){
-            // This exception type above should be more specific after we implement the model
-              e.printStackTrace();
-            // Constructing the Error Message object
-            ErrorMessage errorMessage = new ErrorMessage(e.getMessage());
-            // Sending the Error Message object back to client
-            sendObject(errorMessage);
-          }
+        // Handling exceptions
+        try{
+          handleReceivedObject(receivedObj);
+        } catch (NullPointerException e) {
+          e.printStackTrace();
+        } catch (Exception e) {
+          // Constructing the Error Message object
+          ErrorMessage errorMessage = new ErrorMessage(e.getMessage());
+          // Sending the Error Message object back to client
+          sendObject(errorMessage);
         }
-        // in case the received object is a MenuItem object
-        else if(receivedObj instanceof MenuItem){
-          MenuItem menuItem = (MenuItem) receivedObj;
 
-          try
-          {
-            menuModel.addItem(menuItem);
-          }
-          catch (SQLException e)
-          {
-            e.printStackTrace();
-          }
-        }
       }
     } catch (IOException | NullPointerException e){
       // If an IOException happens during the reading process, it means that there is something
       // wrong with the stream (e.g. lost connection), and therefore should close the client.
       closeClient(e);
     }
+  }
+
+  private void handleReceivedObject(Object receivedObj) throws Exception {
+    // in case the received object is a LoginRequest object
+    if (receivedObj instanceof LoginRequest) {
+      LoginRequest request = (LoginRequest) receivedObj;
+
+      handleLoginRequest(request);
+    }
+    // in case the received object is a MenuItem object
+    else if (receivedObj instanceof MenuItem) {
+      MenuItem menuItem = (MenuItem) receivedObj;
+
+      menuModel.addItem(menuItem);
+    }
+  }
+
+  private void handleLoginRequest(LoginRequest request) throws SQLException, LogInException {
+    // User variable to load the object we receive from the model
+    User user;
+
+    // Check if the request is actually a login or a register request
+    if (request.getIsRegister())
+      user = userModel.register(request);
+    else
+      user = userModel.login(request);
+
+    // Send the Logged in - User object back to the client
+    sendObject(user);
   }
 
   /**
