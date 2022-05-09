@@ -6,6 +6,7 @@ import transferobjects.User;
 import util.LogInException;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -49,4 +50,10 @@ public interface DatabaseConn
    */
   void addItem(String name, ArrayList<String> ingredients, double price, String imgPath)
       throws SQLException;
+
+  void handlePendingEmployee(String userName, boolean accept) throws SQLException;
+
+  ArrayList<User> getAllPendingEmployee() throws SQLException;
+
+  void addDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) throws SQLException;
 }

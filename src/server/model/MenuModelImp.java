@@ -1,7 +1,9 @@
 package server.model;
 
 import server.databaseConn.DatabaseConn;
+import transferobjects.DailyMenuItem;
 import transferobjects.MenuItem;
+import transferobjects.Request;
 import transferobjects.SerializableImage;
 
 import javax.imageio.ImageIO;
@@ -56,5 +58,16 @@ public class MenuModelImp implements MenuModel
     {
       e.printStackTrace();
     }
+  }
+
+  @Override public void sendRequest(Request request)     //I don't know what should i do here :( help me
+  {
+
+  }
+
+  @Override public void addDailyMenuItem(DailyMenuItem dailyMenuItem)
+      throws SQLException
+  {
+    databaseConn.addDailyMenu(dailyMenuItem.getDate(), dailyMenuItem.getMenuItems());
   }
 }

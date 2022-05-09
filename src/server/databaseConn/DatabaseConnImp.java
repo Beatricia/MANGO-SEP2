@@ -1,12 +1,14 @@
 package server.databaseConn;
 
 import shared.UserType;
+import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -138,5 +140,22 @@ public class DatabaseConnImp implements DatabaseConn
     } catch (SQLException e){
       throw formatExceptionMessage(e);
     }
+  }
+
+  @Override public void handlePendingEmployee(String userName, boolean accept)
+      throws SQLException
+  {
+
+  }
+
+  @Override public ArrayList<User> getAllPendingEmployee() throws SQLException
+  {
+    return null;
+  }
+
+  @Override public void addDailyMenu(LocalDate date,
+      ArrayList<MenuItem> menuItems) throws SQLException
+  {
+
   }
 }

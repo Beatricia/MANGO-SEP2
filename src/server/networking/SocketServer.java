@@ -2,10 +2,7 @@ package server.networking;
 
 import server.databaseConn.DatabaseConn;
 import server.databaseConn.DatabaseConnImp;
-import server.model.MenuModel;
-import server.model.MenuModelImp;
-import server.model.UserModel;
-import server.model.UserModelImp;
+import server.model.*;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -33,12 +30,13 @@ public class SocketServer
     DatabaseConn databaseConn = new DatabaseConnImp();
     UserModel userModel = new UserModelImp(databaseConn);
     MenuModel menuModel = new MenuModelImp(databaseConn);
+    AdminModel adminModel = new AdminModelImp(databaseConn);
 
     while(true){
       // Accept a new socket
       Socket clientSocket = serverSocket.accept();
       // Init server socket handler
-      ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel);
+      ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel);
       // put the handler on a different thread
       Thread handlerThread = new Thread(handler);
       handlerThread.start();

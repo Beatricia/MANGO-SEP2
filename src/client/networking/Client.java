@@ -1,12 +1,10 @@
 package client.networking;
 
-import transferobjects.DailyMenuItem;
-import transferobjects.LoginRequest;
-import transferobjects.MenuItem;
-import transferobjects.Request;
+import transferobjects.*;
 import util.PropertyChangeSubject;
 
 import java.rmi.Remote;
+import java.util.ArrayList;
 
 // An interface that holds two variables that will be called in the socketClient for firing events
 // It will handle the login and the register action
@@ -27,4 +25,7 @@ public interface Client extends PropertyChangeSubject
   void addItem(MenuItem menuItem);
   void sendRequest(Request request);
   void addItemsToDailyMenu(DailyMenuItem dailyMenuItem);
+  //ArrayList<User> requestPendingEmployee();
+  void acceptEmployee(User user);
+  void declineEmployee(User user);
 }

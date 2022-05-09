@@ -1,6 +1,8 @@
 package server.model;
 
+import transferobjects.DailyMenuItem;
 import transferobjects.MenuItem;
+import transferobjects.Request;
 
 import java.sql.SQLException;
 
@@ -18,5 +20,8 @@ public interface MenuModel
    */
   void addItem(MenuItem menuItem) throws SQLException;
 
+  void sendRequest(Request request);
+
+  void addDailyMenuItem(DailyMenuItem dailyMenuItem) throws SQLException;
 
 }

@@ -1,5 +1,6 @@
 package server.networking;
 
+import server.model.AdminModel;
 import server.model.MenuModel;
 import server.model.UserModel;
 import transferobjects.ErrorMessage;
@@ -34,13 +35,14 @@ public class ServerHandler implements Runnable
 
   private UserModel userModel;
   private MenuModel menuModel;
+  private AdminModel adminModel;
 
   /**
    * Constructs the ServerHandler object, sets up the base streams.
    * @param clientSocket Client Socket to be taken care of.
    * @param userModel User model to forward data to.
    */
-  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel) {
+  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel, AdminModel adminModel) {
     try{
       System.out.printf("Client connected (%s:%s)%n", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort());
 
@@ -49,6 +51,7 @@ public class ServerHandler implements Runnable
       fromClient = new ObjectInputStream(clientSocket.getInputStream());
       this.userModel = userModel;
       this.menuModel = menuModel;
+      this.adminModel = adminModel;
 
     } catch (IOException e){
       // If an IOException happens during the initialization of the streams, it means that there is
