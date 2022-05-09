@@ -36,7 +36,7 @@
       </Text>
       <Button layoutX="196.0" layoutY="258.0" mnemonicParsing="false" onAction="#selectButton" text="Select" />
       <Label fx:id="errorLabel" layoutX="243.0" layoutY="330.0" prefHeight="8.0" prefWidth="218.0" textFill="RED" />
-      <TextArea fx:id="ingredientsAreaField" layoutX="356.0" layoutY="157.0" prefHeight="101.0" prefWidth="191.0" promptText="Insert the ingredients with a comma in between" />
+      <TextArea fx:id="ingredientsAreaField" layoutX="356.0" layoutY="157.0" prefHeight="101.0" prefWidth="191.0" promptText="Insert the ingredients with a comma in between: cucumber, tomatoe, avocado" />
       <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="20.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </Pane>

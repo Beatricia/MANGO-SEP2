@@ -53,7 +53,7 @@ public interface DatabaseConn
 
   void handlePendingEmployee(String userName, boolean accept) throws SQLException;
 
-  ArrayList<User> getAllPendingEmployee() throws SQLException;
+  ArrayList<User> getAllPendingEmployees() throws SQLException;
 
   void addDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) throws SQLException;
 }

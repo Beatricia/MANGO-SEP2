@@ -35,7 +35,7 @@ public class MenuEmplViewModel
   public MenuEmplViewModel(MenuModel menuModel)
   {
     this.menuModel = menuModel;
-    errorMessage = new SimpleStringProperty("error");
+    errorMessage = new SimpleStringProperty("");
 
     menuModel.addListener(MenuModel.ERROR_RECEIVED, this:: errorReceived);
   }
