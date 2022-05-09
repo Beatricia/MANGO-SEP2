@@ -53,7 +53,8 @@ public class ViewHandler implements PropertyChangeListener
    * view shown when the program start
    */
   public void start() {
-    openLoginView();
+   openLoginView();
+
   }
 
   /**
@@ -89,12 +90,27 @@ public class ViewHandler implements PropertyChangeListener
   }
 
   public void openAddDishesView() {
-    String path = "../view/MenuEmpl/MenuEmpl.fxml";
+    String path = "../view/MenuEmpl/AddDish/MenuEmpl.fxml";
     Pane p = openView(path);
 
     //We used platform.runLater because right now it will run on a javafx thread
     Platform.runLater(()->{
       stage.setTitle("Add items to the menu");
+      Scene scene = new Scene(p);
+      stage.setScene(scene);
+      stage.show();
+    });
+
+  }
+
+  public void openDailyMenuView()
+
+  {
+    String path = "../view/MenuEmpl/DailyMenu/DailyMenuView.fxml";
+    Pane p = openView(path);
+
+    Platform.runLater(()->{
+      stage.setTitle("Add to daily menu");
       Scene scene = new Scene(p);
       stage.setScene(scene);
       stage.show();
@@ -127,7 +143,9 @@ public class ViewHandler implements PropertyChangeListener
     if(evt.getPropertyName().equals(Client.LOGGED_IN_RECEIVED) ){
       User user = (User)evt.getNewValue();
       if(user.getUserType() == (UserType.EMPLOYEE)){
-        openAddDishesView();
+        //openAddDishesView();
+
+        openDailyMenuView();
       }
     }
   }

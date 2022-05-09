@@ -1,9 +1,7 @@
 package client.model;
 
 import client.networking.Client;
-import transferobjects.ErrorMessage;
-import transferobjects.MenuItem;
-import transferobjects.SerializableImage;
+import transferobjects.*;
 import util.PropertyChangeSubject;
 
 import javax.imageio.ImageIO;
@@ -13,6 +11,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +21,7 @@ import java.util.ArrayList;
  * MenuEmplViewModel and send it Error objects.
  * @author Uafa
  */
+
 public class MenuModelImp implements MenuModel
 {
   private Client client;
@@ -38,6 +38,7 @@ public class MenuModelImp implements MenuModel
     support = new PropertyChangeSupport(this);
     this.client = client;
     client.addListener(ERROR_RECEIVED, this::sendError);
+    client.addListener(PENDING_EMPLOYEES_RECEIVED, this::sendMenuItems);
   }
 
   /**
@@ -47,6 +48,11 @@ public class MenuModelImp implements MenuModel
   private void sendError(PropertyChangeEvent event)
   {
     support.firePropertyChange(ERROR_RECEIVED, null,event.getNewValue() );
+  }
+
+  private void sendMenuItems(PropertyChangeEvent event)
+  {
+    support.firePropertyChange(Menu_Items_Received,null,event.getNewValue());
   }
 
   /**
@@ -77,6 +83,17 @@ public class MenuModelImp implements MenuModel
 
   }
 
+  @Override public void requestMenuItems(Request request)
+  {
+    client.sendRequest(request);
+  }
+
+  @Override public void addItemsToDailyMenu(LocalDate date,
+      ArrayList<MenuItem> menuItems)
+  {
+    DailyMenuItem dailyMenuItem = new DailyMenuItem(date,menuItems);
+    client.addItemsToDailyMenu(dailyMenuItem);
+  }
 
   /**
    * Using the PropertyChangeSubject object adds a listener for a specific event

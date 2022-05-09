@@ -1,13 +1,11 @@
 package client.networking;
 
-import transferobjects.ErrorMessage;
-import transferobjects.LoginRequest;
-import transferobjects.MenuItem;
-import transferobjects.User;
+import transferobjects.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -53,6 +51,31 @@ public class SocketClient implements Client{
      */
     @Override public void addItem(MenuItem menuItem) {
         clientHandler.send(menuItem);
+    }
+
+    @Override public void sendRequest(Request request)
+    {
+
+    }
+
+    @Override public void addItemsToDailyMenu(DailyMenuItem dailyMenuItem)
+    {
+
+    }
+
+   // @Override public ArrayList<User> requestPendingEmployee()
+    //{
+      //  return null;
+    //}
+
+    @Override public void acceptEmployee(User user)
+    {
+
+    }
+
+    @Override public void declineEmployee(User user)
+    {
+
     }
 
     /**

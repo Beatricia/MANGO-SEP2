@@ -1,12 +1,14 @@
 package server.databaseConn;
 
 import shared.UserType;
+import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,10 +81,12 @@ public class DatabaseConnImp implements DatabaseConn
 
   private final UserDatabaseConn userDatabaseConn;
   private final MenuDatabaseConn menuDatabaseConn;
+  private final AdminDataBaseConnection adminDataBaseConnection;
 
   public DatabaseConnImp() {
     userDatabaseConn = new UserDatabaseConn();
     menuDatabaseConn = new MenuDatabaseConn();
+    adminDataBaseConnection = new AdminDataBaseConnection();
   }
 
   /**
@@ -94,8 +98,7 @@ public class DatabaseConnImp implements DatabaseConn
    * @throws SQLException   When an unexpected sql exception happens
    * @throws LogInException When the user has not provided the correct data
    */
-  @Override public User login(String username, String password)
-      throws LogInException, SQLException {
+  @Override public User login(String username, String password) throws LogInException, SQLException {
     try{
       return userDatabaseConn.login(username, password);
     } catch (SQLException e){
@@ -139,4 +142,33 @@ public class DatabaseConnImp implements DatabaseConn
       throw formatExceptionMessage(e);
     }
   }
+
+
+
+  @Override public void addDailyMenu(LocalDate date,
+      ArrayList<MenuItem> menuItems) throws SQLException
+  {
+
+  }
+
+  @Override
+  public void handlePendingEmployee(String username, boolean accept) throws SQLException {
+    try{
+      adminDataBaseConnection.handlePendingEmployee(username,accept);
+    } catch (SQLException e){
+      System.out.println(e.getMessage());
+    }
+  }
+
+  @Override
+  public ArrayList<User> getAllPendingEmployees() {
+    try {
+      return adminDataBaseConnection.getAllPendingEmployees();
+    } catch (SQLException e){
+      System.out.println(e.getMessage());
+    }
+    return null; // should it return null here?
+  }
+
+
 }
