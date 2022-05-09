@@ -67,6 +67,7 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
     public void addButton(ActionEvent actionEvent) {
         try{
             viewModel.addItem(nameTextField.getText(), ingredientsAreaField.getText(),priceTextField.getText(), filePath.toString()); //added the picture file here
+            // + get the image away
         } catch (NullPointerException e){
             errorLabel.setText("Please select an image!");
         }

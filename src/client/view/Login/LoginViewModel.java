@@ -67,8 +67,13 @@ public class LoginViewModel
     {
       error.setValue("Empty field");
     }
+    else if (password.length() <= 8) // checks for password's length
+    {
+      error.setValue("Password must contain minimum of 9 characters");
+    }
     else
     {
+      error.setValue("");
       userModel.login(username,password);
     }
   }

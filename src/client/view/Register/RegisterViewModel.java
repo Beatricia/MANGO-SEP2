@@ -12,6 +12,7 @@ import java.beans.PropertyChangeEvent;
 
 /**
  * Class responsible for connecting the RegisterViewController and UserModel interface.
+ *
  * @author Simon
  * @version 1
  */
@@ -22,6 +23,7 @@ public class RegisterViewModel
 
   /**
    * Constructor called when new instance created, initializes userModel and errorMessage
+   *
    * @param userModel model providing logic on the client side
    */
   public RegisterViewModel(UserModel userModel)
@@ -33,28 +35,32 @@ public class RegisterViewModel
     userModel.addListener(UserModel.ERROR_RECEIVED, this::errorReceived);
   }
 
-  private void errorReceived(PropertyChangeEvent event) {
+  private void errorReceived(PropertyChangeEvent event)
+  {
     ErrorMessage errorMess = (ErrorMessage) event.getNewValue();
 
     printErrorMessage(errorMess.getMessage());
   }
 
-  private void printErrorMessage(String message){
+  private void printErrorMessage(String message)
+  {
     Platform.runLater(() -> errorMessage.setValue("Error: " + message));
   }
 
-  private void loggedInReceived(PropertyChangeEvent event) {
+  private void loggedInReceived(PropertyChangeEvent event)
+  {
     System.out.println("Login received");
   }
 
   /**
    * Checks for empty fields and matching passwords, if correct sends a request for creating a new User object
-   * @param firstName first name of the user
-   * @param lastName last name of the user
-   * @param username username of the user
-   * @param password password of the user
+   *
+   * @param firstName      first name of the user
+   * @param lastName       last name of the user
+   * @param username       username of the user
+   * @param password       password of the user
    * @param passwordRepeat to check the password
-   * @param userType type of the user
+   * @param userType       type of the user
    * @return User object
    */
   public User register(String firstName, String lastName, String username,
@@ -65,6 +71,10 @@ public class RegisterViewModel
         || password.isBlank()) // checks for empty fields
     {
       errorMessage.setValue("Empty field");
+    }
+    else if (password.length() <= 8) // checks for password's length
+    {
+      errorMessage.setValue("Password must contain minimum of 9 characters");
     }
     else if (!password.equals(
         passwordRepeat))  //checks if the password and passwordRepeat do match
@@ -85,6 +95,7 @@ public class RegisterViewModel
 
   /**
    * returns bound StringProperty, which will be automatically updated in the RegisterViewController and GUI
+   *
    * @return StringProperty bound with the RegisterViewController
    */
   public StringProperty getErrorMessage()

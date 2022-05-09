@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
  * class listens to the Model to get any ErrorMessage objects that have to be
  * displayed in the view. Also this class send the provided in the view
  * information about the Items to the model.
+ *
  * @author Uafa
  */
 
@@ -30,18 +31,20 @@ public class MenuEmplViewModel
    * Constructor for the class, initializes the private variable errorMassage to
    * be a SimpleStringProperty, and adds the class to be a Listener to the
    * MenuModel class.
+   *
    * @param menuModel the model that is subject for the class
    */
   public MenuEmplViewModel(MenuModel menuModel)
   {
     this.menuModel = menuModel;
-    errorMessage = new SimpleStringProperty("error");
+    errorMessage = new SimpleStringProperty("");
 
-    menuModel.addListener(MenuModel.ERROR_RECEIVED, this:: errorReceived);
+    menuModel.addListener(MenuModel.ERROR_RECEIVED, this::errorReceived);
   }
 
   /**
    * Returns the Error Message send by the model
+   *
    * @return the error message
    */
   public Property<String> getErrorMessage()
@@ -54,20 +57,36 @@ public class MenuEmplViewModel
    * Calls the private method separateIngredients to convert the String
    * provided by the user to create an ArrayList of all ingredients. Also
    * parses the price value to a double.
-   * @param name the unique name of an item
+   *
+   * @param name        the unique name of an item
    * @param ingredients a String that has all the ingredients separated
    *                    by a coma
-   * @param price a String that holds the value of the price
-   * @param imgPath the path of the selected image
+   * @param price       a String that holds the value of the price
+   * @param imgPath     the path of the selected image
    */
   public void addItem(String name, String ingredients, String price,
       String imgPath)
   {
-    try{
-      menuModel.addItem(name, separateIngredients(ingredients),
-          Double.parseDouble(price), imgPath);
-    } catch (NumberFormatException e){
-      printErrorMessage("Incorrect price format");
+    if (name.isBlank() || ingredients.isBlank() || price.isBlank())
+    {
+      printErrorMessage("Empty field");
+    }
+    else
+    {
+      try
+      {
+        if (Double.parseDouble(price) < 0)
+        {
+          printErrorMessage("Incorrect price format");
+          return;
+        }
+        menuModel.addItem(name, separateIngredients(ingredients),
+            Double.parseDouble(price), imgPath);
+      }
+      catch (NumberFormatException e) // idk what about this but it did not catch the letters
+      {
+        printErrorMessage("Incorrect price format");
+      }
     }
   }
 
@@ -76,8 +95,9 @@ public class MenuEmplViewModel
    * by commas and adds each individual ingredient to an ArrayList 7. This is
    * done with a Regex Pattern and a matcher that groups each ingredient
    * one by one.
+   *
    * @param ingredients a String that has all the ingredients separated
-   *    *               by a coma
+   *                    *               by a coma
    * @return an ArrayList containing all separated ingredients
    */
   private ArrayList<String> separateIngredients(String ingredients)
@@ -108,9 +128,11 @@ public class MenuEmplViewModel
    * gets the value of the ErrorMessage object that has been sent.
    * The method calls the private method printErrorMessage to safely modify
    * the private String errorMessage.
+   *
    * @param event the event that has been fired by the MenuModel class
    */
-  private void errorReceived(PropertyChangeEvent event) {
+  private void errorReceived(PropertyChangeEvent event)
+  {
     ErrorMessage errorMess = (ErrorMessage) event.getNewValue();
 
     printErrorMessage(errorMess.getMessage());
@@ -118,10 +140,12 @@ public class MenuEmplViewModel
 
   /**
    * Safely modifies the errorMessage private variable
+   *
    * @param message the value of the ErrorMessage that has been sent by the
    *                MenuModel class
    */
-  private void printErrorMessage(String message){
+  private void printErrorMessage(String message)
+  {
     Platform.runLater(() -> errorMessage.setValue("Error: " + message));
   }
 

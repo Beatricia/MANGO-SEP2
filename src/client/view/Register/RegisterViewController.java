@@ -51,6 +51,7 @@ public class RegisterViewController implements ViewController
    */
   @FXML private void onBack(ActionEvent actionEvent)
   {
+    errorMessage.setText("");
     viewHandler.openLoginView();
   }
 

@@ -57,6 +57,7 @@ public class LoginViewController implements ViewController
 
   public void onRegister(ActionEvent actionEvent)
   {
+    errorLabel.setText("");
     viewHandler.openRegisterView();
   }
 }

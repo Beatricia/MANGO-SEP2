@@ -15,11 +15,11 @@
          </font>
       </Label>
       <TextField fx:id="username" layoutX="197.0" layoutY="187.0" prefHeight="26.0" prefWidth="202.0" />
+      <PasswordField fx:id="password" layoutX="197.0" layoutY="237.0" prefHeight="26.0" prefWidth="202.0" />
       <Button defaultButton="true" layoutX="372.0" layoutY="276.0" mnemonicParsing="false" onAction="#onLogIn" text="Log In" />
       <Button layoutX="522.0" layoutY="355.0" mnemonicParsing="false" onAction="#onRegister" text="Register" />
       <Label layoutX="115.0" layoutY="192.0" prefHeight="13.0" prefWidth="59.0" text="username" />
       <Label layoutX="115.0" layoutY="240.0" prefHeight="18.0" prefWidth="59.0" text="password" />
-      <Label fx:id="errorLabel" layoutX="78.0" layoutY="346.0" prefHeight="18.0" prefWidth="254.0" textFill="RED" />
-      <PasswordField fx:id="password" layoutX="197.0" layoutY="237.0" prefHeight="26.0" prefWidth="202.0" />
+      <Label fx:id="errorLabel" alignment="CENTER" layoutX="9.0" layoutY="317.0" prefHeight="18.0" prefWidth="572.0" textFill="RED" />
    </children>
 </AnchorPane>
