@@ -4,7 +4,6 @@ import client.model.MenuModel;
 import client.model.MenuModelImp;
 import client.model.UserModel;
 import client.model.UserModelImp;
-import client.view.MenuEmpl.MenuEmplViewModel;
 
 /**
  * A class that creates a model object and returns it#

@@ -1,4 +1,4 @@
-package client.view.MenuEmpl;
+package client.view.MenuEmpl.AddDish;
 
 import client.model.MenuModel;
 import javafx.application.Platform;
