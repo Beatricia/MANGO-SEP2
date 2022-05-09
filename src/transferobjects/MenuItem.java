@@ -17,7 +17,7 @@ public class MenuItem implements Serializable
   private SerializableImage image;
 
   /**
-   * Construct the LoginRequest object
+   * Construct the MenuItem object
    * needed to transfer menu item
    * @param name item's name
    * @param ingredients list of item's ingredients

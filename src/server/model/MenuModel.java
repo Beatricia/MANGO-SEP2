@@ -17,4 +17,6 @@ public interface MenuModel
    * @param menuItem which is unwrapped and passed onto the class Databaseconn
    */
   void addItem(MenuItem menuItem) throws SQLException;
+
+
 }
