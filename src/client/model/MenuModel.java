@@ -11,6 +11,7 @@ public interface MenuModel extends PropertyChangeSubject
 {
   String ERROR_RECEIVED = "ErrorReceived";
   String Menu_Items_Received = "MenuItemsReceived";
+  String PENDING_EMPLOYEES_RECEIVED = "PendingEmployeesReceived";
 
   void addItem(String name, ArrayList<String> ingredients, double price,
       String imgPath);
