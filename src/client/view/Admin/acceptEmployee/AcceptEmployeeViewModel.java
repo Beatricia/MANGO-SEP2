@@ -14,7 +14,6 @@ public class AcceptEmployeeViewModel
 {
   private AdminModel adminModel;
   private ObservableList<User> users;
-  private static String PENDING_USERS_RECEIVED = "PendingUsersReceived";
 
   public AcceptEmployeeViewModel(AdminModel adminModel)
   {
