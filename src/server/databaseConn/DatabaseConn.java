@@ -56,4 +56,6 @@ public interface DatabaseConn
   ArrayList<User> getAllPendingEmployees() throws SQLException;
 
   void addDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) throws SQLException;
+
+  ArrayList<MenuItem> getListOfMenuItems();
 }

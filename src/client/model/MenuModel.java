@@ -16,7 +16,7 @@ public interface MenuModel extends PropertyChangeSubject
   void addItem(String name, ArrayList<String> ingredients, double price,
       String imgPath);
 
-  void requestMenuItems(Request request);
+  void requestMenuItems();
 
   void addItemsToDailyMenu(LocalDate date,ArrayList<MenuItem> menuItems);
 }

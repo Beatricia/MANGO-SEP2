@@ -7,9 +7,13 @@ public class Request implements Serializable
   private String requestName;
   private Object requestObj;
 
+  public static final String MENU_ITEMS_REQUEST = "MenuItemRequest";
+
   public Request(String requestName){
     this.requestObj = requestName;
   }
+
+
 
   public Object getObject(){
     return requestObj;

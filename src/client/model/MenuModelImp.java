@@ -83,8 +83,9 @@ public class MenuModelImp implements MenuModel
 
   }
 
-  @Override public void requestMenuItems(Request request)
+  @Override public void requestMenuItems()
   {
+    Request request = new Request(Request.MENU_ITEMS_REQUEST);
     client.sendRequest(request);
   }
 
