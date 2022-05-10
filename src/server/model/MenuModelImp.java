@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Class responsible for connecting the networking part of the Server with Database connection and sending Menu Items into the Database.
@@ -60,9 +61,9 @@ public class MenuModelImp implements MenuModel
     }
   }
 
-  @Override public void sendRequest(Request request)     //I don't know what should i do here :( help me
+  @Override public ArrayList<MenuItem> getListOfMenuItems()
   {
-
+    return databaseConn.getListOfMenuItems();
   }
 
   @Override public void addDailyMenuItem(DailyMenuItem dailyMenuItem)

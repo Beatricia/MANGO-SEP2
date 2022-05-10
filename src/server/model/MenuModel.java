@@ -4,7 +4,9 @@ import transferobjects.DailyMenuItem;
 import transferobjects.MenuItem;
 import transferobjects.Request;
 
+import java.sql.Array;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Interface responsible for connecting the networking part of the Server with Database connection.
@@ -20,7 +22,7 @@ public interface MenuModel
    */
   void addItem(MenuItem menuItem) throws SQLException;
 
-  void sendRequest(Request request);
+  ArrayList<MenuItem> getListOfMenuItems();
 
   void addDailyMenuItem(DailyMenuItem dailyMenuItem) throws SQLException;
 
