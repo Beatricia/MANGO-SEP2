@@ -1,13 +1,10 @@
 package client.core;
 
 import client.networking.Client;
-import client.networking.SocketClient;
-import client.view.Login.LoginViewController;
-import client.view.Register.RegisterViewController;
 import client.view.ViewController;
+import client.view.general.GeneralViewController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -28,6 +25,10 @@ public class ViewHandler implements PropertyChangeListener
   private ViewModelFactory viewModelFactory;
   private Stage stage;
   private ClientFactory clientFactory;
+
+  private Scene loginScene;
+  private Scene registerScene;
+  private Scene generalScene;
 
   public Stage getStage() {
     return stage;
@@ -53,9 +54,7 @@ public class ViewHandler implements PropertyChangeListener
    * view shown when the program start
    */
   public void start() {
-    //openLoginView();
-   //openAdminAcceptUserView();
-    openDailyMenuView();
+    openLoginView();
   }
 
   /**
@@ -65,12 +64,14 @@ public class ViewHandler implements PropertyChangeListener
    */
   public void openLoginView() {
 
-    String path = "../view/Login/LoginView.fxml";
-    Pane p = openView(path);
+    if(loginScene == null){
+      String path = "../view/Login/LoginView.fxml";
+      Pane p = openView(path);
+      loginScene = new Scene(p);
+    }
 
+    stage.setScene(loginScene);
     stage.setTitle("Log in");
-    Scene scene = new Scene(p);
-    stage.setScene(scene);
     stage.show();
   }
 
@@ -81,59 +82,43 @@ public class ViewHandler implements PropertyChangeListener
    */
 
   public void openRegisterView() {
-    String path = "../view/Register/RegisterViewNew.fxml";
-    Pane p = openView(path);
+    if(registerScene == null){
+      String path = "../view/Register/RegisterViewNew.fxml";
+      Pane p = openView(path);
+      registerScene = new Scene(p);
+    }
+
 
     stage.setTitle("Register");
-    Scene scene = new Scene(p);
-    stage.setScene(scene);
+    stage.setScene(registerScene);
     stage.show();
   }
 
-  public void openAddDishesView() {
-    String path = "../view/MenuEmpl/AddDish/MenuEmpl.fxml";
-    Pane p = openView(path);
+  public void openGeneralView(User user){
+    try{
+      if(registerScene == null){
+        String path = "../view/general/GeneralView.fxml";
 
-    //We used platform.runLater because right now it will run on a javafx thread
-    Platform.runLater(()->{
-      stage.setTitle("Add items to the menu");
-      Scene scene = new Scene(p);
-      stage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(path));
+        Pane pane = loader.load();
+
+        GeneralViewController controller = loader.getController();
+        controller.init(user, this, viewModelFactory);
+
+        registerScene = new Scene(pane);
+      }
+
+
+      stage.setScene(registerScene);
       stage.show();
-    });
-  }
-
-  public void openAdminAcceptUserView() {
-    String path = "../view/Admin/acceptEmployee/AcceptEmployeeView.fxml";
-    Pane p = openView(path);
-
-    //We used platform.runLater because right now it will run on a javafx thread
-    Platform.runLater(()->{
-      stage.setTitle("Handle Employees");
-      Scene scene = new Scene(p);
-      stage.setScene(scene);
-      stage.show();
-    });
-  }
-
-  public void openDailyMenuView()
-
-  {
-    String path = "../view/MenuEmpl/DailyMenu/DailyMenuView.fxml";
-    Pane p = openView(path);
-
-    Platform.runLater(()->{
-      stage.setTitle("Add to daily menu");
-      Scene scene = new Scene(p);
-      stage.setScene(scene);
-      stage.show();
-    });
-
+    } catch (IOException e){
+      e.printStackTrace();
+    }
   }
 
   private Pane openView(String path) {
     FXMLLoader loader = new FXMLLoader();
-
     loader.setLocation(getClass().getResource(path));
 
     Pane root = null;
@@ -154,12 +139,10 @@ public class ViewHandler implements PropertyChangeListener
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
     if(evt.getPropertyName().equals(Client.LOGGED_IN_RECEIVED) ){
-      User user = (User)evt.getNewValue();
-      if(user.getUserType() == (UserType.EMPLOYEE)){
-        //openAddDishesView();
+      User user = (User) evt.getNewValue();
 
-        openDailyMenuView();
-      }
+      Platform.runLater(() -> openGeneralView(user));
+
     }
   }
 }

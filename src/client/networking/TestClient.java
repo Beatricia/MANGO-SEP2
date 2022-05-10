@@ -6,7 +6,6 @@ import transferobjects.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class TestClient implements Client
 {
@@ -15,7 +14,7 @@ public class TestClient implements Client
   public TestClient() throws IOException {
     new Thread(() -> {
       try {
-        Thread.sleep(7000);
+        Thread.sleep(3000);
         support.firePropertyChange(Client.LOGGED_IN_RECEIVED, null, new User("test-user", UserType.EMPLOYEE, "first-test-name", "last-test-name"));
       }
       catch (InterruptedException e) {
@@ -42,11 +41,6 @@ public class TestClient implements Client
   }
 
   @Override public void addItemsToDailyMenu(DailyMenuItem dailyMenuItem)
-  {
-
-  }
-
-  @Override public void requestPendingEmployee(Request request)
   {
 
   }

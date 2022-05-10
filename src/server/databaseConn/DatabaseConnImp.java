@@ -1,6 +1,7 @@
 package server.databaseConn;
 
 import shared.UserType;
+import transferobjects.LoginRequest;
 import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;

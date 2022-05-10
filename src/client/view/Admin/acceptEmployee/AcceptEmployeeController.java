@@ -33,10 +33,7 @@ public class AcceptEmployeeController implements ViewController
 
   @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
 
-    // Test view model (you can find the implementation at the bottom of this file)
-    //viewModel = new TestViewModel(); ------ LOAD THIS
-    // End of test
-
+    viewModel = viewModelFactory.getAcceptEmployeeViewModel();
     viewModel.getEmployeeList().addListener(this::onListChange);
 
     onRefreshButtonPressed();
