@@ -152,6 +152,11 @@ public class DatabaseConnImp implements DatabaseConn
   }
 
   @Override
+  public ArrayList<MenuItem> getListOfMenuItems() {
+    return null;
+  }
+
+  @Override
   public void handlePendingEmployee(String username, boolean accept) throws SQLException {
     try{
       adminDataBaseConnection.handlePendingEmployee(username,accept);
