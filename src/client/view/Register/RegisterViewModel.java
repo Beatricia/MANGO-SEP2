@@ -1,4 +1,4 @@
-package client.view.Register;
+package client.view.register;
 
 import client.model.UserModel;
 import javafx.application.Platform;

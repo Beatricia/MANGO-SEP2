@@ -3,7 +3,7 @@ package client.core;
 import client.view.Login.LoginViewModel;
 import client.view.MenuEmpl.AddDish.MenuEmplViewModel;
 import client.view.MenuEmpl.DailyMenu.DailyMenuViewModel;
-import client.view.Register.RegisterViewModel;
+import client.view.register.RegisterViewModel;
 
 /**
  * A class that returns the different types if view models the system uses

@@ -49,7 +49,7 @@ public class DailyMenuViewController implements ViewController
   }
 
   @Override public void refresh() {
-    throw new RuntimeException("not implemented the refresh method");
+
   }
 
   /**

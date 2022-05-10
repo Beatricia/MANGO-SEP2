@@ -1,4 +1,4 @@
-package client.view.Register;
+package client.view.register;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
@@ -43,6 +43,10 @@ public class RegisterViewController implements ViewController
     viewModel = viewModelFactory.getRegisterViewModel();
 
     errorMessage.textProperty().bindBidirectional(viewModel.getErrorMessage()); // binds with the errorMessage in VM
+  }
+
+  @Override public void refresh() {
+
   }
 
   /**
