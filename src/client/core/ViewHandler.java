@@ -53,8 +53,7 @@ public class ViewHandler implements PropertyChangeListener
    * view shown when the program start
    */
   public void start() {
-   openLoginView();
-
+   openAdminAcceptUserView();
   }
 
   /**
@@ -100,7 +99,19 @@ public class ViewHandler implements PropertyChangeListener
       stage.setScene(scene);
       stage.show();
     });
+  }
 
+  public void openAdminAcceptUserView() {
+    String path = "../view/Admin/acceptEmployee/AcceptEmployeeView.fxml";
+    Pane p = openView(path);
+
+    //We used platform.runLater because right now it will run on a javafx thread
+    Platform.runLater(()->{
+      stage.setTitle("Handle Employees");
+      Scene scene = new Scene(p);
+      stage.setScene(scene);
+      stage.show();
+    });
   }
 
   public void openDailyMenuView()
