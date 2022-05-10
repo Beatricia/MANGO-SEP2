@@ -14,6 +14,7 @@ public interface Client extends PropertyChangeSubject
   String ERROR_RECEIVED = "ErrorReceived";
   String LOGGED_IN_RECEIVED = "LogInReceived";
   String PENDING_EMPLOYEES_RECEIVED = "PendingEmployeesReceived";
+  String MENU_ITEMS_RECEIVED = "MenuItemsReceived";
 
   /**
    * The method is used to sent to the Server the LoginRequest object
@@ -25,7 +26,6 @@ public interface Client extends PropertyChangeSubject
   void addItem(MenuItem menuItem);
   void sendRequest(Request request);
   void addItemsToDailyMenu(DailyMenuItem dailyMenuItem);
-  //ArrayList<User> requestPendingEmployee();
   void acceptEmployee(User user);
   void declineEmployee(User user);
 }

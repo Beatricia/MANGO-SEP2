@@ -22,7 +22,7 @@ public interface MenuModel
    */
   void addItem(MenuItem menuItem) throws SQLException;
 
-  ArrayList<MenuItem> getListOfMenuItems();
+  ArrayList<MenuItem> getListOfMenuItems() throws SQLException;
 
   void addDailyMenuItem(DailyMenuItem dailyMenuItem) throws SQLException;
 

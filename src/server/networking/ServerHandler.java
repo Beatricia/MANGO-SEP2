@@ -3,10 +3,7 @@ package server.networking;
 import server.model.AdminModel;
 import server.model.MenuModel;
 import server.model.UserModel;
-import transferobjects.ErrorMessage;
-import transferobjects.LoginRequest;
-import transferobjects.MenuItem;
-import transferobjects.User;
+import transferobjects.*;
 import util.LogInException;
 
 import java.io.*;
@@ -131,6 +128,47 @@ public class ServerHandler implements Runnable
 
       menuModel.addItem(menuItem);
     }
+
+    //in case the received object is a DailyMenuItem object
+    else if(receivedObj instanceof DailyMenuItem)
+    {
+      DailyMenuItem dailyMenuItem = (DailyMenuItem) receivedObj;
+      menuModel.addDailyMenuItem(dailyMenuItem);
+    }
+
+    else if (receivedObj instanceof User)
+    {
+      User user = (User) receivedObj;
+      if(user.getIsAccepted())
+      {
+        adminModel.acceptEmployee(user);
+      }
+      else
+      {
+        adminModel.declineEmployee(user);
+      }
+    }
+    else if(receivedObj instanceof Request)
+    {
+      Request request = (Request) receivedObj;
+      handleRequestObject(request);
+    }
+  }
+
+  private void handleRequestObject(Request request) throws SQLException
+  {
+    if(request.getRequestName().equals("MenuItemRequest"))
+    {
+      request.setObject(menuModel.getListOfMenuItems());
+      sendObject(request);
+    }
+
+    else if(request.getRequestName().equals("PendingUserRequest"))
+    {
+      request.setObject(adminModel.requestPendingEmployees());
+      sendObject(request);
+    }
+
   }
 
   private void handleLoginRequest(LoginRequest request) throws SQLException, LogInException {

@@ -46,10 +46,10 @@ public class TestClient implements Client
 
   }
 
- // @Override public ArrayList<User> requestPendingEmployee()
-  //{
-    //return null;
- //}
+  @Override public void requestPendingEmployee(Request request)
+  {
+
+  }
 
   @Override public void acceptEmployee(User user)
   {
