@@ -27,7 +27,6 @@ public class ViewHandler implements PropertyChangeListener
 {
   private ViewModelFactory viewModelFactory;
   private Stage stage;
-  private ClientFactory clientFactory;
 
   public Stage getStage() {
     return stage;
@@ -43,8 +42,6 @@ public class ViewHandler implements PropertyChangeListener
     this.viewModelFactory = viewModelFactory;
     this.stage = stage;
 
-    this.clientFactory=clientFactory;
-
     clientFactory.getClient().addListener(this);
   }
 
@@ -53,7 +50,9 @@ public class ViewHandler implements PropertyChangeListener
    * view shown when the program start
    */
   public void start() {
-   openAdminAcceptUserView();
+    //openLoginView();
+   //openAdminAcceptUserView();
+    openDailyMenuView();
   }
 
   /**
@@ -155,7 +154,6 @@ public class ViewHandler implements PropertyChangeListener
       User user = (User)evt.getNewValue();
       if(user.getUserType() == (UserType.EMPLOYEE)){
         //openAddDishesView();
-
         openDailyMenuView();
       }
     }
