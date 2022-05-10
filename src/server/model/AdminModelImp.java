@@ -20,7 +20,7 @@ public class AdminModelImp implements AdminModel
 
   @Override public ArrayList<User> requestPendingEmployees() throws SQLException
   {
-    return databaseConn.getAllPendingEmployee();
+    return databaseConn.getAllPendingEmployees();
   }
 
   @Override public void acceptEmployee(User user) throws SQLException
