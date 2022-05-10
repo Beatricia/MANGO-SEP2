@@ -76,4 +76,10 @@ public class MenuItem implements Serializable
     this.image = image;
   }
 
+
+  public String toString()
+  {
+    return name;
+  }
+
 }
