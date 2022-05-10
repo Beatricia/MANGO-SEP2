@@ -25,8 +25,9 @@ class MenuDatabaseConn
   {
 
     try (Connection connection = DatabaseConnImp.getConnection()) {
-      String sql = "INSERT INTO " + MENU_ITEM_TABLE + " (name, price, imgPath) " +
-          "VALUES (?, ?, ?);";
+
+      String ingredientsArray = "'{" + String.join(",", ingredients) + "}'";
+      String sql = "SELECT addMenuItem(?, ?, ?, " + ingredientsArray + "::varchar[]);";
 
       PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -34,24 +35,7 @@ class MenuDatabaseConn
       statement.setDouble(2, price);
       statement.setString(3, imgPath);
 
-      statement.executeUpdate();
-
-
-      //Insert the ingredients
-      StringBuilder stringBuilder = new StringBuilder();
-      stringBuilder.append("INSERT INTO " + INGREDIENTS_INPUT_TABLE + " (itemName, ingredientName) VALUES ");
-
-      for (String ingredient : ingredients){
-        String ingredientString = String.format("('%s', '%s'),", name, ingredient);
-        stringBuilder.append(ingredientString);
-      }
-      //Remove the last comma from the sql code
-      stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-
-      sql = stringBuilder.toString();
-      statement = connection.prepareStatement(sql);
-
-      statement.executeUpdate();
+      statement.executeQuery();
     }
   }
 }
