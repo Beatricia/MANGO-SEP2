@@ -16,4 +16,6 @@ public interface ViewController
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
   void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory);
+
+  void refresh();
 }

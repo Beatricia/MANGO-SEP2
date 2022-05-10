@@ -48,6 +48,10 @@ public class DailyMenuViewController implements ViewController
 
   }
 
+  @Override public void refresh() {
+    throw new RuntimeException("not implemented the refresh method");
+  }
+
   /**
    * Sends an Observable list with the selected menu items and date to the
    * view model.

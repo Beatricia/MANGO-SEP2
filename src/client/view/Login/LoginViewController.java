@@ -41,6 +41,10 @@ public class LoginViewController implements ViewController
     errorLabel.textProperty().bindBidirectional(viewModel.getError());
   }
 
+  @Override public void refresh() {
+    throw new RuntimeException("not implemented the refresh method");
+  }
+
   /**
    * LogIn method to get particular user object.
    * @param actionEvent event which call login method from LoginViewModel.

@@ -59,6 +59,10 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
         imageView.setImage(image);
     }
 
+    @Override public void refresh() {
+        throw new RuntimeException("not implemented the refresh method");
+    }
+
     /**
      * Adding a new item to the database with it's name, ingredients and price
      * @param actionEvent from GUI(Button click)

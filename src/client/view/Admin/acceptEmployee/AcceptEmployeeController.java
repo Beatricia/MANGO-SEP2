@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-import shared.UserType;
 import transferobjects.User;
 
 import java.util.*;
@@ -41,6 +40,10 @@ public class AcceptEmployeeController implements ViewController
     viewModel.getEmployeeList().addListener(this::onListChange);
 
     onRefreshButtonPressed();
+  }
+
+  @Override public void refresh() {
+    viewModel.refresh();
   }
 
   private void onListChange(ListChangeListener.Change<? extends User> change) {
@@ -105,7 +108,7 @@ public class AcceptEmployeeController implements ViewController
   }
 
   public void onRefreshButtonPressed() {
-    viewModel.refresh();
+    refresh();
   }
 }
 
