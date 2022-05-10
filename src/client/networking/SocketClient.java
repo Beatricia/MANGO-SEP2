@@ -24,6 +24,7 @@ public class SocketClient implements Client{
         support = new PropertyChangeSupport(this);
         clientHandler = new ClientHandler(this);
         Thread t = new Thread(clientHandler);
+        t.setDaemon(true);
         t.start();
     }
 
