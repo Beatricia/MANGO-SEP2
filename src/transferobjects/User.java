@@ -73,4 +73,8 @@ public class User implements Serializable
   {
     return userType;
   }
+
+  public String toString(){
+    return String.format("%s %s (%s)", firstName, lastName, username);
+  }
 }
