@@ -1,9 +1,6 @@
 package client.core;
 
-import client.model.MenuModel;
-import client.model.MenuModelImp;
-import client.model.UserModel;
-import client.model.UserModelImp;
+import client.model.*;
 
 /**
  * A class that creates a model object and returns it#
@@ -14,6 +11,7 @@ public class ModelFactory
   private ClientFactory clientFactory;
   private UserModel userModel;
   private MenuModel menuModel;
+  private AdminModel adminModel;
 
   /**
    * Constructor for the class
@@ -44,5 +42,13 @@ public class ModelFactory
       menuModel = new MenuModelImp(clientFactory.getClient());
     }
     return menuModel;
+  }
+
+  public AdminModel getAdminModel() {
+    if(adminModel == null)
+    {
+      adminModel = new AdminModelImp(clientFactory.getClient());
+    }
+    return adminModel;
   }
 }

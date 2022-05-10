@@ -1,5 +1,6 @@
 package client.core;
 
+import client.view.Admin.acceptEmployee.AcceptEmployeeViewModel;
 import client.view.Login.LoginViewModel;
 import client.view.MenuEmpl.AddDish.MenuEmplViewModel;
 import client.view.MenuEmpl.DailyMenu.DailyMenuViewModel;
@@ -16,6 +17,7 @@ public class ViewModelFactory
   private RegisterViewModel registerViewModel;
   private MenuEmplViewModel menuEmplViewModel;
   private DailyMenuViewModel dailyMenuViewModel;
+  private AcceptEmployeeViewModel acceptEmployeeViewModel;
 
   /**
    * Constructor for the class
@@ -69,5 +71,13 @@ public class ViewModelFactory
       dailyMenuViewModel = new DailyMenuViewModel(modelFactory.getMenuModel());
     }
     return dailyMenuViewModel;
+  }
+
+  public AcceptEmployeeViewModel getAcceptEmployeeViewModel() {
+    if(acceptEmployeeViewModel == null)
+    {
+      acceptEmployeeViewModel = new AcceptEmployeeViewModel(modelFactory.getAdminModel());
+    }
+    return acceptEmployeeViewModel;
   }
 }
