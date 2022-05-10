@@ -38,7 +38,7 @@ public class MenuModelImp implements MenuModel
     support = new PropertyChangeSupport(this);
     this.client = client;
     client.addListener(ERROR_RECEIVED, this::sendError);
-    client.addListener(PENDING_EMPLOYEES_RECEIVED, this::sendMenuItems);
+    client.addListener(Menu_Items_Received, this::sendMenuItems);
   }
 
   /**

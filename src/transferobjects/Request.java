@@ -14,12 +14,16 @@ public class Request implements Serializable
   }
 
 
-
   public Object getObject(){
     return requestObj;
   }
 
   public void setObject(Object obj){
     requestObj = obj;
+  }
+
+  public String getRequestName()
+  {
+    return requestName;
   }
 }

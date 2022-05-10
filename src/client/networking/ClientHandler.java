@@ -1,6 +1,7 @@
 package client.networking;
 
 import transferobjects.ErrorMessage;
+import transferobjects.Request;
 import transferobjects.User;
 
 import java.io.IOException;
@@ -52,6 +53,19 @@ public class ClientHandler implements Runnable {
                 // in case the received object is a ErrorMessage
                 else if(obj instanceof ErrorMessage){
                     client.errorReceivedFromServer((ErrorMessage) obj);
+                }
+                else if(obj instanceof Request)
+                {
+                    Request request = (Request) obj;
+                    if(request.getRequestName().equals("MenuItemRequest"))
+                    {
+                        client.listOfMenuItemsReceived(request);
+                    }
+
+                    else if(request.getRequestName().equals("PendingUserRequest"))
+                    {
+                        client.listOfEmployeeReceived(request);
+                    }
                 }
             }
         } catch (IOException | ClassNotFoundException e){

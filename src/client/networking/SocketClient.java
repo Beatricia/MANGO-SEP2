@@ -55,27 +55,24 @@ public class SocketClient implements Client{
 
     @Override public void sendRequest(Request request)
     {
-
+        clientHandler.send(request);
     }
 
     @Override public void addItemsToDailyMenu(DailyMenuItem dailyMenuItem)
     {
-
+        clientHandler.send(dailyMenuItem);
     }
-
-   // @Override public ArrayList<User> requestPendingEmployee()
-    //{
-      //  return null;
-    //}
 
     @Override public void acceptEmployee(User user)
     {
-
+        User userAccepted = new User(user.getUsername(),user.getUserType(),user.getFirstName(),user.getLastName(),true);
+        clientHandler.send(userAccepted);
     }
 
     @Override public void declineEmployee(User user)
     {
-
+        User userDeclined = new User(user.getUsername(),user.getUserType(),user.getFirstName(),user.getLastName(),false);
+        clientHandler.send(userDeclined);
     }
 
     /**
@@ -112,4 +109,15 @@ public class SocketClient implements Client{
     public void errorReceivedFromServer(ErrorMessage obj) {
         support.firePropertyChange(ERROR_RECEIVED, null, obj);
     }
+
+    public void listOfEmployeeReceived(Request request)
+    {
+       support.firePropertyChange(PENDING_EMPLOYEES_RECEIVED,null, request.getObject());
+    }
+
+    public void listOfMenuItemsReceived(Request request)
+    {
+        support.firePropertyChange(MENU_ITEMS_RECEIVED,null,request.getObject());
+    }
+
 }

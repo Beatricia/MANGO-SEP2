@@ -61,7 +61,7 @@ public class MenuModelImp implements MenuModel
     }
   }
 
-  @Override public ArrayList<MenuItem> getListOfMenuItems()
+  @Override public ArrayList<MenuItem> getListOfMenuItems() throws SQLException
   {
     return databaseConn.getListOfMenuItems();
   }

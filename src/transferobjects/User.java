@@ -16,6 +16,7 @@ public class User implements Serializable
   private UserType userType;
   private String firstName;
   private String lastName;
+  private boolean isAccepted;
 
   /**
    * Construct the User object
@@ -31,6 +32,15 @@ public class User implements Serializable
     this.firstName = firstName;
     this.lastName = lastName;
     this.userType = userType;
+  }
+
+  public User(String username,UserType userType, String firstName,String lastName,Boolean isAccepted)
+  {
+    this.username = username;
+    this.userType = userType;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.isAccepted = isAccepted;
   }
 
   /**
@@ -72,6 +82,11 @@ public class User implements Serializable
   public UserType getUserType()
   {
     return userType;
+  }
+
+  public Boolean getIsAccepted()
+  {
+    return isAccepted;
   }
 
   public String toString(){
