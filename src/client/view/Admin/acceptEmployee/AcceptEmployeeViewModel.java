@@ -1,7 +1,9 @@
 package client.view.Admin.acceptEmployee;
 
 import client.model.AdminModel;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import shared.UserType;
 import transferobjects.User;
@@ -10,15 +12,17 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-public class AcceptEmployeeViewModel
+public class AcceptEmployeeViewModel implements PropertyChangeListener
 {
   private AdminModel adminModel;
   private ObservableList<User> users;
+  private static String PENDING_USERS_REQUEST = "PendingUsersRequest";
 
   public AcceptEmployeeViewModel(AdminModel adminModel)
   {
     this.adminModel = adminModel;
     users = FXCollections.observableList(new ArrayList<>());
+    adminModel.addListener(this);
   }
 
   public void handleUser(User user, boolean accept)
@@ -36,7 +40,7 @@ public class AcceptEmployeeViewModel
 
   public void refresh()
   {
-    users.clear();
+   /* users.clear();
 
       ArrayList<User> pendingUsers = adminModel.requestPendingEmployees();
 
@@ -47,12 +51,27 @@ public class AcceptEmployeeViewModel
             pendingUser.getFirstName(), pendingUser.getLastName());
 
         users.add(user);
-      }
+      }*/
+
+    adminModel.requestPendingEmployees();
 
   }
 
   public ObservableList<User> getEmployeeList()
   {
     return users;
+  }
+
+  //man idk
+  public void updateEmployeeList(PropertyChangeEvent e){
+    if (e.getPropertyName().equals(PENDING_USERS_REQUEST)){
+      users.clear();
+      users.addAll((ArrayList<User>) e.getNewValue());
+    }
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    updateEmployeeList(evt);
   }
 }
