@@ -26,8 +26,8 @@ public class ClientFactory
       try
       {
         Log.log("Client was created");
-        //client = new SocketClient();
-        client = new TestClient();
+        client = new SocketClient();
+        //client = new TestClient();
       }
       catch (IOException e)
       {

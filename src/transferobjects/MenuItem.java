@@ -63,13 +63,17 @@ public class MenuItem implements Serializable
   }
 
   /**
-   * get the path of the image
+   * gets the path of the image
    * @return image's path
    */
   public SerializableImage getImage()
   {
     return image;
   }
+
+  /**
+   * assigns parameter as image variable
+   */
 
   public void setImage(SerializableImage image)
   {

@@ -1,5 +1,6 @@
 package client.networking;
 
+import shared.Log;
 import transferobjects.ErrorMessage;
 import transferobjects.Request;
 import transferobjects.User;
@@ -49,22 +50,26 @@ public class ClientHandler implements Runnable {
                 //in case the received object is a User
                 if(obj instanceof User){
                     client.userReceivedFromServer((User)obj);
+                    Log.log("ClientHandler User object received from server");
                 }
                 // in case the received object is a ErrorMessage
                 else if(obj instanceof ErrorMessage){
                     client.errorReceivedFromServer((ErrorMessage) obj);
+                    Log.log("ClientHandler ErrorMessage object received from server");
                 }
                 else if(obj instanceof Request)
                 {
                     Request request = (Request) obj;
-                    if(request.getRequestName().equals("MenuItemRequest"))
+                    if(request.getRequestName().equals(Request.MENU_ITEMS_REQUEST))
                     {
                         client.listOfMenuItemsReceived(request);
+                        Log.log("ClientHandler MENU_ITEMS_REQUEST received from server");
                     }
 
-                    else if(request.getRequestName().equals("PendingUserRequest"))
+                    else if(request.getRequestName().equals(Request.PENDING_USER_REQUEST))
                     {
                         client.listOfEmployeeReceived(request);
+                        Log.log("ClientHandler PENDING_USER_REQUEST received from server");
                     }
 
                 }
@@ -81,6 +86,7 @@ public class ClientHandler implements Runnable {
     public void send(Serializable serializable) {
         try {
             toServer.writeObject(serializable);
+            Log.log("ClientHandler send object to server");
         } catch (IOException e){
             e.printStackTrace();
         }

@@ -37,6 +37,7 @@ public class SocketClient implements Client{
     @Override
     public void login(LoginRequest request) {
         clientHandler.send(request);
+        Log.log("SocketClient LoginRequest(logIn) send to server");
     }
 
     /**
@@ -46,6 +47,7 @@ public class SocketClient implements Client{
     @Override
     public void register(LoginRequest request) {
         clientHandler.send(request);
+        Log.log("SocketClient LoginRequest(register) send to server");
     }
 
     /**
@@ -54,16 +56,19 @@ public class SocketClient implements Client{
      */
     @Override public void addItem(MenuItem menuItem) {
         clientHandler.send(menuItem);
+        Log.log("SocketClient menuItem send to server");
     }
 
     @Override public void sendRequest(Request request)
     {
         clientHandler.send(request);
+        Log.log("SocketClient request send to server");
     }
 
     @Override public void addItemsToDailyMenu(DailyMenuItem dailyMenuItem)
     {
         clientHandler.send(dailyMenuItem);
+        Log.log("SocketClient dailyMenuItem send to server");
     }
 
 
@@ -75,6 +80,7 @@ public class SocketClient implements Client{
     @Override
     public void addListener(String event, PropertyChangeListener listener) {
         support.addPropertyChangeListener(event,listener);
+        Log.log(listener + " has been added to " + this + " as listener to " + event);
     }
 
     /**
@@ -84,6 +90,7 @@ public class SocketClient implements Client{
     @Override
     public void addListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+        Log.log(listener + " has been added to " + this + " as listener");
     }
 
     /**
@@ -92,6 +99,7 @@ public class SocketClient implements Client{
      */
     public void userReceivedFromServer(User obj) {
         support.firePropertyChange(LOGGED_IN_RECEIVED, null,obj);
+        Log.log("SocketClient fires a LOGGED_IN_RECEIVED event");
     }
 
     /**
@@ -100,16 +108,19 @@ public class SocketClient implements Client{
      */
     public void errorReceivedFromServer(ErrorMessage obj) {
         support.firePropertyChange(ERROR_RECEIVED, null, obj);
+        Log.log("SocketClient fires a ERROR_RECEIVED event");
     }
 
     public void listOfEmployeeReceived(Request request)
     {
        support.firePropertyChange(PENDING_EMPLOYEES_RECEIVED,null, request.getObject());
+        Log.log("SocketClient fires a PENDING_EMPLOYEES_RECEIVED event");
     }
 
     public void listOfMenuItemsReceived(Request request)
     {
         support.firePropertyChange(MENU_ITEMS_RECEIVED,null,request.getObject());
+        Log.log("SocketClient fires a MENU_ITEMS_RECEIVED event");
     }
 
 }
