@@ -1,5 +1,7 @@
 package util;
 
+import shared.Log;
+
 public class LogInException extends Exception
 {
   /**
@@ -10,6 +12,7 @@ public class LogInException extends Exception
   public LogInException(String message)
   {
     super(message);
+    Log.log("LogInException: Exception in Log-In hhh I dont think we need this one tho");
   }
 }
 

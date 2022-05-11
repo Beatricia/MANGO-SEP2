@@ -1,5 +1,6 @@
 package server.databaseConn;
 
+import shared.Log;
 import shared.UserType;
 import transferobjects.User;
 import util.LogInException;
@@ -26,12 +27,15 @@ class UserDatabaseConn
       statement.setString(3, username);
       statement.setString(4, password);
       statement.executeUpdate();
+      Log.log("UserDatabaseConn the user is added(registred) to the database");
       if(userType.equals(UserType.EMPLOYEE))
       {
+        Log.log("UserDatabaseConn the employee user needs to be verified");
         throw new LogInException("Employee account needs to be verified");
       }
       else
       {
+        Log.log("UserDatabaseConn a new User is received from the database");
         return new User(username, userType, firstName, lastName);
       }
     }
@@ -68,6 +72,7 @@ class UserDatabaseConn
         statement.setString(1, username);
         System.out.println(str);
         ResultSet set = statement.executeQuery();
+        Log.log("UserDatabaseConn a new login(employee, customer, administrator) is received from the database ");
 
         try
         {
@@ -83,15 +88,18 @@ class UserDatabaseConn
 
               if(!accepted)
               {
+                Log.log("UserDatabaseConn employee account needs to be verified");
                 throw new LogInException("Employee account needs to be verified");
               }
             }
 
             if (!passwordFromDB.equals(password))
             {
+              Log.log("UserDatabaseConn user inserted a password that does not match");
               throw new LogInException("Password does not match");
             }
 
+            Log.log("UserDatabaseConn a new user is created with database's information");
             return new User(username, userType, firstName, lastName);
           }
         }

@@ -31,7 +31,7 @@ public class ModelFactory
   {
     if(userModel == null)
     {
-      Log.log("UserModel was created");
+      Log.log("ModelFactory: UserModel was created");
       userModel = new UserModelImp(clientFactory.getClient());
     }
     return userModel;
@@ -41,7 +41,7 @@ public class ModelFactory
   {
     if(menuModel == null)
     {
-      Log.log("MenuModel was created");
+      Log.log("ModelFactory: MenuModel was created");
       menuModel = new MenuModelImp(clientFactory.getClient());
     }
     return menuModel;
@@ -50,7 +50,7 @@ public class ModelFactory
   public AdminModel getAdminModel() {
     if(adminModel == null)
     {
-      Log.log("AdminModel was created");
+      Log.log("ModelFactory: AdminModel was created");
       adminModel = new AdminModelImp(clientFactory.getClient());
     }
     return adminModel;

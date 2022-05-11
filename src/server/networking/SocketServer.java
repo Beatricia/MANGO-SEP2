@@ -3,10 +3,12 @@ package server.networking;
 import server.databaseConn.DatabaseConn;
 import server.databaseConn.DatabaseConnImp;
 import server.model.*;
+import shared.Log;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDate;
 
 /**
  * The class which is responsible for initializing the <code>DatabaseConn</code>, the model, and accept
@@ -25,6 +27,7 @@ public class SocketServer
     // Create server socket on specific port
     ServerSocket serverSocket = new ServerSocket(1111);
     System.out.println("Server Running");
+    Log.log("Server Running");
 
 
     DatabaseConn databaseConn = new DatabaseConnImp();
@@ -35,10 +38,12 @@ public class SocketServer
     while(true){
       // Accept a new socket
       Socket clientSocket = serverSocket.accept();
+      Log.log("SocketServer accepts a new socket");
       // Init server socket handler
       ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel);
       // put the handler on a different thread
       Thread handlerThread = new Thread(handler);
+      Log.log("SocketServer puts handler into another thread");
       handlerThread.start();
     }
   }

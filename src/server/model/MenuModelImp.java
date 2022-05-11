@@ -61,10 +61,20 @@ public class MenuModelImp implements MenuModel
     }
   }
 
+  /**
+   * get list of all menu items received from Databaseconn
+   * @return ArrayList of MenuItem
+   */
+
   @Override public ArrayList<MenuItem> getListOfMenuItems() throws SQLException
   {
     return databaseConn.getListOfMenuItems();
   }
+
+  /**
+   * Passes the daily menu item onto the Database connection.
+   * @param dailyMenuItem which is unwrapped and passed onto the class Databaseconn
+   */
 
   @Override public void addDailyMenuItem(DailyMenuItem dailyMenuItem)
       throws SQLException

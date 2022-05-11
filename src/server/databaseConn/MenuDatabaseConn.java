@@ -1,5 +1,6 @@
 package server.databaseConn;
 
+import shared.Log;
 import transferobjects.MenuItem;
 import util.LogInException;
 
@@ -42,6 +43,7 @@ class MenuDatabaseConn
       statement.setString(3, imgPath);
 
       statement.executeQuery();
+      Log.log("MenuDatabaseConn adds MenuItem to database");
     }
   }
 
@@ -61,6 +63,7 @@ class MenuDatabaseConn
       sql.substring(sql.length()-2);
 
       statement.executeUpdate(sql);
+      Log.log("MenuDatabaseConn adds DailyMenuItem to database");
 
     }
 
@@ -87,6 +90,8 @@ class MenuDatabaseConn
         menuItems.add(new MenuItem(name, null, price));
       }
     }
+
+    Log.log("MenuDatabaseConn returns ListOfMenuItems to database");
     return menuItems;
   }
 }

@@ -3,6 +3,7 @@ package server.networking;
 import server.model.AdminModel;
 import server.model.MenuModel;
 import server.model.UserModel;
+import shared.Log;
 import transferobjects.*;
 import util.LogInException;
 
@@ -65,6 +66,7 @@ public class ServerHandler implements Runnable
     try{
       // Send the object here
       toClient.writeObject(o);
+      Log.log("ServerHandler object sent to the server");
       System.out.println("Object sent: " + o);
     }
     catch (IOException | NullPointerException e) {
@@ -105,6 +107,7 @@ public class ServerHandler implements Runnable
           ErrorMessage errorMessage = new ErrorMessage(e.getMessage());
           // Sending the Error Message object back to client
           sendObject(errorMessage);
+          Log.log("ServerHandler catches error message and sends it to client");
         }
 
       }
@@ -125,7 +128,7 @@ public class ServerHandler implements Runnable
     // in case the received object is a MenuItem object
     else if (receivedObj instanceof MenuItem) {
       MenuItem menuItem = (MenuItem) receivedObj;
-
+      Log.log("ServerHandler received MenuItem object");
       menuModel.addItem(menuItem);
     }
 
@@ -133,6 +136,7 @@ public class ServerHandler implements Runnable
     else if(receivedObj instanceof DailyMenuItem)
     {
       DailyMenuItem dailyMenuItem = (DailyMenuItem) receivedObj;
+      Log.log("ServerHandler received dailyMenuItem object");
       menuModel.addDailyMenuItem(dailyMenuItem);
     }
 
@@ -148,22 +152,28 @@ public class ServerHandler implements Runnable
     if(request.getRequestName().equals(Request.MENU_ITEMS_REQUEST))
     {
       request.setObject(menuModel.getListOfMenuItems());
+      Log.log("ServerHandler received MENU_ITEMS_REQUEST");
       sendObject(request);
+      Log.log("ServerHandler sends Request object to client with list of menu items");
     }
 
     else if(request.getRequestName().equals(Request.PENDING_USER_REQUEST))
     {
       request.setObject(adminModel.requestPendingEmployees());
+      Log.log("ServerHandler received PENDING_USER_REQUEST");
       sendObject(request);
+      Log.log("ServerHandler sends Request object to client with list of pending employee");
     }
     else if(request.getRequestName().equals(Request.EMPLOYEE_IS_ACCEPTED))
     {
       adminModel.acceptEmployee((User)request.getObject());
+      Log.log("ServerHandler received EMPLOYEE_IS_ACCEPTED");
      // sendObject();
     }
     else if(request.getRequestName().equals(Request.EMPLOYEE_IS_DECLINED))
     {
       adminModel.declineEmployee((User)request.getObject());
+      Log.log("ServerHandler received EMPLOYEE_IS_DECLINED");
     }
 
   }
@@ -174,12 +184,20 @@ public class ServerHandler implements Runnable
 
     // Check if the request is actually a login or a register request
     if (request.getIsRegister())
+    {
       user = userModel.register(request);
+
+      Log.log("ServerHandler received LoginRequest(register) object");
+    }
+
     else
       user = userModel.login(request);
 
+    Log.log("ServerHandler received LoginRequest(logIn) object");
+
     // Send the Logged in - User object back to the client
     sendObject(user);
+    Log.log("ServerHandler sends user object back");
   }
 
   /**
@@ -193,8 +211,11 @@ public class ServerHandler implements Runnable
 
     // Close streams
     closeObject(toClient);
+    Log.log("ServerHandler closes toClient stream");
     closeObject(fromClient);
+    Log.log("ServerHandler closes fromClient stream");
     closeObject(clientSocket);
+    Log.log("ServerHandler closes clientSocket stream ");
 
     //Set the objects to null, so the Garbage Collector can collect the unused streams.
     toClient = null;
