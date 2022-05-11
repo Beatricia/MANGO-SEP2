@@ -1,5 +1,6 @@
 package server.databaseConn;
 
+import shared.Log;
 import shared.UserType;
 import transferobjects.LoginRequest;
 import transferobjects.MenuItem;
@@ -21,6 +22,17 @@ import java.util.Scanner;
  */
 public class DatabaseConnImp implements DatabaseConn
 {
+
+  private final UserDatabaseConn userDatabaseConn;
+  private final MenuDatabaseConn menuDatabaseConn;
+  private final AdminDataBaseConnection adminDataBaseConnection;
+
+  public DatabaseConnImp()
+  {
+    userDatabaseConn = new UserDatabaseConn();
+    menuDatabaseConn = new MenuDatabaseConn();
+    adminDataBaseConnection = new AdminDataBaseConnection();
+  }
 
   /**
    * Password to the SQL Server.
@@ -49,6 +61,7 @@ public class DatabaseConnImp implements DatabaseConn
       e.printStackTrace();
     }
 
+    Log.log("DatabaseConnImp: System just hacked your Password for DataGrip");
     return password;
   }
 
@@ -60,6 +73,8 @@ public class DatabaseConnImp implements DatabaseConn
    */
   static Connection getConnection() throws SQLException
   {
+    Log.log("DatabaseConnImp: Connection with Database established");
+
     return DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/postgres?currentSchema=caneat",
         "postgres", getPass());
@@ -88,17 +103,6 @@ public class DatabaseConnImp implements DatabaseConn
     return e;
   }
 
-  private final UserDatabaseConn userDatabaseConn;
-  private final MenuDatabaseConn menuDatabaseConn;
-  private final AdminDataBaseConnection adminDataBaseConnection;
-
-  public DatabaseConnImp()
-  {
-    userDatabaseConn = new UserDatabaseConn();
-    menuDatabaseConn = new MenuDatabaseConn();
-    adminDataBaseConnection = new AdminDataBaseConnection();
-  }
-
   /**
    * Log in with the specified username and the password.
    *
@@ -113,6 +117,7 @@ public class DatabaseConnImp implements DatabaseConn
   {
     try
     {
+      Log.log("DatabaseConnImp: Sending a Log-In request to the UserDatabaseConn");
       return userDatabaseConn.login(username, password);
     }
     catch (SQLException e)
@@ -138,6 +143,7 @@ public class DatabaseConnImp implements DatabaseConn
   {
     try
     {
+      Log.log("DatabaseConnImp: Sending a Register request to the UserDatabaseConn");
       return userDatabaseConn.register(firstName, lastName, username, password,
           userType);
     }
@@ -161,6 +167,7 @@ public class DatabaseConnImp implements DatabaseConn
   {
     try
     {
+      Log.log("DatabaseConnImp: Sending a addItem request to the MenuDatabaseConn");
       menuDatabaseConn.addItem(name, ingredients, price, imgPath);
     }
     catch (SQLException e)
@@ -174,6 +181,7 @@ public class DatabaseConnImp implements DatabaseConn
   {
     try
     {
+      Log.log("DatabaseConnImp: Sending a AddDailyMenu request to the MenuDatabaseConn");
       menuDatabaseConn.addDailyMenu(date, menuItems);
     }
     catch (SQLException e)
@@ -186,6 +194,7 @@ public class DatabaseConnImp implements DatabaseConn
   {
     try
     {
+      Log.log("DatabaseConnImp: Sending a getListMenuItems request to the MenuDatabaseConn");
       return menuDatabaseConn.getListOfMenuItems();
     }
     catch (SQLException e)
@@ -199,6 +208,7 @@ public class DatabaseConnImp implements DatabaseConn
   {
     try
     {
+      Log.log("DatabaseConnImp: Sending a handlePendingEmployee request to the AminDatabaseConn");
       adminDataBaseConnection.handlePendingEmployee(username, accept);
     }
     catch (SQLException e)
@@ -211,6 +221,7 @@ public class DatabaseConnImp implements DatabaseConn
   {
     try
     {
+      Log.log("DatabaseConnImp: Sending a getAllPendingEmployees request to the AdminDatabaseConn");
       return adminDataBaseConnection.getAllPendingEmployees();
     }
     catch (SQLException e)
