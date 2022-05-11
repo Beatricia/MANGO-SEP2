@@ -5,6 +5,7 @@ import client.view.Login.LoginViewModel;
 import client.view.MenuEmpl.AddDish.MenuEmplViewModel;
 import client.view.MenuEmpl.DailyMenu.DailyMenuViewModel;
 import client.view.register.RegisterViewModel;
+import shared.Log;
 
 /**
  * A class that returns the different types if view models the system uses
@@ -36,6 +37,7 @@ public class ViewModelFactory
   {
     if(loginViewModel == null)
     {
+      Log.log("ViewModelFactory: Log-In ViewModel created");
       loginViewModel = new LoginViewModel(modelFactory.getUserModel());
     }
     return loginViewModel;
@@ -50,6 +52,8 @@ public class ViewModelFactory
   {
     if(registerViewModel == null)
     {
+      Log.log("ViewModelFactory: Register ViewModel created");
+
       registerViewModel = new RegisterViewModel(modelFactory.getUserModel());
     }
     return registerViewModel;
@@ -59,6 +63,7 @@ public class ViewModelFactory
   public MenuEmplViewModel getMenuEmplViewModel(){
     if(menuEmplViewModel == null)
     {
+      Log.log("ViewModelFactory: MenuEmpl ViewModel created lol");
       menuEmplViewModel = new MenuEmplViewModel(modelFactory.getMenuModel());
     }
     return menuEmplViewModel;
@@ -68,6 +73,8 @@ public class ViewModelFactory
   {
     if(dailyMenuViewModel == null)
     {
+      Log.log("ViewModelFactory: DailyMenu ViewModel created");
+
       dailyMenuViewModel = new DailyMenuViewModel(modelFactory.getMenuModel());
     }
     return dailyMenuViewModel;
@@ -76,6 +83,8 @@ public class ViewModelFactory
   public AcceptEmployeeViewModel getAcceptEmployeeViewModel() {
     if(acceptEmployeeViewModel == null)
     {
+      Log.log("ViewModelFactory: AcceptEmployee ViewModel created");
+
       acceptEmployeeViewModel = new AcceptEmployeeViewModel(modelFactory.getAdminModel());
     }
     return acceptEmployeeViewModel;
