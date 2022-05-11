@@ -30,6 +30,7 @@ public class GeneralViewController implements ViewController
 
     init(viewHandler, viewModelFactory);
 
+
     String name = user.getFirstName() + " " + user.getLastName();
     nameLabel.setText(name);
 

@@ -9,6 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class AdminDataBaseConnection {
     public void handlePendingEmployee(String username, boolean accept) throws SQLException {
         try(Connection connection = DatabaseConnImp.getConnection()) {
@@ -50,28 +53,3 @@ public class AdminDataBaseConnection {
     }
 }
 
-class Main {
-    public static void main(String[] args) throws SQLException {
-        ArrayList<User> pendingEmployees = new ArrayList<>();
-        try(Connection connection = DatabaseConnImp.getConnection()) {
-            String str = "SELECT username, firstName, lastName\n" +
-                    "FROM employee\n" +
-                    "WHERE employee.accepted=false;";
-            PreparedStatement statement = connection.prepareStatement(str);
-            ResultSet set = statement.executeQuery();
-            while(set.next())
-            {
-                String userName = set.getString("username");
-                String firstName = set.getString("firstname");
-                String lastName = set.getString("lastname");
-                    User user = new User(userName, UserType.EMPLOYEE, firstName, lastName);
-                    pendingEmployees.add(user);
-
-            }
-            for (int i = 0; i < pendingEmployees.size(); i++) {
-                System.out.println(i+" " + pendingEmployees.get(i)+"\n");
-            }
-        }
-
-    }
-}

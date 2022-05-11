@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+import shared.Log;
 import transferobjects.User;
 
 import java.util.*;
@@ -48,9 +49,11 @@ public class AcceptEmployeeController implements ViewController
       change.next();
       if(change.wasRemoved()){
         removeUsers(change.getRemoved());
+        Log.log("AcceptEmployeeController the employee was removed from the ViewModel");
       }
       else if(change.wasAdded()){
         addUsers(change.getAddedSubList());
+        Log.log("AcceptEmployeeController the employee was added to the ViewModel");
       }
     });
   }
@@ -101,6 +104,7 @@ public class AcceptEmployeeController implements ViewController
 
     employeeVBox.getChildren().add(borderPane);
 
+    Log.log("AcceptEmployeeController a new userBox is created");
     return borderPane;
   }
 

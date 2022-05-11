@@ -3,6 +3,7 @@ package client.view.general;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import javafx.scene.control.TabPane;
+import shared.Log;
 
 public class AdminGUI extends UserStrategy
 {
@@ -15,6 +16,7 @@ public class AdminGUI extends UserStrategy
   }
 
   @Override public void loadTabs() {
+    Log.log("AdminGUI admin tabs are loading");
     loadTabs(tabs);
   }
 }

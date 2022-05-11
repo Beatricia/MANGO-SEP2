@@ -31,10 +31,19 @@ public class ClientFactory
       }
       catch (IOException e)
       {
-        System.err.println("--------------------------------------------");
-        System.err.println("          SERVER IS NOT RUNNING");
-        System.err.println("--------------------------------------------");
-
+        Log.log("---------------ClientFactory----------------");
+        Log.log("--------------------------------------------");
+        Log.log("          SERVER IS NOT RUNNING");
+        Log.log("--------------------------------------------");
+        Log.log("               ****     ****                   ");
+        Log.log("              *    *   *    *                  ");
+        Log.log("               *    * *    *                  ");
+        Log.log("                *    *    *                   ");
+        Log.log("                 * AGATA *                    ");
+        Log.log("                  *     *                     ");
+        Log.log("                   *   *                    ");
+        Log.log("                    * *                       ");
+        Log.log("                     *                       ");
         System.exit(0);
       }
     }

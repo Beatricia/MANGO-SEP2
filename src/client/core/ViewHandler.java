@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import shared.Log;
 import shared.UserType;
 import transferobjects.User;
 
@@ -55,6 +56,7 @@ public class ViewHandler implements PropertyChangeListener
    */
   public void start() {
     openLoginView();
+    //openAdminView();
   }
 
   /**
@@ -70,6 +72,7 @@ public class ViewHandler implements PropertyChangeListener
       loginScene = new Scene(p);
     }
 
+    Log.log("ViewHandler: Log-In view opened");
     stage.setScene(loginScene);
     stage.setTitle("Log in");
     stage.show();
@@ -89,6 +92,7 @@ public class ViewHandler implements PropertyChangeListener
     }
 
 
+    Log.log("ViewHandler: Register view opened");
     stage.setTitle("Register");
     stage.setScene(registerScene);
     stage.show();
@@ -110,11 +114,31 @@ public class ViewHandler implements PropertyChangeListener
       }
 
 
+      Log.log("ViewHandler: General view opened");
       stage.setScene(generalScene);
       stage.show();
     } catch (IOException e){
       e.printStackTrace();
     }
+  }
+
+  /**
+   * A method that loads the login view, instantiates the LoginViewController,
+   * calls the init() method in the controller, sets a title for the stage and
+   * displays the view.
+   */
+  public void openAdminView() {
+
+    if(loginScene == null){
+      String path = "../view/Admin/acceptEmployee/AcceptEmployeeView.fxml";
+      Pane p = openView(path);
+      loginScene = new Scene(p);
+    }
+
+    Log.log("ViewHandler: Admin view opened");
+    stage.setScene(loginScene);
+    stage.setTitle("Admin");
+    stage.show();
   }
 
   private Pane openView(String path) {
