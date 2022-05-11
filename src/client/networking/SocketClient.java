@@ -6,6 +6,7 @@ import transferobjects.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -58,16 +59,24 @@ public class SocketClient implements Client{
         Log.log("SocketClient menuItem send to server");
     }
 
+    /**
+     * Sends the Request object to the server
+     * @param request object to send to the server
+     */
     @Override public void sendRequest(Request request)
     {
         clientHandler.send(request);
         Log.log("SocketClient request send to server");
     }
 
-    @Override public void addItemsToDailyMenu(
-        DailyMenuItemList dailyMenuItemList)
+    /**
+     * Sends the DailyMenuItem to the server
+     * @param dailyMenuItem object to send to the server
+     */
+
+    @Override public void addItemsToDailyMenu(DailyMenuItemList dailyMenuItem)
     {
-        clientHandler.send(dailyMenuItemList);
+        clientHandler.send(dailyMenuItem);
         Log.log("SocketClient dailyMenuItem send to server");
     }
 
@@ -79,8 +88,8 @@ public class SocketClient implements Client{
      */
     @Override
     public void addListener(String event, PropertyChangeListener listener) {
-        Log.log(listener + " has been added to " + this + " as listener to " + event);
         support.addPropertyChangeListener(event,listener);
+        Log.log(listener + " has been added to " + this + " as listener to " + event);
     }
 
     /**
@@ -89,9 +98,8 @@ public class SocketClient implements Client{
      */
     @Override
     public void addListener(PropertyChangeListener listener) {
-        Log.log(listener + " has been added to " + this + " as listener");
         support.addPropertyChangeListener(listener);
-
+        Log.log(listener + " has been added to " + this + " as listener");
     }
 
     /**
@@ -99,9 +107,8 @@ public class SocketClient implements Client{
      * @param obj the User object
      */
     public void userReceivedFromServer(User obj) {
-        Log.log("SocketClient fires a LOGGED_IN_RECEIVED event");
         support.firePropertyChange(LOGGED_IN_RECEIVED, null,obj);
-
+        Log.log("SocketClient fires a LOGGED_IN_RECEIVED event");
     }
 
     /**
@@ -109,23 +116,31 @@ public class SocketClient implements Client{
      * @param obj the ErrorMessage object
      */
     public void errorReceivedFromServer(ErrorMessage obj) {
-        Log.log("SocketClient fires a ERROR_RECEIVED event");
         support.firePropertyChange(ERROR_RECEIVED, null, obj);
-
+        Log.log("SocketClient fires a ERROR_RECEIVED event");
     }
 
+    /**
+     * Fires the PENDING_EMPLOYEES_RECEIVED event when a
+     * list of pending employee has been received from the server
+     * @param request the Request object
+     */
     public void listOfEmployeeReceived(Request request)
     {
-        Log.log("SocketClient fires a PENDING_EMPLOYEES_RECEIVED event");
        support.firePropertyChange(PENDING_EMPLOYEES_RECEIVED,null, request.getObject());
-
+        Log.log("SocketClient fires a PENDING_EMPLOYEES_RECEIVED event");
     }
+
+    /**
+     * Fires the MENU_ITEMS_RECEIVED event when a
+     * list of menu items has been received from the server
+     * @param request the Request object
+     */
 
     public void listOfMenuItemsReceived(Request request)
     {
-        Log.log("SocketClient fires a MENU_ITEMS_RECEIVED event");
         support.firePropertyChange(MENU_ITEMS_RECEIVED,null,request.getObject());
-
+        Log.log("SocketClient fires a MENU_ITEMS_RECEIVED event");
     }
 
 }

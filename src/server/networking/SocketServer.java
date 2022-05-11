@@ -23,11 +23,10 @@ public class SocketServer
    * @throws IOException Throws IOException if a Fatal error happens.
    */
   public void startServer() throws IOException {
-
+    Log.log("SocketServer: Server Running");
     // Create server socket on specific port
     ServerSocket serverSocket = new ServerSocket(1111);
     System.out.println("Server Running");
-    Log.log("Server Running");
 
 
     DatabaseConn databaseConn = new DatabaseConnImp();
@@ -36,9 +35,9 @@ public class SocketServer
     AdminModel adminModel = new AdminModelImp(databaseConn);
 
     while(true){
+      Log.log("SocketServer accepts a new socket");
       // Accept a new socket
       Socket clientSocket = serverSocket.accept();
-      Log.log("SocketServer accepts a new socket");
       // Init server socket handler
       ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel);
       // put the handler on a different thread

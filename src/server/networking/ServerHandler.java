@@ -64,9 +64,9 @@ public class ServerHandler implements Runnable
    */
   public void sendObject(Serializable o){
     try{
+      Log.log("ServerHandler object sent to the server");
       // Send the object here
       toClient.writeObject(o);
-      Log.log("ServerHandler object sent to the server");
       System.out.println("Object sent: " + o);
     }
     catch (IOException | NullPointerException e) {
@@ -105,9 +105,9 @@ public class ServerHandler implements Runnable
         } catch (Exception e) {
           // Constructing the Error Message object
           ErrorMessage errorMessage = new ErrorMessage(e.getMessage());
+          Log.log("ServerHandler catches error message and sends it to client");
           // Sending the Error Message object back to client
           sendObject(errorMessage);
-          Log.log("ServerHandler catches error message and sends it to client");
         }
 
       }
@@ -118,6 +118,11 @@ public class ServerHandler implements Runnable
     }
   }
 
+  /**
+   * The method is used to handle received object
+   * @param receivedObj
+   * @throws Exception
+   */
   private void handleReceivedObject(Object receivedObj) throws Exception {
     // in case the received object is a LoginRequest object
     if (receivedObj instanceof LoginRequest) {
@@ -127,16 +132,16 @@ public class ServerHandler implements Runnable
     }
     // in case the received object is a MenuItem object
     else if (receivedObj instanceof MenuItem) {
-      MenuItem menuItem = (MenuItem) receivedObj;
       Log.log("ServerHandler received MenuItem object");
+      MenuItem menuItem = (MenuItem) receivedObj;
       menuModel.addItem(menuItem);
     }
 
-    //in case the received object is a DailyMenuItem object
+    //in case the received object is a DailyMenuItemList object
     else if(receivedObj instanceof DailyMenuItemList)
     {
-      DailyMenuItemList dailyMenuItem = (DailyMenuItemList) receivedObj;
       Log.log("ServerHandler received dailyMenuItem object");
+      DailyMenuItemList dailyMenuItem = (DailyMenuItemList) receivedObj;
       menuModel.addDailyMenuItem(dailyMenuItem);
     }
 
@@ -147,37 +152,48 @@ public class ServerHandler implements Runnable
     }
   }
 
+  /**
+   * The method is used to distinguish type of received Request object
+   * @param request
+   * @throws SQLException
+   */
   private void handleRequestObject(Request request) throws SQLException
   {
+    Log.log("ServerHandler received MENU_ITEMS_REQUEST");
     if(request.getRequestName().equals(Request.MENU_ITEMS_REQUEST))
     {
-      request.setObject(menuModel.getListOfMenuItems());
-      Log.log("ServerHandler received MENU_ITEMS_REQUEST");
-      sendObject(request);
       Log.log("ServerHandler sends Request object to client with list of menu items");
+      request.setObject(menuModel.getListOfMenuItems());
+      sendObject(request);
     }
 
     else if(request.getRequestName().equals(Request.PENDING_USER_REQUEST))
     {
-      request.setObject(adminModel.requestPendingEmployees());
       Log.log("ServerHandler received PENDING_USER_REQUEST");
-      sendObject(request);
+      request.setObject(adminModel.requestPendingEmployees());
       Log.log("ServerHandler sends Request object to client with list of pending employee");
+      sendObject(request);
     }
     else if(request.getRequestName().equals(Request.EMPLOYEE_IS_ACCEPTED))
     {
-      adminModel.acceptEmployee((User)request.getObject());
       Log.log("ServerHandler received EMPLOYEE_IS_ACCEPTED");
+      adminModel.acceptEmployee((User)request.getObject());
      // sendObject();
     }
     else if(request.getRequestName().equals(Request.EMPLOYEE_IS_DECLINED))
     {
-      adminModel.declineEmployee((User)request.getObject());
       Log.log("ServerHandler received EMPLOYEE_IS_DECLINED");
+      adminModel.declineEmployee((User)request.getObject());
     }
 
   }
 
+  /**
+   * The method is used to distinguish between two types of LoginRequest object
+   * @param request
+   * @throws SQLException
+   * @throws LogInException
+   */
   private void handleLoginRequest(LoginRequest request) throws SQLException, LogInException {
     // User variable to load the object we receive from the model
     User user;

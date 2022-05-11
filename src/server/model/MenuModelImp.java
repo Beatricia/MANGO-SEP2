@@ -72,7 +72,7 @@ public class MenuModelImp implements MenuModel
 
   /**
    * Passes the daily menu item onto the Database connection.
-   * @param dailyMenuItem which is unwrapped and passed onto the class Databaseconn
+   * @param dailyMenuItemList which is unwrapped and passed onto the class Databaseconn
    */
 
   @Override public void addDailyMenuItem(DailyMenuItemList dailyMenuItemList)
