@@ -1,5 +1,7 @@
 package transferobjects;
 
+import shared.Log;
+
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
@@ -37,6 +39,8 @@ public class SerializableImage implements Serializable
         colors[index++] = rgb;
       }
     }
+
+    Log.log("SerializableImage transferobject created");
   }
 
   /**
@@ -54,6 +58,7 @@ public class SerializableImage implements Serializable
       }
     }
 
+    Log.log("SerializableImage getting BufferedImage created");
     return image;
   }
 

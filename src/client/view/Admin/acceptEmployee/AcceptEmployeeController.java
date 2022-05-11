@@ -59,6 +59,7 @@ public class AcceptEmployeeController implements ViewController
   }
 
   private void removeUsers(List<? extends User> users){
+    Log.log("AcceptEmployeeController remove user pressed");
     for (User user : users){
       try{
         Pane p = usersInView.get(user);
@@ -71,6 +72,7 @@ public class AcceptEmployeeController implements ViewController
   }
 
   private void addUsers(List<? extends User> users){
+    Log.log("AcceptEmployeeController add user pressed");
     for (User user : users){
       try{
         Pane p = createUserBox(user);

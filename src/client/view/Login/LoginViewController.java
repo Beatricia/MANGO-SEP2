@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import shared.Log;
 import shared.UserType;
 
 /**
@@ -46,13 +47,14 @@ public class LoginViewController implements ViewController
   }
 
   /**
-   * LogIn method to get particular user object.
+   * LogIn method to get particular user object.(When logg in button pressed)
    * @param actionEvent event which call login method from LoginViewModel.
    */
 
   public void onLogIn(ActionEvent actionEvent)
   {
-      viewModel.login(username.getText(), password.getText());
+    Log.log("LoginViewController logg in button pressed");
+    viewModel.login(username.getText(), password.getText());
   }
 
   /**
@@ -61,6 +63,7 @@ public class LoginViewController implements ViewController
 
   public void onRegister(ActionEvent actionEvent)
   {
+    Log.log("LoginViewController register button pressed");
     errorLabel.setText("");
     viewHandler.openRegisterView();
   }
