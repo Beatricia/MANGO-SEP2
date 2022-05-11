@@ -40,20 +40,11 @@ public class TestClient implements Client
 
   }
 
-  @Override public void addItemsToDailyMenu(DailyMenuItem dailyMenuItem)
+  @Override public void addItemsToDailyMenu(DailyMenuItemList dailyMenuItemList)
   {
 
   }
 
-  @Override public void acceptEmployee(User user)
-  {
-
-  }
-
-  @Override public void declineEmployee(User user)
-  {
-
-  }
 
   @Override public void addListener(String event, PropertyChangeListener listener) {
     support.addPropertyChangeListener(event, listener);

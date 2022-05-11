@@ -1,4 +1,4 @@
-package client.view.register;
+package client.view.Register;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import shared.Log;
 import shared.UserType;
 
 /**
@@ -29,7 +30,7 @@ public class RegisterViewController implements ViewController
   @FXML private PasswordField passwordRepeat;
   @FXML private Label errorMessage;
   private ViewHandler viewHandler;
-  private RegisterViewModel viewModel;
+  private client.view.Register.RegisterViewModel viewModel;
 
   /**
    * Binding all necessary fields with RegisterViewModel and initializing fo the @parameters.
@@ -55,8 +56,10 @@ public class RegisterViewController implements ViewController
    */
   @FXML private void onBack(ActionEvent actionEvent)
   {
+    Log.log("Go Back button in the Register view is pressed");
     errorMessage.setText("");
     viewHandler.openLoginView();
+
   }
 
   /**
@@ -65,6 +68,8 @@ public class RegisterViewController implements ViewController
    */
   @FXML private void onRegister(ActionEvent actionEvent)
   {
+
+    Log.log("Register button is clicked in the Register view");
     UserType userType = null;
       if (radioCustomer.isSelected()) // checks for the selected radio button
       {

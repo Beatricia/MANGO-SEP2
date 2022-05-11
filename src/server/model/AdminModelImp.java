@@ -35,7 +35,7 @@ public class AdminModelImp implements AdminModel
 
   @Override public void acceptEmployee(User user) throws SQLException
   {
-    databaseConn.handlePendingEmployee(user.getUsername(),user.getIsAccepted());
+    databaseConn.handlePendingEmployee(user.getUsername(), true);
   }
 
   /**
@@ -45,6 +45,6 @@ public class AdminModelImp implements AdminModel
 
   @Override public void declineEmployee(User user) throws SQLException
   {
-    databaseConn.handlePendingEmployee(user.getUsername(),user.getIsAccepted());
+    databaseConn.handlePendingEmployee(user.getUsername(),false);
   }
 }

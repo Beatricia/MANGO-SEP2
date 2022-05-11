@@ -1,8 +1,8 @@
 package client.model;
 
 import client.networking.Client;
+import shared.Log;
 import transferobjects.*;
-import util.PropertyChangeSubject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -48,11 +48,14 @@ public class MenuModelImp implements MenuModel
   private void sendError(PropertyChangeEvent event)
   {
     support.firePropertyChange(ERROR_RECEIVED, null,event.getNewValue() );
+
+    Log.log("MenuModelImp fires an ERROR_RECEIVED property");
   }
 
   private void sendMenuItems(PropertyChangeEvent event)
   {
     support.firePropertyChange(MENU_ITEMS_RECEIVED,null,event.getNewValue());
+    Log.log("MenuModelImp fires an MENU_ITEMS_RECEIVED property");
   }
 
   /**
@@ -74,6 +77,7 @@ public class MenuModelImp implements MenuModel
 
       MenuItem item = new MenuItem(name,ingredients,price);
       item.setImage(serializableImage);
+      Log.log("MenuModelImpl created a new MenuItem and set its image path");
 
       client.addItem(item); //added the image path here
     } catch (IOException e) {
@@ -87,13 +91,17 @@ public class MenuModelImp implements MenuModel
   {
     Request request = new Request(Request.MENU_ITEMS_REQUEST);
     client.sendRequest(request);
+
+    Log.log("MenuModelImpl send a MENU_ITEMS_REQUEST object to the Client (sendRequest method)");
   }
 
   @Override public void addItemsToDailyMenu(LocalDate date,
       ArrayList<MenuItem> menuItems)
   {
-    DailyMenuItem dailyMenuItem = new DailyMenuItem(date,menuItems);
-    client.addItemsToDailyMenu(dailyMenuItem);
+    DailyMenuItemList dailyMenuItemList = new DailyMenuItemList(date,menuItems);
+    client.addItemsToDailyMenu(dailyMenuItemList);
+
+    Log.log("MenuModelImpl sends a new dailyMenuItem object to the Client (addItemsToDailyMenu method)");
   }
 
   /**
@@ -105,6 +113,8 @@ public class MenuModelImp implements MenuModel
       PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(event,listener);
+
+    Log.log(listener + "has been added as a listener to " + this + " for " + event);
   }
 
   /**
@@ -115,5 +125,6 @@ public class MenuModelImp implements MenuModel
   @Override public void addListener(PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(listener);
+    Log.log(listener + "has been added as a listener to " + this);
   }
 }

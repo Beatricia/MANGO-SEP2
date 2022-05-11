@@ -19,7 +19,8 @@ public class Request implements Serializable
   private Object requestObj;
 
   public Request(String requestName){
-    this.requestObj = requestName;
+
+    this.requestName= requestName;
     Log.log("Request (" + requestName + ") transferobject created");
   }
 

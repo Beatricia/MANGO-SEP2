@@ -21,6 +21,7 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
 
   public AdminModelImp(Client client){
     this.client = client;
+    client.addListener(Client.PENDING_EMPLOYEES_RECEIVED, this::updatePendingEmployees);
   }
 
   @Override public void requestPendingEmployees()
@@ -28,12 +29,16 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
 
     Request pendingEmployeesRequest = new Request(Request.PENDING_USER_REQUEST);
 
+    Log.log("AdminModelImpl sends the PENDING_USER_REQUEST to the Client");
     client.sendRequest(pendingEmployeesRequest);
 
-    client.addListener(this);
+
   }
 
   public void updatePendingEmployees(PropertyChangeEvent e){
+
+    Log.log("AdminModelImpl fires a PENDING_USER_REQUEST property");
+
     propertyChangeSupport.firePropertyChange(Request.PENDING_USER_REQUEST, -1, e.getNewValue());
 
   }
@@ -42,6 +47,8 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
   {
     Request request = new Request(Request.EMPLOYEE_IS_ACCEPTED);
     request.setObject(user);
+
+    Log.log("AdminModelImpl sends an EMPLOYEE_IS_ACCEPTED object to the Client");
     client.sendRequest(request);
   }
 
@@ -49,6 +56,8 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
   {
     Request request = new Request(Request.EMPLOYEE_IS_DECLINED);
     request.setObject(user);
+
+    Log.log("AdminModelImpl sends an EMPLOYEE_IS_DECLINED object to the Client");
     client.sendRequest(request);
   }
 
@@ -56,11 +65,13 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
       PropertyChangeListener listener)
   {
     propertyChangeSupport.addPropertyChangeListener(event,listener);
+    Log.log(listener + "has been added as a listener to " + this + " for " + event);
   }
 
   @Override public void addListener(PropertyChangeListener listener)
   {
     propertyChangeSupport.addPropertyChangeListener(listener);
+    Log.log(listener + "has been added as a listener to " + this);
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)

@@ -1,6 +1,7 @@
 package client.model;
 
 import client.networking.Client;
+import shared.Log;
 import shared.UserType;
 import transferobjects.LoginRequest;
 
@@ -37,10 +38,13 @@ public class UserModelImp implements UserModel
   private void sendLogin(PropertyChangeEvent event)
   {
     support.firePropertyChange(LOGGED_IN_RECEIVED, null, event.getNewValue());
+
+    Log.log("UserModelImp fires a LOGGED_IN_RECEIVED event");
   }
 
   private void sendError(PropertyChangeEvent event){
     support.firePropertyChange(ERROR_RECEIVED, null, event.getNewValue());
+    Log.log("UserModelImp fires a ERROR_RECEIVED event");
   }
 
   /**
@@ -51,6 +55,8 @@ public class UserModelImp implements UserModel
   @Override public void login(String username, String password)
   {
     client.login(new LoginRequest(username,password));
+
+    Log.log("UserModelImpl sends a new LoginRequest object to the Client (login method)");
   }
 
   /**
@@ -65,6 +71,8 @@ public class UserModelImp implements UserModel
       String username, String password, UserType userType)
   {
     client.register(new LoginRequest(firstName,lastName,username,password,userType));
+
+    Log.log("UserModelImpl sends a new LoginRequest object to the Client (register method)");
   }
 
   /**
@@ -76,6 +84,7 @@ public class UserModelImp implements UserModel
       PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(event,listener);
+    Log.log(listener + "has been added as a listener to " + this + " for " + event);
   }
 
   /**
@@ -87,5 +96,6 @@ public class UserModelImp implements UserModel
   @Override public void addListener(PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(listener);
+    Log.log(listener + "has been added as a listener to " + this);
   }
 }

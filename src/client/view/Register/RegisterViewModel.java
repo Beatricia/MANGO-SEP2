@@ -1,14 +1,16 @@
-package client.view.register;
+package client.view.Register;
 
 import client.model.UserModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import shared.Log;
 import shared.UserType;
 import transferobjects.ErrorMessage;
 import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
+import java.time.LocalDate;
 
 /**
  * Class responsible for connecting the RegisterViewController and UserModel interface.
@@ -39,6 +41,7 @@ public class RegisterViewModel
   {
     ErrorMessage errorMess = (ErrorMessage) event.getNewValue();
 
+    Log.log("RegisterViewModel has received an Error object");
     printErrorMessage(errorMess.getMessage());
   }
 
@@ -49,7 +52,7 @@ public class RegisterViewModel
 
   private void loggedInReceived(PropertyChangeEvent event)
   {
-    System.out.println("Login received");
+    Log.log("RegisterViewModel received Login");
   }
 
   /**
@@ -87,6 +90,7 @@ public class RegisterViewModel
 
       userModel.register(firstName, lastName, username, password, userType);
 
+      Log.log("RegisterViewModel returns a new User Object");
       return new User(username, userType, firstName, lastName);
     }
 

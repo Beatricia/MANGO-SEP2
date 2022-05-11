@@ -90,6 +90,7 @@ public class DatabaseConnImp implements DatabaseConn
   private static SQLException formatExceptionMessage(SQLException e)
   {
     String message = e.getMessage();
+    e.printStackTrace();
 
     // Check if the error message is about duplicate primary keys
     if (message.startsWith(

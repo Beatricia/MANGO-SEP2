@@ -1,9 +1,8 @@
 package server.model;
 
 import server.databaseConn.DatabaseConn;
-import transferobjects.DailyMenuItem;
+import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
-import transferobjects.Request;
 import transferobjects.SerializableImage;
 
 import javax.imageio.ImageIO;
@@ -76,9 +75,9 @@ public class MenuModelImp implements MenuModel
    * @param dailyMenuItem which is unwrapped and passed onto the class Databaseconn
    */
 
-  @Override public void addDailyMenuItem(DailyMenuItem dailyMenuItem)
+  @Override public void addDailyMenuItem(DailyMenuItemList dailyMenuItemList)
       throws SQLException
   {
-    databaseConn.addDailyMenu(dailyMenuItem.getDate(), dailyMenuItem.getMenuItems());
+    databaseConn.addDailyMenu(dailyMenuItemList.getDate(), dailyMenuItemList.getMenuItems());
   }
 }

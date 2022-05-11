@@ -1,10 +1,8 @@
 package server.model;
 
-import transferobjects.DailyMenuItem;
+import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
-import transferobjects.Request;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -24,6 +22,6 @@ public interface MenuModel
 
   ArrayList<MenuItem> getListOfMenuItems() throws SQLException;
 
-  void addDailyMenuItem(DailyMenuItem dailyMenuItem) throws SQLException;
+  void addDailyMenuItem(DailyMenuItemList dailyMenuItemList) throws SQLException;
 
 }

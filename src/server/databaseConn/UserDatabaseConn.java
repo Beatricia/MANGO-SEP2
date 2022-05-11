@@ -63,9 +63,9 @@ class UserDatabaseConn
 
         if(userType.equals(UserType.EMPLOYEE))
         {
-          str +=", accepted ";
+          str +=", accepted";
         }
-        str += "FROM " + table + " Where username = ?";
+        str += " FROM " + table + " Where username = ?";
 
 
         PreparedStatement statement = connection.prepareStatement(str);

@@ -133,9 +133,9 @@ public class ServerHandler implements Runnable
     }
 
     //in case the received object is a DailyMenuItem object
-    else if(receivedObj instanceof DailyMenuItem)
+    else if(receivedObj instanceof DailyMenuItemList)
     {
-      DailyMenuItem dailyMenuItem = (DailyMenuItem) receivedObj;
+      DailyMenuItemList dailyMenuItem = (DailyMenuItemList) receivedObj;
       Log.log("ServerHandler received dailyMenuItem object");
       menuModel.addDailyMenuItem(dailyMenuItem);
     }

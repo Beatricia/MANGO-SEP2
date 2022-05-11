@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import shared.Log;
 import transferobjects.ErrorMessage;
 
 import java.beans.PropertyChangeEvent;
@@ -87,6 +88,8 @@ public class MenuEmplViewModel
       {
         printErrorMessage("Incorrect price format");
       }
+
+      Log.log("MenuEmplViewModel calls the addItem method on the MenuModel");
     }
   }
 
@@ -136,6 +139,8 @@ public class MenuEmplViewModel
     ErrorMessage errorMess = (ErrorMessage) event.getNewValue();
 
     printErrorMessage(errorMess.getMessage());
+
+    Log.log("MenuEmplViewModel receives an error Message");
   }
 
   /**

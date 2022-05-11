@@ -18,11 +18,11 @@ public class AdminDataBaseConnection {
             PreparedStatement statement;
             if(accept) {
                 String str = "UPDATE employee SET accepted = true\n" +
-                        "WHERE username = " + username;
+                        "WHERE username = '" + username  + "'";
                 statement = connection.prepareStatement(str);
             } else {
                 String str = "DELETE from employee\n" +
-                        "where username = " + username;
+                        "where username = '" + username + "'";
                 statement = connection.prepareStatement(str);
             }
             statement.execute();
@@ -32,21 +32,20 @@ public class AdminDataBaseConnection {
     public ArrayList<User> getAllPendingEmployees() throws SQLException {
         ArrayList<User> pendingEmployees = new ArrayList<>();
         try(Connection connection = DatabaseConnImp.getConnection()) {
-            String str = "SELECT username, firstName, lastName, employee.accepted\n" +
+            String str = "SELECT username, firstName, lastName " +
                     "FROM employee\n" +
                     "WHERE employee.accepted=false;";
             PreparedStatement statement = connection.prepareStatement(str);
             ResultSet set = statement.executeQuery();
-            if(set.next())
+            while (set.next())
             {
                 String userName = set.getString("username");
                 String firstName = set.getString("firstname");
                 String lastName = set.getString("lastname");
-                boolean accepted = set.getBoolean("accepted");
-                if(accepted == false){
+
                     User user = new User(userName, UserType.EMPLOYEE, firstName, lastName);
                     pendingEmployees.add(user);
-                }
+
             }
             return pendingEmployees;
         }

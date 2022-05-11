@@ -1,8 +1,10 @@
 package client.view.MenuEmpl.DailyMenu;
 
 import client.model.MenuModel;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import shared.Log;
 import transferobjects.MenuItem;
 
 import java.beans.PropertyChangeEvent;
@@ -34,9 +36,15 @@ public class DailyMenuViewModel
 
   private void fillInMenuItems(PropertyChangeEvent event)
   {
-    items.clear();
-    ArrayList<MenuItem> menuItems = (ArrayList<MenuItem>) event.getNewValue();
-    items.addAll(menuItems);
+    Platform.runLater(
+        () -> {
+          items.clear();
+          ArrayList<MenuItem> menuItems = (ArrayList<MenuItem>) event.getNewValue();
+
+          items.addAll(menuItems);
+        }
+    );
+
   }
 
   /**
@@ -49,6 +57,7 @@ public class DailyMenuViewModel
   {
     ArrayList<MenuItem> menuItems = new ArrayList<>(selectedItems);
     model.addItemsToDailyMenu(date, menuItems);
+    Log.log("DailyMenuViewModel calls the addItemsToDailyMenu on the MenuModel");
   }
 
   /**
@@ -58,5 +67,10 @@ public class DailyMenuViewModel
   public ObservableList<MenuItem> getMenuItems()
   {
     return items;
+  }
+
+  public void requestList()
+  {
+    model.requestMenuItems();
   }
 }

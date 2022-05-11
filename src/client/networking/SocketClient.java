@@ -6,7 +6,6 @@ import transferobjects.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -65,9 +64,10 @@ public class SocketClient implements Client{
         Log.log("SocketClient request send to server");
     }
 
-    @Override public void addItemsToDailyMenu(DailyMenuItem dailyMenuItem)
+    @Override public void addItemsToDailyMenu(
+        DailyMenuItemList dailyMenuItemList)
     {
-        clientHandler.send(dailyMenuItem);
+        clientHandler.send(dailyMenuItemList);
         Log.log("SocketClient dailyMenuItem send to server");
     }
 
@@ -79,8 +79,8 @@ public class SocketClient implements Client{
      */
     @Override
     public void addListener(String event, PropertyChangeListener listener) {
-        support.addPropertyChangeListener(event,listener);
         Log.log(listener + " has been added to " + this + " as listener to " + event);
+        support.addPropertyChangeListener(event,listener);
     }
 
     /**
@@ -89,8 +89,9 @@ public class SocketClient implements Client{
      */
     @Override
     public void addListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
         Log.log(listener + " has been added to " + this + " as listener");
+        support.addPropertyChangeListener(listener);
+
     }
 
     /**
@@ -98,8 +99,9 @@ public class SocketClient implements Client{
      * @param obj the User object
      */
     public void userReceivedFromServer(User obj) {
-        support.firePropertyChange(LOGGED_IN_RECEIVED, null,obj);
         Log.log("SocketClient fires a LOGGED_IN_RECEIVED event");
+        support.firePropertyChange(LOGGED_IN_RECEIVED, null,obj);
+
     }
 
     /**
@@ -107,20 +109,23 @@ public class SocketClient implements Client{
      * @param obj the ErrorMessage object
      */
     public void errorReceivedFromServer(ErrorMessage obj) {
-        support.firePropertyChange(ERROR_RECEIVED, null, obj);
         Log.log("SocketClient fires a ERROR_RECEIVED event");
+        support.firePropertyChange(ERROR_RECEIVED, null, obj);
+
     }
 
     public void listOfEmployeeReceived(Request request)
     {
-       support.firePropertyChange(PENDING_EMPLOYEES_RECEIVED,null, request.getObject());
         Log.log("SocketClient fires a PENDING_EMPLOYEES_RECEIVED event");
+       support.firePropertyChange(PENDING_EMPLOYEES_RECEIVED,null, request.getObject());
+
     }
 
     public void listOfMenuItemsReceived(Request request)
     {
-        support.firePropertyChange(MENU_ITEMS_RECEIVED,null,request.getObject());
         Log.log("SocketClient fires a MENU_ITEMS_RECEIVED event");
+        support.firePropertyChange(MENU_ITEMS_RECEIVED,null,request.getObject());
+
     }
 
 }

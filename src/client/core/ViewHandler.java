@@ -6,10 +6,12 @@ import client.view.general.GeneralViewController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import shared.Log;
 import shared.UserType;
+import transferobjects.ErrorMessage;
 import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
@@ -48,6 +50,7 @@ public class ViewHandler implements PropertyChangeListener
     this.clientFactory=clientFactory;
 
     clientFactory.getClient().addListener(this);
+
   }
 
   /**
@@ -167,6 +170,20 @@ public class ViewHandler implements PropertyChangeListener
 
       Platform.runLater(() -> openGeneralView(user));
 
+
+    }
+    if(evt.getPropertyName().equals(Client.ERROR_RECEIVED))
+    {
+      Platform.runLater(
+          () -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText(evt.getNewValue().toString());
+
+            alert.showAndWait();
+          }
+      );
     }
   }
 }

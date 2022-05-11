@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import shared.Log;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,7 +24,7 @@ import java.io.IOException;
 /**
  * Class responsible for connecting MenuEmpl.fxml with the MenuEmplViewModel and therefore providing functionality to the GUI.
  * A controller for the employer's menu where he can add new items.
- * @author beatricia
+ * @author Beatricia
  * @version 1
  */
 
@@ -59,7 +60,8 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
         imageView.setImage(image);
     }
 
-    @Override public void refresh() {
+    @Override public void refresh()
+    {
 
     }
 
@@ -68,6 +70,8 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
      * @param actionEvent from GUI(Button click)
      */
     public void addButton(ActionEvent actionEvent) {
+
+        Log.log("Add dish button has been clicked in the MenuEmpl view");
         try{
             viewModel.addItem(nameTextField.getText(), ingredientsAreaField.getText(),priceTextField.getText(), filePath.toString()); //added the picture file here
             // + get the image away
@@ -106,5 +110,7 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
         } catch (IOException | RuntimeException e){
             System.out.println(e.getMessage());
         }
+
+        Log.log("An image has been selected when adding a dish");
     }
 }

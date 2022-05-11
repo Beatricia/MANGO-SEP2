@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @version 1
  */
 
-public class DailyMenuItem implements Serializable
+public class DailyMenuItemList implements Serializable
 {
   private LocalDate date;
   private ArrayList<MenuItem> menuItems;
@@ -25,7 +25,7 @@ public class DailyMenuItem implements Serializable
    * @param menuItems list of menu's items
    */
 
-  public DailyMenuItem(LocalDate date,ArrayList<MenuItem> menuItems)
+  public DailyMenuItemList(LocalDate date,ArrayList<MenuItem> menuItems)
   {
     this.date = date;
     this.menuItems = menuItems;

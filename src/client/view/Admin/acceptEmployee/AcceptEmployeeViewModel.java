@@ -7,6 +7,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import shared.Log;
 import shared.UserType;
+import transferobjects.Request;
 import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
@@ -17,7 +18,7 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
 {
   private AdminModel adminModel;
   private ObservableList<User> users;
-  private static String PENDING_USERS_REQUEST = "PendingUsersRequest";
+
 
   public AcceptEmployeeViewModel(AdminModel adminModel)
   {
@@ -67,9 +68,10 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
 
   //man idk
   public void updateEmployeeList(PropertyChangeEvent e){
-    if (e.getPropertyName().equals(PENDING_USERS_REQUEST)){
+    if (e.getPropertyName().equals(Request.PENDING_USER_REQUEST)){
       users.clear();
-      users.addAll((ArrayList<User>) e.getNewValue());
+
+      users.addAll((ArrayList<User>)e.getNewValue());
     }
   }
 

@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.MouseEvent;
+import shared.Log;
 import transferobjects.MenuItem;
 import transferobjects.User;
 
@@ -83,6 +84,8 @@ public class DailyMenuViewController implements ViewController
 
 
     addButton.setDisable(!checkListSize || !checkDateSelected);
+
+    Log.log("Button to add A DailyMenu is enabled");
   }
 
   /**
@@ -96,8 +99,9 @@ public class DailyMenuViewController implements ViewController
     enableButton();
   }
 
-  @Override public void refresh() {
-
+  @Override public void refresh()
+  {
+    viewModel.requestList();
   }
 
   /**
@@ -107,6 +111,7 @@ public class DailyMenuViewController implements ViewController
 
   public void onAdd(javafx.event.ActionEvent actionEvent)
   {
+    Log.log("Add button has been clicked to add a DailyMenu");
     viewModel.addToDailyMenu(list.getSelectionModel().getSelectedItems(), datePicker.getValue());
   }
 

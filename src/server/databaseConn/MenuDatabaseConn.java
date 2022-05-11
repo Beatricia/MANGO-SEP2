@@ -52,17 +52,19 @@ class MenuDatabaseConn
   {
     try (Connection connection = DatabaseConnImp.getConnection())
     {
-      String sql = "INSERT INTO dailyMenuItem" + "(date,name) VALUES";
+      String sql = "INSERT INTO dailyMenuItem (date, name) VALUES ";
 
-      PreparedStatement statement = connection.prepareStatement(sql);
+
 
       for (int i = 0; i < menuItems.size(); i++)
       {
         sql +=  String.format("('%s', '%s'),", date.toString(), menuItems.get(i).getName());
       }
-      sql.substring(sql.length()-2);
+      sql = sql.substring(0,sql.length()-1);
 
-      statement.executeUpdate(sql);
+      Log.log("--------" + sql);
+      PreparedStatement statement = connection.prepareStatement(sql);
+      statement.execute();
       Log.log("MenuDatabaseConn adds DailyMenuItem to database");
 
     }
@@ -75,7 +77,7 @@ class MenuDatabaseConn
 
     try(Connection connection = DatabaseConnImp.getConnection())
     {
-      String sql = "SELECT * FROM menuItem;";
+      String sql = "SELECT * FROM menuItem";
 
       PreparedStatement statement = connection.prepareStatement(sql);
 
