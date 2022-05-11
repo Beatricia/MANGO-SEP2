@@ -1,5 +1,7 @@
 package transferobjects;
 
+import shared.Log;
+
 import java.io.Serializable;
 
 /**
@@ -19,6 +21,8 @@ public class ErrorMessage implements Serializable
 
   public ErrorMessage(String message){
     this.message = message;
+
+    Log.log("ErrorMessage transferobject created");
   }
 
   /**

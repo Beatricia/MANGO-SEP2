@@ -1,5 +1,7 @@
 package transferobjects;
 
+import shared.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class MenuItem implements Serializable
     this.ingredients = ingredients;
     this.price = price;
 
+    Log.log("MenuItem transferobject created");
   }
 
   /**

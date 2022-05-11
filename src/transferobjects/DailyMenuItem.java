@@ -1,6 +1,7 @@
 package transferobjects;
 
 import javafx.beans.property.Property;
+import shared.Log;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -15,6 +16,8 @@ public class DailyMenuItem implements Serializable
   {
     this.date = date;
     this.menuItems = menuItems;
+
+    Log.log("DailyMenuItem transferobject created");
   }
 
   public LocalDate getDate()

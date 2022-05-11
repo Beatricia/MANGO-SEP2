@@ -1,5 +1,6 @@
 package transferobjects;
 
+import shared.Log;
 import shared.UserType;
 
 import java.io.Serializable;
@@ -31,6 +32,7 @@ public class LoginRequest implements Serializable
     this.username = username;
     this.password = password;
     isRegister = false;
+    Log.log("LoginRequest (login) transferobject created");
   }
 
   /**
@@ -51,6 +53,8 @@ public class LoginRequest implements Serializable
     this.userType = userType;
     this.username = username;
     isRegister = true;
+
+    Log.log("LoginRequest (register) transferobject created");
   }
 
   /**

@@ -1,5 +1,6 @@
 package transferobjects;
 
+import shared.Log;
 import shared.UserType;
 
 import java.io.Serializable;
@@ -31,6 +32,8 @@ public class User implements Serializable
     this.firstName = firstName;
     this.lastName = lastName;
     this.userType = userType;
+
+    Log.log("User transferobject created");
   }
 
 
