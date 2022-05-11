@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import shared.Log;
 import shared.UserType;
 import transferobjects.User;
 
@@ -30,10 +31,12 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
     if (accept)     // accepts employee
     {
       adminModel.acceptEmployee(user);
+      Log.log("AcceptEmployeeViewModel an accepted employee user is sent to the adminModel");
     }
     else            //declines employee
     {
       adminModel.declineEmployee(user);
+      Log.log("AcceptEmployeeViewModel an declined employee user is sent to the adminModel");
     }
     users.remove(user);
   }
@@ -72,6 +75,7 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
+    Log.log("AcceptEmployeeViewModel the employee list is updating");
     updateEmployeeList(evt);
   }
 }
