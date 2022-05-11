@@ -26,6 +26,5 @@ public interface Client extends PropertyChangeSubject
   void addItem(MenuItem menuItem);
   void sendRequest(Request request);
   void addItemsToDailyMenu(DailyMenuItem dailyMenuItem);
-  void acceptEmployee(User user);
-  void declineEmployee(User user);
+
 }

@@ -136,18 +136,6 @@ public class ServerHandler implements Runnable
       menuModel.addDailyMenuItem(dailyMenuItem);
     }
 
-    else if (receivedObj instanceof User)
-    {
-      User user = (User) receivedObj;
-      if(user.getIsAccepted())
-      {
-        adminModel.acceptEmployee(user);
-      }
-      else
-      {
-        adminModel.declineEmployee(user);
-      }
-    }
     else if(receivedObj instanceof Request)
     {
       Request request = (Request) receivedObj;
@@ -157,16 +145,25 @@ public class ServerHandler implements Runnable
 
   private void handleRequestObject(Request request) throws SQLException
   {
-    if(request.getRequestName().equals("MenuItemRequest"))
+    if(request.getRequestName().equals(Request.MENU_ITEMS_REQUEST))
     {
       request.setObject(menuModel.getListOfMenuItems());
       sendObject(request);
     }
 
-    else if(request.getRequestName().equals("PendingUserRequest"))
+    else if(request.getRequestName().equals(Request.PENDING_USER_REQUEST))
     {
       request.setObject(adminModel.requestPendingEmployees());
       sendObject(request);
+    }
+    else if(request.getRequestName().equals(Request.EMPLOYEE_IS_ACCEPTED))
+    {
+      adminModel.acceptEmployee((User)request.getObject());
+     // sendObject();
+    }
+    else if(request.getRequestName().equals(Request.EMPLOYEE_IS_DECLINED))
+    {
+      adminModel.declineEmployee((User)request.getObject());
     }
 
   }

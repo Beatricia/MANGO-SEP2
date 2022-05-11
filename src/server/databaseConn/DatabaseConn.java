@@ -57,5 +57,5 @@ public interface DatabaseConn
 
   void addDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) throws SQLException;
 
-  ArrayList<MenuItem> getListOfMenuItems();
+  ArrayList<MenuItem> getListOfMenuItems() throws SQLException;
 }

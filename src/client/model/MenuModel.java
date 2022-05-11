@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public interface MenuModel extends PropertyChangeSubject
 {
   String ERROR_RECEIVED = "ErrorReceived";
-  String Menu_Items_Received = "MenuItemsReceived";
+  String MENU_ITEMS_RECEIVED = "MenuItemsReceived";
 
   void addItem(String name, ArrayList<String> ingredients, double price,
       String imgPath);

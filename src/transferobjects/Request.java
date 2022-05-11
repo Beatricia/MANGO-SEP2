@@ -8,6 +8,9 @@ public class Request implements Serializable
   private Object requestObj;
 
   public static final String MENU_ITEMS_REQUEST = "MenuItemRequest";
+  public static final String EMPLOYEE_IS_ACCEPTED = "EmployeeIsAccepted";
+  public static final String EMPLOYEE_IS_DECLINED = "EmployeeIsDeclined";
+  public static final String PENDING_USER_REQUEST = "PendingUserRequest";
 
   public Request(String requestName){
     this.requestObj = requestName;

@@ -1,5 +1,6 @@
 package client.networking;
 
+import shared.Log;
 import transferobjects.*;
 
 import java.beans.PropertyChangeListener;
@@ -26,6 +27,7 @@ public class SocketClient implements Client{
         Thread t = new Thread(clientHandler);
         t.setDaemon(true);
         t.start();
+        Log.log("SocketClient thread started");
     }
 
     /**
@@ -64,17 +66,6 @@ public class SocketClient implements Client{
         clientHandler.send(dailyMenuItem);
     }
 
-    @Override public void acceptEmployee(User user)
-    {
-        User userAccepted = new User(user.getUsername(),user.getUserType(),user.getFirstName(),user.getLastName(),true);
-        clientHandler.send(userAccepted);
-    }
-
-    @Override public void declineEmployee(User user)
-    {
-        User userDeclined = new User(user.getUsername(),user.getUserType(),user.getFirstName(),user.getLastName(),false);
-        clientHandler.send(userDeclined);
-    }
 
     /**
      * Adds an event listener for a specific event fired in the SocketClient

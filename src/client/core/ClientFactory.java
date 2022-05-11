@@ -3,6 +3,7 @@ package client.core;
 import client.networking.Client;
 import client.networking.SocketClient;
 import client.networking.TestClient;
+import shared.Log;
 
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class ClientFactory
     {
       try
       {
+        Log.log("Client was created");
         //client = new SocketClient();
         client = new TestClient();
       }
@@ -36,6 +38,8 @@ public class ClientFactory
         System.exit(0);
       }
     }
+
+
     return client;
   }
 }

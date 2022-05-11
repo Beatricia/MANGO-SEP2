@@ -3,6 +3,7 @@ package client.model;
 import client.networking.Client;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
+import shared.Log;
 import transferobjects.Request;
 import transferobjects.User;
 
@@ -15,7 +16,6 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
 {
 
   private Client client;
-  private static String PENDING_USERS_REQUEST = "PendingUsersRequest";
   private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
 
@@ -25,7 +25,8 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
 
   @Override public void requestPendingEmployees()
   {
-    Request pendingEmployeesRequest = new Request(PENDING_USERS_REQUEST);
+
+    Request pendingEmployeesRequest = new Request(Request.PENDING_USER_REQUEST);
 
     client.sendRequest(pendingEmployeesRequest);
 
@@ -33,18 +34,22 @@ public class AdminModelImp implements AdminModel, PropertyChangeListener
   }
 
   public void updatePendingEmployees(PropertyChangeEvent e){
-    propertyChangeSupport.firePropertyChange(PENDING_USERS_REQUEST, -1, e.getNewValue());
+    propertyChangeSupport.firePropertyChange(Request.PENDING_USER_REQUEST, -1, e.getNewValue());
 
   }
 
   @Override public void acceptEmployee(User user)
   {
-    client.acceptEmployee(user);
+    Request request = new Request(Request.EMPLOYEE_IS_ACCEPTED);
+    request.setObject(user);
+    client.sendRequest(request);
   }
 
   @Override public void declineEmployee(User user)
   {
-    client.declineEmployee(user);
+    Request request = new Request(Request.EMPLOYEE_IS_DECLINED);
+    request.setObject(user);
+    client.sendRequest(request);
   }
 
   @Override public void addListener(String event,

@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import transferobjects.MenuItem;
 
+import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -27,19 +28,15 @@ public class DailyMenuViewModel
   {
     model = menuModel;
 
+    model.addListener(MenuModel.MENU_ITEMS_RECEIVED, this::fillInMenuItems);
 
+  }
 
-    //just for testing
-    ArrayList<String> ingr = new ArrayList<>();
-    ingr.add("chicken");
-    ingr.add("tomato");
-
-    MenuItem menu1 = new MenuItem("lasagna", ingr, 12.5);
-    MenuItem menu2 = new MenuItem("salat", ingr, 12.5);
-    MenuItem menu3 = new MenuItem("chik", ingr, 12.5);
-
-      items.addAll(menu1,menu2, menu3);
-    //
+  private void fillInMenuItems(PropertyChangeEvent event)
+  {
+    items.clear();
+    ArrayList<MenuItem> menuItems = (ArrayList<MenuItem>) event.getNewValue();
+    items.addAll(menuItems);
   }
 
   /**

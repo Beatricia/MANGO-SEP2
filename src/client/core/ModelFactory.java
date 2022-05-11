@@ -1,6 +1,7 @@
 package client.core;
 
 import client.model.*;
+import shared.Log;
 
 /**
  * A class that creates a model object and returns it#
@@ -30,6 +31,7 @@ public class ModelFactory
   {
     if(userModel == null)
     {
+      Log.log("UserModel was created");
       userModel = new UserModelImp(clientFactory.getClient());
     }
     return userModel;
@@ -39,6 +41,7 @@ public class ModelFactory
   {
     if(menuModel == null)
     {
+      Log.log("MenuModel was created");
       menuModel = new MenuModelImp(clientFactory.getClient());
     }
     return menuModel;
@@ -47,6 +50,7 @@ public class ModelFactory
   public AdminModel getAdminModel() {
     if(adminModel == null)
     {
+      Log.log("AdminModel was created");
       adminModel = new AdminModelImp(clientFactory.getClient());
     }
     return adminModel;

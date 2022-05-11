@@ -1,9 +1,15 @@
 package server.databaseConn;
 
+import transferobjects.MenuItem;
+import util.LogInException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
 
 class MenuDatabaseConn
 {
@@ -37,5 +43,50 @@ class MenuDatabaseConn
 
       statement.executeQuery();
     }
+  }
+
+  public void addDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) throws
+      SQLException
+  {
+    try (Connection connection = DatabaseConnImp.getConnection())
+    {
+      String sql = "INSERT INTO dailyMenuItem" + "(date,name) VALUES";
+
+      PreparedStatement statement = connection.prepareStatement(sql);
+
+      for (int i = 0; i < menuItems.size(); i++)
+      {
+        sql +=  String.format("('%s', '%s'),", date.toString(), menuItems.get(i).getName());
+      }
+      sql.substring(sql.length()-2);
+
+      statement.executeUpdate(sql);
+
+    }
+
+  }
+
+  public ArrayList<MenuItem> getListOfMenuItems() throws SQLException
+  {
+    ArrayList<MenuItem> menuItems = new ArrayList<>();
+
+    try(Connection connection = DatabaseConnImp.getConnection())
+    {
+      String sql = "SELECT * FROM menuItem;";
+
+      PreparedStatement statement = connection.prepareStatement(sql);
+
+      ResultSet resultSet = statement.executeQuery();
+
+
+      while (resultSet.next())
+      {
+        String name = resultSet.getString("name");
+        double price  = resultSet.getDouble("price");
+
+        menuItems.add(new MenuItem(name, null, price));
+      }
+    }
+    return menuItems;
   }
 }

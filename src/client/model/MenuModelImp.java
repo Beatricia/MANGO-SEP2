@@ -37,8 +37,8 @@ public class MenuModelImp implements MenuModel
   {
     support = new PropertyChangeSupport(this);
     this.client = client;
-    client.addListener(ERROR_RECEIVED, this::sendError);
-    client.addListener(Menu_Items_Received, this::sendMenuItems);
+    client.addListener(Client.ERROR_RECEIVED, this::sendError);
+    client.addListener(Client.MENU_ITEMS_RECEIVED, this::sendMenuItems);
   }
 
   /**
@@ -52,7 +52,7 @@ public class MenuModelImp implements MenuModel
 
   private void sendMenuItems(PropertyChangeEvent event)
   {
-    support.firePropertyChange(Menu_Items_Received,null,event.getNewValue());
+    support.firePropertyChange(MENU_ITEMS_RECEIVED,null,event.getNewValue());
   }
 
   /**

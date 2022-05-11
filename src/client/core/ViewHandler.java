@@ -96,7 +96,7 @@ public class ViewHandler implements PropertyChangeListener
 
   public void openGeneralView(User user){
     try{
-      if(registerScene == null){
+      if(generalScene == null){
         String path = "../view/general/GeneralView.fxml";
 
         FXMLLoader loader = new FXMLLoader();
@@ -106,11 +106,11 @@ public class ViewHandler implements PropertyChangeListener
         GeneralViewController controller = loader.getController();
         controller.init(user, this, viewModelFactory);
 
-        registerScene = new Scene(pane);
+        generalScene = new Scene(pane);
       }
 
 
-      stage.setScene(registerScene);
+      stage.setScene(generalScene);
       stage.show();
     } catch (IOException e){
       e.printStackTrace();
