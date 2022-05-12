@@ -137,6 +137,8 @@ public class ServerHandler implements Runnable
       menuModel.addItem(menuItem);
     }
 
+
+    //TODO how to know if it is to add menu items or to add quantity
     //in case the received object is a DailyMenuItemList object
     else if(receivedObj instanceof DailyMenuItemList)
     {
@@ -159,9 +161,10 @@ public class ServerHandler implements Runnable
    */
   private void handleRequestObject(Request request) throws SQLException
   {
-    Log.log("ServerHandler received MENU_ITEMS_REQUEST");
+
     if(request.getRequestName().equals(Request.MENU_ITEMS_REQUEST))
     {
+      Log.log("ServerHandler received MENU_ITEMS_REQUEST");
       Log.log("ServerHandler sends Request object to client with list of menu items");
       request.setObject(menuModel.getListOfMenuItems());
       sendObject(request);
@@ -185,6 +188,14 @@ public class ServerHandler implements Runnable
       Log.log("ServerHandler received EMPLOYEE_IS_DECLINED");
       adminModel.declineEmployee((User)request.getObject());
     }
+    else if(request.getRequestName().equals(Request.DAILY_MENU_REQUEST))
+    {
+      Log.log("ServerHandler received DAILY_MENU_REQUEST");
+      request.setObject(menuModel.requestDailyMenu());
+      Log.log("ServerHandler sends Request object with a "
+          + "DailyMenuItemList to client");
+      sendObject(request);
+    }
 
   }
 
@@ -194,7 +205,8 @@ public class ServerHandler implements Runnable
    * @throws SQLException
    * @throws LogInException
    */
-  private void handleLoginRequest(LoginRequest request) throws SQLException, LogInException {
+  private void handleLoginRequest(LoginRequest request) throws SQLException,
+      LogInException {
     // User variable to load the object we receive from the model
     User user;
 

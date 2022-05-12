@@ -52,7 +52,7 @@ public class ClientHandler implements Runnable {
                     client.userReceivedFromServer((User)obj);
                     Log.log("ClientHandler User object received from server");
                 }
-                // in case the received object is a ErrorMessage
+                // in case the received object is an ErrorMessage
                 else if(obj instanceof ErrorMessage){
                     client.errorReceivedFromServer((ErrorMessage) obj);
                     Log.log("ClientHandler ErrorMessage object received from server");
@@ -70,6 +70,12 @@ public class ClientHandler implements Runnable {
                     {
                         client.listOfEmployeeReceived(request);
                         Log.log("ClientHandler PENDING_USER_REQUEST received from server");
+                    }
+                    else if(request.getRequestName().equals(Request.DAILY_MENU_REQUEST))
+                    {
+                        client.dailyMenuReceived(request);
+                        Log.log("ClientHandler DAILY_MENU_REQUEST received from server");
+
                     }
 
                 }

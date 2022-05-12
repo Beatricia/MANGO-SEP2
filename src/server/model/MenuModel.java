@@ -36,4 +36,6 @@ public interface MenuModel
    */
   void addDailyMenuItem(DailyMenuItemList dailyMenuItemList) throws SQLException;
 
+
+  DailyMenuItemList requestDailyMenu();
 }
