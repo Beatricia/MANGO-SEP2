@@ -62,9 +62,9 @@ public abstract class UserStrategy
    * </ul>
    * @param tabs tabs to load in
    */
-  protected void loadTabs(String[] tabs){
+  protected void loadTabs(String basePath, String[] tabs){
     for (int i = 0; i < tabs.length; i += 2) {
-      String path = tabs[i];
+      String path = basePath + tabs[i];
       String tabName = tabs[i + 1];
 
       Log.log("Loading tab " + tabName + " from " + path);

@@ -13,12 +13,13 @@ import shared.Log;
  */
 public class EmployeeGUI extends UserStrategy
 {
+  private final static String BASE_PATH = "src/client/view/employee/";
   /**
    * All the tabs to load when the logged in user is an employee
    */
   private final static String[] tabs = {
-      "src/client/view/MenuEmpl/AddDish/MenuEmpl.fxml",         "Add items to the menu",
-      "src/client/view/MenuEmpl/DailyMenu/DailyMenuView.fxml",  "Add to daily menu"
+      "AddDish/MenuEmpl.fxml",         "Add items to the menu",
+      "DailyMenu/DailyMenuView.fxml",  "Add to daily menu"
   };
 
   public EmployeeGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
@@ -27,6 +28,6 @@ public class EmployeeGUI extends UserStrategy
 
   @Override public void loadTabs() {
     Log.log("EmployeeGUI employee tabs are loading");
-    loadTabs(tabs);
+    loadTabs(BASE_PATH, tabs);
   }
 }

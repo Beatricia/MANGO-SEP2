@@ -13,11 +13,13 @@ import shared.Log;
  */
 public class AdminGUI extends UserStrategy
 {
+  private final static String BASE_PATH = "src/client/view/admin/";
+
   /**
    * All the tabs to load when the logged in user is the admin
    */
   private final static String[] tabs = {
-      "src/client/view/Admin/acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees"
+      "acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees"
   };
 
   public AdminGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
@@ -26,6 +28,6 @@ public class AdminGUI extends UserStrategy
 
   @Override public void loadTabs() {
     Log.log("AdminGUI admin tabs are loading");
-    loadTabs(tabs);
+    loadTabs(BASE_PATH, tabs);
   }
 }
