@@ -4,7 +4,7 @@ import client.view.admin.acceptEmployee.AcceptEmployeeViewModel;
 import client.view.Login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
 import client.view.employee.DailyMenu.DailyMenuViewModel;
-import client.view.Register.RegisterViewModel;
+import client.view.register.RegisterViewModel;
 import shared.Log;
 
 /**

@@ -17,5 +17,9 @@ public interface ViewController
    */
   void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory);
 
+  /**
+   * Refreshes the Pane associated with the controller. Furthermore, this method is called when the
+   * user switches the tabs, and the gui automatically refreshes.
+   */
   void refresh();
 }
