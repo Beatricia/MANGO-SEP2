@@ -129,7 +129,13 @@ public abstract class UserStrategy
   public void refreshTab(Tab tab){
     Log.log("Refreshing tab " + tab.getText());
     ViewController controller = controllers.get(tab);
-    controller.refresh();
+
+    try{
+      controller.refresh();
+    } catch (Exception e){
+      e.printStackTrace();
+    }
+
   }
 
   /**
