@@ -69,7 +69,12 @@ public class DailyMenuViewController implements ViewController
 
     list.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
     list.getSelectionModel().getSelectedItems().addListener(this::listenList);
+    datePicker.valueProperty().addListener(this::datePickerListener);
 
+  }
+
+  private void datePickerListener(Observable observable) {
+    enableButton();
   }
 
   /**
