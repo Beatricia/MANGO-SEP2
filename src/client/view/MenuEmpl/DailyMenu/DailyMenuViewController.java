@@ -2,32 +2,18 @@ package client.view.MenuEmpl.DailyMenu;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
-import client.model.MenuModel;
 import client.view.ViewController;
-import javafx.application.Platform;
 import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.input.MouseEvent;
 import shared.Log;
 import transferobjects.MenuItem;
-import transferobjects.User;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * The class is responsible for the functionality of the graphical user
