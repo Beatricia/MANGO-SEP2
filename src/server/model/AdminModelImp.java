@@ -6,6 +6,12 @@ import transferobjects.User;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Class responsible for connecting the networking part of the Server with Database connection.
+ * @author Simon
+ * @version 1
+ */
+
 public class AdminModelImp implements AdminModel
 {
   private DatabaseConn databaseConn;
@@ -29,18 +35,18 @@ public class AdminModelImp implements AdminModel
   }
 
   /**
-   * Sends user object which should be accepted as an employee to databaseconn
-   * @param user with true isAccepted parameter
+   * Sends user object that should be accepted as an employee
+   * @param user the User object that should be accepted
    */
 
   @Override public void acceptEmployee(User user) throws SQLException
   {
-    databaseConn.handlePendingEmployee(user.getUsername(), true);
+    databaseConn.handlePendingEmployee(user.getUsername(),true);
   }
 
   /**
-   * Sends user object which should delete from users list in
-   * @param user with false isAccepted parameter
+   * Sends user object that should delete from users list
+   * @param user the User object that should be declined
    */
 
   @Override public void declineEmployee(User user) throws SQLException

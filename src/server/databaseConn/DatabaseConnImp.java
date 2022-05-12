@@ -2,7 +2,6 @@ package server.databaseConn;
 
 import shared.Log;
 import shared.UserType;
-import transferobjects.LoginRequest;
 import transferobjects.MenuItem;
 import transferobjects.User;
 import util.LogInException;
@@ -25,13 +24,13 @@ public class DatabaseConnImp implements DatabaseConn
 
   private final UserDatabaseConn userDatabaseConn;
   private final MenuDatabaseConn menuDatabaseConn;
-  private final AdminDataBaseConnection adminDataBaseConnection;
+  private final AdminDatabaseConnection adminDataBaseConnection;
 
   public DatabaseConnImp()
   {
     userDatabaseConn = new UserDatabaseConn();
     menuDatabaseConn = new MenuDatabaseConn();
-    adminDataBaseConnection = new AdminDataBaseConnection();
+    adminDataBaseConnection = new AdminDatabaseConnection();
   }
 
   /**

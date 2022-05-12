@@ -31,6 +31,8 @@ class MenuDatabaseConn
       SQLException
   {
 
+    Log.log("MenuDatabaseConn adds MenuItem to database");
+
     try (Connection connection = DatabaseConnImp.getConnection()) {
 
       String ingredientsArray = "'{" + String.join(",", ingredients) + "}'";
@@ -50,6 +52,7 @@ class MenuDatabaseConn
   public void addDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) throws
       SQLException
   {
+    Log.log("MenuDatabaseConn adds DailyMenuItem to database");
     try (Connection connection = DatabaseConnImp.getConnection())
     {
       String sql = "INSERT INTO dailyMenuItem (date, name) VALUES ";
@@ -61,6 +64,7 @@ class MenuDatabaseConn
         sql +=  String.format("('%s', '%s'),", date.toString(), menuItems.get(i).getName());
       }
       sql = sql.substring(0,sql.length()-1);
+
 
       PreparedStatement statement = connection.prepareStatement(sql);
       statement.execute();

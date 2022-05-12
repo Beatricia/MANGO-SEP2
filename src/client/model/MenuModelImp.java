@@ -52,6 +52,10 @@ public class MenuModelImp implements MenuModel
     Log.log("MenuModelImp fires an ERROR_RECEIVED property");
   }
 
+  /**
+   * Fires an event with the list of menu items to the ViewModel
+   * @param event the event fired by the client
+   */
   private void sendMenuItems(PropertyChangeEvent event)
   {
     support.firePropertyChange(MENU_ITEMS_RECEIVED,null,event.getNewValue());
@@ -87,6 +91,10 @@ public class MenuModelImp implements MenuModel
 
   }
 
+  /**
+   * The method creates request object with correct name
+   * and sends this object to the client
+   */
   @Override public void requestMenuItems()
   {
     Request request = new Request(Request.MENU_ITEMS_REQUEST);
@@ -95,6 +103,11 @@ public class MenuModelImp implements MenuModel
     Log.log("MenuModelImpl send a MENU_ITEMS_REQUEST object to the Client (sendRequest method)");
   }
 
+  /**
+   * The method is used to send a DailyMenuItem object to the client
+   * @param date the LocalDate object that the user has provided
+   * @param menuItems the list of Menu items which the user has selected
+   */
   @Override public void addItemsToDailyMenu(LocalDate date,
       ArrayList<MenuItem> menuItems)
   {
