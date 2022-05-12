@@ -3,19 +3,19 @@ package client.core;
 import client.networking.Client;
 import client.view.ViewController;
 import client.view.general.GeneralViewController;
+
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 import shared.Log;
-import shared.UserType;
-import transferobjects.ErrorMessage;
+
 import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 /**
@@ -23,19 +23,14 @@ import java.io.IOException;
  *
  * @author Uafa
  */
-public class ViewHandler implements PropertyChangeListener
+public class ViewHandler
 {
   private ViewModelFactory viewModelFactory;
   private Stage stage;
-  private ClientFactory clientFactory;
 
   private Scene loginScene;
   private Scene registerScene;
   private Scene generalScene;
-
-  public Stage getStage() {
-    return stage;
-  }
 
   /**
    * Constructor for the class
@@ -43,14 +38,13 @@ public class ViewHandler implements PropertyChangeListener
    * @param viewModelFactory a viewModelFactory object
    * @param stage            a Stage object
    */
-  public ViewHandler(ViewModelFactory viewModelFactory, Stage stage, ClientFactory clientFactory) throws IOException {
+  public ViewHandler(ViewModelFactory viewModelFactory, Stage stage, ClientFactory clientFactory) {
     this.viewModelFactory = viewModelFactory;
     this.stage = stage;
 
-    this.clientFactory=clientFactory;
-
-    clientFactory.getClient().addListener(this);
-
+    Client client = clientFactory.getClient();
+    client.addListener(Client.ERROR_RECEIVED, this::onErrorReceived);
+    client.addListener(Client.LOGGED_IN_RECEIVED, this::onLoggedInReceived);
   }
 
   /**
@@ -59,7 +53,6 @@ public class ViewHandler implements PropertyChangeListener
    */
   public void start() {
     openLoginView();
-    //openAdminView();
   }
 
   /**
@@ -101,7 +94,7 @@ public class ViewHandler implements PropertyChangeListener
     stage.show();
   }
 
-  public void openGeneralView(User user){
+  private void openGeneralView(User user){
     try{
       if(generalScene == null){
         String path = "../view/general/GeneralView.fxml";
@@ -125,25 +118,6 @@ public class ViewHandler implements PropertyChangeListener
     }
   }
 
-  /**
-   * A method that loads the login view, instantiates the LoginViewController,
-   * calls the init() method in the controller, sets a title for the stage and
-   * displays the view.
-   */
-  public void openAdminView() {
-
-    if(loginScene == null){
-      String path = "../view/Admin/acceptEmployee/AcceptEmployeeView.fxml";
-      Pane p = openView(path);
-      loginScene = new Scene(p);
-    }
-
-    Log.log("ViewHandler: Admin view opened");
-    stage.setScene(loginScene);
-    stage.setTitle("Admin");
-    stage.show();
-  }
-
   private Pane openView(String path) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource(path));
@@ -163,27 +137,17 @@ public class ViewHandler implements PropertyChangeListener
     return root;
   }
 
-  @Override
-  public void propertyChange(PropertyChangeEvent evt) {
-    if(evt.getPropertyName().equals(Client.LOGGED_IN_RECEIVED) ){
-      User user = (User) evt.getNewValue();
+  private void onLoggedInReceived(PropertyChangeEvent evt) {
+    User user = (User) evt.getNewValue();
+    Platform.runLater(() -> openGeneralView(user));
+  }
 
-      Platform.runLater(() -> openGeneralView(user));
+  private void onErrorReceived(PropertyChangeEvent evt) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Error Dialog");
+    alert.setHeaderText(null);
+    alert.setContentText(evt.getNewValue().toString());
 
-
-    }
-    if(evt.getPropertyName().equals(Client.ERROR_RECEIVED))
-    {
-      Platform.runLater(
-          () -> {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText(null);
-            alert.setContentText(evt.getNewValue().toString());
-
-            alert.showAndWait();
-          }
-      );
-    }
+    Platform.runLater(alert::showAndWait);
   }
 }
