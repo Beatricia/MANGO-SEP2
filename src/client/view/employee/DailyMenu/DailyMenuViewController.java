@@ -1,4 +1,4 @@
-package client.view.MenuEmpl.DailyMenu;
+package client.view.employee.DailyMenu;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;

@@ -1,4 +1,4 @@
-package client.view.MenuEmpl.AddDish;
+package client.view.employee.AddDish;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
