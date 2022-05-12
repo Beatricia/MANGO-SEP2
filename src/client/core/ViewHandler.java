@@ -94,6 +94,10 @@ public class ViewHandler
     stage.show();
   }
 
+  /**
+   * Loads and opens the general tab view for the user, and initializing its controller.
+   * @param user Logged in user's object
+   */
   private void openGeneralView(User user){
     try{
       if(generalScene == null){
@@ -118,6 +122,11 @@ public class ViewHandler
     }
   }
 
+  /**
+   * Loads the fxml view from file, initializes its ViewController, and returns the fxml Pane
+   * @param path path to the fxml file (relative path starting from ViewHandler)
+   * @return the loaded pane
+   */
   private Pane openView(String path) {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(getClass().getResource(path));
@@ -137,11 +146,19 @@ public class ViewHandler
     return root;
   }
 
+  /**
+   * On logged in event received from the server
+   * @param evt event value
+   */
   private void onLoggedInReceived(PropertyChangeEvent evt) {
     User user = (User) evt.getNewValue();
     Platform.runLater(() -> openGeneralView(user));
   }
 
+  /**
+   * Error event handle. It shows an alert to the user with the error message.
+   * @param evt event value
+   */
   private void onErrorReceived(PropertyChangeEvent evt) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Error Dialog");
