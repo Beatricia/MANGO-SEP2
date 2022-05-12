@@ -30,7 +30,7 @@ public class RegisterViewController implements ViewController
   @FXML private PasswordField passwordRepeat;
   @FXML private Label errorMessage;
   private ViewHandler viewHandler;
-  private client.view.Register.RegisterViewModel viewModel;
+  private client.view.register.RegisterViewModel viewModel;
 
   /**
    * Binding all necessary fields with RegisterViewModel and initializing fo the @parameters.

@@ -1,4 +1,4 @@
-package client.view.Login;
+package client.view.login;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import shared.Log;
-import shared.UserType;
 
 /**
  * The class which is responsible for the functionality of

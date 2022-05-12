@@ -1,11 +1,10 @@
-package client.view.Login;
+package client.view.login;
 
 import client.model.UserModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Log;
-import shared.UserType;
 import transferobjects.ErrorMessage;
 import transferobjects.User;
 

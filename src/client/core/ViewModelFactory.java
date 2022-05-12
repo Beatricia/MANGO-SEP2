@@ -1,7 +1,7 @@
 package client.core;
 
 import client.view.admin.acceptEmployee.AcceptEmployeeViewModel;
-import client.view.Login.LoginViewModel;
+import client.view.login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
 import client.view.employee.DailyMenu.DailyMenuViewModel;
 import client.view.register.RegisterViewModel;
