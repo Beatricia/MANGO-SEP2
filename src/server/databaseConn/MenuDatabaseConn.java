@@ -62,7 +62,6 @@ class MenuDatabaseConn
       }
       sql = sql.substring(0,sql.length()-1);
 
-      Log.log("--------" + sql);
       PreparedStatement statement = connection.prepareStatement(sql);
       statement.execute();
       Log.log("MenuDatabaseConn adds DailyMenuItem to database");
