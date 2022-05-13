@@ -83,7 +83,7 @@ public class AdminModelImp implements AdminModel
    *
    * @param e event caught from the client
    */
-  public void updatePendingEmployees(PropertyChangeEvent e)
+  private void updatePendingEmployees(PropertyChangeEvent e)
   {
 
     Log.log("AdminModelImpl fires a PENDING_USER_REQUEST property");
