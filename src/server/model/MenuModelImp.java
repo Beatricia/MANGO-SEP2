@@ -3,6 +3,7 @@ package server.model;
 import server.databaseConn.DatabaseConn;
 import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
+import transferobjects.MenuItemWithQuantity;
 import transferobjects.SerializableImage;
 
 import javax.imageio.ImageIO;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -81,8 +83,19 @@ public class MenuModelImp implements MenuModel
     databaseConn.addDailyMenu(dailyMenuItemList.getDate(), dailyMenuItemList.getMenuItems());
   }
 
-  @Override public DailyMenuItemList requestDailyMenu()
-  {
-    return null;
+  @Override
+  public ArrayList<MenuItemWithQuantity> requestDailyMenu() throws SQLException {
+    LocalDate now = LocalDate.now();
+    return databaseConn.getDailyMenuItemList(now);
   }
+
+  @Override
+  public void addQuantity(ArrayList<MenuItemWithQuantity> listOfMenuItemsWithQuantity) throws SQLException {
+    LocalDate now = LocalDate.now();
+    for (MenuItemWithQuantity item : listOfMenuItemsWithQuantity) {
+      databaseConn.addQuantity(now, item.getName(), item.getQuantity());
+    }
+  }
+
+
 }

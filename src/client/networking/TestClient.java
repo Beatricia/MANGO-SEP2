@@ -45,10 +45,6 @@ public class TestClient implements Client
 
   }
 
-  @Override public void requestDailyMenu(Request request)
-  {
-
-  }
 
   @Override public void addQuantity(DailyMenuItemList listOfItemsWithQuantity)
   {

@@ -82,19 +82,6 @@ public class SocketClient implements Client{
 
 
     /**
-     * The method is used to send to the Server a Request object which
-     * identifies that a daily menu is requested
-     * @param request the Request object to be sent
-     */
-
-    @Override public void requestDailyMenu(Request request)
-    {
-        Log.log("SocketClient send a request for the Daily Menu");
-        clientHandler.send(request);
-    }
-
-
-    /**
      * The method is used to send to the Server a DailyMenuItemList, which carries
      * MenuItemWithQuantity objects.
      * @param listOfItemsWithQuantity the DailyMenuItemList object that should

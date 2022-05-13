@@ -3,6 +3,7 @@ package client.networking;
 import transferobjects.*;
 import util.PropertyChangeSubject;
 
+import java.beans.PropertyChangeListener;
 import java.rmi.Remote;
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public interface Client extends PropertyChangeSubject
   String MENU_ITEMS_RECEIVED = "MenuItemsReceived";
   String DAILY_MENU_RECEIVED = "DailyMenuReceived";
 
-  /**
+    /**
    * The method is used to send to the Server the LoginRequest object
    *    when a person loggs in it is called
    * @param request the LoginRequest to be sent
@@ -46,13 +47,6 @@ public interface Client extends PropertyChangeSubject
    * @param dailyMenuItem the DailyMenuItem to be sent
    */
   void addItemsToDailyMenu(DailyMenuItemList dailyMenuItem);
-
-  /**
-   * The method is used to send to the Server a Request object which
-   * identifies that a daily menu is requested
-   * @param request the Request object to be sent
-   */
-  void requestDailyMenu(Request request);
 
   /**
    * The method is used to send to the Server a DailyMenuItemList, which carries

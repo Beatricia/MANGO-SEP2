@@ -1,6 +1,8 @@
 package client.model;
 
+import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
+import transferobjects.MenuItemWithQuantity;
 import transferobjects.Request;
 import util.PropertyChangeSubject;
 
@@ -16,6 +18,7 @@ public interface MenuModel extends PropertyChangeSubject
 {
   String ERROR_RECEIVED = "ErrorReceived";
   String MENU_ITEMS_RECEIVED = "MenuItemsReceived";
+  String DAILY_MENU_RECEIVED = "DailyMenuReceived";
 
   /**
    * The method is used to send to the Client String objects, that are required
@@ -43,4 +46,15 @@ public interface MenuModel extends PropertyChangeSubject
    */
 
   void addItemsToDailyMenu(LocalDate date,ArrayList<MenuItem> menuItems);
+
+  /**
+   * The method is used to send oto the Client request for the DailyMenu on a specific date
+   */
+  void requestDailyMenu();
+
+  /**
+   * The method is used to the client the DailyMenuItemList, where each item list has a quantity
+   * @param listOfItemsWithQuantity the list of DailyMenuItems
+   */
+  void addQuantity(ArrayList<MenuItemWithQuantity> listOfItemsWithQuantity);
 }

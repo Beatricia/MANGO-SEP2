@@ -3,8 +3,10 @@ package client.model;
 import client.networking.Client;
 import shared.Log;
 import transferobjects.*;
+import transferobjects.MenuItem;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -39,7 +41,10 @@ public class MenuModelImp implements MenuModel
     this.client = client;
     client.addListener(Client.ERROR_RECEIVED, this::sendError);
     client.addListener(Client.MENU_ITEMS_RECEIVED, this::sendMenuItems);
+    client.addListener(Client.DAILY_MENU_RECEIVED, this::sendMenuWithIngredients);
   }
+
+
 
   /**
    * Fires an event with the error message to the ViewModel
@@ -61,6 +66,17 @@ public class MenuModelImp implements MenuModel
     support.firePropertyChange(MENU_ITEMS_RECEIVED,null,event.getNewValue());
     Log.log("MenuModelImp fires an MENU_ITEMS_RECEIVED property");
   }
+
+  /**
+   * Fires an event with the list of menu items and ingredients to the ViewModel
+   * @param event
+   */
+  private void sendMenuWithIngredients(PropertyChangeEvent event)
+  {
+    support.firePropertyChange(DAILY_MENU_RECEIVED,null, event.getNewValue());
+    Log.log("MenuModelImpl fires an DAILY_MENU_RECEIVED");
+  }
+
 
   /**
    * Takes a String name, an ArrayList of Strings representing the ingredients,
@@ -104,18 +120,45 @@ public class MenuModelImp implements MenuModel
   }
 
   /**
-   * The method is used to send a DailyMenuItem object to the client
-   * @param date the LocalDate object that the user has provided
-   * @param menuItems the list of Menu items which the user has selected
+   *
+   * @param date
+   * @param menuItems
    */
   @Override public void addItemsToDailyMenu(LocalDate date,
-      ArrayList<MenuItem> menuItems)
-  {
-    DailyMenuItemList dailyMenuItemList = new DailyMenuItemList(date,menuItems);
-    client.addItemsToDailyMenu(dailyMenuItemList);
+      ArrayList<MenuItem> menuItems) {
+    MenuItemWithQuantity menuItemWithQuantity;
+    ArrayList<MenuItemWithQuantity> itemsWithQuantity = new ArrayList<>();
+    for (int i = 0; i < menuItems.size(); i++) {
+      menuItemWithQuantity = new MenuItemWithQuantity(menuItems.get(i), date, 0);
+      itemsWithQuantity.add(menuItemWithQuantity);
+    }
 
-    Log.log("MenuModelImpl sends a new dailyMenuItem object to the Client (addItemsToDailyMenu method)");
+    Request request = new Request(Request.ADD_ITEMS_TO_DAILY_MENU);
+    request.setObject(itemsWithQuantity);
+    Log.log("MenuModelImpl sends a new  ADD_ITEMS_TO_DAILY_MENU request to the Client (addItemsToDailyMenu method)");
+    client.sendRequest(request);
   }
+
+  @Override
+  public void requestDailyMenu() {
+    Request request = new Request(Request.DAILY_MENU_REQUEST);
+    Log.log("MenuModelImpl sends a new DAILY_MENU_REQUEST object to the Client (requestDailyMenu method)");
+    client.sendRequest(request);
+  }
+
+  /**
+   * The method is used to the client the DailyMenuItemList, where each item list has a quantity
+   * @param listOfItemsWithQuantity the list of DailyMenuItems
+   */
+  @Override
+  public void addQuantity(ArrayList<MenuItemWithQuantity> listOfItemsWithQuantity) {
+    Request request = new Request(Request.ADD_QUANTITY_TO_DAILY_MENU);
+    request.setObject(listOfItemsWithQuantity);
+    Log.log("MenuModelImpl send a new ADD_QUANTITY_TO_DAILY_MENU request to the Client(addQuantity method)");
+    client.sendRequest(request);
+  }
+
+
 
   /**
    * Using the PropertyChangeSubject object adds a listener for a specific event
@@ -138,6 +181,8 @@ public class MenuModelImp implements MenuModel
   @Override public void addListener(PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(listener);
+
     Log.log(listener + "has been added as a listener to " + this);
   }
+
 }
