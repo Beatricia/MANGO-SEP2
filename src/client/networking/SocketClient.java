@@ -69,29 +69,6 @@ public class SocketClient implements Client{
         Log.log("SocketClient request send to server");
     }
 
-    /**
-     * Sends the DailyMenuItem to the server
-     * @param dailyMenuItem object to send to the server
-     */
-
-    @Override public void addItemsToDailyMenu(DailyMenuItemList dailyMenuItem)
-    {
-        Log.log("SocketClient dailyMenuItem send to server");
-        clientHandler.send(dailyMenuItem);
-    }
-
-
-    /**
-     * The method is used to send to the Server a DailyMenuItemList, which carries
-     * MenuItemWithQuantity objects.
-     * @param listOfItemsWithQuantity the DailyMenuItemList object that should
-     *                               be sent
-     */
-    @Override public void addQuantity(DailyMenuItemList listOfItemsWithQuantity)
-    {
-        Log.log("SocketClient send a DailyMenuItemList to the server");
-        clientHandler.send(listOfItemsWithQuantity);
-    }
 
     /**
      * Adds an event listener for a specific event fired in the SocketClient

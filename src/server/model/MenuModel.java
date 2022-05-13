@@ -1,11 +1,8 @@
 package server.model;
 
-import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
-import transferobjects.Request;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

@@ -41,19 +41,6 @@ public interface Client extends PropertyChangeSubject
    * @param request the Request object to be sent
    */
   void sendRequest(Request request);
-  /**
-   * The method is used to send to the Server the DailuMenuItem object
-   * which should me add to the system
-   * @param dailyMenuItem the DailyMenuItem to be sent
-   */
-  void addItemsToDailyMenu(DailyMenuItemList dailyMenuItem);
 
-  /**
-   * The method is used to send to the Server a DailyMenuItemList, which carries
-   * MenuItemWithQuantity objects.
-   * @param listOfItemsWithQuantity the DailyMenuItemList object that should
-   *                               be sent
-   */
-  void addQuantity(DailyMenuItemList listOfItemsWithQuantity);
 
 }

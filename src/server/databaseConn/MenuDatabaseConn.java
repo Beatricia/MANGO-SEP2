@@ -1,11 +1,8 @@
 package server.databaseConn;
 
 import shared.Log;
-import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
-import transferobjects.Request;
-import util.LogInException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Locale;
 
 class MenuDatabaseConn
 {

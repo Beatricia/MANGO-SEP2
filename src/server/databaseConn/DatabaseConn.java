@@ -1,7 +1,6 @@
 package server.databaseConn;
 
 import shared.UserType;
-import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.User;

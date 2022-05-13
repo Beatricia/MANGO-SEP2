@@ -10,6 +10,7 @@ import util.LogInException;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * <p>The <code>ServerHandler</code> is having a role of handling a client connection on the server side
@@ -139,13 +140,13 @@ public class ServerHandler implements Runnable
 
 
     //TODO how to know if it is to add menu items or to add quantity
-    //in case the received object is a DailyMenuItemList object
-    else if(receivedObj instanceof DailyMenuItemList)
+
+   /* else if(receivedObj instanceof DailyMenuItemList)
     {
       Log.log("ServerHandler received dailyMenuItem object");
       DailyMenuItemList dailyMenuItem = (DailyMenuItemList) receivedObj;
       menuModel.addDailyMenuItem(dailyMenuItem); // we have to change now this from dailyMenuItem to MenuItemWithQuantity
-    }
+    }*/
 
     else if(receivedObj instanceof Request)
     {
@@ -196,6 +197,19 @@ public class ServerHandler implements Runnable
           + "DailyMenuItemList to client");
       sendObject(request);
     }
+    else if(request.getRequestName().equals(Request.ADD_ITEMS_TO_DAILY_MENU))
+    {
+      Log.log("ServerHandler received ADD_ITEMS_TO_DAILY_MENU");
+      menuModel.addDailyMenuItem(
+          (ArrayList<MenuItemWithQuantity>) request.getObject());
+    }
+    else if(request.getRequestName().equals(Request.ADD_QUANTITY_TO_DAILY_MENU))
+    {
+      Log.log("ServerHandler received ADD_QUANTITY_TO_DAILY_MENU");
+      menuModel.addQuantity(
+          (ArrayList<MenuItemWithQuantity>) request.getObject());
+    }
+
 
   }
 

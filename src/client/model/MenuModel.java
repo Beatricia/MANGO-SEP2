@@ -1,9 +1,7 @@
 package client.model;
 
-import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
-import transferobjects.Request;
 import util.PropertyChangeSubject;
 
 import java.time.LocalDate;

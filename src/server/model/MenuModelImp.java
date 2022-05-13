@@ -1,7 +1,6 @@
 package server.model;
 
 import server.databaseConn.DatabaseConn;
-import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.SerializableImage;
