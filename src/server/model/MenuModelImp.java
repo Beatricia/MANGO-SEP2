@@ -72,21 +72,17 @@ public class MenuModelImp implements MenuModel
     return databaseConn.getListOfMenuItems();
   }
 
-  /**
-   * Passes the daily menu item onto the Database connection.
-   * @param dailyMenuItemList which is unwrapped and passed onto the class Databaseconn
-   */
 
-  @Override public void addDailyMenuItem(DailyMenuItemList dailyMenuItemList)
+  @Override public void addDailyMenuItem(ArrayList<MenuItemWithQuantity> dailyMenuItem)
       throws SQLException
   {
-    databaseConn.addDailyMenu(dailyMenuItemList.getDate(), dailyMenuItemList.getMenuItems());
+    databaseConn.addDailyMenu(dailyMenuItem);
   }
 
   @Override
   public ArrayList<MenuItemWithQuantity> requestDailyMenu() throws SQLException {
     LocalDate now = LocalDate.now();
-    return databaseConn.getDailyMenuItemList(now);
+    return databaseConn.gatDailyMenuItemList(now);
   }
 
   @Override

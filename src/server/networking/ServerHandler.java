@@ -144,7 +144,7 @@ public class ServerHandler implements Runnable
     {
       Log.log("ServerHandler received dailyMenuItem object");
       DailyMenuItemList dailyMenuItem = (DailyMenuItemList) receivedObj;
-      menuModel.addDailyMenuItem(dailyMenuItem);
+      menuModel.addDailyMenuItem(dailyMenuItem); // we have to change now this from dailyMenuItem to MenuItemWithQuantity
     }
 
     else if(receivedObj instanceof Request)

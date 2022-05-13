@@ -31,11 +31,7 @@ public interface MenuModel
 
   ArrayList<MenuItem> getListOfMenuItems() throws SQLException;
 
-  /**
-   * Passes the daily menu item onto the Database connection.
-   * @param dailyMenuItemList which is unwrapped and passed onto the class Databaseconn
-   */
-  void addDailyMenuItem(DailyMenuItemList dailyMenuItemList) throws SQLException;
+  void addDailyMenuItem(ArrayList<MenuItemWithQuantity> dailyMenuItem) throws SQLException;
 
   ArrayList<MenuItemWithQuantity> requestDailyMenu() throws SQLException;
 
