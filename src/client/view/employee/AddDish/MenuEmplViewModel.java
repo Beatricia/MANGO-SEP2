@@ -67,7 +67,7 @@ public class MenuEmplViewModel
   public void addItem(String name, String ingredients, String price,
       String imgPath)
   {
-    if (name.isBlank() || ingredients.isBlank() || price.isBlank())
+    if (name.isBlank() || price.isBlank())
     {
       printErrorMessage("Empty field");
     }
