@@ -2,7 +2,9 @@ package server.databaseConn;
 
 import shared.Log;
 import shared.UserType;
+import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
+import transferobjects.MenuItemWithQuantity;
 import transferobjects.User;
 import util.LogInException;
 
@@ -176,13 +178,13 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
-  @Override public void addDailyMenu(LocalDate date,
-      ArrayList<MenuItem> menuItems) throws SQLException
+  @Override public void addDailyMenu(
+      ArrayList<MenuItemWithQuantity> menuItems) throws SQLException
   {
     try
     {
       Log.log("DatabaseConnImp: Sending a AddDailyMenu request to the MenuDatabaseConn");
-      menuDatabaseConn.addDailyMenu(date, menuItems);
+      menuDatabaseConn.addDailyMenu(menuItems);
     }
     catch (SQLException e)
     {
@@ -201,6 +203,20 @@ public class DatabaseConnImp implements DatabaseConn
     {
       throw formatExceptionMessage(e);
     }
+  }
+
+  @Override public ArrayList<MenuItemWithQuantity> gatDailyMenuItemList(LocalDate date)
+      throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending a getDailyMenuItem request to the MenuDatabaseConn");
+    return menuDatabaseConn.getDailyMenuItemList(date);
+  }
+
+  @Override public void addQuantity(LocalDate date, String name, int quantity)
+      throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending a AddQuantity request to the MenuDatabaseConn");
+    menuDatabaseConn.addQuantity(date, name, quantity);
   }
 
   @Override public void handlePendingEmployee(String username, boolean accept)

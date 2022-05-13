@@ -1,7 +1,9 @@
 package server.databaseConn;
 
 import shared.UserType;
+import transferobjects.DailyMenuItemList;
 import transferobjects.MenuItem;
+import transferobjects.MenuItemWithQuantity;
 import transferobjects.User;
 import util.LogInException;
 
@@ -55,7 +57,11 @@ public interface DatabaseConn
 
   ArrayList<User> getAllPendingEmployees() throws SQLException;
 
-  void addDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) throws SQLException;
+  void addDailyMenu(ArrayList<MenuItemWithQuantity> menuItems) throws SQLException;
 
   ArrayList<MenuItem> getListOfMenuItems() throws SQLException;
+
+  ArrayList<MenuItemWithQuantity> gatDailyMenuItemList(LocalDate date) throws SQLException;
+
+  void addQuantity(LocalDate date, String name, int quantity) throws SQLException;
 }

@@ -16,7 +16,7 @@ public class MenuItem implements Serializable
   private String name;
   private ArrayList<String> ingredients;
   private double price;
-  private SerializableImage image;
+  private String imgPath;
 
   /**
    * Construct the MenuItem object
@@ -26,11 +26,12 @@ public class MenuItem implements Serializable
    * @param price item's price
    */
 
-  public MenuItem(String name,ArrayList<String> ingredients, double price)
+  public MenuItem(String name,ArrayList<String> ingredients, double price,String imgPath)
   {
     this.name = name;
     this.ingredients = ingredients;
     this.price = price;
+    this.imgPath = imgPath;
 
     Log.log("MenuItem transferobject created");
   }
@@ -63,24 +64,6 @@ public class MenuItem implements Serializable
   public double getPrice()
   {
     return price;
-  }
-
-  /**
-   * gets the path of the image
-   * @return image's path
-   */
-  public SerializableImage getImage()
-  {
-    return image;
-  }
-
-  /**
-   * assigns parameter as image variable
-   */
-
-  public void setImage(SerializableImage image)
-  {
-    this.image = image;
   }
 
 

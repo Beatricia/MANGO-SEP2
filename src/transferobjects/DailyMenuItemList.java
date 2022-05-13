@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class DailyMenuItemList implements Serializable
 {
   private LocalDate date;
-  private ArrayList<MenuItem> menuItems;
+  private ArrayList<MenuItemWithQuantity> menuItems;
 
   /**
    * Construct the DailyMenuItem object
@@ -25,7 +25,7 @@ public class DailyMenuItemList implements Serializable
    * @param menuItems list of menu's items
    */
 
-  public DailyMenuItemList(LocalDate date,ArrayList<MenuItem> menuItems)
+  public DailyMenuItemList(LocalDate date,ArrayList<MenuItemWithQuantity> menuItems)
   {
     this.date = date;
     this.menuItems = menuItems;
@@ -46,7 +46,7 @@ public class DailyMenuItemList implements Serializable
    * Gets list of menu's items
    * @return ArrayList<MenuItem>
    */
-  public ArrayList<MenuItem> getMenuItems()
+  public ArrayList<MenuItemWithQuantity> getMenuItems()
   {
     return menuItems;
   }
