@@ -56,13 +56,21 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
         errorLabel.textProperty().bindBidirectional(viewModel.getErrorMessage());
 
         //setting the default image for the menu item
-        image = new Image(String.valueOf(getClass().getResource("defaultImage/default.png")));
-        imageView.setImage(image);
+        /*image = new Image(String.valueOf(getClass().getResource("defaultImage/default.png")));
+        imageView.setImage(image);*/
+
+        refresh();
     }
 
     @Override public void refresh()
     {
-
+        //setting everything to default
+        nameTextField.clear();
+        priceTextField.clear();
+        errorLabel.setText("");
+        ingredientsAreaField.clear();
+        image = new Image(String.valueOf(getClass().getResource("defaultImage/default.png")));
+        imageView.setImage(image);
     }
 
     /**
@@ -74,6 +82,7 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
         Log.log("Add dish button has been clicked in the MenuEmpl view");
         try{
             viewModel.addItem(nameTextField.getText(), ingredientsAreaField.getText(),priceTextField.getText(), filePath.toString()); //added the picture file here
+            refresh();
             // + get the image away
         } catch (NullPointerException e){
             errorLabel.setText("Please select an image!");
