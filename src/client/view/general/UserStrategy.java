@@ -60,11 +60,12 @@ public abstract class UserStrategy
    *   <li>tab path 2</li>
    *   <li>tab name 2</li>
    * </ul>
-   * @param tabs tabs to load in
+   * @param basePath common path to the tabs (this will be joined with the tab paths)
+   * @param tabs tab paths to load in (relative to the base path)
    */
-  protected void loadTabs(String[] tabs){
+  protected void loadTabs(String basePath, String[] tabs){
     for (int i = 0; i < tabs.length; i += 2) {
-      String path = tabs[i];
+      String path = basePath + tabs[i];
       String tabName = tabs[i + 1];
 
       Log.log("Loading tab " + tabName + " from " + path);
@@ -78,7 +79,7 @@ public abstract class UserStrategy
    * @param path tab path to load (path must start from src/)
    * @param tabName name of the tab
    */
-  protected void loadTabFromFile(String path, String tabName){
+  private void loadTabFromFile(String path, String tabName){
     FXMLLoader loader = new FXMLLoader();
     try{
       //set path for the tab (it starts from src/ folder)
@@ -129,14 +130,19 @@ public abstract class UserStrategy
   public void refreshTab(Tab tab){
     Log.log("Refreshing tab " + tab.getText());
     ViewController controller = controllers.get(tab);
-    controller.refresh();
+
+    try{
+      controller.refresh();
+    } catch (Exception e){
+      e.printStackTrace();
+    }
   }
 
   /**
    * Returns the class's name
    * @return the class's name
    */
-  public String toString(){
+  @Override public String toString(){
     return getClass().getSimpleName();
   }
 }

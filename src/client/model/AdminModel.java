@@ -32,11 +32,4 @@ public interface AdminModel extends PropertyChangeSubject
    * @param user one particular User object to be declined
    */
   void declineEmployee(User user);
-
-  /**
-   * This method is responsible for sending a PropertyChange event to the ViewModel
-   *
-   * @param e event caught from the client
-   */
-  void updatePendingEmployees(PropertyChangeEvent e);
 }

@@ -80,4 +80,9 @@ public class MenuModelImp implements MenuModel
   {
     databaseConn.addDailyMenu(dailyMenuItemList.getDate(), dailyMenuItemList.getMenuItems());
   }
+
+  @Override public DailyMenuItemList requestDailyMenu()
+  {
+    return null;
+  }
 }

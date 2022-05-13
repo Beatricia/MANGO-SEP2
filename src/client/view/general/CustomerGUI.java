@@ -13,6 +13,7 @@ import shared.Log;
  */
 public class CustomerGUI extends UserStrategy
 {
+  private final static String BASE_PATH = "src/client/view/customer/";
   /**
    * All the tabs to load when the logged in user is a customer
    */
@@ -26,6 +27,6 @@ public class CustomerGUI extends UserStrategy
 
   @Override public void loadTabs() {
     Log.log("CustomerGUI customer tabs are loading");
-    loadTabs(tabs);
+    loadTabs(BASE_PATH, tabs);
   }
 }

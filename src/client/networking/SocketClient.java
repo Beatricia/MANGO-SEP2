@@ -76,10 +76,35 @@ public class SocketClient implements Client{
 
     @Override public void addItemsToDailyMenu(DailyMenuItemList dailyMenuItem)
     {
-        clientHandler.send(dailyMenuItem);
         Log.log("SocketClient dailyMenuItem send to server");
+        clientHandler.send(dailyMenuItem);
     }
 
+
+    /**
+     * The method is used to send to the Server a Request object which
+     * identifies that a daily menu is requested
+     * @param request the Request object to be sent
+     */
+
+    @Override public void requestDailyMenu(Request request)
+    {
+        Log.log("SocketClient send a request for the Daily Menu");
+        clientHandler.send(request);
+    }
+
+
+    /**
+     * The method is used to send to the Server a DailyMenuItemList, which carries
+     * MenuItemWithQuantity objects.
+     * @param listOfItemsWithQuantity the DailyMenuItemList object that should
+     *                               be sent
+     */
+    @Override public void addQuantity(DailyMenuItemList listOfItemsWithQuantity)
+    {
+        Log.log("SocketClient send a DailyMenuItemList to the server");
+        clientHandler.send(listOfItemsWithQuantity);
+    }
 
     /**
      * Adds an event listener for a specific event fired in the SocketClient
@@ -143,4 +168,14 @@ public class SocketClient implements Client{
         Log.log("SocketClient fires a MENU_ITEMS_RECEIVED event");
     }
 
+    /**
+     * Fires a DAILY_MENU_RECEIVED event when a DailyMenuItemList object has
+     * been received from the server
+     * @param request the Request object
+     */
+    public void dailyMenuReceived(Request request)
+    {
+        Log.log("SocketClient fires a DAILY_MENU_RECEIVED event");
+        support.firePropertyChange(DAILY_MENU_RECEIVED, null, request.getObject());
+    }
 }

@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class CanEat extends Application
 {
-  @Override public void start(Stage stage) throws Exception
+  @Override public void start(Stage stage)
   {
     ClientFactory clientFactory= new ClientFactory();
     ModelFactory modelFactory = new ModelFactory(clientFactory);

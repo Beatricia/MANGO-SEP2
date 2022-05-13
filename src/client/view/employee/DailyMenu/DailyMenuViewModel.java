@@ -1,4 +1,4 @@
-package client.view.MenuEmpl.DailyMenu;
+package client.view.employee.DailyMenu;
 
 import client.model.MenuModel;
 import javafx.application.Platform;

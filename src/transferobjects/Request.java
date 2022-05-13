@@ -10,6 +10,7 @@ public class Request implements Serializable
   public static final String EMPLOYEE_IS_ACCEPTED = "EmployeeIsAccepted";
   public static final String EMPLOYEE_IS_DECLINED = "EmployeeIsDeclined";
   public static final String PENDING_USER_REQUEST = "PendingUserRequest";
+  public static final String DAILY_MENU_REQUEST = "DailyMenuRequest";
 
 
 

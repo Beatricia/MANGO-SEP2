@@ -25,25 +25,25 @@ public class SocketServer
   public void startServer() throws IOException {
     Log.log("SocketServer: Server Running");
     // Create server socket on specific port
-    ServerSocket serverSocket = new ServerSocket(1111);
-    System.out.println("Server Running");
+    try(ServerSocket serverSocket = new ServerSocket(1111)){
 
+      DatabaseConn databaseConn = new DatabaseConnImp();
+      UserModel userModel = new UserModelImp(databaseConn);
+      MenuModel menuModel = new MenuModelImp(databaseConn);
+      AdminModel adminModel = new AdminModelImp(databaseConn);
 
-    DatabaseConn databaseConn = new DatabaseConnImp();
-    UserModel userModel = new UserModelImp(databaseConn);
-    MenuModel menuModel = new MenuModelImp(databaseConn);
-    AdminModel adminModel = new AdminModelImp(databaseConn);
+      while(true){
 
-    while(true){
-      Log.log("SocketServer accepts a new socket");
-      // Accept a new socket
-      Socket clientSocket = serverSocket.accept();
-      // Init server socket handler
-      ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel);
-      // put the handler on a different thread
-      Thread handlerThread = new Thread(handler);
-      Log.log("SocketServer puts handler into another thread");
-      handlerThread.start();
+        // Accept a new socket
+        Socket clientSocket = serverSocket.accept();
+        Log.log("SocketServer accepts a new socket");
+        // Init server socket handler
+        ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel);
+        // put the handler on a different thread
+        Thread handlerThread = new Thread(handler);
+        Log.log("SocketServer puts handler into another thread");
+        handlerThread.start();
+    }
     }
   }
 }

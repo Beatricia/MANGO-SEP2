@@ -1,4 +1,4 @@
-package client.view.MenuEmpl.AddDish;
+package client.view.employee.AddDish;
 
 import client.model.MenuModel;
 import javafx.application.Platform;
@@ -9,7 +9,6 @@ import shared.Log;
 import transferobjects.ErrorMessage;
 
 import java.beans.PropertyChangeEvent;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -68,7 +67,7 @@ public class MenuEmplViewModel
   public void addItem(String name, String ingredients, String price,
       String imgPath)
   {
-    if (name.isBlank() || ingredients.isBlank() || price.isBlank())
+    if (name.isBlank() || price.isBlank())
     {
       printErrorMessage("Empty field");
     }

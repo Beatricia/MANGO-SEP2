@@ -30,7 +30,7 @@ public class RegisterViewController implements ViewController
   @FXML private PasswordField passwordRepeat;
   @FXML private Label errorMessage;
   private ViewHandler viewHandler;
-  private client.view.Register.RegisterViewModel viewModel;
+  private client.view.register.RegisterViewModel viewModel;
 
   /**
    * Binding all necessary fields with RegisterViewModel and initializing fo the @parameters.
@@ -44,10 +44,17 @@ public class RegisterViewController implements ViewController
     viewModel = viewModelFactory.getRegisterViewModel();
 
     errorMessage.textProperty().bindBidirectional(viewModel.getErrorMessage()); // binds with the errorMessage in VM
+
+    refresh();
   }
 
   @Override public void refresh() {
-
+    firstName.clear();
+    lastName.clear();
+    username.clear();
+    password.clear();
+    passwordRepeat.clear();
+    errorMessage.setText("");
   }
 
   /**
@@ -82,6 +89,8 @@ public class RegisterViewController implements ViewController
 
       viewModel.register(firstName.getText(), lastName.getText(),
           username.getText(), password.getText(), passwordRepeat.getText(), userType);
+
+      refresh();
     }
 
 }

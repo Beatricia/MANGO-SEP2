@@ -45,6 +45,15 @@ public class TestClient implements Client
 
   }
 
+  @Override public void requestDailyMenu(Request request)
+  {
+
+  }
+
+  @Override public void addQuantity(DailyMenuItemList listOfItemsWithQuantity)
+  {
+
+  }
 
   @Override public void addListener(String event, PropertyChangeListener listener) {
     support.addPropertyChangeListener(event, listener);
