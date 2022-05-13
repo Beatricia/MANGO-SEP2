@@ -39,10 +39,14 @@ public class LoginViewController implements ViewController
     this.viewModel = viewModelFactory.getLoginViewModel();
 
     errorLabel.textProperty().bindBidirectional(viewModel.getError());
+
+    refresh();
   }
 
   @Override public void refresh() {
-
+    username.clear();
+    password.clear();
+    errorLabel.setText("");
   }
 
   /**
@@ -54,6 +58,8 @@ public class LoginViewController implements ViewController
   {
     Log.log("LoginViewController logg in button pressed");
     viewModel.login(username.getText(), password.getText());
+
+    refresh();
   }
 
   /**
