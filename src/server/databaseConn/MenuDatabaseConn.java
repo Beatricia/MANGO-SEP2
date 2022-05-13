@@ -64,7 +64,7 @@ class MenuDatabaseConn
 
       for (int i = 0; i < menuItems.size(); i++)
       {
-        sql +=  String.format("('%s', '%s','%s'),", menuItems.get(i).getDate(), menuItems.get(i).getName(), menuItems.get(i).getQuantity());
+        sql +=  String.format("('%s', '%s'),", menuItems.get(i).getDate(), menuItems.get(i).getName()) +  menuItems.get(i).getQuantity();
       }
       sql = sql.substring(0,sql.length()-1);
 
@@ -112,7 +112,8 @@ class MenuDatabaseConn
 
     try(Connection connection = DatabaseConnImp.getConnection())
     {
-      String sql1 = "SELECT * FROM dailyMenuItemWithQuantity WHERE date = '" + date + "'";
+      String sql1 = "SELECT dailyMenuItem.name, dailyMenuItem.quantity, menuItem.price, menuItem.imgPath FROM dailyMenuItem "
+          + "INNER JOIN menuItem ON dailyMenuItem.name = menuItem.name WHERE date = '" + date + "'";
 
       PreparedStatement statement1 = connection.prepareStatement(sql1);
 
@@ -123,6 +124,10 @@ class MenuDatabaseConn
         String name = resultSet1.getString("name");
 
         int quantity = resultSet1.getInt("quantity");
+
+        double price = resultSet1.getDouble("price");
+
+        String path = resultSet1.getString("imgPath");
 
         String sql2 = "SELECT name FROM ingredient WHERE id in (SELECT ingredientId FROM menuItemIngredient WHERE itemName = '" + name + "' ) = ";
 
@@ -138,22 +143,10 @@ class MenuDatabaseConn
           ingredients.add(ingredientName);
         }
 
-        String sql3 = "SELECT * FROM menuItem WHERE name = '" + name +"'";
-
-        PreparedStatement statement3 = connection.prepareStatement(sql3);
-
-        ResultSet resultSet3 = statement3.executeQuery();
-
-        while (resultSet3.next())
-        {
-          double price = resultSet3.getDouble("price");
-          String path = resultSet3.getString("imgPath");
-
           MenuItem menuItem = new MenuItem(name,ingredients,price,path);
 
-          MenuItemWithQuantity dailyMenuItem = new MenuItemWithQuantity(menuItem,LocalDate.now(),quantity);
+          MenuItemWithQuantity dailyMenuItem = new MenuItemWithQuantity(menuItem,date,quantity);
           dailyItems.add(dailyMenuItem);
-        }
       }
     }
 
