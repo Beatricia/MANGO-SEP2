@@ -18,7 +18,7 @@ public class CustomerGUI extends UserStrategy
    * All the tabs to load when the logged in user is a customer
    */
   private final static String[] tabs = {
-
+      "displayMenu/DisplayMenuView.fxml", "Today's Menu"
   };
 
   public CustomerGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {

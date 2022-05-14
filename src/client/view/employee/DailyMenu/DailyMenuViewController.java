@@ -100,7 +100,7 @@ public class DailyMenuViewController implements ViewController
    * view model.
    */
 
-  public void onAdd(javafx.event.ActionEvent actionEvent)
+  public void onAdd()
   {
     Log.log("Add button has been clicked to add a DailyMenu");
     viewModel.addToDailyMenu(list.getSelectionModel().getSelectedItems(), datePicker.getValue());

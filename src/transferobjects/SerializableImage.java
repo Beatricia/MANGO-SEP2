@@ -24,6 +24,7 @@ public class SerializableImage implements Serializable
    * Initializes a SerializableImage, and converts the BufferedImage object into the right
    * format, so that it can be sent by sockets
    * @param image the image object to convert
+   * @param format format of the img (e.g. png, jpg, jpeg)
    */
   public SerializableImage(BufferedImage image, String format){
     this.format = format;

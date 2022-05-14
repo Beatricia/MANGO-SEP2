@@ -91,12 +91,21 @@ public class MenuModelImp implements MenuModel
       double price, String imgPath)
   {
     try {
+      //read image from the client computer
       BufferedImage bufferedImage = ImageIO.read(new File(imgPath));
-      String format = imgPath.substring(imgPath.lastIndexOf(".") + 1);
-      SerializableImage serializableImage = new SerializableImage(bufferedImage, format);
 
-      MenuItem item = new MenuItem(name,ingredients,price);
-      item.setImage(serializableImage);
+      //get image format (png, jpg)
+      String format = imgPath.substring(imgPath.lastIndexOf(".") + 1);
+
+      //create image path for our application (now the server and the client can read the images from here)
+      String appImgPath = "Resources/MenuItemImages/" + name + "." + format;
+
+      //save the image to this path so we can later read it back
+      ImageIO.write(bufferedImage,format, new File(appImgPath));
+      //SerializableImage serializableImage = new SerializableImage(bufferedImage, format);
+
+      MenuItem item = new MenuItem(name, ingredients, price, appImgPath);
+      //item.setImage(serializableImage);
       Log.log("MenuModelImpl created a new MenuItem and set its image path");
 
       client.addItem(item); //added the image path here

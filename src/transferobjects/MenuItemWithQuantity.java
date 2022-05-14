@@ -7,7 +7,7 @@ public class MenuItemWithQuantity extends MenuItem {
   private int quantity;
 
   public MenuItemWithQuantity(MenuItem item, LocalDate date, int quantity ) {
-    super(item.getName(), item.getIngredients(), item.getPrice());
+    super(item.getName(), item.getIngredients(), item.getPrice(), item.getImgPath());
     this.date=date;
     this.quantity=quantity;
   }

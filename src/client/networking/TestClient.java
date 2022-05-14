@@ -14,8 +14,8 @@ public class TestClient implements Client
   public TestClient() throws IOException {
     new Thread(() -> {
       try {
-        Thread.sleep(3000);
-        support.firePropertyChange(Client.LOGGED_IN_RECEIVED, null, new User("test-user", UserType.EMPLOYEE, "first-test-name", "last-test-name"));
+        Thread.sleep(2000);
+        support.firePropertyChange(Client.LOGGED_IN_RECEIVED, null, new User("test-user", UserType.CUSTOMER, "first-test-name", "last-test-name"));
       }
       catch (InterruptedException e) {
         e.printStackTrace();
@@ -36,17 +36,6 @@ public class TestClient implements Client
   }
 
   @Override public void sendRequest(Request request)
-  {
-
-  }
-
-  @Override public void addItemsToDailyMenu(DailyMenuItemList dailyMenuItemList)
-  {
-
-  }
-
-
-  @Override public void addQuantity(DailyMenuItemList listOfItemsWithQuantity)
   {
 
   }

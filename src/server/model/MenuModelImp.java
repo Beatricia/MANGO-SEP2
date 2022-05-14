@@ -37,14 +37,14 @@ public class MenuModelImp implements MenuModel
    */
   @Override public void addItem(MenuItem menuItem) throws SQLException
   {
-    SerializableImage serializableImage = menuItem.getImage();
-    String folder = "Resources/MenuItemImages/"; // path to the folder (directory)
-    String imgPath = folder + menuItem.getName() + "." + serializableImage.getFormat(); // create image path
+    //SerializableImage serializableImage = menuItem.getImage();
+    //String folder = "Resources/MenuItemImages/"; // path to the folder (directory)
+    String imgPath = menuItem.getImgPath(); //folder + menuItem.getName() + "." + serializableImage.getFormat(); // create image path
 
     databaseConn.addItem(menuItem.getName(), menuItem.getIngredients(),
         menuItem.getPrice(), imgPath);
 
-    BufferedImage image = serializableImage.toImage(); // convert image back to buffered image
+    /*BufferedImage image = serializableImage.toImage(); // convert image back to buffered image
     try
     {
       //check if the image folder exists (if not, then create it
@@ -53,12 +53,13 @@ public class MenuModelImp implements MenuModel
         directory.mkdir();
 
       //save the image into the folder
+      //save the image into the folder
       ImageIO.write(image, serializableImage.getFormat(), new File(imgPath));
     }
     catch (IOException e)
     {
       e.printStackTrace();
-    }
+    }*/
   }
 
   /**

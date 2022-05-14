@@ -26,7 +26,7 @@ public class MenuItem implements Serializable
    * @param price item's price
    */
 
-  public MenuItem(String name,ArrayList<String> ingredients, double price,String imgPath)
+  public MenuItem(String name, ArrayList<String> ingredients, double price, String imgPath)
   {
     this.name = name;
     this.ingredients = ingredients;
@@ -66,6 +66,9 @@ public class MenuItem implements Serializable
     return price;
   }
 
+  public String getImgPath(){
+    return imgPath;
+  }
 
   public String toString()
   {

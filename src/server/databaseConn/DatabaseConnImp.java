@@ -97,7 +97,7 @@ public class DatabaseConnImp implements DatabaseConn
         "ERROR: duplicate key value violates unique constraint "))
       e = new SQLException("Item already exists");
 
-    // Remove that weird capital error text from the beginning of the message
+      // Remove that weird capital error text from the beginning of the message
     else if (message.startsWith("ERROR: "))
       e = new SQLException(message.substring("ERROR: ".length()));
 
@@ -228,7 +228,7 @@ public class DatabaseConnImp implements DatabaseConn
     }
     catch (SQLException e)
     {
-     throw formatExceptionMessage(e);
+      throw formatExceptionMessage(e);
     }
   }
 
