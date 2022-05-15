@@ -12,6 +12,13 @@ import shared.Log;
 import shared.UserType;
 import transferobjects.User;
 
+/**
+ * Controller for the GeneralView. The main responsibility for this class is to refresh the
+ * tab specific tab the user switched to.
+ *
+ * @author Greg
+ * @version 1
+ */
 public class GeneralViewController implements ViewController
 {
   @FXML private TabPane tabPane;
@@ -61,6 +68,10 @@ public class GeneralViewController implements ViewController
     userStrategy.loadTabs();
   }
 
+  /**
+   * Calls the tab's controller's refresh method
+   * @param newTab the controller to refresh
+   */
   private void tabChanged(Tab newTab) {
     Log.log("Changed user tab");
     userStrategy.refreshTab(newTab);
