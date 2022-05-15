@@ -69,12 +69,12 @@ public class LoginViewModel
     if (username.equals("") || password.equals(""))
     {
       Log.log("LoginViewModel the user did not complete the username and password fields");
-      error.setValue("Empty field");
+      displayError("Empty field");
     }
     else if (password.length() <= 8) // checks for password's length
     {
       Log.log("LoginViewModel the user wrote a password with 9<characters");
-      error.setValue("Password must contain minimum of 9 characters");
+      displayError("Password must contain minimum of 9 characters");
     }
     else
     {

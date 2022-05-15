@@ -71,6 +71,10 @@ public class MenuEmplViewModel
     {
       printErrorMessage("Empty field");
     }
+    else if(name.length()>101)
+    {
+      printErrorMessage("Name is too long");
+    }
     else
     {
       try

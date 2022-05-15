@@ -30,7 +30,7 @@ public class RegisterViewController implements ViewController
   @FXML private PasswordField passwordRepeat;
   @FXML private Label errorMessage;
   private ViewHandler viewHandler;
-  private client.view.register.RegisterViewModel viewModel;
+  private RegisterViewModel viewModel;
 
   /**
    * Binding all necessary fields with RegisterViewModel and initializing fo the @parameters.
@@ -41,7 +41,7 @@ public class RegisterViewController implements ViewController
       ViewModelFactory viewModelFactory)
   {
     this.viewHandler = viewHandler;
-    viewModel = viewModelFactory.getRegisterViewModel();
+    this.viewModel = viewModelFactory.getRegisterViewModel();
 
     errorMessage.textProperty().bindBidirectional(viewModel.getErrorMessage()); // binds with the errorMessage in VM
 
@@ -66,6 +66,7 @@ public class RegisterViewController implements ViewController
     Log.log("Go Back button in the Register view is pressed");
     errorMessage.setText("");
     viewHandler.openLoginView();
+    refresh();
 
   }
 

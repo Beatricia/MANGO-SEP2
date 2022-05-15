@@ -6,7 +6,7 @@ import client.view.employee.AddQuantity.AddQuantityViewModel;
 import client.view.login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
 import client.view.employee.DailyMenu.DailyMenuViewModel;
-import client.view.register.RegisterViewModel;
+import client.view.Register.RegisterViewModel;
 import shared.Log;
 
 /**

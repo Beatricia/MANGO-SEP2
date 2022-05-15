@@ -1,4 +1,4 @@
-package client.view.register;
+package client.view.Register;
 
 import client.model.UserModel;
 import javafx.application.Platform;
@@ -73,16 +73,32 @@ public class RegisterViewModel
     if (firstName.isBlank() || lastName.isBlank() || username.isBlank()
         || password.isBlank()) // checks for empty fields
     {
-      errorMessage.setValue("Empty field");
+      printErrorMessage("Empty field");
     }
     else if (password.length() <= 8) // checks for password's length
     {
-      errorMessage.setValue("Password must contain minimum of 9 characters");
+      printErrorMessage("Password must contain minimum of 9 characters");
     }
     else if (!password.equals(
         passwordRepeat))  //checks if the password and passwordRepeat do match
     {
-      errorMessage.setValue("Passwords do not match");
+      printErrorMessage("Passwords do not match");
+    }
+    else if (firstName.length() > 51)
+    {
+      printErrorMessage("First name is too long");
+    }
+    else if (lastName.length() > 51)
+    {
+      printErrorMessage("Last name is too long");
+    }
+    else if (username.length() > 101)
+    {
+      printErrorMessage("Username name is too long");
+    }
+    else if (password.length() > 101)
+    {
+      printErrorMessage("Password is too long");
     }
     else // everything is correct
     {

@@ -71,5 +71,6 @@ public class LoginViewController implements ViewController
     Log.log("LoginViewController register button pressed");
     errorLabel.setText("");
     viewHandler.openRegisterView();
+    refresh();
   }
 }
