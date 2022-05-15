@@ -273,6 +273,12 @@ public class DisplayMenuController implements ViewController
     return bimage;
   }
 
+
+
+
+
+
+  // Test for viewmodel
   class TestViewModel extends DisplayMenuViewModel{
 
     public TestViewModel() {
