@@ -57,8 +57,8 @@ public class DisplayMenuController implements ViewController
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
   @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
-    //viewModel = viewModelFactory.getDisplayMenuViewModel();
-    viewModel = new TestViewModel();
+    viewModel = viewModelFactory.getDisplayMenuViewModel();
+    //viewModel = new TestViewModel();
     viewModel.menuItemWithQuantitiesList().addListener(this::menuItemListChangeListener);
 
     LocalDate localDate = LocalDate.now();
@@ -276,6 +276,7 @@ public class DisplayMenuController implements ViewController
 }
 
 
+/*
 class TestViewModel extends DisplayMenuViewModel{
 
   public TestViewModel() {
@@ -297,4 +298,4 @@ class TestViewModel extends DisplayMenuViewModel{
       menuItemsTest.add(menuItemWithQuantity);
     }
   }
-}
+}*/
