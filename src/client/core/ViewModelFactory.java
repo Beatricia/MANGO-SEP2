@@ -2,6 +2,7 @@ package client.core;
 
 import client.view.admin.acceptEmployee.AcceptEmployeeViewModel;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
+import client.view.employee.AddQuantity.AddQuantityViewModel;
 import client.view.login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
 import client.view.employee.DailyMenu.DailyMenuViewModel;
@@ -21,6 +22,8 @@ public class ViewModelFactory
   private DailyMenuViewModel dailyMenuViewModel;
   private AcceptEmployeeViewModel acceptEmployeeViewModel;
   private DisplayMenuViewModel displayMenuViewModel; //customer version
+  private AddQuantityViewModel addQuantityViewModel; // employee version
+
 
   /**
    * Constructor for the class
@@ -99,5 +102,15 @@ public class ViewModelFactory
       displayMenuViewModel = new DisplayMenuViewModel(modelFactory.getMenuModel());
     }
     return displayMenuViewModel;
+  }
+
+  public AddQuantityViewModel getAddQuantityViewModel()
+  {
+    if(addQuantityViewModel == null){
+      Log.log("ViewModelFactory: DisplayMenu ViewModel created");
+
+      addQuantityViewModel = new AddQuantityViewModel(modelFactory.getMenuModel());
+    }
+    return addQuantityViewModel;
   }
 }

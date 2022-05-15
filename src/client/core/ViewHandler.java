@@ -160,11 +160,17 @@ public class ViewHandler
    * @param evt event value
    */
   private void onErrorReceived(PropertyChangeEvent evt) {
-    Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Error Dialog");
-    alert.setHeaderText(null);
-    alert.setContentText(evt.getNewValue().toString());
+    Platform.runLater(
+        () -> {
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error Dialog");
+          alert.setHeaderText(null);
+          alert.setContentText(evt.getNewValue().toString());
 
-    Platform.runLater(alert::showAndWait);
+          alert.showAndWait();
+        }
+    );
+
+    //Platform.runLater(alert::showAndWait);
   }
 }

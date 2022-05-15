@@ -60,11 +60,11 @@ class MenuDatabaseConn
 
       for (int i = 0; i < menuItems.size(); i++)
       {
-        sql +=  String.format("('%s', '%s'),", menuItems.get(i).getDate(), menuItems.get(i).getName()) +  menuItems.get(i).getQuantity();
+        sql += String.format("('%s', '%s', '%s'),", menuItems.get(i).getDate(), menuItems.get(i).getName(), menuItems.get(i).getQuantity());
       }
       sql = sql.substring(0,sql.length()-1);
 
-
+      System.out.println("///////////////" + sql);
       PreparedStatement statement = connection.prepareStatement(sql);
       statement.execute();
       Log.log("MenuDatabaseConn adds DailyMenuItem to database");
@@ -110,6 +110,7 @@ class MenuDatabaseConn
     {
       String sql1 = "SELECT dailyMenuItem.name, dailyMenuItem.quantity, menuItem.price, menuItem.imgPath FROM dailyMenuItem "
           + "INNER JOIN menuItem ON dailyMenuItem.name = menuItem.name WHERE date = '" + date + "'";
+
 
       PreparedStatement statement1 = connection.prepareStatement(sql1);
 

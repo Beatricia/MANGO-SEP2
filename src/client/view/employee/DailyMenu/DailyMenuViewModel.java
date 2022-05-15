@@ -56,7 +56,11 @@ public class DailyMenuViewModel
   public void addToDailyMenu(ObservableList<MenuItem> selectedItems, LocalDate date)
   {
     ArrayList<MenuItem> menuItems = new ArrayList<>(selectedItems);
-    model.addItemsToDailyMenu(date, menuItems);
+    Platform.runLater(
+        () -> {
+          model.addItemsToDailyMenu(date, menuItems);
+        }
+    );
     Log.log("DailyMenuViewModel calls the addItemsToDailyMenu on the MenuModel");
   }
 

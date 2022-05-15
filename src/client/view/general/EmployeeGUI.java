@@ -19,7 +19,8 @@ public class EmployeeGUI extends UserStrategy
    */
   private final static String[] tabs = {
       "AddDish/MenuEmpl.fxml",         "Add items to the menu",
-      "DailyMenu/DailyMenuView.fxml",  "Add to daily menu"
+      "DailyMenu/DailyMenuView.fxml",  "Add to daily menu",
+      "AddQuantity/AddQuantityView.fxml", "Add quantity"
   };
 
   public EmployeeGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
