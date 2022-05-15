@@ -4,7 +4,6 @@ import client.core.ClientFactory;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.model.MenuModelImp;
-import client.networking.TestClient;
 import client.view.ViewController;
 
 import javafx.collections.FXCollections;
@@ -273,29 +272,30 @@ public class DisplayMenuController implements ViewController
     // Return the buffered image
     return bimage;
   }
+
+  class TestViewModel extends DisplayMenuViewModel{
+
+    public TestViewModel() {
+      super(new MenuModelImp(new ClientFactory().getClient()));
+    }
+
+    private final ObservableList<MenuItemWithQuantity> menuItemsTest = FXCollections.observableArrayList();
+
+    @Override public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList() {
+      return menuItemsTest;
+    }
+
+    @Override public void requestDailyMenuItems() {
+      menuItemsTest.clear();
+
+      for (int i = 0; i < 17; i++) {
+        MenuItem menuItem = new MenuItem("abc", new ArrayList<>(Arrays.asList("cucumber", "banana", "hamburger")), 3.4, "Resources/MenuItemImages/abc.png");
+        MenuItemWithQuantity menuItemWithQuantity = new MenuItemWithQuantity(menuItem, LocalDate.now(), 3);
+        menuItemsTest.add(menuItemWithQuantity);
+      }
+    }
+  }
+
 }
 
 
-/*
-class TestViewModel extends DisplayMenuViewModel{
-
-  public TestViewModel() {
-    super(new MenuModelImp(new ClientFactory().getClient()));
-  }
-
-  private final ObservableList<MenuItemWithQuantity> menuItemsTest = FXCollections.observableArrayList();
-
-  @Override public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList() {
-    return menuItemsTest;
-  }
-
-  @Override public void requestDailyMenuItems() {
-    menuItemsTest.clear();
-
-    for (int i = 0; i < 17; i++) {
-      MenuItem menuItem = new MenuItem("abc", new ArrayList<>(Arrays.asList("cucumber", "banana", "hamburger")), 3.4, "Resources/MenuItemImages/abc.png");
-      MenuItemWithQuantity menuItemWithQuantity = new MenuItemWithQuantity(menuItem, LocalDate.now(), 3);
-      menuItemsTest.add(menuItemWithQuantity);
-    }
-  }
-}*/
