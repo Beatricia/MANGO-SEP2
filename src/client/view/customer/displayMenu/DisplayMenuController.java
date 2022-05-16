@@ -93,7 +93,7 @@ public class DisplayMenuController implements ViewController
         putIntoHBox(hBox);
 
       } catch (IOException e){
-        Log.log("Image could not be loaded for menu item " + menuItem.getName());
+        System.err.println("Image could not be loaded for menu item " + menuItem.getName());
       }
     }
   }
