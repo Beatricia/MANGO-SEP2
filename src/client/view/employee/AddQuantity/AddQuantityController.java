@@ -112,7 +112,6 @@ public class AddQuantityController implements ViewController
 
     if(isValidList)
     {
-      System.out.println("Controller " + menuItemWithQuantities);
       viewModel.addQuantityToItems(menuItemWithQuantities);
     }
     else

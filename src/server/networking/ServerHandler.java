@@ -65,10 +65,9 @@ public class ServerHandler implements Runnable
    */
   public void sendObject(Serializable o){
     try{
-      Log.log("ServerHandler object sent to the server");
+      Log.log("ServerHandler Object sent: " + o);
       // Send the object here
       toClient.writeObject(o);
-      System.out.println("Object sent: " + o);
     }
     catch (IOException | NullPointerException e) {
       // If an IOException happens during the sending process, it means that there is something
@@ -88,7 +87,7 @@ public class ServerHandler implements Runnable
 
         try{
           //read an object from the client
-          receivedObj = fromClient.readObject();
+          receivedObj = fromClient.readUnshared();
 
         } catch (ClassNotFoundException e){
           // Catch the exception above. (Catch it here, because this exception should not happen.
@@ -207,7 +206,6 @@ public class ServerHandler implements Runnable
     {
       Log.log("ServerHandler received ADD_QUANTITY_TO_DAILY_MENU");
       ArrayList<MenuItemWithQuantity> list = (ArrayList<MenuItemWithQuantity>) request.getObject();
-      System.out.println("ServerHandler " + list);
       menuModel.addQuantity(list);
     }
 

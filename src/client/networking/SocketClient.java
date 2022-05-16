@@ -65,9 +65,8 @@ public class SocketClient implements Client{
      */
     @Override public void sendRequest(Request request)
     {
-        Log.log("SocketClient " + request.toString());
+        Log.log("SocketClient sending request to server: " + request.toString());
         clientHandler.send(request);
-        Log.log("SocketClient request send to server");
     }
 
 

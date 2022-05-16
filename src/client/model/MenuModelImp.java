@@ -161,7 +161,6 @@ public class MenuModelImp implements MenuModel
    */
   @Override
   public void addQuantity(ArrayList<MenuItemWithQuantity> listOfItemsWithQuantity) {
-    System.out.println("Model " + listOfItemsWithQuantity);
     Request request = new Request(Request.ADD_QUANTITY_TO_DAILY_MENU);
     request.setObject(listOfItemsWithQuantity);
     Log.log("MenuModelImpl send a new ADD_QUANTITY_TO_DAILY_MENU request to the Client(addQuantity method)");

@@ -162,8 +162,6 @@ class MenuDatabaseConn
       String sql = "UPDATE dailyMenuItem set quantity = " + quantity + " WHERE name = '"
           + name + "' AND date = '" + date + "'";
 
-      Log.log(sql);
-
       PreparedStatement statement = connection.prepareStatement(sql);
 
       statement.execute();
