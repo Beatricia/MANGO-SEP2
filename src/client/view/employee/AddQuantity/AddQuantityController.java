@@ -114,13 +114,14 @@ public class AddQuantityController implements ViewController
     if(isValidList)
     {
       viewModel.addQuantityToItems(menuItemWithQuantities);
+
     }
     else
     {
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Error Dialog");
       alert.setHeaderText(null);
-      alert.setContentText("Quantity could not be send");
+      alert.setContentText("Invalid Quantity");
 
       alert.showAndWait();
     }
@@ -139,6 +140,8 @@ public class AddQuantityController implements ViewController
     else if(change.wasRemoved())
     {
       menuItemsVBox.getChildren().clear();
+      menuItems.clear();
+      textFields.clear();
     }
   }
 

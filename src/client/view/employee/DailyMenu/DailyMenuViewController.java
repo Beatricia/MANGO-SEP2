@@ -73,7 +73,6 @@ public class DailyMenuViewController implements ViewController
     boolean checkListSize = list.getSelectionModel().getSelectedItems().size()> 0;
     boolean checkDateSelected = datePicker.getValue() != null && !datePicker.getValue().isBefore(LocalDate.now());
 
-
     addButton.setDisable(!checkListSize || !checkDateSelected);
 
     Log.log("Button to add A DailyMenu is enabled");
