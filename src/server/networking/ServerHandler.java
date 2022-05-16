@@ -208,6 +208,17 @@ public class ServerHandler implements Runnable
       ArrayList<MenuItemWithQuantity> list = (ArrayList<MenuItemWithQuantity>) request.getObject();
       menuModel.addQuantity(list);
     }
+    else if(request.getRequestName().equals(Request.WEEKLY_MENU_REQUEST))
+    {
+      Log.log("ServerHandler received WEEKLY_MENU_REQUEST");
+      request.setObject(menuModel.requestWeeklyMenu());
+      sendObject(request);
+    }
+    else if(request.getRequestName().equals(Request.DELETE_FROM_WEEKLY_MENU))
+    {
+      Log.log("ServerHandler received DELETE_FROM_WEEKLY_MENU");
+      menuModel.deleteMenuItemFromWeeklyMenu((ArrayList<MenuItemWithQuantity>) request.getObject());
+    }
 
 
   }

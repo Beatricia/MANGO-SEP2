@@ -81,6 +81,7 @@ public class AddQuantityController implements ViewController
       boolean isValid = true;
       try
       {
+
         if(field.getText().isEmpty())
         {
           field.setText("0");
@@ -91,6 +92,7 @@ public class AddQuantityController implements ViewController
         {
          isValid = false;
         }
+
         itemQuantity.setQuantity(quantity);
         menuItemWithQuantities.add(itemQuantity);
       }

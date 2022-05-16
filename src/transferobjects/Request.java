@@ -13,6 +13,8 @@ public class Request implements Serializable
   public static final String DAILY_MENU_REQUEST = "DailyMenuRequest";
   public static final String ADD_ITEMS_TO_DAILY_MENU = "AddItemsToDailyMenu";
   public static final String ADD_QUANTITY_TO_DAILY_MENU = "AddQuantityToDailyMenu";
+  public static final String DELETE_FROM_WEEKLY_MENU = "DeleteFromWeeklyMenu";
+  public static final String WEEKLY_MENU_REQUEST = "WeeklyMenuRequest";
 
 
   private String requestName;

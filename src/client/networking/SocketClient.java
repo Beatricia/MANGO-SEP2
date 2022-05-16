@@ -142,4 +142,11 @@ public class SocketClient implements Client{
         Log.log("SocketClient fires a DAILY_MENU_RECEIVED event");
         support.firePropertyChange(DAILY_MENU_RECEIVED, null, request.getObject());
     }
+
+  public void weeklyMenuReceived(Request request)
+  {
+      Log.log("SocketClient fires a WEEKLY_MENU_RECEIVED event");
+      support.firePropertyChange(WEEKLY_MENU_RECEIVED, null, request.getObject());
+
+  }
 }
