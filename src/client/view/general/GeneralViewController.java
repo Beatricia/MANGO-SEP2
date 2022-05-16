@@ -4,13 +4,18 @@ import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import shared.Log;
 import shared.UserType;
 import transferobjects.User;
+
 
 /**
  * Controller for the GeneralView. The main responsibility for this class is to refresh the
@@ -21,6 +26,7 @@ import transferobjects.User;
  */
 public class GeneralViewController implements ViewController
 {
+  @FXML private Button refreshButton;
   @FXML private TabPane tabPane;
   @FXML private Label nameLabel; // to display name of the user
 
@@ -29,7 +35,18 @@ public class GeneralViewController implements ViewController
   @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
     tabPane.getTabs().clear();
     tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> tabChanged(newTab));
+
+    String reloadImage = getClass().getResource("reload.png").toString();
+    Image image = new Image(reloadImage);
+
+    ImageView imageView = new ImageView(image);
+
+    imageView.setFitWidth(40);
+    imageView.setFitHeight(40);
+
+    refreshButton.setGraphic(imageView);
   }
+
 
   /**
    * Initializes the GeneralViewController, sets the user strategy depending on the user type.
@@ -73,11 +90,17 @@ public class GeneralViewController implements ViewController
    * @param newTab the controller to refresh
    */
   private void tabChanged(Tab newTab) {
-    Log.log("Changed user tab");
+    Log.log("GeneralViewController Changed user tab");
     userStrategy.refreshTab(newTab);
   }
 
   @Override public void refresh() {
 
+  }
+
+  public void refreshButtonPressed() {
+    Log.log("GeneralViewController refreshing tab");
+    Tab currentTab = tabPane.getSelectionModel().getSelectedItem();
+    userStrategy.refreshTab(currentTab);
   }
 }
