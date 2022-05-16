@@ -137,16 +137,6 @@ public class ServerHandler implements Runnable
       menuModel.addItem(menuItem);
     }
 
-
-    //TODO how to know if it is to add menu items or to add quantity
-
-   /* else if(receivedObj instanceof DailyMenuItemList)
-    {
-      Log.log("ServerHandler received dailyMenuItem object");
-      DailyMenuItemList dailyMenuItem = (DailyMenuItemList) receivedObj;
-      menuModel.addDailyMenuItem(dailyMenuItem); // we have to change now this from dailyMenuItem to MenuItemWithQuantity
-    }*/
-
     else if(receivedObj instanceof Request)
     {
       Request request = (Request) receivedObj;
