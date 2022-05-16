@@ -13,12 +13,12 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -71,15 +71,56 @@ public class AddQuantityController implements ViewController
     Log.log("Set button has been clicked to set quantity");
     ArrayList<MenuItemWithQuantity> menuItemWithQuantities = new ArrayList<>();
 
+    boolean isValidList = true;
+
     for (String itemName : textFields.keySet()){
       TextField field = textFields.get(itemName);
       MenuItemWithQuantity itemQuantity = menuItems.get(itemName);
-      int quantity = Integer.parseInt(field.getText());
-      itemQuantity.setQuantity(quantity);
-      menuItemWithQuantities.add(itemQuantity);
+
+      String fromField = field.getText();
+
+      boolean isValid = true;
+      try
+      {
+        if(field.getText().isEmpty())
+        {
+          field.setText("0");
+        }
+        int quantity = Integer.parseInt(field.getText());
+
+        if(quantity<0)
+        {
+         isValid = false;
+        }
+        itemQuantity.setQuantity(quantity);
+        menuItemWithQuantities.add(itemQuantity);
+      }
+      catch (NumberFormatException e)
+      {
+        isValid = false;
+      }
+
+      if (!isValid)
+      {
+        field.setBackground(new Background(new BackgroundFill(Color.rgb(250, 100,100), null, null)));
+        isValidList = false;
+      }
     }
 
-    viewModel.addQuantityToItems(menuItemWithQuantities);
+    if(isValidList)
+    {
+      viewModel.addQuantityToItems(menuItemWithQuantities);
+    }
+    else
+    {
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("Error Dialog");
+      alert.setHeaderText(null);
+      alert.setContentText("Quantity could not be send");
+
+      alert.showAndWait();
+    }
+
   }
 
 
