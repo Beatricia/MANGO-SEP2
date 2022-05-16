@@ -4,6 +4,7 @@ import shared.Log;
 import shared.UserType;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * The class representing a user object  with username, userType, firstName, lastName.
@@ -82,4 +83,17 @@ public class User implements Serializable
   public String toString(){
     return String.format("%s %s (%s)", firstName, lastName, username);
   }
+
+  @Override public boolean equals(Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass() != o.getClass())
+      return false;
+    User user = (User) o;
+    return Objects.equals(username, user.username) && userType == user.userType
+        && Objects.equals(firstName, user.firstName) && Objects.equals(lastName,
+        user.lastName);
+  }
+
 }
