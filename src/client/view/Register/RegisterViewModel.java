@@ -84,19 +84,19 @@ public class RegisterViewModel
     {
       printErrorMessage("Passwords do not match");
     }
-    else if (firstName.length() > 51)
+    else if (firstName.length() > 50)
     {
       printErrorMessage("First name is too long");
     }
-    else if (lastName.length() > 51)
+    else if (lastName.length() > 50)
     {
       printErrorMessage("Last name is too long");
     }
-    else if (username.length() > 101)
+    else if (username.length() > 100)
     {
       printErrorMessage("Username name is too long");
     }
-    else if (password.length() > 101)
+    else if (password.length() > 100)
     {
       printErrorMessage("Password is too long");
     }
