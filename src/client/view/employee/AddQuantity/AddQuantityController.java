@@ -77,7 +77,6 @@ public class AddQuantityController implements ViewController
       TextField field = textFields.get(itemName);
       MenuItemWithQuantity itemQuantity = menuItems.get(itemName);
 
-      String fromField = field.getText();
 
       boolean isValid = true;
       try
@@ -113,8 +112,8 @@ public class AddQuantityController implements ViewController
 
     if(isValidList)
     {
+      System.out.println("Controller " + menuItemWithQuantities);
       viewModel.addQuantityToItems(menuItemWithQuantities);
-
     }
     else
     {
@@ -165,6 +164,8 @@ public class AddQuantityController implements ViewController
   private void putIntoHBox(Pane menuItemPane)
   {
     int vboxChildrenSize = menuItemsVBox.getChildren().size();
+    if(vboxChildrenSize == 0)
+      menuItemsVBox.getChildren().add(new HBox());
 
     HBox lastHBox = (HBox) menuItemsVBox.getChildren().get(vboxChildrenSize - 1);
 

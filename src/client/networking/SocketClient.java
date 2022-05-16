@@ -65,6 +65,7 @@ public class SocketClient implements Client{
      */
     @Override public void sendRequest(Request request)
     {
+        Log.log("SocketClient " + request.toString());
         clientHandler.send(request);
         Log.log("SocketClient request send to server");
     }
@@ -106,7 +107,7 @@ public class SocketClient implements Client{
      */
     public void errorReceivedFromServer(ErrorMessage obj) {
         support.firePropertyChange(ERROR_RECEIVED, null, obj);
-        Log.log("SocketClient fires a ERROR_RECEIVED event");
+        Log.log("SocketClient fires an ERROR_RECEIVED event");
     }
 
     /**

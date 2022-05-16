@@ -48,10 +48,10 @@ public class AddQuantityViewModel
   public void requestDailyMenuItems()
   {
 
-    //menuModel.requestDailyMenu();
+    menuModel.requestDailyMenu();
 
     //JUST FOR TESTING
-    for (int i = 0; i < 11; i++)
+    /*for (int i = 0; i < 11; i++)
     {
       transferobjects.MenuItem menuItem = new MenuItem("abc", new ArrayList<>(Arrays.asList("cucumber", "banana", "hamburger")),
           3.4, "Resources/MenuItemImages/abc.png");
@@ -59,11 +59,12 @@ public class AddQuantityViewModel
           menuItem, LocalDate.now(), 3);
       menuItemWithQuantities.add(menuItemWithQuantity);
 
-    }
+    }*/
   }
 
   public void addQuantityToItems(ArrayList<MenuItemWithQuantity> menuItemWithQuantities)
   {
+    System.out.println("ViewModel " + menuItemWithQuantities);
     menuModel.addQuantity(menuItemWithQuantities);
   }
 }

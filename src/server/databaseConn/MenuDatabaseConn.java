@@ -126,7 +126,7 @@ class MenuDatabaseConn
 
         String path = resultSet1.getString("imgPath");
 
-        String sql2 = "SELECT name FROM ingredient WHERE id in (SELECT ingredientId FROM menuItemIngredient WHERE itemName = '" + name + "' ) = ";
+        String sql2 = "SELECT name FROM ingredient WHERE id in (SELECT ingredientId FROM menuItemIngredient WHERE itemName = '" + name + "' ) ";
 
         PreparedStatement statement2 = connection.prepareStatement(sql2);
 
@@ -161,6 +161,8 @@ class MenuDatabaseConn
     {
       String sql = "UPDATE dailyMenuItem set quantity = " + quantity + " WHERE name = '"
           + name + "' AND date = '" + date + "'";
+
+      Log.log(sql);
 
       PreparedStatement statement = connection.prepareStatement(sql);
 

@@ -37,4 +37,10 @@ public class Request implements Serializable
   {
     return requestName;
   }
+
+  @Override public String toString()
+  {
+    return "Request{" + "requestName='" + requestName + '\'' + ", requestObj="
+        + requestObj + '}';
+  }
 }

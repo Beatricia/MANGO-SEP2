@@ -112,6 +112,10 @@ public class DisplayMenuController implements ViewController
   private void putIntoHBox(Pane menuItemPane){
     // count of the HBoxes in the main vbox
     int vboxChildrenSize = menuItemsVBox.getChildren().size();
+
+    if(vboxChildrenSize == 0)
+      menuItemsVBox.getChildren().add(new HBox());
+
     // get last HBox from the main vbox
     HBox lastHBox = (HBox) menuItemsVBox.getChildren().get(vboxChildrenSize - 1);
 

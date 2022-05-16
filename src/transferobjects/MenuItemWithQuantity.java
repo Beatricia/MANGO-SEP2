@@ -23,4 +23,10 @@ public class MenuItemWithQuantity extends MenuItem {
   public int getQuantity(){
     return quantity;
   }
+
+  @Override public String toString()
+  {
+    return "MenuItemWithQuantity{" + "date=" + date + ", quantity=" + quantity
+        + '}';
+  }
 }

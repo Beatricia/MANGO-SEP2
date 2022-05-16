@@ -206,8 +206,9 @@ public class ServerHandler implements Runnable
     else if(request.getRequestName().equals(Request.ADD_QUANTITY_TO_DAILY_MENU))
     {
       Log.log("ServerHandler received ADD_QUANTITY_TO_DAILY_MENU");
-      menuModel.addQuantity(
-          (ArrayList<MenuItemWithQuantity>) request.getObject());
+      ArrayList<MenuItemWithQuantity> list = (ArrayList<MenuItemWithQuantity>) request.getObject();
+      System.out.println("ServerHandler " + list);
+      menuModel.addQuantity(list);
     }
 
 

@@ -88,6 +88,7 @@ public class MenuModelImp implements MenuModel
   @Override
   public void addQuantity(ArrayList<MenuItemWithQuantity> listOfMenuItemsWithQuantity) throws SQLException {
     LocalDate now = LocalDate.now();
+    System.out.println("ServerHandler " + listOfMenuItemsWithQuantity);
     for (MenuItemWithQuantity item : listOfMenuItemsWithQuantity) {
       databaseConn.addQuantity(now, item.getName(), item.getQuantity());
     }

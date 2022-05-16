@@ -32,7 +32,11 @@ public class DisplayMenuViewModel
 
     Platform.runLater(() -> {
       menuItemWithQuantities.clear();
-      menuItemWithQuantities.addAll(menuItems);
+
+      for (MenuItemWithQuantity m : menuItems){
+        if(m.getQuantity() > 0)
+          menuItemWithQuantities.add(m);
+      }
     });
   }
 

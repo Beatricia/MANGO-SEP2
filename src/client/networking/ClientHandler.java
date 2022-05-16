@@ -91,7 +91,7 @@ public class ClientHandler implements Runnable {
      */
     public void send(Serializable serializable) {
         try {
-            toServer.writeObject(serializable);
+            toServer.writeUnshared(serializable);
             Log.log("ClientHandler send object to server");
         } catch (IOException e){
             e.printStackTrace();
