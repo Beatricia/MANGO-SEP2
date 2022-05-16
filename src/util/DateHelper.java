@@ -21,10 +21,17 @@ public class DateHelper
 
     DayOfWeek dayOfWeek = now.getDayOfWeek();
 
-    if(dayOfWeek.getValue() >= 6) { // check if its weekend
-      return now.plusDays(8 - dayOfWeek.getValue()); // if yes, then add days to the next monday
+
+    // 1: Monday         5: Friday
+    // 2: Tuesday        6: Saturday
+    // 3: Wednesday      7: Sunday
+    // 4: Thursday
+    int dayOfWeekNum = dayOfWeek.getValue();
+
+    if(dayOfWeekNum >= 6) { // check if its weekend
+      return now.plusDays(8 - dayOfWeekNum); // if yes, then add days to the next monday
     } else {
-      return now.minusDays(dayOfWeek.getValue() - 1); // if not, subtract days till the previous monday
+      return now.minusDays(dayOfWeekNum - 1); // if not, subtract days till the previous monday
     }
   }
 }
