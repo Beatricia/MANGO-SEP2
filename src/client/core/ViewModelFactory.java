@@ -2,6 +2,7 @@ package client.core;
 
 import client.view.admin.acceptEmployee.AcceptEmployeeViewModel;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
+import client.view.customer.displayWeeklyMenu.CustomerWeeklyMenuViewModel;
 import client.view.employee.AddQuantity.AddQuantityViewModel;
 import client.view.login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
@@ -23,6 +24,7 @@ public class ViewModelFactory
   private AcceptEmployeeViewModel acceptEmployeeViewModel;
   private DisplayMenuViewModel displayMenuViewModel; //customer version
   private AddQuantityViewModel addQuantityViewModel; // employee version
+  private CustomerWeeklyMenuViewModel customerWeeklyMenuViewModel;
 
 
   /**
@@ -112,5 +114,14 @@ public class ViewModelFactory
       addQuantityViewModel = new AddQuantityViewModel(modelFactory.getMenuModel());
     }
     return addQuantityViewModel;
+  }
+
+  public CustomerWeeklyMenuViewModel getCustomerWeeklyMenuViewModel() {
+    if(customerWeeklyMenuViewModel == null){
+      Log.log("ViewModelFactory: CustomerWeeklyMenu ViewModel created");
+
+      customerWeeklyMenuViewModel = new CustomerWeeklyMenuViewModel(modelFactory.getMenuModel());
+    }
+    return customerWeeklyMenuViewModel;
   }
 }
