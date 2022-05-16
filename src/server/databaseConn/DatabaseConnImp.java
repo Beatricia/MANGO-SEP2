@@ -218,6 +218,13 @@ public class DatabaseConnImp implements DatabaseConn
     menuDatabaseConn.addQuantity(date, name, quantity);
   }
 
+  @Override public void deleteMenuItemFromDailyMenu(LocalDate date, String name)
+      throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending a deleteMenuItemFromDailyMenu request to the MenuDatabaseConn");
+    menuDatabaseConn.deleteMenuItemFromDailyMenu(date,name);
+  }
+
   @Override public void handlePendingEmployee(String username, boolean accept)
       throws SQLException
   {

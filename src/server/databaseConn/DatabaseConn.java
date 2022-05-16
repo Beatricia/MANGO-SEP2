@@ -63,4 +63,7 @@ public interface DatabaseConn
   ArrayList<MenuItemWithQuantity> gatDailyMenuItemList(LocalDate date) throws SQLException;
 
   void addQuantity(LocalDate date, String name, int quantity) throws SQLException;
+
+  void deleteMenuItemFromDailyMenu(LocalDate date, String name)
+      throws SQLException;
 }

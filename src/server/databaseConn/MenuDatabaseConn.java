@@ -169,4 +169,20 @@ class MenuDatabaseConn
       Log.log("MenuDatabaseConn adds quantity to database");
     }
   }
+
+  public void deleteMenuItemFromDailyMenu(LocalDate date, String name)
+      throws SQLException
+  {
+    try(Connection connection = DatabaseConnImp.getConnection())
+    {
+      String sql = "DELETE FROM dailyMenuItem WHERE date = '" + date + "' AND name = '" + name + "'";
+
+      PreparedStatement statement = connection.prepareStatement(sql);
+
+      statement.execute();
+
+      Log.log("MenuDatabaseConn delete menuItem from dailyMenuItem");
+    }
+
+  }
 }
