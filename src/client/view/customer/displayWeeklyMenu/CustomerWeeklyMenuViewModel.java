@@ -46,8 +46,7 @@ public class CustomerWeeklyMenuViewModel
    * @param menuModel MenuModel to get data from.
    */
   public CustomerWeeklyMenuViewModel(MenuModel menuModel){
-    //this.menuModel = menuModel;
-    this.menuModel = new TestModel();
+    this.menuModel = menuModel;
     this.menuModel.addListener(MenuModel.WEEKLY_MENU_RECEIVED, this::weeklyMenuReceived);
     
     mondayDate = new SimpleStringProperty();
