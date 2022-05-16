@@ -4,7 +4,6 @@ import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,10 +11,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 import shared.Log;
 import shared.UserType;
 import transferobjects.User;
 
+import java.time.LocalDateTime;
 
 /**
  * Controller for the GeneralView. The main responsibility for this class is to refresh the
@@ -32,6 +34,9 @@ public class GeneralViewController implements ViewController
 
   private UserStrategy userStrategy; // user strategy depending on the user type
 
+  private long lastTabRefresh = System.currentTimeMillis();
+  private Tab currentTab;
+
   @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
     tabPane.getTabs().clear();
     tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> tabChanged(newTab));
@@ -45,6 +50,45 @@ public class GeneralViewController implements ViewController
     imageView.setFitHeight(40);
 
     refreshButton.setGraphic(imageView);
+
+    tabPane.setOnMouseClicked(this::mouseClick);
+  }
+
+  private void mouseClick(MouseEvent e){
+    if(lastTabRefresh + 1000 >= System.currentTimeMillis()) {
+      return;
+    }
+
+
+    Object t = e.getTarget();
+    if(!checkIfTabHeaderSkin(t))
+    {
+      if(t instanceof Text){
+        t = ((Text) t).getParent().getParent();
+
+        if(!checkIfTabHeaderSkin(t))
+          return;
+      }
+      else return;
+    }
+
+    refreshTab(currentTab);
+  }
+
+  private static boolean checkIfTabHeaderSkin(Object obj){
+    if(obj == null)
+      return false;
+
+    try{
+      Class<?> objectClass = obj.getClass();
+      Class<?> enclosingClass = objectClass.getEnclosingClass();
+      String doubleEnclosing = enclosingClass.getSimpleName();
+
+      return "TabHeaderSkin".equals(doubleEnclosing);
+    } catch (Exception ignored) {
+    }
+
+    return false;
   }
 
 
@@ -91,7 +135,13 @@ public class GeneralViewController implements ViewController
    */
   private void tabChanged(Tab newTab) {
     Log.log("GeneralViewController Changed user tab");
-    userStrategy.refreshTab(newTab);
+    refreshTab(newTab);
+  }
+
+  private void refreshTab(Tab tab){
+    currentTab = tab;
+    lastTabRefresh = System.currentTimeMillis();
+    userStrategy.refreshTab(tab);
   }
 
   @Override public void refresh() {
