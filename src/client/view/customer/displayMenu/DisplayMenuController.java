@@ -167,7 +167,7 @@ public class DisplayMenuController implements ViewController
    * @return HBox which includes the information and the image for the MenuItemWithQuantity given in the parameter
    * @throws IOException when there was an error loading the image
    */
-  private HBox createDailyMenuItemBox(MenuItemWithQuantity menuItemWithQuantity) throws
+  private static HBox createDailyMenuItemBox(MenuItemWithQuantity menuItemWithQuantity) throws
       IOException {
 
     String itemName = menuItemWithQuantity.getName();
