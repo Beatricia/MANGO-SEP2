@@ -33,7 +33,7 @@ public class AcceptEmployeeController implements ViewController
 
   private AcceptEmployeeViewModel viewModel;
 
-  private final Map<User, Pane> usersInView = new HashMap<>(); //storing the users and the associated panes
+  private final Map<String, Pane> usersInView = new HashMap<>(); //storing the users and the associated panes
                                                               // so its gonna be easier to remove one user's pane from the view
 
   /**
@@ -82,12 +82,12 @@ public class AcceptEmployeeController implements ViewController
    * @param users List of User objects
    */
   private void removeUsers(List<? extends User> users){
-    Log.log("AcceptEmployeeController remove user pressed");
+    Log.log("AcceptEmployeeController removed user: " + users.size());
     for (User user : users){
       try{
-        Pane p = usersInView.get(user);
+        Pane p = usersInView.remove(user.getUsername());
         employeeVBox.getChildren().remove(p);
-        usersInView.remove(user);
+        System.out.println(user + " user removed with pane " + p);
       } catch (Exception e){
         e.printStackTrace();
       }
@@ -100,11 +100,12 @@ public class AcceptEmployeeController implements ViewController
    * @param users List of User objects
    */
   private void addUsers(List<? extends User> users){
-    Log.log("AcceptEmployeeController add user pressed");
+    Log.log("AcceptEmployeeController added users " + users.size());
     for (User user : users){
       try{
         Pane p = createUserBox(user);
-        usersInView.put(user, p);
+        System.out.println(user + " user added in pane " + p);
+        usersInView.put(user.getUsername(), p);
       } catch (Exception e){
         e.printStackTrace();
       }
