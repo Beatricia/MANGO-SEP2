@@ -1,6 +1,7 @@
 package server.model;
 
 import server.databaseConn.DatabaseConn;
+import shared.Log;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.SerializableImage;
@@ -93,5 +94,23 @@ public class MenuModelImp implements MenuModel
     }
   }
 
+  @Override public ArrayList<MenuItemWithQuantity> requestWeeklyMenu()
+  {
+    ArrayList<MenuItemWithQuantity> weeklyMenu = new ArrayList<>();
+
+
+
+
+    return weeklyMenu;
+  }
+
+  @Override public void deleteMenuItemFromWeeklyMenu(
+      ArrayList<MenuItemWithQuantity> listOfItemsToDelete) throws SQLException
+  {
+    for (int i = 0; i < listOfItemsToDelete.size(); i++)
+    {
+      databaseConn.deleteMenuItemFromDailyMenu(listOfItemsToDelete.get(i).getDate(),listOfItemsToDelete.get(i).getName());
+    }
+  }
 
 }
