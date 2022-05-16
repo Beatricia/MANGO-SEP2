@@ -62,7 +62,8 @@ public class AddQuantityViewModel
     }
   }
 
-  public void addQuantityToItems()
+  public void addQuantityToItems(ArrayList<MenuItemWithQuantity> menuItemWithQuantities)
   {
+    menuModel.addQuantity(menuItemWithQuantities);
   }
 }

@@ -34,8 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 public class AddQuantityController implements ViewController
@@ -45,6 +44,9 @@ public class AddQuantityController implements ViewController
   @FXML private Label dateLabel;
 
   private AddQuantityViewModel viewModel;
+
+  private Map<String, TextField> textFields = new HashMap<>();
+  private Map<String, MenuItemWithQuantity> menuItems = new HashMap<>();
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory)
@@ -64,9 +66,20 @@ public class AddQuantityController implements ViewController
 
   @FXML public void onSet()
   {
-    //TODO have to send the menu items with the new quantity
+    //TODO have to go through all menu items take what is in the text field
+    // create the menu item objects and send it to the viewModel
     Log.log("Set button has been clicked to set quantity");
-    viewModel.addQuantityToItems();
+    ArrayList<MenuItemWithQuantity> menuItemWithQuantities = new ArrayList<>();
+
+    for (String itemName : textFields.keySet()){
+      TextField field = textFields.get(itemName);
+      MenuItemWithQuantity itemQuantity = menuItems.get(itemName);
+      int quantity = Integer.parseInt(field.getText());
+      itemQuantity.setQuantity(quantity);
+      menuItemWithQuantities.add(itemQuantity);
+    }
+
+    viewModel.addQuantityToItems(menuItemWithQuantities);
   }
 
 
@@ -127,6 +140,7 @@ public class AddQuantityController implements ViewController
     String imagePath = menuItem.getImgPath();
     int imgSize = 90;
 
+    menuItems.put(itemName, menuItem);
 
     Label nameLabel = new Label(itemName){{ // (1)
       setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 24));
@@ -155,13 +169,16 @@ public class AddQuantityController implements ViewController
 
     //TODO have to get the value entered
     TextField quantityField = new TextField();
-    quantityField.setPromptText("Enter quantity");
+    quantityField.setMaxSize(60,25);
+    quantityField.setPromptText("Quantity");
+
+
+    textFields.put(itemName, quantityField);
+
 
     HBox quantityBox = new HBox(){{ // (8)
       setAlignment(Pos.CENTER);
-      getChildren().addAll(
-        quantityField
-      );
+      getChildren().addAll(quantityField);
     }};
 
     //read image from file
