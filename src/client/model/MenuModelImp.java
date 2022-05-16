@@ -129,9 +129,10 @@ public class MenuModelImp implements MenuModel
   }
 
   /**
-   *
-   * @param date
-   * @param menuItems
+   * Creating a request to add the specific items to the daily menu, first creating a list with
+   * menuItemWithQuantity where each element has everything that a MenuItem has, a given date and the quantity set to 0
+   * @param date the date on which the menuItemWithQuantity will be
+   * @param menuItems the list of all menuItems for the specific date
    */
   @Override public void addItemsToDailyMenu(LocalDate date,
       ArrayList<MenuItem> menuItems) {
@@ -148,6 +149,9 @@ public class MenuModelImp implements MenuModel
     client.sendRequest(request);
   }
 
+  /**
+   * Creating a request for the daily menu, which is sent to the client
+   */
   @Override
   public void requestDailyMenu() {
     Request request = new Request(Request.DAILY_MENU_REQUEST);
@@ -156,8 +160,8 @@ public class MenuModelImp implements MenuModel
   }
 
   /**
-   * The method is used to the client the DailyMenuItemList, where each item list has a quantity
-   * @param listOfItemsWithQuantity the list of DailyMenuItems
+   * Creating a request to add the quantity to items from the dailyMenu, which is sent to the client
+   * @param listOfItemsWithQuantity the list of menu items with quantity
    */
   @Override
   public void addQuantity(ArrayList<MenuItemWithQuantity> listOfItemsWithQuantity) {
@@ -167,6 +171,27 @@ public class MenuModelImp implements MenuModel
     client.sendRequest(request);
   }
 
+  /**
+   * Creating a request for the current weekly menu, which is sent to the client
+   */
+  @Override
+  public void requestWeeklyMenu() {
+    Request request = new Request(Request.DAILY_MENU_REQUEST);
+    Log.log("MenuModelImpl send a new DAILY_MENU_REQUEST request to the Client(requestWeeklyMenu method)");
+    client.sendRequest(request);
+  }
+
+  /**
+   * Creating a request with the list of the menu items to be deleted from the system, which is sent to the client
+   * @param listOfMenuItemsToDelete the list of menu items to be deleted
+   */
+  @Override
+  public void deleteMenuItemFromWeeklyMenu(ArrayList<MenuItemWithQuantity> listOfMenuItemsToDelete) {
+    Request request = new Request(Request.DELETE_FROM_WEEKLY_MENU);
+    request.setObject(listOfMenuItemsToDelete);
+    Log.log("MenuModelImpl send a new DELETE_FROM_WEEKLY_MENU request to the Client(deleteMenuItemFromWeeklyMenu method)");
+    client.sendRequest(request);
+  }
 
 
   /**
@@ -179,7 +204,7 @@ public class MenuModelImp implements MenuModel
   {
     support.addPropertyChangeListener(event,listener);
 
-    Log.log(listener + "has been added as a listener to " + this + " for " + event);
+    Log.log(listener.getClass().getName() + "has been added as a listener to " + this + " for " + event);
   }
 
   /**
@@ -191,7 +216,7 @@ public class MenuModelImp implements MenuModel
   {
     support.addPropertyChangeListener(listener);
 
-    Log.log(listener + "has been added as a listener to " + this);
+    Log.log(listener.getClass().getName() + "has been added as a listener to " + this);
   }
 
 }
