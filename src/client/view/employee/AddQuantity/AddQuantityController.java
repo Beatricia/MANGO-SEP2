@@ -105,6 +105,10 @@ public class AddQuantityController implements ViewController
         field.setBackground(new Background(new BackgroundFill(Color.rgb(250, 100,100), null, null)));
         isValidList = false;
       }
+      else
+      {
+        field.setBackground(new Background(new BackgroundFill(Color.rgb(250, 250,250), null, null)));
+      }
     }
 
     if(isValidList)
