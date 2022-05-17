@@ -34,9 +34,6 @@ public class GeneralViewController implements ViewController
 
   private UserStrategy userStrategy; // user strategy depending on the user type
 
-  private long lastTabRefresh = System.currentTimeMillis();
-  private Tab currentTab;
-
   @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
     tabPane.getTabs().clear();
     tabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> tabChanged(newTab));
@@ -51,44 +48,6 @@ public class GeneralViewController implements ViewController
 
     refreshButton.setGraphic(imageView);
 
-    tabPane.setOnMouseClicked(this::mouseClick);
-  }
-
-  private void mouseClick(MouseEvent e){
-    if(lastTabRefresh + 1000 >= System.currentTimeMillis()) {
-      return;
-    }
-
-
-    Object t = e.getTarget();
-    if(!checkIfTabHeaderSkin(t))
-    {
-      if(t instanceof Text){
-        t = ((Text) t).getParent().getParent();
-
-        if(!checkIfTabHeaderSkin(t))
-          return;
-      }
-      else return;
-    }
-
-    refreshTab(currentTab);
-  }
-
-  private static boolean checkIfTabHeaderSkin(Object obj){
-    if(obj == null)
-      return false;
-
-    try{
-      Class<?> objectClass = obj.getClass();
-      Class<?> enclosingClass = objectClass.getEnclosingClass();
-      String doubleEnclosing = enclosingClass.getSimpleName();
-
-      return "TabHeaderSkin".equals(doubleEnclosing);
-    } catch (Exception ignored) {
-    }
-
-    return false;
   }
 
 
@@ -139,8 +98,6 @@ public class GeneralViewController implements ViewController
   }
 
   private void refreshTab(Tab tab){
-    currentTab = tab;
-    lastTabRefresh = System.currentTimeMillis();
     userStrategy.refreshTab(tab);
   }
 
