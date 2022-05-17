@@ -1,6 +1,7 @@
 package client.view.employee.WeeklyMenu;
 
 import client.model.MenuModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
@@ -37,8 +38,8 @@ public class WeeklyMenuEmpViewModel
 
   public WeeklyMenuEmpViewModel(MenuModel menuModel)
   {
-    //this.menuModel = menuModel;
-    this.menuModel = new TestModel();
+    this.menuModel = menuModel;
+    //this.menuModel = new TestModel();
     this.menuModel.addListener(MenuModel.WEEKLY_MENU_RECEIVED, this::weeklyMenuReceived);
 
     mondayDate = new SimpleStringProperty();
@@ -72,43 +73,55 @@ public class WeeklyMenuEmpViewModel
     }
   }
 
-  private void weeklyMenuReceived(PropertyChangeEvent event)
-  {
-    ArrayList<MenuItemWithQuantity> menuItemWithQuantities = (ArrayList<MenuItemWithQuantity>) event.getNewValue();
+  private void weeklyMenuReceived(PropertyChangeEvent propertyChangeEvent) {
+    ArrayList<MenuItemWithQuantity> menuItemWithQuantities =
+        (ArrayList<MenuItemWithQuantity>) propertyChangeEvent.getNewValue();
 
-    setUpDates();
 
-    mondayList.clear();
-    tuesdayList.clear();
-    wednesdayList.clear();
-    thursdayList.clear();
-    fridayList.clear();
 
-    for (int i = 0; i < menuItemWithQuantities.size(); i++)
-    {
-      LocalDate localDate = menuItemWithQuantities.get(i).getDate();
+    System.out.println("Size: " + menuItemWithQuantities.size());
 
-      DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+    Platform.runLater(() -> {
+      setUpDates();
+      mondayList.clear();
+      tuesdayList.clear();
+      wednesdayList.clear();
+      thursdayList.clear();
+      fridayList.clear();
+    });
 
-      switch (dayOfWeek)
-      {
-        case MONDAY:
-          mondayList.add(menuItemWithQuantities.get(i));
-          break;
-        case TUESDAY:
-          tuesdayList.add(menuItemWithQuantities.get(i));
-          break;
-        case WEDNESDAY:
-          wednesdayList.add(menuItemWithQuantities.get(i));
-          break;
-        case THURSDAY:
-          thursdayList.add(menuItemWithQuantities.get(i));
-          break;
-        case FRIDAY:
-          fridayList.add(menuItemWithQuantities.get(i));
-          break;
+
+    Platform.runLater(() -> {
+      for (MenuItemWithQuantity item : menuItemWithQuantities){
+        LocalDate localDate = item.getDate();
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+
+        ObservableList<MenuItemWithQuantity> listToPut = null;
+
+        switch (dayOfWeek){
+          case MONDAY:
+            listToPut = mondayList;
+            break;
+          case TUESDAY:
+            listToPut = tuesdayList;
+            break;
+          case WEDNESDAY:
+            listToPut = wednesdayList;
+            break;
+          case THURSDAY:
+            listToPut = thursdayList;
+            break;
+          case FRIDAY:
+            listToPut = fridayList;
+            break;
+
+        }
+
+        if(listToPut != null)
+          listToPut.add(item);
       }
-    }
+    });
+
   }
 
   public ObservableList<MenuItemWithQuantity> getMondayList()
@@ -169,53 +182,6 @@ public class WeeklyMenuEmpViewModel
   public void deleteItems(ArrayList<MenuItemWithQuantity> listToDelete)
   {
     menuModel.deleteMenuItemFromWeeklyMenu(listToDelete);
-  }
-
-  static class TestModel implements MenuModel{
-    private PropertyChangeListener listener = null;
-    private int count = 1;
-
-    @Override public void requestWeeklyMenu() {
-      System.out.println("RefreshWeeklyMenu");
-      ArrayList<MenuItemWithQuantity> menuItems = new ArrayList<>();
-
-      LocalDate date = DateHelper.getCurrentAvailableMonday();
-
-      for (int i = 0; i < 5; i++) {
-        for (int j = 0; j < i + count; j++) {
-          MenuItem menuItem = new MenuItem("item", new ArrayList<>(), 3, "");
-          MenuItemWithQuantity menuItemWithQuantity =
-              new MenuItemWithQuantity(menuItem, date, 3);
-
-          menuItems.add(menuItemWithQuantity);
-        }
-        date = date.plusDays(1);
-      }
-      count++;
-
-      PropertyChangeEvent event =
-          new PropertyChangeEvent(this, MenuModel.WEEKLY_MENU_RECEIVED, null, menuItems);
-
-      listener.propertyChange(event);
-    }
-
-    @Override public void addListener(String event, PropertyChangeListener listener) {
-      System.out.println("Listener added");
-      this.listener = listener;
-    }
-
-
-
-
-    @Override public void addListener(PropertyChangeListener listener) {}
-    @Override public void addItem(String name, ArrayList<String> ingredients, double price,
-        String imgPath) {}
-    @Override public void requestMenuItems() {}
-    @Override public void addItemsToDailyMenu(LocalDate date, ArrayList<MenuItem> menuItems) {}
-    @Override public void requestDailyMenu() {}
-    @Override public void addQuantity(ArrayList<MenuItemWithQuantity> listOfItemsWithQuantity) {}
-    @Override public void deleteMenuItemFromWeeklyMenu(
-        ArrayList<MenuItemWithQuantity> listOfMenuItemsToDelete) {}
   }
 
 }

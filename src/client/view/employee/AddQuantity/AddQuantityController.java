@@ -6,6 +6,7 @@ import client.core.ViewModelFactory;
 import client.model.MenuModelImp;
 import client.view.ViewController;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -158,16 +159,18 @@ public class AddQuantityController implements ViewController
   {
     change.next();
 
-    if (change.wasAdded())
-    {
-      addedMenuItem(change.getAddedSubList());
-    }
-    else if (change.wasRemoved())
-    {
-      menuItemsVBox.getChildren().clear();
-      menuItems.clear();
-      textFields.clear();
-    }
+    Platform.runLater(() -> {
+      if (change.wasAdded())
+      {
+        addedMenuItem(change.getAddedSubList());
+      }
+      else if (change.wasRemoved())
+      {
+        menuItemsVBox.getChildren().clear();
+        menuItems.clear();
+        textFields.clear();
+      }
+    });
   }
 
   /**
@@ -209,7 +212,10 @@ public class AddQuantityController implements ViewController
   {
     int vboxChildrenSize = menuItemsVBox.getChildren().size();
     if (vboxChildrenSize == 0)
+    {
       menuItemsVBox.getChildren().add(new HBox());
+      vboxChildrenSize++;
+    }
 
     HBox lastHBox = (HBox) menuItemsVBox.getChildren().get(vboxChildrenSize - 1);
 
@@ -239,7 +245,7 @@ public class AddQuantityController implements ViewController
     String itemName = menuItem.getName();
     String ingredients = String.join(", ", menuItem.getIngredients());
     String price = menuItem.getPrice() + " DKK";
-    /*Add a text field here //String quantity = menuItem.getQuantity() + ""; */
+    String quantity = menuItem.getQuantity() + "";
     String imagePath = menuItem.getImgPath();
     int imgSize = 90;
 
@@ -272,6 +278,7 @@ public class AddQuantityController implements ViewController
     TextField quantityField = new TextField();
     quantityField.setMaxSize(60, 25);
     quantityField.setPromptText("Quantity");
+    quantityField.setText(quantity);
 
     textFields.put(itemName, quantityField);
 

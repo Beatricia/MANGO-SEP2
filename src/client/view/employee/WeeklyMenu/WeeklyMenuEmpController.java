@@ -111,7 +111,6 @@ public class WeeklyMenuEmpController implements ViewController
 
   private void multipleSelection(MouseEvent evt)
   {
-    System.out.println(evt);
     Node node = evt.getPickResult().getIntersectedNode();
 
     // go up from the target node until a list cell is found or it's clear

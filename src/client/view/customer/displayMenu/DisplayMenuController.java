@@ -6,6 +6,7 @@ import client.core.ViewModelFactory;
 import client.model.MenuModelImp;
 import client.view.ViewController;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -73,12 +74,14 @@ public class DisplayMenuController implements ViewController
   private void menuItemListChangeListener(ListChangeListener.Change<? extends MenuItemWithQuantity> change) {
     change.next();
 
-    if(change.wasAdded()){
-      addedMenuItemWithQuantity(change.getAddedSubList());
-    }
-    else if(change.wasRemoved()){
-      menuItemsVBox.getChildren().clear();
-    }
+    Platform.runLater(() -> {
+      if(change.wasAdded()){
+        addedMenuItemWithQuantity(change.getAddedSubList());
+      }
+      else if(change.wasRemoved()){
+        menuItemsVBox.getChildren().clear();
+      }
+    });
   }
 
   /**
@@ -113,8 +116,11 @@ public class DisplayMenuController implements ViewController
     // count of the HBoxes in the main vbox
     int vboxChildrenSize = menuItemsVBox.getChildren().size();
 
-    if(vboxChildrenSize == 0)
+    if (vboxChildrenSize == 0)
+    {
       menuItemsVBox.getChildren().add(new HBox());
+      vboxChildrenSize++;
+    }
 
     // get last HBox from the main vbox
     HBox lastHBox = (HBox) menuItemsVBox.getChildren().get(vboxChildrenSize - 1);

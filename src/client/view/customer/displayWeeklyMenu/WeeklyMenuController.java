@@ -41,6 +41,12 @@ public class WeeklyMenuController implements ViewController
     thursdayList.setItems(viewModel.getThursdayList());
     fridayList.setItems(viewModel.getFridayList());
 
+    mondayList.setDisable(true);
+    tuesdayList.setDisable(true);
+    wednesdayList.setDisable(true);
+    thursdayList.setDisable(true);
+    fridayList.setDisable(true);
+
     mondayDate.textProperty().bind(viewModel.mondayDateProperty());
     tuesdayDate.textProperty().bind(viewModel.tuesdayDateProperty());
     wednesdayDate.textProperty().bind(viewModel.wednesdayDateProperty());

@@ -1,10 +1,12 @@
 package client.view.customer.displayWeeklyMenu;
 
 import client.model.MenuModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import util.DateHelper;
@@ -74,39 +76,51 @@ public class CustomerWeeklyMenuViewModel
     ArrayList<MenuItemWithQuantity> menuItemWithQuantities =
         (ArrayList<MenuItemWithQuantity>) propertyChangeEvent.getNewValue();
 
-    setUpDates();
+
 
     System.out.println("Size: " + menuItemWithQuantities.size());
 
-    mondayList.clear();
-    tuesdayList.clear();
-    wednesdayList.clear();
-    thursdayList.clear();
-    fridayList.clear();
+    Platform.runLater(() -> {
+      setUpDates();
+      mondayList.clear();
+      tuesdayList.clear();
+      wednesdayList.clear();
+      thursdayList.clear();
+      fridayList.clear();
+    });
 
-    for (MenuItemWithQuantity item : menuItemWithQuantities){
-      LocalDate localDate = item.getDate();
-      DayOfWeek dayOfWeek = localDate.getDayOfWeek();
 
-      switch (dayOfWeek){
-        case MONDAY:
-          mondayList.add(item);
-          break;
-        case TUESDAY:
-          tuesdayList.add(item);
-          break;
-        case WEDNESDAY:
-          wednesdayList.add(item);
-          break;
-        case THURSDAY:
-          thursdayList.add(item);
-          break;
-        case FRIDAY:
-          fridayList.add(item);
-          break;
+    Platform.runLater(() -> {
+      for (MenuItemWithQuantity item : menuItemWithQuantities){
+        LocalDate localDate = item.getDate();
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
 
+        ObservableList<MenuItemWithQuantity> listToPut = null;
+
+        switch (dayOfWeek){
+          case MONDAY:
+            listToPut = mondayList;
+            break;
+          case TUESDAY:
+            listToPut = tuesdayList;
+            break;
+          case WEDNESDAY:
+            listToPut = wednesdayList;
+            break;
+          case THURSDAY:
+            listToPut = thursdayList;
+            break;
+          case FRIDAY:
+            listToPut = fridayList;
+            break;
+
+        }
+
+        if(listToPut != null)
+          listToPut.add(item);
       }
-    }
+    });
+
   }
 
   /**

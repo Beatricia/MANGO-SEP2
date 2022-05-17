@@ -42,9 +42,14 @@ public class MenuModelImp implements MenuModel
     client.addListener(Client.ERROR_RECEIVED, this::sendError);
     client.addListener(Client.MENU_ITEMS_RECEIVED, this::sendMenuItems);
     client.addListener(Client.DAILY_MENU_RECEIVED, this::sendMenuWithIngredients);
+    client.addListener(Client.WEEKLY_MENU_RECEIVED, this::sendWeeklyMenu);
   }
 
-
+  private void sendWeeklyMenu(PropertyChangeEvent event)
+  {
+    Log.log("MenuModelImp: WEEKLY_MENU_REQUEST received from server");
+     support.firePropertyChange(WEEKLY_MENU_RECEIVED, null, event.getNewValue());
+  }
 
   /**
    * Fires an event with the error message to the ViewModel
