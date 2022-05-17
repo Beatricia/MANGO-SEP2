@@ -3,10 +3,18 @@ package client.view.customer.displayWeeklyMenu;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
+
 import transferobjects.MenuItemWithQuantity;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Controller for the WeeklyMenuView.fxml
@@ -41,11 +49,15 @@ public class WeeklyMenuController implements ViewController
     thursdayList.setItems(viewModel.getThursdayList());
     fridayList.setItems(viewModel.getFridayList());
 
-    mondayList.setDisable(true);
-    tuesdayList.setDisable(true);
-    wednesdayList.setDisable(true);
-    thursdayList.setDisable(true);
-    fridayList.setDisable(true);
+    List<ListView<MenuItemWithQuantity>> menuLists =
+        Arrays.asList(mondayList, tuesdayList, wednesdayList, thursdayList, fridayList);
+
+    NoSelectionModel<MenuItemWithQuantity> selectionModel =
+        new NoSelectionModel<>();
+
+    for (ListView<MenuItemWithQuantity> menuList : menuLists){
+      menuList.setSelectionModel(selectionModel);
+    }
 
     mondayDate.textProperty().bind(viewModel.mondayDateProperty());
     tuesdayDate.textProperty().bind(viewModel.tuesdayDateProperty());
@@ -54,8 +66,29 @@ public class WeeklyMenuController implements ViewController
     fridayDate.textProperty().bind(viewModel.fridayDateProperty());
   }
 
-
   @Override public void refresh() {
     viewModel.refresh();
+  }
+
+  /**
+   * SelectionModel without selection
+   * @param <T> type of the selectable item
+   */
+  static class NoSelectionModel<T> extends MultipleSelectionModel<T>{
+    @Override public ObservableList<Integer> getSelectedIndices() {return FXCollections.observableArrayList();}
+    @Override public ObservableList<T> getSelectedItems() {return FXCollections.observableArrayList();}
+    @Override public void selectIndices(int i, int... ints) {}
+    @Override public void selectAll() {}
+    @Override public void selectFirst() {}
+    @Override public void selectLast() {}
+    @Override public void clearAndSelect(int i) {}
+    @Override public void select(int i) {}
+    @Override public void select(Object o) {}
+    @Override public void clearSelection(int i) {}
+    @Override public void clearSelection() {}
+    @Override public boolean isSelected(int i) {return false;}
+    @Override public boolean isEmpty() {return true;}
+    @Override public void selectPrevious() {}
+    @Override public void selectNext() {}
   }
 }
