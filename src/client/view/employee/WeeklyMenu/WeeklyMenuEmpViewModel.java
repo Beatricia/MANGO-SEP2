@@ -164,5 +164,10 @@ public class WeeklyMenuEmpViewModel
     menuModel.requestWeeklyMenu();
   }
 
+  public void deleteItems(ArrayList<MenuItemWithQuantity> listToDelete)
+  {
+    menuModel.deleteMenuItemFromWeeklyMenu(listToDelete);
+  }
+
 
 }

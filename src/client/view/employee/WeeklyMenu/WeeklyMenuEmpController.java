@@ -4,12 +4,10 @@ import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import shared.Log;
 import transferobjects.MenuItem;
@@ -17,6 +15,7 @@ import transferobjects.MenuItemWithQuantity;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class WeeklyMenuEmpController implements ViewController
 {
@@ -34,6 +33,8 @@ public class WeeklyMenuEmpController implements ViewController
 
   private WeeklyMenuEmpViewModel viewModel;
 
+  private ArrayList<ListView<MenuItemWithQuantity>> list;
+
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory)
@@ -45,6 +46,13 @@ public class WeeklyMenuEmpController implements ViewController
     wednesdayList.setItems(viewModel.getWednesdayList());
     thursdayList.setItems(viewModel.getThursdayList());
     fridayList.setItems(viewModel.getFridayList());
+
+
+    list.add(mondayList);
+    list.add(tuesdayList);
+    list.add(wednesdayList);
+    list.add(thursdayList);
+    list.add(fridayList);
 
     enableSelectItems();
 
@@ -84,17 +92,81 @@ public class WeeklyMenuEmpController implements ViewController
 
   public void onDelete(ActionEvent actionEvent)
   {
+    ArrayList<MenuItemWithQuantity> listToDelete = new ArrayList<>();
+
+
+    for (int i = 0; i < list.size(); i++)
+    {
+      ObservableList<MenuItemWithQuantity> items = list.get(i).getSelectionModel().getSelectedItems();
+      listToDelete.addAll(items);
+    }
+
+    viewModel.deleteItems(listToDelete);
+
     Log.log("Delete button has been clicked to delete items from weeklyMenu");
   }
 
   private void multipleSelection(MouseEvent evt)
   {
-    //idk
+    Node node = evt.getPickResult().getIntersectedNode();
+
+    // go up from the target node until a list cell is found or it's clear
+    // it was not a cell that was clicked
+    while (node != null && node != mondayList && node != tuesdayList && node != wednesdayList && node != thursdayList && node != fridayList && !(node instanceof ListCell)) {
+      node = node.getParent();
+    }
+
+    // if is part of a cell or the cell,
+    // handle event instead of using standard handling
+    if (node instanceof ListCell) {
+      // prevent further handling
+      evt.consume();
+
+      ListCell cell = (ListCell) node;
+      ListView lv = cell.getListView();
+
+      // focus the listview
+      lv.requestFocus();
+
+      if (!cell.isEmpty()) {
+        // handle selection for non-empty cells
+        int index = cell.getIndex();
+        if (cell.isSelected()) {
+          lv.getSelectionModel().clearSelection(index);
+        } else {
+          lv.getSelectionModel().select(index);
+        }
+      }
+    }
   }
 
   private void enableSelectItems()
   {
+    ArrayList<ListView<MenuItemWithQuantity>> lists =  new ArrayList<>();
+    lists.add(mondayList);
+    lists.add(tuesdayList);
+    lists.add(wednesdayList);
+    lists.add(thursdayList);
+    lists.add(fridayList);
+
     LocalDate date = LocalDate.now();
+    DayOfWeek dayOfWeek = date.getDayOfWeek();
+    int day = dayOfWeek.getValue();
+
+    for (int i = 0; i < lists.size(); i++)
+    {
+      ListView list = lists.get(i);
+      if(i < day && day >= 6)
+      {
+        list.setDisable(true);
+      }
+      else
+      {
+        list.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
+        list.getSelectionModel().getSelectedItems().addListener(this::listenList);
+      }
+    }
+
 
     if (date.equals(viewModel.mondayDateProperty()))
     {
