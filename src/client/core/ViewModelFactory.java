@@ -18,15 +18,24 @@ import shared.Log;
 public class ViewModelFactory
 {
   private final ModelFactory modelFactory;
+
+  // User
   private LoginViewModel loginViewModel;
   private RegisterViewModel registerViewModel;
-  private MenuEmplViewModel menuEmplViewModel;
-  private DailyMenuViewModel dailyMenuViewModel;
-  private AcceptEmployeeViewModel acceptEmployeeViewModel;
-  private DisplayMenuViewModel displayMenuViewModel; //customer version
-  private AddQuantityViewModel addQuantityViewModel; // employee version
+
+  // Customer
   private CustomerWeeklyMenuViewModel customerWeeklyMenuViewModel;
+  private DisplayMenuViewModel displayMenuViewModel;
+
+  // Employee
+  private AddQuantityViewModel addQuantityViewModel;
+  private DailyMenuViewModel dailyMenuViewModel;
+  private MenuEmplViewModel menuEmplViewModel;
   private WeeklyMenuEmpViewModel weeklyMenuEmpViewModel;
+
+  // Admin
+  private AcceptEmployeeViewModel acceptEmployeeViewModel;
+
 
 
   /**
