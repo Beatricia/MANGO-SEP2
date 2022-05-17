@@ -1,10 +1,12 @@
 package server.model;
 
+import javafx.beans.property.StringProperty;
 import server.databaseConn.DatabaseConn;
 import shared.Log;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.SerializableImage;
+import util.DateHelper;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -108,21 +110,23 @@ public class MenuModelImp implements MenuModel
     }
   }
 
+  /**
+   * Getting the weekly menu from the database
+   * First checking with the help of "DateHalper" the next available monday, then creating an arraylist where
+   * every day of the week from that monday to the next friday is added
+   * @return the array list with Monday-Friday's daily menu (a weekly menu overall)
+   */
   @Override
   public ArrayList<MenuItemWithQuantity> requestWeeklyMenu() throws SQLException {
-    LocalDate current = LocalDate.now();
+    LocalDate current = DateHelper.getCurrentAvailableMonday();
 
-    ArrayList<MenuItemWithQuantity> menuItems = new ArrayList<>();
+    ArrayList<MenuItemWithQuantity> requestedMenuItems = new ArrayList<>();
 
     for (int i = 0; i < 5; i++) {
-      if (current.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
-        //return menuItems.add(databaseConn.gatDailyMenuItemList(current.plus()));
-      }
+      ArrayList<MenuItemWithQuantity>  menuItems = databaseConn.gatDailyMenuItemList(current.plusDays(i));
+     requestedMenuItems.addAll(menuItems);
     }
-    return null;
-
-
-
+    return requestedMenuItems;
   }
 
   /**
