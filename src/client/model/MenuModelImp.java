@@ -176,8 +176,8 @@ public class MenuModelImp implements MenuModel
    */
   @Override
   public void requestWeeklyMenu() {
-    Request request = new Request(Request.DAILY_MENU_REQUEST);
-    Log.log("MenuModelImpl send a new DAILY_MENU_REQUEST request to the Client(requestWeeklyMenu method)");
+    Request request = new Request(Request.WEEKLY_MENU_REQUEST);
+    Log.log("MenuModelImpl send a new WEEKLY_MENU_REQUEST request to the Client(requestWeeklyMenu method)");
     client.sendRequest(request);
   }
 

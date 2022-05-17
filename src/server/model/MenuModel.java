@@ -34,8 +34,7 @@ public interface MenuModel
 
   void addQuantity(ArrayList<MenuItemWithQuantity> listOfMenuItemsWithQuantity) throws SQLException;
 
-  ArrayList<MenuItemWithQuantity> requestWeeklyMenu();
+  ArrayList<MenuItemWithQuantity> requestWeeklyMenu() throws SQLException;
 
-  void deleteMenuItemFromWeeklyMenu(ArrayList<MenuItemWithQuantity> listOfItemsToDelete)
-      throws SQLException;
+  void deleteMenuItemFromWeeklyMenu(ArrayList<MenuItemWithQuantity> listOfItemsToDelete) throws SQLException;
 }

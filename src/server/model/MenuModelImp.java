@@ -11,8 +11,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Class responsible for connecting the networking part of the Server with Database connection and sending Menu Items into the Database.
@@ -67,25 +70,36 @@ public class MenuModelImp implements MenuModel
    * get list of all menu items received from Databaseconn
    * @return ArrayList of MenuItem
    */
-
   @Override public ArrayList<MenuItem> getListOfMenuItems() throws SQLException
   {
     return databaseConn.getListOfMenuItems();
   }
 
 
+  /**
+   * Adding the list of daily menu items to the database
+   * @param dailyMenuItem
+   */
   @Override public void addDailyMenuItem(ArrayList<MenuItemWithQuantity> dailyMenuItem)
       throws SQLException
   {
     databaseConn.addDailyMenu(dailyMenuItem);
   }
 
+  /**
+   * Asking the database for the daily menu items for the current date
+   * @return a list with the menu item with quantity for the current date
+   */
   @Override
   public ArrayList<MenuItemWithQuantity> requestDailyMenu() throws SQLException {
     LocalDate now = LocalDate.now();
     return databaseConn.gatDailyMenuItemList(now);
   }
 
+  /**
+   * Adding the quantity to the list of the MenuItemsWithQuantity which was previously set as 0 for the current date
+   * @param listOfMenuItemsWithQuantity the list of menu items with new quantity
+   */
   @Override
   public void addQuantity(ArrayList<MenuItemWithQuantity> listOfMenuItemsWithQuantity) throws SQLException {
     LocalDate now = LocalDate.now();
@@ -94,23 +108,31 @@ public class MenuModelImp implements MenuModel
     }
   }
 
-  @Override public ArrayList<MenuItemWithQuantity> requestWeeklyMenu()
-  {
-    ArrayList<MenuItemWithQuantity> weeklyMenu = new ArrayList<>();
+  @Override
+  public ArrayList<MenuItemWithQuantity> requestWeeklyMenu() throws SQLException {
+    LocalDate current = LocalDate.now();
+
+    ArrayList<MenuItemWithQuantity> menuItems = new ArrayList<>();
+
+    for (int i = 0; i < 5; i++) {
+      if (current.getDayOfWeek().equals(DayOfWeek.MONDAY)) {
+        //return menuItems.add(databaseConn.gatDailyMenuItemList(current.plus()));
+      }
+    }
+    return null;
 
 
 
-
-    return weeklyMenu;
   }
 
-  @Override public void deleteMenuItemFromWeeklyMenu(
-      ArrayList<MenuItemWithQuantity> listOfItemsToDelete) throws SQLException
-  {
-    for (int i = 0; i < listOfItemsToDelete.size(); i++)
-    {
-      databaseConn.deleteMenuItemFromDailyMenu(listOfItemsToDelete.get(i).getDate(),listOfItemsToDelete.get(i).getName());
+  /**
+   * Deleting the items with a specific date and quantity
+   * @param listOfItemsToDelete the list of the items that will be deleted
+   */
+  @Override
+  public void deleteMenuItemFromWeeklyMenu(ArrayList<MenuItemWithQuantity> listOfItemsToDelete) throws SQLException {
+    for (MenuItemWithQuantity item : listOfItemsToDelete) {
+      databaseConn.deleteMenuItemFromDailyMenu(item.getDate(), item.getName());
     }
   }
-
 }
