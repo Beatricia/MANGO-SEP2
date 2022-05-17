@@ -14,12 +14,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * A class that connects the AddQuantityController with the MenuModel class.
+ *
+ * @author Uafa
+ */
 public class AddQuantityViewModel
 {
 
   private ObservableList<MenuItemWithQuantity> menuItemWithQuantities;
   private MenuModel menuModel;
 
+  /**
+   * Constructor for the class
+   * @param menuModel the model class that must be connected to view
+   */
   public AddQuantityViewModel(MenuModel menuModel)
   {
     this.menuModel = menuModel;
@@ -28,6 +37,11 @@ public class AddQuantityViewModel
     menuModel.addListener(MenuModel.DAILY_MENU_RECEIVED, this:: menuReceived);
   }
 
+  /**
+   * Whenever a Daily Menu is received this method adds all the items to an
+   * ObservableList<MenuItemWithQuantity> list
+   * @param event the PropertyChangeEvent that occured
+   */
   private void menuReceived(PropertyChangeEvent event)
   {
     List<MenuItemWithQuantity> menuItems = (List<MenuItemWithQuantity>) event.getNewValue();
@@ -40,28 +54,31 @@ public class AddQuantityViewModel
 
   }
 
+  /**
+   * Returns the ObservableList<MenuItemWithQuantity> that is filled in from the
+   * MenuModel
+   * @return an ObservableList containing MenuItemWithQuantities
+   */
   public ObservableList<MenuItemWithQuantity> dailyMenuItemsList()
   {
     return menuItemWithQuantities;
   }
 
+  /**
+   * Requests the daily menu from the MenuModel
+   */
   public void requestDailyMenuItems()
   {
-
     menuModel.requestDailyMenu();
-
-    //JUST FOR TESTING
-    /*for (int i = 0; i < 11; i++)
-    {
-      transferobjects.MenuItem menuItem = new MenuItem("abc", new ArrayList<>(Arrays.asList("cucumber", "banana", "hamburger")),
-          3.4, "Resources/MenuItemImages/abc.png");
-      MenuItemWithQuantity menuItemWithQuantity = new MenuItemWithQuantity(
-          menuItem, LocalDate.now(), 3);
-      menuItemWithQuantities.add(menuItemWithQuantity);
-
-    }*/
   }
 
+  /**
+   * Sends to the MenuModel an ArrayList with multiple MenuItemWIthQuantity
+   * objects.
+   * @param menuItemWithQuantities an ArrayList containing MenuItemWithQuantity
+   *                               objects that the user has specified quantity
+   *                               for.
+   */
   public void addQuantityToItems(ArrayList<MenuItemWithQuantity> menuItemWithQuantities)
   {
     menuModel.addQuantity(menuItemWithQuantities);
