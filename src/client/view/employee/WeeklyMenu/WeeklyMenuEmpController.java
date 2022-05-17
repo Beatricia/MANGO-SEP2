@@ -33,7 +33,7 @@ public class WeeklyMenuEmpController implements ViewController
 
   private WeeklyMenuEmpViewModel viewModel;
 
-  private ArrayList<ListView<MenuItemWithQuantity>> list;
+  private ArrayList<ListView<MenuItemWithQuantity>> listViews;
 
 
   @Override public void init(ViewHandler viewHandler,
@@ -47,12 +47,13 @@ public class WeeklyMenuEmpController implements ViewController
     thursdayList.setItems(viewModel.getThursdayList());
     fridayList.setItems(viewModel.getFridayList());
 
+    listViews = new ArrayList<>();
 
-    list.add(mondayList);
-    list.add(tuesdayList);
-    list.add(wednesdayList);
-    list.add(thursdayList);
-    list.add(fridayList);
+    listViews.add(mondayList);
+    listViews.add(tuesdayList);
+    listViews.add(wednesdayList);
+    listViews.add(thursdayList);
+    listViews.add(fridayList);
 
     enableSelectItems();
 
@@ -67,15 +68,16 @@ public class WeeklyMenuEmpController implements ViewController
 
   private void enableButton()
   {
-    boolean checkMondayList = mondayList.getSelectionModel().getSelectedItems().size() > 0;
-    boolean checkTuesdayList = tuesdayList.getSelectionModel().getSelectedItems().size() > 0;
-    boolean checkWednesdayList = wednesdayList.getSelectionModel().getSelectedItems().size() > 0;
-    boolean checkThursdayList = thursdayList.getSelectionModel().getSelectedItems().size() > 0;
-    boolean checkFridayList = fridayList.getSelectionModel().getSelectedItems().size() > 0;
+    for (ListView<MenuItemWithQuantity> list : listViews)
+    {
+      if(list.getSelectionModel().getSelectedItems().size() > 0)
+      {
+        deleteButton.setDisable(false);
+        return;
+      }
+    }
 
-    deleteButton.setDisable(!checkMondayList || !checkTuesdayList || !checkWednesdayList ||
-                            !checkThursdayList || !checkFridayList);
-
+    deleteButton.setDisable(true);
     Log.log("Button to delete items from daily menu is enabled");
   }
 
@@ -95,10 +97,11 @@ public class WeeklyMenuEmpController implements ViewController
     ArrayList<MenuItemWithQuantity> listToDelete = new ArrayList<>();
 
 
-    for (int i = 0; i < list.size(); i++)
+    for (int i = 0; i < listViews.size(); i++)
     {
-      ObservableList<MenuItemWithQuantity> items = list.get(i).getSelectionModel().getSelectedItems();
+      ObservableList<MenuItemWithQuantity> items = listViews.get(i).getSelectionModel().getSelectedItems();
       listToDelete.addAll(items);
+      listViews.get(i).getItems().removeAll(items);
     }
 
     viewModel.deleteItems(listToDelete);
@@ -108,11 +111,17 @@ public class WeeklyMenuEmpController implements ViewController
 
   private void multipleSelection(MouseEvent evt)
   {
+    System.out.println(evt);
     Node node = evt.getPickResult().getIntersectedNode();
 
     // go up from the target node until a list cell is found or it's clear
     // it was not a cell that was clicked
-    while (node != null && node != mondayList && node != tuesdayList && node != wednesdayList && node != thursdayList && node != fridayList && !(node instanceof ListCell)) {
+    while (node != null &&
+        (node != mondayList
+            && node != tuesdayList
+            && node != wednesdayList
+            && node != thursdayList
+            && node != fridayList) && !(node instanceof ListCell)) {
       node = node.getParent();
     }
 
@@ -142,104 +151,25 @@ public class WeeklyMenuEmpController implements ViewController
 
   private void enableSelectItems()
   {
-    ArrayList<ListView<MenuItemWithQuantity>> lists =  new ArrayList<>();
-    lists.add(mondayList);
-    lists.add(tuesdayList);
-    lists.add(wednesdayList);
-    lists.add(thursdayList);
-    lists.add(fridayList);
 
     LocalDate date = LocalDate.now();
     DayOfWeek dayOfWeek = date.getDayOfWeek();
     int day = dayOfWeek.getValue();
 
-    for (int i = 0; i < lists.size(); i++)
+    for (int i = 0; i < listViews.size(); i++)
     {
-      ListView list = lists.get(i);
-      if(i < day && day >= 6)
+      ListView list = listViews.get(i);
+      if (i < day && day >= 6)
       {
         list.setDisable(true);
       }
       else
       {
+        list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         list.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
         list.getSelectionModel().getSelectedItems().addListener(this::listenList);
       }
     }
 
-
-    if (date.equals(viewModel.mondayDateProperty()))
-    {
-      tuesdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      tuesdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      tuesdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      wednesdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      wednesdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      wednesdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      thursdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      thursdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      thursdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      fridayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      fridayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      fridayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-    }
-    else if (date.equals(viewModel.tuesdayDateProperty()))
-    {
-      wednesdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      wednesdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      wednesdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      thursdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      thursdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      thursdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      fridayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      fridayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      fridayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-    }
-    else if(date.equals(viewModel.wednesdayDateProperty()))
-    {
-      thursdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      thursdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      thursdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      fridayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      fridayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      fridayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-    }
-    else if(date.equals(viewModel.thursdayDateProperty()))
-    {
-      fridayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      fridayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      fridayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-    }
-    else if(date.equals(viewModel.fridayDateProperty()))
-    {
-    }
-    else
-    {
-      mondayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      mondayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      mondayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      tuesdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      tuesdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      tuesdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      wednesdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      wednesdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      wednesdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      thursdayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      thursdayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      thursdayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-
-      fridayList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-      fridayList.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
-      fridayList.getSelectionModel().getSelectedItems().addListener(this::listenList);
-    }
   }
 }
