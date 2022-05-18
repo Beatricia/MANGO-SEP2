@@ -2,6 +2,7 @@ package client.model;
 
 import client.networking.Client;
 import transferobjects.CartItem;
+import transferobjects.Request;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -18,19 +19,33 @@ public class CartModelImpl implements CartModel{
     }
 
     @Override public void addToCart(CartItem cartItem) {
+        Request request = new Request(Request.ADD_ITEM_TO_CART);
+        request.setObject(cartItem);
 
+        client.sendRequest(request);
     }
 
     @Override public void editCartItem(CartItem cartItem) {
+        Request request = new Request(Request.EDIT_CART_ITEM);
+        request.setObject(cartItem);
 
+        client.sendRequest(request);
     }
 
     @Override public void deleteCartItem(CartItem cartItem) {
+        Request request = new Request(Request.DELETE_CART_ITEM);
+        request.setObject(cartItem);
 
+        client.sendRequest(request);
     }
 
     @Override public void requestCartList() {
-        
+        String username = UserModelImp.getUsername();
+
+        Request request = new Request(Request.CART_LIST_REQUEST);
+        request.setObject(username);
+
+        client.sendRequest(request);
     }
 
     @Override public void addListener(String event, PropertyChangeListener listener) {

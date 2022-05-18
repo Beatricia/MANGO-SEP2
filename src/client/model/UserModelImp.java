@@ -35,6 +35,10 @@ public class UserModelImp implements UserModel
     client.addListener(ERROR_RECEIVED, this::sendError);
   }
 
+  public static String getUsername() {
+    throw new RuntimeException("Not implemented yet");
+  }
+
   private void sendLogin(PropertyChangeEvent event)
   {
     support.firePropertyChange(LOGGED_IN_RECEIVED, null, event.getNewValue());
