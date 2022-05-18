@@ -13,6 +13,7 @@ public class ModelFactory
   private UserModel userModel;
   private MenuModel menuModel;
   private AdminModel adminModel;
+  private CartModel cartModel;
 
   /**
    * Constructor for the class
@@ -55,4 +56,13 @@ public class ModelFactory
     }
     return adminModel;
   }
+
+    public CartModel getCartModel() {
+    if(cartModel == null)
+    {
+      Log.log("ModelFactory: CartModel was created");
+      cartModel = new CartModelImpl(clientFactory.getClient());
+    }
+      return cartModel;
+    }
 }

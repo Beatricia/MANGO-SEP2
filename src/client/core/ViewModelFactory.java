@@ -3,6 +3,7 @@ package client.core;
 import client.view.admin.AcceptEmployee.AcceptEmployeeViewModel;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
 import client.view.customer.displayWeeklyMenu.CustomerWeeklyMenuViewModel;
+import client.view.customer.shoppingCart.ShoppingCartViewModel;
 import client.view.employee.AddQuantity.AddQuantityViewModel;
 import client.view.employee.WeeklyMenu.WeeklyMenuEmpViewModel;
 import client.view.login.LoginViewModel;
@@ -26,6 +27,7 @@ public class ViewModelFactory
   // Customer
   private CustomerWeeklyMenuViewModel customerWeeklyMenuViewModel;
   private DisplayMenuViewModel displayMenuViewModel;
+  private ShoppingCartViewModel shoppingCartViewModel;
 
   // Employee
   private AddQuantityViewModel addQuantityViewModel;
@@ -146,4 +148,14 @@ public class ViewModelFactory
     }
     return weeklyMenuEmpViewModel;
   }
+
+    public ShoppingCartViewModel getCustomerShoppingCartViewModel() {
+    if(shoppingCartViewModel == null)
+    {
+      Log.log("ViewModelFactory: CustomerShoppingCart ViewModel created");
+
+      shoppingCartViewModel = new ShoppingCartViewModel(modelFactory.getCartModel());
+    }
+    return shoppingCartViewModel;
+    }
 }
