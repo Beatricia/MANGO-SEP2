@@ -4,6 +4,7 @@ import client.networking.Client;
 import shared.Log;
 import shared.UserType;
 import transferobjects.LoginRequest;
+import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -17,6 +18,9 @@ import java.beans.PropertyChangeSupport;
 
 public class UserModelImp implements UserModel
 {
+  private static User loggedInUser = null;
+
+
   private PropertyChangeSupport support;
   private Client client;
 
@@ -36,14 +40,16 @@ public class UserModelImp implements UserModel
   }
 
   public static String getUsername() {
-    throw new RuntimeException("Not implemented yet");
+    return loggedInUser.getUsername();
   }
 
   private void sendLogin(PropertyChangeEvent event)
   {
-    support.firePropertyChange(LOGGED_IN_RECEIVED, null, event.getNewValue());
+    User user = (User) event.getNewValue();
+    loggedInUser = user;
 
     Log.log("UserModelImp fires a LOGGED_IN_RECEIVED event");
+    support.firePropertyChange(LOGGED_IN_RECEIVED, null, user);
   }
 
   private void sendError(PropertyChangeEvent event){

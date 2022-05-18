@@ -31,6 +31,7 @@ public class SocketServer
       UserModel userModel = new UserModelImp(databaseConn);
       MenuModel menuModel = new MenuModelImp(databaseConn);
       AdminModel adminModel = new AdminModelImp(databaseConn);
+      CartModel cartModel = new CartModelImpl(databaseConn);
 
       while(true){
 

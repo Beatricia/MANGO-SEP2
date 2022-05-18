@@ -1,6 +1,7 @@
 package server.databaseConn;
 
 import shared.UserType;
+import transferobjects.CartItem;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.User;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
  */
 public interface DatabaseConn
 {
+  //region User
+
   /**
    * Log in with the specified username and the password.
    *
@@ -41,6 +44,15 @@ public interface DatabaseConn
   User register(String firstName, String lastName, String username,
       String password, UserType userType) throws SQLException, LogInException;
 
+  //endregion
+
+  //region Admin
+  void handlePendingEmployee(String userName, boolean accept) throws SQLException;
+
+  ArrayList<User> getAllPendingEmployees() throws SQLException;
+  //endregion
+
+  //region Menu
   /**
    * Adds a Menu item to the database with the ingredients
    * @param name menu item name
@@ -52,10 +64,6 @@ public interface DatabaseConn
   void addItem(String name, ArrayList<String> ingredients, double price, String imgPath)
       throws SQLException;
 
-  void handlePendingEmployee(String userName, boolean accept) throws SQLException;
-
-  ArrayList<User> getAllPendingEmployees() throws SQLException;
-
   void addDailyMenu(ArrayList<MenuItemWithQuantity> menuItems) throws SQLException;
 
   ArrayList<MenuItem> getListOfMenuItems() throws SQLException;
@@ -66,4 +74,16 @@ public interface DatabaseConn
 
   void deleteMenuItemFromDailyMenu(LocalDate date, String name)
       throws SQLException;
+
+  //endregion
+
+  //region Cart
+
+  void addItemToCart(String cartItemName, String username) throws SQLException;
+
+  ArrayList<CartItem> getCartList(String username) throws SQLException;
+
+  //endregion
+
+
 }
