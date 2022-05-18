@@ -1,4 +1,4 @@
-package client.view.admin.acceptEmployee;
+package client.view.admin.AcceptEmployee;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;

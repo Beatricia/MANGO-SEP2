@@ -1,6 +1,6 @@
 package client.core;
 
-import client.view.admin.acceptEmployee.AcceptEmployeeViewModel;
+import client.view.admin.AcceptEmployee.AcceptEmployeeViewModel;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
 import client.view.customer.displayWeeklyMenu.CustomerWeeklyMenuViewModel;
 import client.view.employee.AddQuantity.AddQuantityViewModel;

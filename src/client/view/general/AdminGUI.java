@@ -19,6 +19,7 @@ public class AdminGUI extends UserStrategy
    * All the tabs to load when the logged in user is the admin
    */
   private final static String[] tabs = {
+      "displayMenu/DisplayMenuView.fxml", "Daily Menu",
       "acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees"
   };
 
