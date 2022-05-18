@@ -1,15 +1,11 @@
 package client.view.customer.displayMenu;
 
-import client.core.ClientFactory;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
-import client.model.MenuModelImp;
 import client.view.ViewController;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -23,8 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-import shared.Log;
-import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 
 import javax.imageio.ImageIO;
@@ -34,8 +28,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -282,36 +274,6 @@ public class DisplayMenuController implements ViewController
     // Return the buffered image
     return bimage;
   }
-
-
-
-
-
-
-  // Test for viewmodel
-  class TestViewModel extends DisplayMenuViewModel{
-
-    public TestViewModel() {
-      super(new MenuModelImp(new ClientFactory().getClient()));
-    }
-
-    private final ObservableList<MenuItemWithQuantity> menuItemsTest = FXCollections.observableArrayList();
-
-    @Override public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList() {
-      return menuItemsTest;
-    }
-
-    @Override public void requestDailyMenuItems() {
-      menuItemsTest.clear();
-
-      for (int i = 0; i < 17; i++) {
-        MenuItem menuItem = new MenuItem("abc", new ArrayList<>(Arrays.asList("cucumber", "banana", "hamburger")), 3.4, "Resources/MenuItemImages/abc.png");
-        MenuItemWithQuantity menuItemWithQuantity = new MenuItemWithQuantity(menuItem, LocalDate.now(), 3);
-        menuItemsTest.add(menuItemWithQuantity);
-      }
-    }
-  }
-
 }
 
 
