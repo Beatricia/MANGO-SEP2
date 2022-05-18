@@ -15,6 +15,10 @@ public class Request implements Serializable
   public static final String ADD_ITEMS_TO_DAILY_MENU = "AddItemsToDailyMenu";
   public static final String ADD_QUANTITY_TO_DAILY_MENU = "AddQuantityToDailyMenu";
   public static final String DELETE_FROM_WEEKLY_MENU = "DeleteFromWeeklyMenu";
+  public static final String ADD_ITEM_TO_CART = "AddItemToCart";
+  public static final String EDIT_CART_ITEM = "EditCartItem";
+  public static final String DELETE_CART_ITEM = "DeleteCartItem";
+  public static final String CART_LIST_REQUEST = "CartListRequest";
 
 
   private String requestName;
