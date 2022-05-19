@@ -12,4 +12,6 @@ public interface CartModel extends PropertyChangeSubject
   void deleteCartItem(CartItem cartItem);
 
   void requestCartList();
+
+    void placeOrder();
 }

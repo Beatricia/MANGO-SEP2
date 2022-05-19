@@ -36,10 +36,20 @@ public class ShoppingCartViewModel {
         return cartItems;
     }
 
+    public void placeOrder(){
+        cartModel.placeOrder();
+    }
 
-    public void editCartItem() {
+    public void refresh(){
+        cartModel.requestCartList();
+    }
+
+
+    public void editCartItem(CartItem cartItem) {
+        cartModel.editCartItem(cartItem);
     }
 
     public void deleteCartItem(CartItem cartItem) {
+        cartModel.deleteCartItem(cartItem);
     }
 }

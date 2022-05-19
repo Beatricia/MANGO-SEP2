@@ -2,6 +2,7 @@ package server.databaseConn;
 
 import shared.Log;
 import shared.UserType;
+import transferobjects.CartItem;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.User;
@@ -223,6 +224,26 @@ public class DatabaseConnImp implements DatabaseConn
   {
     Log.log("DatabaseConnImp: Sending a deleteMenuItemFromDailyMenu request to the MenuDatabaseConn");
     menuDatabaseConn.deleteMenuItemFromDailyMenu(date,name);
+  }
+
+  @Override
+  public void addItemToCart(String cartItemName, String username) throws SQLException {
+
+  }
+
+  @Override
+  public void editCartItem(int quantity, ArrayList<String> unselectedIngredients) {
+
+  }
+
+  @Override
+  public void removeCartItem(CartItem cartItem) {
+
+  }
+
+  @Override
+  public ArrayList<CartItem> getCartList(String username) throws SQLException {
+    return null;
   }
 
   @Override public void handlePendingEmployee(String username, boolean accept)

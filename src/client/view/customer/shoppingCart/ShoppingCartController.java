@@ -47,10 +47,14 @@ public class ShoppingCartController implements ViewController {
     public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
         viewModel = viewModelFactory.getCustomerShoppingCartViewModel();
         cartTable.setItems(viewModel.getAllCartItems());
+        cartTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         loadCartItems();
 
 
+        //spinner thing
+        SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8);
+        this.quantitySpinner.setValueFactory(quantityValueFactory);
         //everytime i click on another item from my shopping cart
         cartTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             selectedItemChange(newSelection);// the new cart item selected
@@ -89,29 +93,40 @@ public class ShoppingCartController implements ViewController {
 
     @Override
     public void refresh() {
-
+        viewModel.refresh();
     }
 
-    @FXML
     public void onOrderButton(ActionEvent actionEvent) {
         Log.log("Order button has been clicked");
-        //TODO
+        CartItem cartItem = cartTable.getSelectionModel().getSelectedItem();
+        onSaveButton();
+        ObservableList<CartItem> cartItems = cartTable.getItems();
+        ArrayList<CartItem> cartItems1 = new ArrayList<>(cartItems);
+        viewModel.placeOrder();
     }
 
-    @FXML
-    public void onSaveButton(ActionEvent actionEvent) {
+    public void onSaveButton() {
         Log.log("Save button has been clicked in the shopping cart");
-        // save all checkboxes in a list, when we click order we can loop through them and get only the unselected
-       // CartItem cartItem = new CartItem(nameLabel.getText(), ingredientsScrollPane.getContent(), priceLabel.getText(), )//is this ok?
+        CartItem cartItem = cartTable.getSelectionModel().getSelectedItem();
+        cartItem.setQuantity((Integer) quantitySpinner.getValue());
+        cartItem.getUnselectedIngredients().clear();
+
+        for (int i = 0; i < ingredientsVBox.getChildren().size(); i++) {
+            CheckBox checkBox = (CheckBox) ingredientsVBox.getChildren().get(i);
+            String name = checkBox.getText();
+            boolean ticked = checkBox.isSelected();
+            if(!ticked){
+                cartItem.getUnselectedIngredients().add(name);
+            }
+        }
+
+        viewModel.editCartItem(cartItem);
     }
 
-    @FXML
     public void onRemoveButton(ActionEvent actionEvent) {
         Log.log("Delete button has been clicked in the shopping cart");
-        ObservableList<CartItem> cartItemsToBeDeleted = cartTable.getSelectionModel().getSelectedItems();
-        for (CartItem cartItem : cartItemsToBeDeleted) {
-            viewModel.deleteCartItem(cartItem);
-        }
+        CartItem cartItemToBeDeleted = cartTable.getSelectionModel().getSelectedItem();
+        viewModel.deleteCartItem(cartItemToBeDeleted);
     }
 }
 
