@@ -7,9 +7,12 @@ import client.view.ViewController;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -41,7 +44,7 @@ public class DisplayMenuController implements ViewController
   @FXML private VBox menuItemsVBox;
   @FXML private Label dateLabel;
 
-  private DisplayMenuViewModel viewModel;
+  private static DisplayMenuViewModel viewModel;
 
   /**
    * Initializes the controller
@@ -57,6 +60,10 @@ public class DisplayMenuController implements ViewController
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     String dateText = localDate.getDayOfWeek() + " - " + localDate.format(formatter);
     dateLabel.setText(dateText);
+  }
+
+  private static void addMenuItemToCart(MenuItemWithQuantity menuItem){
+    viewModel.addMenuItemToCart(menuItem);
   }
 
   /**
@@ -151,9 +158,9 @@ public class DisplayMenuController implements ViewController
 │ │   └───────────────────────┘    │  │ ┌────────────────────┐ │ │
 │ │  -Quantity Box (HBox)- (8)     │  │ │     (3) Price Label│ │ │
 │ │ ┌────────────────────────────┐ │  │ └────────────────────┘ │ │
-│ │ │QuantityLabel: numberLabel  │ │  │                        │ │
-│ │ └───(6)─────────────(7)──────┘ │  │                        │ │
-│ │                                │  │                        │ │
+│ │ │QuantityLabel: numberLabel  │ │  │         ┌───────┐      │ │
+│ │ └───(6)─────────────(7)──────┘ │  │         │  ADD  │      │ │
+│ │                                │  │         └───────┘      │ │
 │ └────────────────────────────────┘  └────────────────────────┘ │
 └────────────────────────────────────────────────────────────────┘
    */
@@ -192,12 +199,29 @@ public class DisplayMenuController implements ViewController
       getChildren().add(priceLabel);
     }};
 
+    Button addMenuItemToCart = new Button(){{
+      setText("Add");
+      setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+          addMenuItemToCart(menuItemWithQuantity);
+        }
+      });
+    }};
+
+    VBox buttonVBox = new VBox(){{ // (4)
+      setAlignment(Pos.TOP_RIGHT);
+      setPadding(new Insets(20, 0, 0, 0));
+      getChildren().add(addMenuItemToCart);
+    }};
+
     VBox rightVbox = new VBox(){{ // (5)
       setPadding(new Insets(10, 30, 10, 20));
       getChildren().addAll(
           nameLabel,
           ingredientsLabel,
-          priceVbox
+          priceVbox,
+          buttonVBox
       );
     }};
 
