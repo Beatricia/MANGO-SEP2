@@ -2,6 +2,7 @@ package client.networking;
 
 import shared.Log;
 import transferobjects.ErrorMessage;
+import transferobjects.ImageRequest;
 import transferobjects.Request;
 import transferobjects.User;
 
@@ -91,7 +92,11 @@ public class ClientHandler implements Runnable
             Log.log("ClientHandler CART_LIST_REQUEST received from server");
             client.cartListReceived(request);
           }
-
+        }
+        else if(obj instanceof ImageRequest)
+        {
+          ImageRequest imageRequest = (ImageRequest) obj;
+          client.imageRequestReceived(imageRequest);
         }
       }
     }

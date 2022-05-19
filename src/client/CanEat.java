@@ -6,6 +6,7 @@ import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import util.ImageLoader;
 
 /**
  * The class' responsibility is to creat the ClientFactory, ModelFactory,
@@ -21,6 +22,8 @@ public class CanEat extends Application
     ModelFactory modelFactory = new ModelFactory(clientFactory);
     ViewModelFactory viewModelFactory  = new ViewModelFactory(modelFactory);
     ViewHandler viewHandler = new ViewHandler(viewModelFactory, stage, clientFactory);
+
+    new ImageLoader(clientFactory.getClient());
 
     viewHandler.start();
   }
