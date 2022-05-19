@@ -8,6 +8,8 @@ import shared.Log;
 import transferobjects.*;
 import util.LogInException;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -144,6 +146,17 @@ public class ServerHandler implements Runnable
     {
       Request request = (Request) receivedObj;
       handleRequestObject(request);
+    } else if(receivedObj instanceof ImageRequest) {
+      ImageRequest request = (ImageRequest) receivedObj;
+
+      String path = request.getPath();
+      String format = path.substring(path.lastIndexOf(".") + 1);
+
+      BufferedImage bufferedImage = ImageIO.read(new File(request.getPath()));
+      SerializableImage serializableImage = new SerializableImage(bufferedImage, format);
+      request.setSerializableImage(serializableImage);
+
+      sendObject(request);
     }
   }
 
