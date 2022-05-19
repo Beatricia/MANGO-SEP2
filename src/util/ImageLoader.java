@@ -50,6 +50,9 @@ public class ImageLoader
   }
 
 
+
+
+
   private final Client client; // client to send the image request to the server
   private final HashMap<String, List<PendingImageRequest>> imagesOnWait; // waiting image views to load the images into
 
@@ -166,6 +169,7 @@ public class ImageLoader
 
 
 
+  // Private helper classes
 
 
   /**
@@ -183,6 +187,7 @@ public class ImageLoader
       this.imageView = imageView;
     }
   }
+
 
 
   /**
