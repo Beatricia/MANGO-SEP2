@@ -140,8 +140,6 @@ class MenuDatabaseConn
           ingredients.add(ingredientName);
         }
 
-        System.out.println("//////////////////////////" + resultSet2);
-
           MenuItem menuItem = new MenuItem(name,ingredients,price,path);
 
           MenuItemWithQuantity dailyMenuItem = new MenuItemWithQuantity(menuItem,date,quantity);

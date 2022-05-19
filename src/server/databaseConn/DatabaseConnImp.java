@@ -235,14 +235,14 @@ public class DatabaseConnImp implements DatabaseConn
   }
 
   @Override
-  public void editCartItem(CartItem cartItem)
+  public void editCartItem(CartItem cartItem) throws SQLException
   {
     Log.log("DatabaseConnImp: Sending an editCartItem request to the CartDatabaseConn");
     cartDatabaseConn.removeCartItem(cartItem);
   }
 
   @Override
-  public void removeCartItem(CartItem cartItem)
+  public void removeCartItem(CartItem cartItem) throws SQLException
   {
     Log.log("DatabaseConnImp: Sending a removeCartItem request to the CartDatabaseConn");
     cartDatabaseConn.removeCartItem(cartItem);

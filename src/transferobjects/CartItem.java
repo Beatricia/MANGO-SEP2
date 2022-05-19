@@ -23,7 +23,8 @@ public class CartItem extends MenuItem{
      * @param quantity      item's quantity
      * @param unselectedIngredients list of item's unselected ingredients
      */
-    public CartItem(String name, ArrayList<String> ingredients, double price, String imgPath, String username, int quantity, ArrayList<String> unselectedIngredients) {
+    public CartItem(String name, ArrayList<String> ingredients, double price,
+        String imgPath, String username, int quantity, ArrayList<String> unselectedIngredients) {
         super(name, ingredients, price, imgPath);
         this.username = username;
         this.quantity = quantity;
@@ -62,5 +63,10 @@ public class CartItem extends MenuItem{
         return unselectedIngredients;
     }
 
-
+    @Override public String toString()
+    {
+        return  super.toString() + "CartItem{" + "username='" + username + '\'' + ", quantity="
+            + quantity + ", unselectedIngredients=" + unselectedIngredients
+            + '}';
+    }
 }
