@@ -19,6 +19,7 @@ public interface Client extends PropertyChangeSubject
   String DAILY_MENU_RECEIVED = "DailyMenuReceived";
   String WEEKLY_MENU_RECEIVED = "WeeklyMenuReceived";
   String CART_LIST_RECEIVED = "CartListReceived";
+  String IMAGE_RECEIVED = "ImageReceived";
 
     /**
    * The method is used to send to the Server the LoginRequest object
@@ -43,6 +44,10 @@ public interface Client extends PropertyChangeSubject
    * @param request the Request object to be sent
    */
   void sendRequest(Request request);
-
+  /**
+   * Request an image from the server
+   * @param imageRequest the image request
+   */
+  void sendImageRequest(ImageRequest imageRequest);
 
 }

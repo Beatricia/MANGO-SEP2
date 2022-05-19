@@ -69,6 +69,15 @@ public class SocketClient implements Client{
         clientHandler.send(request);
     }
 
+    /**
+     * Request an image from the server
+     * @param imageRequest the image request
+     */
+    @Override public void sendImageRequest(ImageRequest imageRequest) {
+        Log.log("SocketClient sending image request " + imageRequest.getPath());
+
+        clientHandler.send(imageRequest);
+    }
 
     /**
      * Adds an event listener for a specific event fired in the SocketClient
@@ -154,5 +163,10 @@ public class SocketClient implements Client{
         Log.log("SocketClient fires a CART_LIST_RECEIVED event");
         support.firePropertyChange(CART_LIST_RECEIVED, null, request.getObject());
 
+    }
+
+    public void imageRequestReceived(ImageRequest imageRequest){
+        Log.log("SocketClient fires a IMAGE_RECEIVED event");
+        support.firePropertyChange(IMAGE_RECEIVED, null, imageRequest);
     }
 }

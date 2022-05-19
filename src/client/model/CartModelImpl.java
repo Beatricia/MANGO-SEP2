@@ -7,7 +7,6 @@ import transferobjects.Request;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.beans.PropertyEditorSupport;
 
 public class CartModelImpl implements CartModel{
     private Client client;
