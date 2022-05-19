@@ -18,6 +18,7 @@ public interface Client extends PropertyChangeSubject
   String MENU_ITEMS_RECEIVED = "MenuItemsReceived";
   String DAILY_MENU_RECEIVED = "DailyMenuReceived";
   String WEEKLY_MENU_RECEIVED = "WeeklyMenuReceived";
+  String CART_LIST_RECEIVED = "CartListReceived";
 
     /**
    * The method is used to send to the Server the LoginRequest object
