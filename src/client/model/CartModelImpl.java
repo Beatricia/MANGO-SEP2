@@ -49,6 +49,11 @@ public class CartModelImpl implements CartModel{
         client.sendRequest(request);
     }
 
+    @Override public void placeOrder()
+    {
+
+    }
+
     @Override public void addListener(String event, PropertyChangeListener listener) {
         support.addPropertyChangeListener(event, listener);
     }
