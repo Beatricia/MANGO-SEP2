@@ -147,6 +147,12 @@ public class SocketClient implements Client{
   {
       Log.log("SocketClient fires a WEEKLY_MENU_RECEIVED event");
       support.firePropertyChange(WEEKLY_MENU_RECEIVED, null, request.getObject());
-
   }
+
+    public void cartListReceived(Request request)
+    {
+        Log.log("SocketClient fires a CART_LIST_RECEIVED event");
+        support.firePropertyChange(CART_LIST_RECEIVED, null, request.getObject());
+
+    }
 }

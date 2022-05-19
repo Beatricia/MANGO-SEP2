@@ -54,39 +54,42 @@ public class ClientHandler implements Runnable
         //in case the received object is a User
         if (obj instanceof User)
         {
-          client.userReceivedFromServer((User) obj);
           Log.log("ClientHandler User object received from server");
+          client.userReceivedFromServer((User) obj);
         }
         // in case the received object is an ErrorMessage
         else if (obj instanceof ErrorMessage)
         {
-          client.errorReceivedFromServer((ErrorMessage) obj);
           Log.log("ClientHandler ErrorMessage object received from server");
+          client.errorReceivedFromServer((ErrorMessage) obj);
         }
         else if (obj instanceof Request)
         {
           Request request = (Request) obj;
           if (request.getRequestName().equals(Request.MENU_ITEMS_REQUEST))
           {
-            client.listOfMenuItemsReceived(request);
             Log.log("ClientHandler MENU_ITEMS_REQUEST received from server");
+            client.listOfMenuItemsReceived(request);
           }
-
-          else if (request.getRequestName()
-              .equals(Request.PENDING_USER_REQUEST))
+          else if (request.getRequestName().equals(Request.PENDING_USER_REQUEST))
           {
-            client.listOfEmployeeReceived(request);
             Log.log("ClientHandler PENDING_USER_REQUEST received from server");
+            client.listOfEmployeeReceived(request);
           }
           else if (request.getRequestName().equals(Request.DAILY_MENU_REQUEST))
           {
-            client.dailyMenuReceived(request);
             Log.log("ClientHandler DAILY_MENU_REQUEST received from server");
+            client.dailyMenuReceived(request);
           }
           else if (request.getRequestName().equals(Request.WEEKLY_MENU_REQUEST))
           {
-            client.weeklyMenuReceived(request);
             Log.log("ClientHandler WEEKLY_MENU_REQUEST received from server");
+            client.weeklyMenuReceived(request);
+          }
+          else if (request.getRequestName().equals(Request.CART_LIST_REQUEST))
+          {
+            Log.log("ClientHandler CART_LIST_REQUEST received from server");
+            client.cartListReceived(request);
           }
 
         }

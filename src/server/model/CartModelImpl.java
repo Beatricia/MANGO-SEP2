@@ -21,11 +21,13 @@ public class CartModelImpl implements CartModel
     databaseConn.addItemToCart(name, username);
   }
 
-  @Override public void editCartItem(CartItem cartItem) {
+  @Override public void editCartItem(CartItem cartItem)
+  {
 
   }
 
-  @Override public void deleteCartItem(CartItem cartItem) {
+  @Override public void deleteCartItem(CartItem cartItem)
+  {
 
   }
 

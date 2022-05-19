@@ -1,6 +1,7 @@
 package server.networking;
 
 import server.model.AdminModel;
+import server.model.CartModel;
 import server.model.MenuModel;
 import server.model.UserModel;
 import shared.Log;
@@ -35,13 +36,14 @@ public class ServerHandler implements Runnable
   private UserModel userModel;
   private MenuModel menuModel;
   private AdminModel adminModel;
+  private CartModel cartModel;
 
   /**
    * Constructs the ServerHandler object, sets up the base streams.
    * @param clientSocket Client Socket to be taken care of.
    * @param userModel User model to forward data to.
    */
-  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel, AdminModel adminModel) {
+  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel, AdminModel adminModel, CartModel cartModel) {
     try{
       System.out.printf("Client connected (%s:%s)%n", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort());
 
@@ -51,6 +53,7 @@ public class ServerHandler implements Runnable
       this.userModel = userModel;
       this.menuModel = menuModel;
       this.adminModel = adminModel;
+      this.cartModel = cartModel;
 
     } catch (IOException e){
       // If an IOException happens during the initialization of the streams, it means that there is
@@ -208,6 +211,28 @@ public class ServerHandler implements Runnable
     {
       Log.log("ServerHandler received DELETE_FROM_WEEKLY_MENU");
       menuModel.deleteMenuItemFromWeeklyMenu((ArrayList<MenuItemWithQuantity>) request.getObject());
+    }
+    else if(request.getRequestName().equals(Request.ADD_ITEM_TO_CART))
+    {
+      Log.log("ServerHandler received ADD_ITEM_TO_CART");
+      cartModel.addItemToCart((CartItem) request.getObject());
+    }
+    else if(request.getRequestName().equals(Request.EDIT_CART_ITEM))
+    {
+      Log.log("ServerHandler received EDIT_CART_ITEM");
+      cartModel.editCartItem((CartItem) request.getObject());
+    }
+    else if(request.getRequestName().equals(Request.DELETE_CART_ITEM))
+    {
+      Log.log("ServerHandler received DELETE_CART_ITEM");
+      cartModel.deleteCartItem((CartItem) request.getObject());
+    }
+    else if(request.getRequestName().equals(Request.CART_LIST_REQUEST))
+    {
+      Log.log("ServerHandler received CART_LIST_REQUEST");
+      String username = (String)request.getObject();
+      request.setObject(cartModel.getCartList(username));
+      sendObject(request);
     }
 
 
