@@ -2,10 +2,7 @@ package server.databaseConn;
 
 import shared.Log;
 import shared.UserType;
-import transferobjects.CartItem;
-import transferobjects.MenuItem;
-import transferobjects.MenuItemWithQuantity;
-import transferobjects.User;
+import transferobjects.*;
 import util.LogInException;
 
 import java.io.File;
@@ -28,6 +25,7 @@ public class DatabaseConnImp implements DatabaseConn
   private final MenuDatabaseConn menuDatabaseConn;
   private final AdminDatabaseConnection adminDataBaseConnection;
   private final CartDatabaseConn cartDatabaseConn;
+  private final OrderDatabaseConn orderDatabaseConn;
 
   public DatabaseConnImp()
   {
@@ -35,6 +33,7 @@ public class DatabaseConnImp implements DatabaseConn
     menuDatabaseConn = new MenuDatabaseConn();
     adminDataBaseConnection = new AdminDatabaseConnection();
     cartDatabaseConn = new CartDatabaseConn();
+    orderDatabaseConn = new OrderDatabaseConn();
   }
 
   /**
@@ -254,6 +253,11 @@ public class DatabaseConnImp implements DatabaseConn
   {
     Log.log("DatabaseConnImp: Sending a getCartList request to the MenuDatabaseConn");
     return cartDatabaseConn.getCartList(username);
+  }
+
+  @Override public ArrayList<OrderItem> placeOrder(String username) throws SQLException
+  {
+    return orderDatabaseConn.placeOrder(username);
   }
 
   @Override public void handlePendingEmployee(String username, boolean accept)

@@ -14,6 +14,7 @@ public class ModelFactory
   private MenuModel menuModel;
   private AdminModel adminModel;
   private CartModel cartModel;
+  private OrderModelCustomer customerOrderModel;
 
   /**
    * Constructor for the class
@@ -65,4 +66,14 @@ public class ModelFactory
     }
       return cartModel;
     }
+
+  public OrderModelCustomer getOrderModelCustomer()
+  {
+    if (customerOrderModel == null)
+    {
+      Log.log("ModelFactory: CustomerOrderModel was created");
+      customerOrderModel = new OrderModelCustomerImp(clientFactory.getClient());
+    }
+    return customerOrderModel;
+  }
 }

@@ -1,10 +1,7 @@
 package server.databaseConn;
 
 import shared.UserType;
-import transferobjects.CartItem;
-import transferobjects.MenuItem;
-import transferobjects.MenuItemWithQuantity;
-import transferobjects.User;
+import transferobjects.*;
 import util.LogInException;
 
 import java.sql.SQLException;
@@ -90,6 +87,8 @@ public interface DatabaseConn
   //endregion
 
   /* REGION ORDER*/
+
+  ArrayList<OrderItem> placeOrder(String username) throws SQLException;
 
 
 
