@@ -27,12 +27,14 @@ public class DatabaseConnImp implements DatabaseConn
   private final UserDatabaseConn userDatabaseConn;
   private final MenuDatabaseConn menuDatabaseConn;
   private final AdminDatabaseConnection adminDataBaseConnection;
+  private final CartDatabaseConn cartDatabaseConn;
 
   public DatabaseConnImp()
   {
     userDatabaseConn = new UserDatabaseConn();
     menuDatabaseConn = new MenuDatabaseConn();
     adminDataBaseConnection = new AdminDatabaseConnection();
+    cartDatabaseConn = new CartDatabaseConn();
   }
 
   /**
@@ -227,23 +229,31 @@ public class DatabaseConnImp implements DatabaseConn
   }
 
   @Override
-  public void addItemToCart(String cartItemName, String username) throws SQLException {
-
+  public void addItemToCart(String cartItemName, String username) throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending an addItemToCart request to the CartDatabaseConn");
+    cartDatabaseConn.addItemToCart(cartItemName,username);
   }
 
   @Override
-  public void editCartItem(int quantity, ArrayList<String> unselectedIngredients) {
-
+  public void editCartItem(CartItem cartItem)
+  {
+    Log.log("DatabaseConnImp: Sending an editCartItem request to the CartDatabaseConn");
+    cartDatabaseConn.removeCartItem(cartItem);
   }
 
   @Override
-  public void removeCartItem(CartItem cartItem) {
-
+  public void removeCartItem(CartItem cartItem)
+  {
+    Log.log("DatabaseConnImp: Sending a removeCartItem request to the CartDatabaseConn");
+    cartDatabaseConn.removeCartItem(cartItem);
   }
 
   @Override
-  public ArrayList<CartItem> getCartList(String username) throws SQLException {
-    return null;
+  public ArrayList<CartItem> getCartList(String username) throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending a getCartList request to the MenuDatabaseConn");
+    return cartDatabaseConn.getCartList(username);
   }
 
   @Override public void handlePendingEmployee(String username, boolean accept)
