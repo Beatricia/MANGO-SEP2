@@ -239,7 +239,7 @@ public class DatabaseConnImp implements DatabaseConn
   public void editCartItem(CartItem cartItem) throws SQLException
   {
     Log.log("DatabaseConnImp: Sending an editCartItem request to the CartDatabaseConn");
-    cartDatabaseConn.removeCartItem(cartItem);
+    cartDatabaseConn.editCartItem(cartItem);
   }
 
   @Override
