@@ -36,27 +36,32 @@ public class CartDatabaseConn
     }
   }
 
-  private int getCartIdFromUsername(String username) throws SQLException
+  public void editCartItem(CartItem cartItem) throws SQLException
   {
     try(Connection connection = DatabaseConnImp.getConnection())
     {
-      String sql =  "SELECT cartId FROM " + CART_TABLE + " WHERE username = ? ";
-      PreparedStatement statement = connection.prepareStatement(sql);
-      statement.setString(1, username);
+      //first update the quantity
+      int cartId = getCartIdFromUsername(cartItem.getUsername());
 
-      ResultSet set = statement.executeQuery();
-      String cartId = "";
-      if(set.next())
+      String sql = "UPDATE cartitem SET quantity = ? WHERE itemName ='" + cartItem.getName()+  "' AND cartId = '" + cartId + " ';";
+
+      PreparedStatement statement = connection.prepareStatement(sql);
+
+      int quantity = cartItem.getQuantity();
+      statement.setInt(1, quantity);
+
+      statement.executeUpdate();
+
+
+      Log.log("CartDatabaseConn: Quantity changed");
+
+      //update the unselected ingredients table
+     if(cartItem.getUnselectedIngredients().size()>0)
       {
-        cartId = set.getString(1);
+        updateUnselectedIngredientsTable(cartItem, cartId);
       }
 
-      return Integer.parseInt(cartId);
     }
-  }
-
-  public void editCartItem(CartItem cartItem)
-  {
 
   }
 
@@ -71,6 +76,9 @@ public class CartDatabaseConn
 
       statement.executeUpdate();
       Log.log("CartDatabaseConn removes item from cart");
+
+      //created a trigger to remove all the unselected items for this product
+      // from the cartUnselectedIngredientsTable
     }
   }
 
@@ -157,5 +165,63 @@ public class CartDatabaseConn
     }
 
     return ingredients;
+  }
+
+  private void updateUnselectedIngredientsTable(CartItem cartItem, int cartId)
+      throws SQLException
+  {
+    ArrayList<String> unselected = cartItem.getUnselectedIngredients();
+
+    try(Connection connection = DatabaseConnImp.getConnection())
+    {
+
+      //First delete all the unwanted ing that were there
+      String sqlT0Delete = "DELETE from " +  CART_UNSELECTED_INGREDIENTS_TABLE + " WHERE cartId = " + cartId + " ;";
+
+      PreparedStatement statementToDelete = connection.prepareStatement(sqlT0Delete);
+
+      statementToDelete.executeUpdate();
+
+
+      //Then insert all the unwanted ing
+      String sql = "INSERT INTO cartItemUnselectedIngredients VALUES (?, ?, (SELECT id from ingredient WHERE name = ?));";
+
+      for (int i = 0; i < unselected.size(); i++)
+      {
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        String itemName = cartItem.getName();
+
+
+        statement.setString(1, itemName);
+        statement.setInt(2, cartId);
+        statement.setString(3, unselected.get(i));
+
+        statement.executeUpdate();
+      }
+      Log.log("CartDatabaseConn puts the unselected ingredients in the table");
+    }
+
+  }
+
+  private int getCartIdFromUsername(String username) throws SQLException
+  {
+    try(Connection connection = DatabaseConnImp.getConnection())
+    {
+      String sql =  "SELECT cartId FROM " + CART_TABLE + " WHERE username = ? ";
+      PreparedStatement statement = connection.prepareStatement(sql);
+      statement.setString(1, username);
+
+      ResultSet set = statement.executeQuery();
+      String cartId = "";
+      if(set.next())
+      {
+        cartId = set.getString(1);
+      }
+
+      Log.log("CartDatabaseConn returns the Cart List items");
+      return Integer.parseInt(cartId);
+    }
   }
 }
