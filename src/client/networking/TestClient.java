@@ -40,6 +40,11 @@ public class TestClient implements Client
 
   }
 
+  @Override public void sendImageRequest(ImageRequest imageRequest)
+  {
+
+  }
+
   @Override public void addListener(String event, PropertyChangeListener listener) {
     support.addPropertyChangeListener(event, listener);
   }

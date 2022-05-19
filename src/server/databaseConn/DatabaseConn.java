@@ -1,10 +1,7 @@
 package server.databaseConn;
 
 import shared.UserType;
-import transferobjects.CartItem;
-import transferobjects.MenuItem;
-import transferobjects.MenuItemWithQuantity;
-import transferobjects.User;
+import transferobjects.*;
 import util.LogInException;
 
 import java.sql.SQLException;
@@ -81,15 +78,17 @@ public interface DatabaseConn
 
   void addItemToCart(String cartItemName, String username) throws SQLException;
 
-  void editCartItem(CartItem cartItem);
+  void editCartItem(CartItem cartItem) throws SQLException;
 
-  void removeCartItem(CartItem cartItem);
+  void removeCartItem(CartItem cartItem) throws SQLException;
 
   ArrayList<CartItem> getCartList(String username) throws SQLException;
 
   //endregion
 
   /* REGION ORDER*/
+
+  ArrayList<OrderItem> placeOrder(String username) throws SQLException;
 
 
 
