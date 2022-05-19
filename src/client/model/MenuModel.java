@@ -57,7 +57,16 @@ public interface MenuModel extends PropertyChangeSubject
    */
   void addQuantity(ArrayList<MenuItemWithQuantity> listOfItemsWithQuantity);
 
+  /**
+   * The method is used to send request for weekly menu to the Client
+   */
+
   void requestWeeklyMenu();
+
+  /**
+   * The method is used to delete Menu items from weekly menu
+   * @param listOfMenuItemsToDelete the list of MenuItemsWithQuantity to delete
+   */
 
   void deleteMenuItemFromWeeklyMenu(ArrayList<MenuItemWithQuantity> listOfMenuItemsToDelete);
 }
