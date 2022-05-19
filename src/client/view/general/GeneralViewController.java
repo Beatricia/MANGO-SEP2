@@ -94,11 +94,7 @@ public class GeneralViewController implements ViewController
    */
   private void tabChanged(Tab newTab) {
     Log.log("GeneralViewController Changed user tab");
-    refreshTab(newTab);
-  }
-
-  private void refreshTab(Tab tab){
-    userStrategy.refreshTab(tab);
+    userStrategy.refreshTab(newTab);
   }
 
   @Override public void refresh() {
