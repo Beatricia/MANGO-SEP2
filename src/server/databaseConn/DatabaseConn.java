@@ -81,9 +81,9 @@ public interface DatabaseConn
 
   void addItemToCart(String cartItemName, String username) throws SQLException;
 
-  void editCartItem(CartItem cartItem);
+  void editCartItem(CartItem cartItem) throws SQLException;
 
-  void removeCartItem(CartItem cartItem);
+  void removeCartItem(CartItem cartItem) throws SQLException;
 
   ArrayList<CartItem> getCartList(String username) throws SQLException;
 
