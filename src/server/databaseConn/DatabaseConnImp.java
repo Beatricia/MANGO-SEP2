@@ -226,26 +226,23 @@ public class DatabaseConnImp implements DatabaseConn
     menuDatabaseConn.deleteMenuItemFromDailyMenu(date,name);
   }
 
-  @Override public void addItemToCart(String cartItemName, String username)
-      throws SQLException
-  {
+  @Override
+  public void addItemToCart(String cartItemName, String username) throws SQLException {
 
   }
 
-  @Override public void editCartItem(int quantity,
-      ArrayList<String> unselectedIngredients)
-  {
+  @Override
+  public void editCartItem(int quantity, ArrayList<String> unselectedIngredients) {
 
   }
 
-  @Override public void removeCartItem(CartItem cartItem)
-  {
+  @Override
+  public void removeCartItem(CartItem cartItem) {
 
   }
 
-  @Override public ArrayList<CartItem> getCartList(String username)
-      throws SQLException
-  {
+  @Override
+  public ArrayList<CartItem> getCartList(String username) throws SQLException {
     return null;
   }
 
