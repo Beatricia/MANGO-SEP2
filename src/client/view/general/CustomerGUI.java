@@ -20,7 +20,8 @@ public class CustomerGUI extends UserStrategy
   private final static String[] tabs = {
       "displayMenu/DisplayMenuView.fxml", "Today's Menu",
       "displayWeeklyMenu/WeeklyMenuView.fxml", "Weekly Menu",
-          "shoppingCart/ShoppingCartView.fxml", "Shopping Cart"
+          "shoppingCart/ShoppingCartView.fxml", "Shopping Cart",
+      "myOrder/MyOrderView.fxml" , "My Order"
 
   };
 
