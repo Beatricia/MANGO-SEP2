@@ -15,7 +15,14 @@ public class CartDatabaseConn
   private final static String CART_ITEM_TABLE = "cartItem";
   private final static String CART_UNSELECTED_INGREDIENTS_TABLE = "cartitemunselectedingredients";
 
-
+  /**
+   * The method calls teh private method getCartIdFromUsername to get the cart
+   * id, and inserts the item that has the name given as a parameter into
+   * the cartItem table with the cart id value.
+   * @param cartItemName the name of the item to be added to the cartItem table
+   * @param username  the username of the Client used to get the cart id
+   * @throws SQLException
+   */
   public void addItemToCart(String cartItemName, String username)
       throws SQLException
   {
@@ -36,6 +43,17 @@ public class CartDatabaseConn
     }
   }
 
+  /**
+   * Called whenever a new quantity value is set for the item in cart or/and
+   * whenever an ingredient is unselected from the view. The method calls the
+   * private getCartIdFromUsername method to get te cart id using the
+   * provided in the cart item username, first edits the quantity, then checks
+   * if there are any unselected ingredients, if yes calls te private method
+   * updateUnselectedIngredientsTable.
+   *
+   * @param cartItem the cart item that has to be edited
+   * @throws SQLException
+   */
   public void editCartItem(CartItem cartItem) throws SQLException
   {
     try(Connection connection = DatabaseConnImp.getConnection())
@@ -65,6 +83,13 @@ public class CartDatabaseConn
 
   }
 
+  /**
+   * The method deletes the specified cart item from the cartItem table
+   * (The table has a TRIGGER which automatically deletes all the unselected
+   * items for this item from the cartUnselectedIngredient table)
+   * @param cartItem  the cart item that should be deleted
+   * @throws SQLException
+   */
   public void removeCartItem(CartItem cartItem) throws SQLException
   {
     try(Connection connection = DatabaseConnImp.getConnection())
@@ -77,11 +102,22 @@ public class CartDatabaseConn
       statement.executeUpdate();
       Log.log("CartDatabaseConn removes item from cart");
 
-      //created a trigger to remove all the unselected items for this product
-      // from the cartUnselectedIngredientsTable
     }
   }
 
+  /**
+   * The method first calls the private method getCartIdFromUsername to get
+   * the cart id with the username given as a parameter. Secondly, the itemName
+   * and quantity are selected from the cartItem. Next the price and image path
+   * are extracted from the menuItemTable. Lastly, the getAllIngredients
+   * private method is called to obtain all the ingredients of the menu item,
+   * and with all that information a new CartItem object is created and added
+   * an ArrayList, which is returned (when creating the CartItem object the
+   * unselected ingredients are represented by an empty ArrayList)
+   * @param username
+   * @return an Arraylist with all the CartItem object in the shopping cart
+   * @throws SQLException
+   */
   public ArrayList<CartItem> getCartList(String username) throws SQLException
   {
       ArrayList<CartItem> cartItems = new ArrayList<>();
@@ -135,6 +171,12 @@ public class CartDatabaseConn
     return cartItems;
   }
 
+  /**
+   * The method uses a subquery to select all ingredients of the item, which
+   * has the name given as a parameter.
+   * @param itemName the name of the item
+   * @return an ArrayList that contains all ingredients the menu item has
+   */
   private ArrayList<String> getAllIngredients(String itemName)
   {
     ArrayList<String> ingredients = new ArrayList<>();
@@ -167,6 +209,14 @@ public class CartDatabaseConn
     return ingredients;
   }
 
+  /**
+   * The method first deletes all the items from the
+   * cartUnselectedIngredientsTable for the specified cart and then inserts the
+   * new given list of unwanted ingredients.
+   * @param cartItem the cart item that ingredients should be marked as unwanted to
+   * @param cartId  the cart id of the cartItem
+   * @throws SQLException
+   */
   private void updateUnselectedIngredientsTable(CartItem cartItem, int cartId)
       throws SQLException
   {
@@ -205,6 +255,13 @@ public class CartDatabaseConn
 
   }
 
+  /**
+   * The method extracts and returns the cart id of the user that has the
+   * username given as a parameter
+   * @param username the username of the user whose cart id is needed
+   * @return and integer representing the cart id of the customer
+   * @throws SQLException
+   */
   private int getCartIdFromUsername(String username) throws SQLException
   {
     try(Connection connection = DatabaseConnImp.getConnection())
