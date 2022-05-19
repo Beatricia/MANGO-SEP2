@@ -81,9 +81,12 @@ public interface DatabaseConn
 
   void addItemToCart(String cartItemName, String username) throws SQLException;
 
+  void editCartItem(int quantity, ArrayList<String> unselectedIngredients);
+
+  void removeCartItem(CartItem cartItem);
+
   ArrayList<CartItem> getCartList(String username) throws SQLException;
 
   //endregion
-
 
 }
