@@ -2,6 +2,7 @@ package client.model;
 
 import client.networking.Client;
 import transferobjects.CartItem;
+import transferobjects.MenuItemWithQuantity;
 import transferobjects.Request;
 
 import java.beans.PropertyChangeListener;
@@ -18,9 +19,9 @@ public class CartModelImpl implements CartModel{
         support = new PropertyChangeSupport(this);
     }
 
-    @Override public void addToCart(CartItem cartItem) {
+    @Override public void addToCart(MenuItemWithQuantity menuItem) {
         Request request = new Request(Request.ADD_ITEM_TO_CART);
-        request.setObject(cartItem);
+        request.setObject(menuItem);
 
         client.sendRequest(request);
     }

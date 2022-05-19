@@ -1,9 +1,11 @@
 package client.view.customer.displayMenu;
 
+import client.model.CartModel;
 import client.model.MenuModel;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 
 import java.beans.PropertyChangeEvent;
@@ -13,15 +15,17 @@ import java.util.List;
  * A class that connects the DisplayMenuController with the MenuModel.
  *
  *
- * @author Greg
+ * @author Greg, Simon
  */
 public class DisplayMenuViewModel
 {
   private ObservableList<MenuItemWithQuantity> menuItemWithQuantities;
   private MenuModel menuModel;
+  private CartModel cartModel;
 
-  public DisplayMenuViewModel(MenuModel menuModel){
+  public DisplayMenuViewModel(MenuModel menuModel, CartModel cartModel){
     this.menuModel = menuModel;
+    this.cartModel = cartModel;
     menuItemWithQuantities = FXCollections.observableArrayList();
 
     menuModel.addListener(MenuModel.DAILY_MENU_RECEIVED, this::menuReceived);
@@ -46,5 +50,9 @@ public class DisplayMenuViewModel
 
   public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList(){
     return menuItemWithQuantities;
+  }
+
+  public void addMenuItemToCart(MenuItemWithQuantity menuItem){
+    cartModel.addToCart(menuItem);
   }
 }

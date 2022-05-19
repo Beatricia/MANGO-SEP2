@@ -217,6 +217,7 @@ public class AddQuantityController implements ViewController
       vboxChildrenSize++;
     }
 
+
     HBox lastHBox = (HBox) menuItemsVBox.getChildren().get(vboxChildrenSize - 1);
 
     if (lastHBox.getChildren().size() >= 2)

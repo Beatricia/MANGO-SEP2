@@ -114,7 +114,7 @@ public class ViewModelFactory
     if(displayMenuViewModel == null){
       Log.log("ViewModelFactory: DisplayMenu ViewModel created");
 
-      displayMenuViewModel = new DisplayMenuViewModel(modelFactory.getMenuModel());
+      displayMenuViewModel = new DisplayMenuViewModel(modelFactory.getMenuModel(), modelFactory.getCartModel());
     }
     return displayMenuViewModel;
   }
