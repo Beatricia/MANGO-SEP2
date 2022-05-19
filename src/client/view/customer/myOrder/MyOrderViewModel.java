@@ -43,11 +43,12 @@ public class MyOrderViewModel
    */
   public void refresh()
   {
+    Log.log("MyOrderViewModel: requestUncollectedOrder is created");
     orderModel.requestUncolectedOrder();
   }
 
   /**
-   * method uses to return total price of order items
+   * The method is used to return total price of order items
    * @return
    */
 
@@ -61,7 +62,7 @@ public class MyOrderViewModel
   }
 
   /**
-   * method uses to return orderCode
+   * The method is used to return orderCode
    * @return
    */
 
@@ -96,6 +97,7 @@ public class MyOrderViewModel
    */
   public ObservableList<OrderItem> getAllOrderItems()
   {
+    Log.log("MyOrderViewModel: return allOrderItems");
     return orderItems;
   }
 
@@ -105,6 +107,7 @@ public class MyOrderViewModel
 
   public void cancelOrder()
   {
+    Log.log("MyOrderViewModel: cancelOrder method is called");
     orderModel.cancleOrder();
   }
 
