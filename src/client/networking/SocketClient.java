@@ -166,7 +166,13 @@ public class SocketClient implements Client{
     }
 
     public void imageRequestReceived(ImageRequest imageRequest){
-        Log.log("SocketClient fires a IMAGE_RECEIVED event");
+        Log.log("SocketClient fires an IMAGE_RECEIVED event");
         support.firePropertyChange(IMAGE_RECEIVED, null, imageRequest);
+    }
+
+    public void uncollectedOrderReceived(Request request)
+    {
+        Log.log("SocketClient fires an ORDER_RECEIVED event");
+        support.firePropertyChange(ORDER_RECEIVED, null, request.getObject());
     }
 }

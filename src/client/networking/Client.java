@@ -22,6 +22,7 @@ public interface Client extends PropertyChangeSubject
   String ORDER_RECEIVED = "OrderReceived";
   String IMAGE_RECEIVED = "ImageReceived";
 
+
     /**
    * The method is used to send to the Server the LoginRequest object
    *    when a person loggs in it is called

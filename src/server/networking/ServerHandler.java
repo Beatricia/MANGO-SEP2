@@ -1,9 +1,6 @@
 package server.networking;
 
-import server.model.AdminModel;
-import server.model.CartModel;
-import server.model.MenuModel;
-import server.model.UserModel;
+import server.model.*;
 import shared.Log;
 import transferobjects.*;
 import util.LogInException;
@@ -39,13 +36,15 @@ public class ServerHandler implements Runnable
   private MenuModel menuModel;
   private AdminModel adminModel;
   private CartModel cartModel;
+  private OrderModelCustomer orderModel;
+
 
   /**
    * Constructs the ServerHandler object, sets up the base streams.
    * @param clientSocket Client Socket to be taken care of.
    * @param userModel User model to forward data to.
    */
-  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel, AdminModel adminModel, CartModel cartModel) {
+  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel, AdminModel adminModel, CartModel cartModel, OrderModelCustomer orderModel) {
     try{
       System.out.printf("Client connected (%s:%s)%n", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort());
 
@@ -56,6 +55,7 @@ public class ServerHandler implements Runnable
       this.menuModel = menuModel;
       this.adminModel = adminModel;
       this.cartModel = cartModel;
+      this.orderModel = orderModel;
 
     } catch (IOException e){
       // If an IOException happens during the initialization of the streams, it means that there is
@@ -246,6 +246,17 @@ public class ServerHandler implements Runnable
       String username = (String)request.getObject();
       request.setObject(cartModel.getCartList(username));
       sendObject(request);
+    }
+    else if(request.getRequestName().equals(Request.CUSTOMER_UNCOLLECTED_ORDER_REQUEST))
+    {
+      Log.log("ServerHandler received CART_LIST_REQUEST");
+      request.setObject(orderModel.getUncollectedOrder());
+      sendObject(request);
+    }
+    else if(request.getRequestName().equals(Request.CANCEL_ORDER))
+    {
+      Log.log("ServerHandler received CANCEL_ORDER");
+      orderModel.cancelOrder((String)request.getObject());
     }
 
 

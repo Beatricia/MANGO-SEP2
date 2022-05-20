@@ -19,8 +19,8 @@ public class Request implements Serializable
   public static final String EDIT_CART_ITEM = "EditCartItem";
   public static final String DELETE_CART_ITEM = "DeleteCartItem";
   public static final String CART_LIST_REQUEST = "CartListRequest";
-  public static final String ORDER_REQUEST = "OrderRequest";
-  public static final String CUSTOMER_UNCOLLECTED_ORDER_REQUEST = "CustUncOrderReq";
+  public static final String CUSTOMER_UNCOLLECTED_ORDER_REQUEST = "OrderRequest";
+  public static final String CANCEL_ORDER = "CancelOrder";
 
 
   private String requestName;

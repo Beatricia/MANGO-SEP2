@@ -4,6 +4,7 @@ import server.databaseConn.DatabaseConn;
 import server.databaseConn.DatabaseConnImp;
 import server.model.*;
 import shared.Log;
+import transferobjects.OrderItem;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -32,6 +33,7 @@ public class SocketServer
       MenuModel menuModel = new MenuModelImp(databaseConn);
       AdminModel adminModel = new AdminModelImp(databaseConn);
       CartModel cartModel = new CartModelImpl(databaseConn);
+      OrderModelCustomer orderModel = new OrderModelCustomerImpl(databaseConn);
 
       while(true){
 
@@ -39,7 +41,7 @@ public class SocketServer
         Socket clientSocket = serverSocket.accept();
         Log.log("SocketServer accepts a new socket");
         // Init server socket handler
-        ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel, cartModel);
+        ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel, cartModel, orderModel);
         // put the handler on a different thread
         Thread handlerThread = new Thread(handler);
         Log.log("SocketServer puts handler into another thread");

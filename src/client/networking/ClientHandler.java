@@ -92,6 +92,11 @@ public class ClientHandler implements Runnable
             Log.log("ClientHandler CART_LIST_REQUEST received from server");
             client.cartListReceived(request);
           }
+          else if(request.getRequestName().equals(Request.CUSTOMER_UNCOLLECTED_ORDER_REQUEST))
+          {
+            Log.log("ClientHandler CUSTOMER_UNCOLLECTED_ORDER_REQUEST received from server");
+            client.uncollectedOrderReceived(request);
+          }
         }
         else if(obj instanceof ImageRequest)
         {
