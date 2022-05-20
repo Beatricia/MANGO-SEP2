@@ -5,6 +5,7 @@ import client.core.ViewModelFactory;
 import client.view.ViewController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import shared.Log;
 import transferobjects.OrderItem;
 
+import javax.swing.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class MyOrderController implements ViewController
   public TableColumn<OrderItem, String> nameColumn;
   public TableColumn<OrderItem, String> ingredientsColumn;
   public TableColumn<OrderItem, Integer> quantityColumn;
+  public Button cancelButton;
 
   private MyOrderViewModel viewModel;
 
@@ -66,6 +69,11 @@ public class MyOrderController implements ViewController
 
     codeLabel.textProperty().bind(viewModel.getOrderCode());
     priceLabel.textProperty().bind(viewModel.getTotalPrice());
+
+    if (viewModel.getAllOrderItems().size() == 0)
+    {
+      cancelButton.setDisable(true);
+    }
   }
 
   @Override public void refresh()
@@ -80,7 +88,16 @@ public class MyOrderController implements ViewController
   public void onCancel(ActionEvent actionEvent)
   {
     Log.log("MyOrderController: button canceled was pressed");
-    viewModel.cancelOrder();
+
+
+    int resultButton = JOptionPane.YES_NO_OPTION;
+    JOptionPane.showConfirmDialog(null, "Do yoy really want to cancel your order? ","Warning",resultButton);
+
+    if (resultButton == JOptionPane.YES_OPTION)
+    {
+      viewModel.cancelOrder();
+      refresh();
+    }
   }
 
 }
