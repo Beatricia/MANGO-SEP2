@@ -11,8 +11,6 @@ public interface CartModel extends PropertyChangeSubject
   void addToCart(MenuItemWithQuantity menuItem);
   void editCartItem(CartItem cartItem);
   void deleteCartItem(CartItem cartItem);
-
   void requestCartList();
-
-    void placeOrder();
+  void placeOrder();
 }

@@ -19,6 +19,7 @@ public interface Client extends PropertyChangeSubject
   String DAILY_MENU_RECEIVED = "DailyMenuReceived";
   String WEEKLY_MENU_RECEIVED = "WeeklyMenuReceived";
   String CART_LIST_RECEIVED = "CartListReceived";
+  String ORDER_RECEIVED = "OrderReceived";
   String IMAGE_RECEIVED = "ImageReceived";
 
     /**
