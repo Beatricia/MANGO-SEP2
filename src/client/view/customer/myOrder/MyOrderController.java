@@ -3,18 +3,13 @@ package client.view.customer.myOrder;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
-import client.view.customer.displayWeeklyMenu.WeeklyMenuController;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import shared.Log;
-import transferobjects.MenuItemWithQuantity;
 import transferobjects.OrderItem;
 
 import java.time.LocalDate;
@@ -34,7 +29,7 @@ public class MyOrderController implements ViewController
   public TableView<OrderItem> table;
   public Label priceLabel;
   public TableColumn<OrderItem, String> nameColumn;
-  public TableColumn<OrderItem, ArrayList<String>> ingredientsColumn;
+  public TableColumn<OrderItem, String> ingredientsColumn;
   public TableColumn<OrderItem, Integer> quantityColumn;
 
   private MyOrderViewModel viewModel;
@@ -52,17 +47,25 @@ public class MyOrderController implements ViewController
 
     nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
     ingredientsColumn.setCellValueFactory(new PropertyValueFactory<>("ingredients"));
+    ingredientsColumn.setCellValueFactory(
+        obj -> {
+          OrderItem orderItem = obj.getValue();
+          ArrayList<String> selectedIngredients = new ArrayList<>(orderItem.getIngredients());
+          selectedIngredients.removeAll(orderItem.getUnselectedIngredients());
+
+          String list = String.join(", ", selectedIngredients);
+          return new SimpleStringProperty(list);
+        });
     quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     quantityColumn.setStyle("-fx-alignment: CENTER;");
-    listView();
+    table.setItems(viewModel.getAllOrderItems());
 
 
     String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     dateLabel.setText(today);
 
-    codeLabel.setText(String.format("%06d", viewModel.getOrderCode()));
-
-    priceLabel.setText(viewModel.getTotalPrice() + " dkk");
+    codeLabel.textProperty().bind(viewModel.getOrderCode());
+    priceLabel.textProperty().bind(viewModel.getTotalPrice());
   }
 
   @Override public void refresh()
@@ -80,24 +83,4 @@ public class MyOrderController implements ViewController
     viewModel.cancelOrder();
   }
 
-  /**
-   * loading the orderItems into the table
-   */
-
-  private void listView()
-  {
-    ObservableList<OrderItem> orderItemsList = viewModel.getAllOrderItems();
-    /*ArrayList<String> ingredient = new ArrayList<>();
-    ingredient.add("banana");
-    ingredient.add("onion");
-    ingredient.add("tomato");
-    OrderItem item1 = new OrderItem("Agata",ingredient,13,null,null,3,null,13);
-    OrderItem item2 = new OrderItem("Bartel",ingredient,15,null,null,2,null,13);
-    OrderItem item3 = new OrderItem("Maciek",ingredient,17,null,null,3,null,13);*/
-
-    for (int i = 0; i <orderItemsList.size() ; i++)
-    {
-      table.getItems().add(orderItemsList.get(i));
-    }
-  }
 }

@@ -2,12 +2,15 @@ package client.view.customer.myOrder;
 
 import client.model.OrderModelCustomer;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Log;
 import transferobjects.OrderItem;
 
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +23,8 @@ public class MyOrderViewModel
 {
   private ObservableList<OrderItem> orderItems;
   private OrderModelCustomer orderModel;
-  private int orderCode;
-  private double price;
+  private StringProperty orderCode;
+  private StringProperty price;
 
   /**
    * Constructor for the class, initializes the ObservableList orderItems, and adds the class to be a Listener
@@ -31,7 +34,11 @@ public class MyOrderViewModel
 
   public MyOrderViewModel(OrderModelCustomer orderModel)
   {
+    orderModel = new TestModel();
     this.orderModel = orderModel;
+
+    orderCode = new SimpleStringProperty();
+    price = new SimpleStringProperty();
 
     orderItems = FXCollections.observableArrayList();
 
@@ -52,12 +59,9 @@ public class MyOrderViewModel
    * @return
    */
 
-  public double getTotalPrice()
+  public StringProperty getTotalPrice()
   {
-    for (int i = 0; i < orderItems.size(); i++)
-    {
-      price += orderItems.get(i).getPrice() * orderItems.get(i).getQuantity();
-    }
+
     return price;
   }
 
@@ -66,7 +70,7 @@ public class MyOrderViewModel
    * @return
    */
 
-  public int getOrderCode()
+  public StringProperty getOrderCode()
   {
     return orderCode;
   }
@@ -86,8 +90,15 @@ public class MyOrderViewModel
       orderItems.addAll(orderItemsList);
       if (orderItemsList.size() > 0)
       {
-        orderCode = orderItemsList.get(orderItemsList.size() - 1).getCode();
+        orderCode.set(String.format("%06d",orderItemsList.get(orderItemsList.size()-1).getCode()));
       }
+
+      double priceDouble = 0;
+      for (int i = 0; i < orderItemsList.size(); i++)
+      {
+        priceDouble += orderItemsList.get(i).getPrice() * orderItemsList.get(i).getQuantity();
+      }
+      price.set(priceDouble + " dkk");
     });
   }
 
@@ -111,4 +122,49 @@ public class MyOrderViewModel
     orderModel.cancelOrder();
   }
 
+  public static class TestModel implements OrderModelCustomer
+  {
+    private PropertyChangeListener listener;
+
+    @Override public void requestUncollectedOrder()
+    {
+      ArrayList<String> ingredient = new ArrayList<>();
+      ingredient.add("banana");
+      ingredient.add("onion");
+      ingredient.add("tomato");
+      OrderItem item1 = new OrderItem("Agata", ingredient, 13, null, null, 3,
+          null, 13);
+      OrderItem item2 = new OrderItem("Bartel", ingredient, 15, null, null, 2,
+          null, 13);
+      OrderItem item3 = new OrderItem("Maciek", ingredient, 17, null, null, 3,
+          null, 13);
+
+      ArrayList<OrderItem> orderItems = new ArrayList<>(){{
+        add(item1);
+        add(item2);
+        add(item3);
+      }};
+
+      PropertyChangeEvent evt = new PropertyChangeEvent(this, OrderModelCustomer.ORDER_RECEIVED, null, orderItems);
+      listener.propertyChange(evt);
+    }
+
+
+
+    @Override public void cancelOrder()
+    {
+      System.out.println("cancelling order");
+    }
+
+    @Override public void addListener(String event,
+        PropertyChangeListener listener)
+    {
+      this.listener = listener;
+    }
+
+    @Override public void addListener(PropertyChangeListener listener)
+    {
+      this.listener = listener;
+    }
+  }
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="478.0" prefWidth="729.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.customer.myOrder.MyOrderController">
+   <children>
+      <Label fx:id="dateLabel" layoutX="26.0" layoutY="22.0" prefHeight="27.0" prefWidth="110.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="168.0" layoutY="81.0" prefHeight="48.0" prefWidth="146.0" text="Order code:">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="codeLabel" layoutX="322.0" layoutY="81.0" prefHeight="48.0" prefWidth="146.0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TableView fx:id="table" layoutX="29.0" layoutY="137.0" pickOnBounds="false" prefHeight="280.0" prefWidth="670.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" editable="false" prefWidth="296.8000373840332" sortable="false" text="NAME" />
+          <TableColumn fx:id="ingredientsColumn" editable="false" minWidth="0.0" prefWidth="290.39996337890625" sortable="false" text="INGREDIENTS" />
+            <TableColumn fx:id="quantityColumn" editable="false" prefWidth="82.4000244140625" sortable="false" text="QUANTITY" />
+        </columns>
+      </TableView>
+      <Button layoutX="654.0" layoutY="438.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
+      <Label layoutX="485.0" layoutY="429.0" prefHeight="18.0" prefWidth="62.0" text="Total price:" />
+      <Label fx:id="priceLabel" layoutX="547.0" layoutY="429.0" prefHeight="18.0" prefWidth="51.0" />
+   </children>
+</AnchorPane>

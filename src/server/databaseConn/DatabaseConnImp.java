@@ -260,6 +260,17 @@ public class DatabaseConnImp implements DatabaseConn
     return orderDatabaseConn.placeOrder(username);
   }
 
+  @Override public void cancelOrder(String username) throws SQLException
+  {
+
+  }
+
+  @Override public ArrayList<OrderItem> getUncollectedOrder()
+      throws SQLException
+  {
+    return null;
+  }
+
   @Override public void handlePendingEmployee(String username, boolean accept)
       throws SQLException
   {

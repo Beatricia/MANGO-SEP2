@@ -28,6 +28,9 @@ public class CartItem extends MenuItem{
         super(name, ingredients, price, imgPath);
         this.username = username;
         this.quantity = quantity;
+        if(unselectedIngredients == null)
+            unselectedIngredients = new ArrayList<>();
+
         this.unselectedIngredients = unselectedIngredients;
     }
 
