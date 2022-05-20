@@ -160,8 +160,13 @@ public class CartDatabaseConn
 
             //Create the CartItem and add it to the ArrayList
 
+            //get all unselected ingredients
+
+
+            ArrayList<String> unselected = getUnselectedIngredients(itemName, cartId);
+
             CartItem cartItem = new CartItem(itemName,ingredients,price,imgPath
-                ,username,quantity,new ArrayList<>());
+                ,username,quantity, unselected);
 
             cartItems.add(cartItem);
           }
@@ -169,6 +174,33 @@ public class CartDatabaseConn
         }
       }
     return cartItems;
+  }
+
+  private ArrayList<String> getUnselectedIngredients(String itemName, int cartId)
+      throws SQLException
+  {
+    ArrayList<String> unselected = new ArrayList<>();
+
+    try(Connection connection = DatabaseConnImp.getConnection())
+    {
+      String sql = "SELECT name FROM ingredient WHERE id in (SELECT ingredientId FROM cartItemUnselectedIngredients WHERE itemName = ? AND cartId = ?)";
+
+      PreparedStatement statement = connection.prepareStatement(sql);
+
+      statement.setString(1, itemName);
+      statement.setInt(2, cartId);
+
+      ResultSet resultSet = statement.executeQuery();
+
+
+      while (resultSet.next())
+      {
+        String ing = resultSet.getString("name");
+
+        unselected.add(ing);
+      }
+    }
+    return unselected;
   }
 
   /**
