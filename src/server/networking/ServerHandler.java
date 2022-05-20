@@ -259,7 +259,11 @@ public class ServerHandler implements Runnable
       Log.log("ServerHandler received CANCEL_ORDER");
       orderModel.cancelOrder((String)request.getObject());
     }
-
+    else if(request.getRequestName().equals(Request.PLACE_ORDER))
+    {
+      Log.log("ServerHandler received PLACE_ORDER");
+      cartModel.placeOrder((String) request.getObject());
+    }
 
   }
 

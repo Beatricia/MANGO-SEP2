@@ -32,4 +32,9 @@ public class CartModelImpl implements CartModel
   @Override public ArrayList<CartItem> getCartList(String username) throws SQLException {
     return databaseConn.getCartList(username);
   }
+
+  @Override public void placeOrder(String username) throws SQLException
+  {
+    databaseConn.placeOrder(username);
+  }
 }

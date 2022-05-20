@@ -11,4 +11,5 @@ public interface CartModel
   void editCartItem(CartItem cartItem) throws SQLException;
   void removeCartItem(CartItem cartItem) throws SQLException;
   ArrayList<CartItem> getCartList(String username) throws SQLException;
+  void placeOrder(String username) throws SQLException;
 }
