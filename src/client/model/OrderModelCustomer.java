@@ -1,5 +1,12 @@
 package client.model;
 
-public interface OrderModelCustomer
+import util.PropertyChangeSubject;
+
+public interface OrderModelCustomer extends PropertyChangeSubject
 {
+  String ORDER_RECEIVED = "";
+
+  void requestUncollectedOrder();
+
+  void cancelOrder();
 }

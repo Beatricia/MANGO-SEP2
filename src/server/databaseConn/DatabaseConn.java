@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public interface DatabaseConn
 {
-  /*REGION USER*/
+  //region USER
 
   /**
    * Log in with the specified username and the password.
@@ -43,13 +43,14 @@ public interface DatabaseConn
 
   //endregion
 
-  /*REGION ADMIN*/
+  //region ADMIN
   void handlePendingEmployee(String userName, boolean accept) throws SQLException;
 
   ArrayList<User> getAllPendingEmployees() throws SQLException;
   //endregion
 
-  /*REGION MENU*/
+  //region MENU
+
   /**
    * Adds a Menu item to the database with the ingredients
    * @param name menu item name
@@ -74,7 +75,7 @@ public interface DatabaseConn
 
   //endregion
 
-  /*REGION CART*/
+  //region CART
 
   void addItemToCart(String cartItemName, String username) throws SQLException;
 
@@ -86,11 +87,14 @@ public interface DatabaseConn
 
   //endregion
 
-  /* REGION ORDER*/
+  //region ORDER
 
   ArrayList<OrderItem> placeOrder(String username) throws SQLException;
 
+  void cancelOrder(String username) throws SQLException;
 
+  ArrayList<OrderItem> getUncollectedOrder() throws SQLException;
 
+  //endregion
 
 }

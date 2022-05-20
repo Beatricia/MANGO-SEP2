@@ -238,7 +238,7 @@ public class ServerHandler implements Runnable
     else if(request.getRequestName().equals(Request.DELETE_CART_ITEM))
     {
       Log.log("ServerHandler received DELETE_CART_ITEM");
-      cartModel.deleteCartItem((CartItem) request.getObject());
+      cartModel.removeCartItem((CartItem) request.getObject());
     }
     else if(request.getRequestName().equals(Request.CART_LIST_REQUEST))
     {

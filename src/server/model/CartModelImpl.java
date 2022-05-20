@@ -21,14 +21,12 @@ public class CartModelImpl implements CartModel
     databaseConn.addItemToCart(name, username);
   }
 
-  @Override public void editCartItem(CartItem cartItem)
-  {
-
+  @Override public void editCartItem(CartItem cartItem) throws SQLException {
+    databaseConn.editCartItem(cartItem);
   }
 
-  @Override public void deleteCartItem(CartItem cartItem)
-  {
-
+  @Override public void removeCartItem(CartItem cartItem) throws SQLException {
+    databaseConn.removeCartItem(cartItem);
   }
 
   @Override public ArrayList<CartItem> getCartList(String username) throws SQLException {

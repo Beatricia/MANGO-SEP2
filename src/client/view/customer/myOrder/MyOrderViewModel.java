@@ -44,7 +44,7 @@ public class MyOrderViewModel
   public void refresh()
   {
     Log.log("MyOrderViewModel: requestUncollectedOrder is created");
-    orderModel.requestUncolectedOrder();
+    orderModel.requestUncollectedOrder();
   }
 
   /**
@@ -108,7 +108,7 @@ public class MyOrderViewModel
   public void cancelOrder()
   {
     Log.log("MyOrderViewModel: cancelOrder method is called");
-    orderModel.cancleOrder();
+    orderModel.cancelOrder();
   }
 
 }
