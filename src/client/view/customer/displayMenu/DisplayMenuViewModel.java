@@ -5,6 +5,7 @@ import client.model.MenuModel;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import shared.Log;
 import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 
@@ -53,6 +54,7 @@ public class DisplayMenuViewModel
   }
 
   public void addMenuItemToCart(MenuItemWithQuantity menuItem){
+    Log.log("DisplayMenuViewModel: Add item to a cart");
     cartModel.addToCart(menuItem);
   }
 }
