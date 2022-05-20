@@ -34,10 +34,8 @@ public class OrderModelCustomerImp implements OrderModelCustomer
   }
 
   @Override public void cancelOrder() {
-    if(1 == 1) throw new RuntimeException("Not implemented. Reason: no request object designed");
-
     String username = UserModelImp.getUsername();
-    Request request = new Request("");
+    Request request = new Request(Request.CANCEL_ORDER);
     request.setObject(username);
 
     client.sendRequest(request);
