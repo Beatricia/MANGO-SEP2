@@ -57,7 +57,12 @@ public class CartModelImpl implements CartModel{
 
     @Override public void placeOrder()
     {
-        throw new RuntimeException("Not implemented. Reason: no request object designed");
+        String username = UserModelImp.getUsername();
+
+        Request request = new Request(Request.PLACE_ORDER);
+        request.setObject(username);
+
+        client.sendRequest(request);
     }
 
     @Override public void addListener(String event, PropertyChangeListener listener) {
