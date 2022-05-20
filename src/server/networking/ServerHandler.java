@@ -250,7 +250,8 @@ public class ServerHandler implements Runnable
     else if(request.getRequestName().equals(Request.CUSTOMER_UNCOLLECTED_ORDER_REQUEST))
     {
       Log.log("ServerHandler received CART_LIST_REQUEST");
-      request.setObject(orderModel.getUncollectedOrder());
+      ArrayList<OrderItem> uncollectedOrder = orderModel.getUncollectedOrder((String)request.getObject());
+      request.setObject(uncollectedOrder);
       sendObject(request);
     }
     else if(request.getRequestName().equals(Request.CANCEL_ORDER))

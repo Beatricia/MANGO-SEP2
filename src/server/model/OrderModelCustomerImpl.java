@@ -19,7 +19,7 @@ public class OrderModelCustomerImpl implements OrderModelCustomer
     databaseConn.cancelOrder(username);
   }
 
-  @Override public ArrayList<OrderItem> getUncollectedOrder() throws SQLException {
+  @Override public ArrayList<OrderItem> getUncollectedOrder(String username) throws SQLException {
     return databaseConn.getUncollectedOrder();
   }
 }
