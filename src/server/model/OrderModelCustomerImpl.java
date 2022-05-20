@@ -20,6 +20,6 @@ public class OrderModelCustomerImpl implements OrderModelCustomer
   }
 
   @Override public ArrayList<OrderItem> getUncollectedOrder(String username) throws SQLException {
-    return databaseConn.getUncollectedOrder();
+    return databaseConn.getUncollectedOrder(username);
   }
 }

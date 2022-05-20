@@ -93,7 +93,7 @@ public interface DatabaseConn
 
   void cancelOrder(String username) throws SQLException;
 
-  ArrayList<OrderItem> getUncollectedOrder() throws SQLException;
+  ArrayList<OrderItem> getUncollectedOrder(String username) throws SQLException;
 
   //endregion
 
