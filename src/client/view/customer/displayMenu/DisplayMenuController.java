@@ -22,6 +22,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
+import shared.Log;
 import transferobjects.MenuItemWithQuantity;
 
 import javax.imageio.ImageIO;
@@ -63,6 +64,7 @@ public class DisplayMenuController implements ViewController
   }
 
   private static void addMenuItemToCart(MenuItemWithQuantity menuItem){
+    Log.log("DisplayMenuController: Add item to a cart");
     viewModel.addMenuItemToCart(menuItem);
   }
 
@@ -205,6 +207,9 @@ public class DisplayMenuController implements ViewController
         @Override
         public void handle(ActionEvent event) {
           addMenuItemToCart(menuItemWithQuantity);
+
+          setDisable(true);
+          setText("Added");
         }
       });
     }};
