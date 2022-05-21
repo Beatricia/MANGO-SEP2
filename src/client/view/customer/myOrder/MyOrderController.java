@@ -54,10 +54,10 @@ public class MyOrderController implements ViewController
     ingredientsColumn.setCellValueFactory(
         obj -> {
           OrderItem orderItem = obj.getValue();
-          //ArrayList<String> selectedIngredients = new ArrayList<>(orderItem.getIngredients());
-          //selectedIngredients.removeAll(orderItem.getUnselectedIngredients());
+          ArrayList<String> selectedIngredients = new ArrayList<>(orderItem.getIngredients());
+          selectedIngredients.removeAll(orderItem.getUnselectedIngredients());
 
-          String list = String.join(", ", orderItem.getUnselectedIngredients());
+          String list = String.join(", ", selectedIngredients);
           return new SimpleStringProperty(list);
         });
     quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));

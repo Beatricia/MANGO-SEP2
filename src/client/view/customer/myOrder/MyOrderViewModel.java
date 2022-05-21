@@ -91,6 +91,10 @@ public class MyOrderViewModel
       {
         orderCode.set(String.format("%06d",orderItemsList.get(orderItemsList.size()-1).getCode()));
       }
+      else
+      {
+        orderCode.set(String.format("%06d",0));
+      }
 
       double priceDouble = 0;
       for (int i = 0; i < orderItemsList.size(); i++)
@@ -121,6 +125,7 @@ public class MyOrderViewModel
     orderModel.cancelOrder();
   }
 
+  /////////////////////////////////Test Class///////////////////////////
   public static class TestModel implements OrderModelCustomer
   {
     private PropertyChangeListener listener;
