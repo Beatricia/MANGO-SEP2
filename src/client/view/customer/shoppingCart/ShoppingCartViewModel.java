@@ -3,6 +3,7 @@ package client.view.customer.shoppingCart;
 import client.model.CartModel;
 import javafx.application.Platform;
 import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import java.util.List;
 public class ShoppingCartViewModel {
     private ObservableList<CartItem> cartItems;
     private CartModel cartModel;
+    private IntegerProperty quantity;
 
     /**
      * Constructor for the class, initializes the ObservableList cartItems, and adds the class to be a Listener

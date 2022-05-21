@@ -8,6 +8,7 @@ import transferobjects.Request;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 public class CartModelImpl implements CartModel{
     private Client client;
@@ -27,7 +28,10 @@ public class CartModelImpl implements CartModel{
 
     @Override public void addToCart(MenuItemWithQuantity menuItem) {
         Request request = new Request(Request.ADD_ITEM_TO_CART);
-        request.setObject(menuItem);
+        CartItem cartItem = new CartItem(menuItem.getName(), menuItem.getIngredients(), menuItem.getPrice(), menuItem.getImgPath(),
+                UserModelImp.getUsername(), 1, new ArrayList<>());
+        request.setObject(cartItem);
+
 
         client.sendRequest(request);
     }

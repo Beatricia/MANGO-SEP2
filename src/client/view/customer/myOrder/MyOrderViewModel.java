@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import shared.Log;
 import transferobjects.OrderItem;
 
-import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class MyOrderViewModel
 
   public MyOrderViewModel(OrderModelCustomer orderModel)
   {
-    //orderModel = new TestModel();
     this.orderModel = orderModel;
 
     orderCode = new SimpleStringProperty();
@@ -120,7 +118,6 @@ public class MyOrderViewModel
   public void cancelOrder()
   {
     Log.log("MyOrderViewModel: cancelOrder method is called");
-
     orderModel.cancelOrder();
   }
 

@@ -3,6 +3,7 @@ package client.view.customer.myOrder;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -53,15 +54,26 @@ public class MyOrderController implements ViewController
     ingredientsColumn.setCellValueFactory(
         obj -> {
           OrderItem orderItem = obj.getValue();
-          ArrayList<String> selectedIngredients = new ArrayList<>(orderItem.getIngredients());
-          selectedIngredients.removeAll(orderItem.getUnselectedIngredients());
+          //ArrayList<String> selectedIngredients = new ArrayList<>(orderItem.getIngredients());
+          //selectedIngredients.removeAll(orderItem.getUnselectedIngredients());
 
-          String list = String.join(", ", selectedIngredients);
+          String list = String.join(", ", orderItem.getUnselectedIngredients());
           return new SimpleStringProperty(list);
         });
     quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
     quantityColumn.setStyle("-fx-alignment: CENTER;");
     table.setItems(viewModel.getAllOrderItems());
+
+    viewModel.getAllOrderItems().addListener((InvalidationListener) obj ->
+    {
+      if (viewModel.getAllOrderItems().size() == 0)
+      {
+        cancelButton.setDisable(true);
+      }
+      else {
+        cancelButton.setDisable(false);
+      }
+    });
 
 
     String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -73,6 +85,9 @@ public class MyOrderController implements ViewController
     if (viewModel.getAllOrderItems().size() == 0)
     {
       cancelButton.setDisable(true);
+    }
+    else {
+      cancelButton.setDisable(false);
     }
   }
 
@@ -91,9 +106,9 @@ public class MyOrderController implements ViewController
 
 
     int resultButton = JOptionPane.YES_NO_OPTION;
-    JOptionPane.showConfirmDialog(null, "Do yoy really want to cancel your order? ","Warning",resultButton);
+    int result = JOptionPane.showConfirmDialog(null, "Do you really want to cancel your order? ","Warning",resultButton);
 
-    if (resultButton == JOptionPane.YES_OPTION)
+    if (result == JOptionPane.YES_OPTION)
     {
       viewModel.cancelOrder();
       refresh();
