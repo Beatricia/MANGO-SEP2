@@ -32,6 +32,8 @@ import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO javadocs
+
 /**
  * Controller for ShoppingCartView.fxml
  * @author Beatricia

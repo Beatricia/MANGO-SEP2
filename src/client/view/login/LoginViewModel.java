@@ -10,6 +10,8 @@ import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
 
+//TODO javadocs
+
 /**
  * The class which providing methods for LoginViewModel.
  * @author Agata

@@ -15,6 +15,8 @@ import transferobjects.MenuItem;
 
 import java.time.LocalDate;
 
+//TODO javadocs
+
 /**
  * The class is responsible for the functionality of the graphical user
  * interface that displays the view in which an Employee can add menu items to

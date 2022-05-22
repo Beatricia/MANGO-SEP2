@@ -11,7 +11,7 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//TODO protocol
 /**
  * <p>The <code>ServerHandler</code> is having a role of handling a client connection on the server side
  * of the <b>CanEat</b> application.

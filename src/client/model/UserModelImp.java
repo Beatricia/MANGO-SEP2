@@ -10,6 +10,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+//TODO javadocs
+
 /**
  * A class that implements the UserModel interface. Used to connect the
  * ViewModel objects with the networking.

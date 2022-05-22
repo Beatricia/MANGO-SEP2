@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//TODO javadocs
+
 /**
  * A concrete implementation of the {@link DatabaseConn}.
  *

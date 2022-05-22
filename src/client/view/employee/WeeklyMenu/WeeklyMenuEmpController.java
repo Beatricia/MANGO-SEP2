@@ -17,6 +17,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//TODO javadocs
+
 public class WeeklyMenuEmpController implements ViewController
 {
   public ListView<MenuItemWithQuantity> mondayList;

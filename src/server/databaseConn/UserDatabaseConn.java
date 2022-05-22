@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
-
+//TODO javadocs
 class UserDatabaseConn
 {
   public User register(String firstName, String lastName, String username,

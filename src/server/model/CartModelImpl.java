@@ -5,7 +5,7 @@ import transferobjects.CartItem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//TODO javadocs
 public class CartModelImpl implements CartModel
 {
   private DatabaseConn databaseConn;

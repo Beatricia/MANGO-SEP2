@@ -8,6 +8,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+//TODO javadocs
+
 public class OrderModelCustomerImp implements OrderModelCustomer
 {
   private Client client;

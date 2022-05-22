@@ -9,6 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import shared.Log;
 
+//TODO javadocs
+
 /**
  * The class which is responsible for the functionality of
  * the graphical user interface.

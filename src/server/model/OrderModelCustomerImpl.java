@@ -5,7 +5,7 @@ import transferobjects.OrderItem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//TODO javadocs
 public class OrderModelCustomerImpl implements OrderModelCustomer
 {
   private DatabaseConn databaseConn;

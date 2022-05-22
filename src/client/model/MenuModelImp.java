@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//TODO javadocs
+
 /**
  * A class that connects the view model and the Client side of networking.
  * In this class the information about items is collected into a MenuItem object

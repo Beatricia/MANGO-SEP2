@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+//TODO javadocs
+
 /**
  * Controller for MyOrderView.fxml
  * @author Agata
