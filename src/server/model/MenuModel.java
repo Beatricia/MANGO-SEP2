@@ -5,7 +5,7 @@ import transferobjects.MenuItemWithQuantity;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//TODO javadocs
 /**
  * Interface responsible for connecting the networking part of the Server with Database connection.
  * @author Simon

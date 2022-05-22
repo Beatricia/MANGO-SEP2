@@ -21,18 +21,18 @@
           <TableColumn fx:id="quantityColumn" prefWidth="87.33331298828125" text="Quantity" />
         </columns>
       </TableView>
-      <Label layoutX="704.0" layoutY="22.0" text="Total price">
+      <Label layoutX="678.0" layoutY="21.0" text="Total price">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="totalPriceLabel" alignment="CENTER" layoutX="787.0" layoutY="21.0" prefHeight="25.0" prefWidth="17.0" style="-fx-background-color: lightgrey;" text="0">
+      <Label fx:id="totalPriceLabel" alignment="CENTER" layoutX="756.0" layoutY="21.0" prefHeight="26.0" prefWidth="56.0" style="-fx-background-color: lightgrey;" text="0">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
       <Button layoutX="741.0" layoutY="572.0" mnemonicParsing="false" onAction="#onOrderButton" text="Order" />
-      <Pane layoutX="317.0" layoutY="69.0" prefHeight="489.0" prefWidth="493.0" style="-fx-border-color: black;">
+      <Pane fx:id="detailsPane" layoutX="317.0" layoutY="69.0" prefHeight="489.0" prefWidth="493.0" style="-fx-border-color: black;">
          <children>
             <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" layoutX="32.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -54,14 +54,14 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button layoutX="417.0" layoutY="27.0" mnemonicParsing="false" onAction="#onSaveButton" text="Save" />
+            <Button layoutX="417.0" layoutY="431.0" mnemonicParsing="false" onAction="#onSaveButton" text="Save" />
             <Spinner fx:id="quantitySpinner" layoutX="400.0" layoutY="388.0" prefHeight="25.0" prefWidth="56.0" />
             <Label layoutX="334.0" layoutY="390.0" text="Quantity">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button layoutX="399.0" layoutY="431.0" mnemonicParsing="false" onAction="#onRemoveButton" text="Remove" />
+            <Button layoutX="399.0" layoutY="27.0" mnemonicParsing="false" onAction="#onRemoveButton" text="Remove" />
             <ScrollPane fx:id="ingredientsScrollPane" layoutX="5.0" layoutY="213.0" prefHeight="165.0" prefWidth="482.0">
                <content>
                   <VBox fx:id="ingredientsVBox" prefHeight="162.0" prefWidth="466.0" />

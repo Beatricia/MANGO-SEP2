@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//TODO javadocs
+
 /**
  * A concrete implementation of the {@link DatabaseConn}.
  *
@@ -96,12 +98,14 @@ public class DatabaseConnImp implements DatabaseConn
 
     // Check if the error message is about duplicate primary keys
     if (message.startsWith(
-        "ERROR: duplicate key value violates unique constraint "))
+        "ERROR: duplicate key value violates unique constraint ")) {
       e = new SQLException("Item already exists");
+    }
 
       // Remove that weird capital error text from the beginning of the message
-    else if (message.startsWith("ERROR: "))
-      e = new SQLException(message.substring("ERROR: ".length()));
+    else if (message.startsWith("ERROR: ")) {
+    e = new SQLException(message.substring("ERROR: ".length()));
+  }
 
     return e;
   }
@@ -230,15 +234,31 @@ public class DatabaseConnImp implements DatabaseConn
   @Override
   public void addItemToCart(String cartItemName, String username) throws SQLException
   {
-    Log.log("DatabaseConnImp: Sending an addItemToCart request to the CartDatabaseConn");
-    cartDatabaseConn.addItemToCart(cartItemName,username);
+
+    try{
+      Log.log("DatabaseConnImp: Sending an addItemToCart request to the CartDatabaseConn");
+      cartDatabaseConn.addItemToCart(cartItemName,username);
+    }
+    catch (SQLException e){
+      if (e.getMessage().startsWith("ERROR: new row for relation \"dailymenuitem\"")){
+        e = new SQLException("The item is sold out :(");
+      }
+      throw formatExceptionMessage(e);
+    }
   }
 
   @Override
   public void editCartItem(CartItem cartItem) throws SQLException
   {
-    Log.log("DatabaseConnImp: Sending an editCartItem request to the CartDatabaseConn");
-    cartDatabaseConn.editCartItem(cartItem);
+    try {
+      Log.log("DatabaseConnImp: Sending an editCartItem request to the CartDatabaseConn");
+      cartDatabaseConn.editCartItem(cartItem);
+    } catch (SQLException e){
+      if (e.getMessage().startsWith("ERROR: new row for relation \"dailymenuitem\"")){
+        e = new SQLException("The available quantity is not enough :(");
+      }
+      throw formatExceptionMessage(e);
+    }
   }
 
   @Override

@@ -1,7 +1,7 @@
 package transferobjects;
 
 import java.io.Serializable;
-
+//TODO javadocs
 public class ImageRequest implements Serializable
 {
   private final String path;

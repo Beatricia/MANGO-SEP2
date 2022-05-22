@@ -18,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -26,9 +27,12 @@ import shared.Log;
 import transferobjects.CartItem;
 import transferobjects.MenuItem;
 
+import java.lang.reflect.Field;
 import java.sql.Struct;
 import java.util.ArrayList;
 import java.util.List;
+
+//TODO javadocs
 
 /**
  * Controller for ShoppingCartView.fxml
@@ -45,6 +49,8 @@ public class ShoppingCartController implements ViewController {
     public TableView<CartItem> cartTable;
     public ScrollPane ingredientsScrollPane;
     public VBox ingredientsVBox;
+    public Pane detailsPane;
+    private String lastSelectedItem;
 
     private ShoppingCartViewModel viewModel;
 
@@ -59,8 +65,13 @@ public class ShoppingCartController implements ViewController {
         cartTable.setItems(viewModel.getAllCartItems());
         cartTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        loadCartItems();
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        //loadCartItems();
 
+        viewModel.getAllCartItems().addListener(this::listChange);
+
+        clearDetailsPane();
 
         //spinner thing
         SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8);
@@ -71,6 +82,22 @@ public class ShoppingCartController implements ViewController {
         });
     }
 
+    private void listChange(Observable observable) {
+        List<CartItem> cartItems = (List<CartItem>) observable;
+        for (CartItem c : cartItems)
+        {
+            if(c.getName().equals(lastSelectedItem))
+                cartTable.getSelectionModel().select(c);
+        }
+    }
+
+    private void clearDetailsPane(){
+        if(cartTable.getSelectionModel().isEmpty()){
+            detailsPane.getChildren().clear();
+        }
+        else detailsPane.getChildren();
+
+    }
     /**
      * Loading all cart items to the table, they are taken from the view model
      */
@@ -91,12 +118,21 @@ public class ShoppingCartController implements ViewController {
      */
     private void selectedItemChange(CartItem cartItem) {
 
+        if(cartItem==null){
+            return;
+        }
+
+        lastSelectedItem = cartItem.getName();
         ArrayList<String> ingredients = cartItem.getIngredients();
         nameLabel.setText(cartItem.getName());
-        priceLabel.setText(cartItem.getPrice()+" dkk");
-        Image img = new Image(cartItem.getImgPath());
-        imageView.setImage(img);
+        totalPriceLabel.setText(cartItem.getPrice()+"dkk");
+        Log.log("Image path: " + cartItem.getImgPath());
+        //Image img = new Image(cartItem.getImgPath());
+        //imageView.setImage(img);
+        SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8, cartItem.getQuantity());
+        this.quantitySpinner.setValueFactory(quantityValueFactory);
 
+        ingredientsVBox.getChildren().clear();
         for (int i = 0; i < ingredients.size(); i++) {
             String ingredient = ingredients.get(i);
 
@@ -135,6 +171,9 @@ public class ShoppingCartController implements ViewController {
     public void onSaveButton() {
         Log.log("Save button has been clicked in the shopping cart");
         CartItem cartItem = cartTable.getSelectionModel().getSelectedItem();
+        if(cartItem == null) {
+            return;
+        }
         cartItem.setQuantity((Integer) quantitySpinner.getValue());
         cartItem.getUnselectedIngredients().clear();
 
@@ -146,8 +185,8 @@ public class ShoppingCartController implements ViewController {
                 cartItem.getUnselectedIngredients().add(name);
             }
         }
-
         viewModel.editCartItem(cartItem);
+        refresh();
     }
 
     /**
@@ -158,6 +197,7 @@ public class ShoppingCartController implements ViewController {
         Log.log("Delete button has been clicked in the shopping cart");
         CartItem cartItemToBeDeleted = cartTable.getSelectionModel().getSelectedItem();
         viewModel.deleteCartItem(cartItemToBeDeleted);
+        refresh();
     }
 }
 

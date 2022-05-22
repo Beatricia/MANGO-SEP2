@@ -13,6 +13,8 @@ import client.view.employee.DailyMenu.DailyMenuViewModel;
 import client.view.Register.RegisterViewModel;
 import shared.Log;
 
+//TODO javadocs
+
 /**
  * A class that returns the different types if view models the system uses
  * @author Uafa

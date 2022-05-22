@@ -17,6 +17,8 @@ import transferobjects.MenuItemWithQuantity;
 import java.util.Arrays;
 import java.util.List;
 
+//TODO javadocs
+
 /**
  * Controller for the WeeklyMenuView.fxml
  *

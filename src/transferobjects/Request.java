@@ -4,6 +4,11 @@ import shared.Log;
 
 import java.io.Serializable;
 
+/**
+ * Class for sending request through socket connection
+ * @author Mango
+ * @version 1
+ */
 public class Request implements Serializable
 {
   public static final String MENU_ITEMS_REQUEST = "MenuItemRequest";
@@ -27,26 +32,43 @@ public class Request implements Serializable
   private String requestName;
   private Object requestObj;
 
+  /**
+   * Constructor for initializing a request's name
+   * @param requestName name that specifies type of the request
+   */
   public Request(String requestName){
 
     this.requestName= requestName;
     Log.log("Request (" + requestName + ") transferobject created");
   }
 
-
+  /**
+   * Method for getting  the object which is being sent
+   */
   public Object getObject(){
     return requestObj;
   }
 
+  /**
+   * Method for setting the object which is being sent
+   * @param obj object to be sent through the socket connection
+   */
   public void setObject(Object obj){
     requestObj = obj;
   }
 
+  /**
+   * Method for getting the name of the request
+   */
   public String getRequestName()
   {
     return requestName;
   }
 
+  /**
+   * Method which prints out the necessary information about the Request object.
+   * E.g. name of the request and the object being sent
+   */
   @Override public String toString()
   {
     return "Request{" + "requestName='" + requestName + '\'' + ", requestObj="

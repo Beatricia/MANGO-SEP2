@@ -9,6 +9,8 @@ import transferobjects.MenuItemWithQuantity;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
 
+//TODO javadocs
+
 /**
  * A class that connects the DisplayMenuController with the MenuModel.
  *

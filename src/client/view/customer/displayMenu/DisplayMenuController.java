@@ -63,6 +63,10 @@ public class DisplayMenuController implements ViewController
     dateLabel.setText(dateText);
   }
 
+  /**
+   * Calles the method addMenuItemToCart in viewModel
+   * @param menuItem instance of MenuItemWithQuantity which is added to cart
+   */
   private static void addMenuItemToCart(MenuItemWithQuantity menuItem){
     Log.log("DisplayMenuController: Add item to a cart");
     viewModel.addMenuItemToCart(menuItem);

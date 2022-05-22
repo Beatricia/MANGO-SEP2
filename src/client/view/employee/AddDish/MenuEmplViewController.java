@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+//TODO javadocs
+
 /**
  * Class responsible for connecting MenuEmpl.fxml with the MenuEmplViewModel and therefore providing functionality to the GUI.
  * A controller for the employer's menu where he can add new items.
@@ -61,6 +63,7 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
 
         refresh();
     }
+
 
     @Override public void refresh()
     {

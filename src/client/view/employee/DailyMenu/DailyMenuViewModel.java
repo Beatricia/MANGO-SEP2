@@ -11,6 +11,8 @@ import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//TODO javadocs
+
 /**
  * View Model class responsible for connecting the add menu items to daily menu
  * view and the MenuModel.

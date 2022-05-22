@@ -12,6 +12,8 @@ import transferobjects.User;
 import java.beans.PropertyChangeEvent;
 import java.time.LocalDate;
 
+//TODO javadocs
+
 /**
  * Class responsible for connecting the RegisterViewController and UserModel interface.
  *

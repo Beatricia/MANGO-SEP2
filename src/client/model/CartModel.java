@@ -4,6 +4,8 @@ import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 import util.PropertyChangeSubject;
 
+//TODO javadocs
+
 public interface CartModel extends PropertyChangeSubject
 {
   String CART_LIST_RECEIVED = "CartListReceived";

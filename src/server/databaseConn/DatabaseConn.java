@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+//TODO javadocs
+
 /**
  * Abstract Model for accessing the Database.
  */

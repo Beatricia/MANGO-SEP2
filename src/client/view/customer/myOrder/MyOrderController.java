@@ -3,6 +3,7 @@ package client.view.customer.myOrder;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -17,6 +18,8 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+//TODO javadocs
 
 /**
  * Controller for MyOrderView.fxml
@@ -63,6 +66,17 @@ public class MyOrderController implements ViewController
     quantityColumn.setStyle("-fx-alignment: CENTER;");
     table.setItems(viewModel.getAllOrderItems());
 
+    viewModel.getAllOrderItems().addListener((InvalidationListener) obj ->
+    {
+      if (viewModel.getAllOrderItems().size() == 0)
+      {
+        cancelButton.setDisable(true);
+      }
+      else {
+        cancelButton.setDisable(false);
+      }
+    });
+
 
     String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     dateLabel.setText(today);
@@ -73,6 +87,9 @@ public class MyOrderController implements ViewController
     if (viewModel.getAllOrderItems().size() == 0)
     {
       cancelButton.setDisable(true);
+    }
+    else {
+      cancelButton.setDisable(false);
     }
   }
 
@@ -91,9 +108,9 @@ public class MyOrderController implements ViewController
 
 
     int resultButton = JOptionPane.YES_NO_OPTION;
-    JOptionPane.showConfirmDialog(null, "Do yoy really want to cancel your order? ","Warning",resultButton);
+    int result = JOptionPane.showConfirmDialog(null, "Do you really want to cancel your order? ","Warning",resultButton);
 
-    if (resultButton == JOptionPane.YES_OPTION)
+    if (result == JOptionPane.YES_OPTION)
     {
       viewModel.cancelOrder();
       refresh();

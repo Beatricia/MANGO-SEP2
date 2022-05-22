@@ -4,7 +4,7 @@ import transferobjects.CartItem;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+//TODO javadocs
 public interface CartModel
 {
   void addItemToCart(CartItem cartItem) throws SQLException;

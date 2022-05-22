@@ -3,6 +3,8 @@ package client.core;
 import client.model.*;
 import shared.Log;
 
+//TODO javadocs
+
 /**
  * A class that creates a model object and returns it#
  * @author Uafa

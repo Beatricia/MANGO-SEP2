@@ -5,6 +5,8 @@ import client.core.ViewModelFactory;
 import javafx.scene.control.TabPane;
 import shared.Log;
 
+//TODO javadocs
+
 /**
  * EmployeeGUI is part of the strategy pattern, specifically this is the strategy when the user
  * is an employee
