@@ -10,8 +10,22 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/** A class handling database connection for order requests made by customer
+ * @author Simon
+ * @version 1.0
+ */
 public class OrderDatabaseConn
 {
+
+  /**
+   * Method which is called when an order is placed.
+   * First is gets  all the required data from the cart of customer who placed the order,
+   * then it creates an order and order items with the unselected ingredients.
+   * All of these data are then inserted into the right tables.
+   * Lastly, the method deletes the whole cart.
+   * @param username unique identifier of the customer who makes the order
+   * @throws SQLException
+   */
   public ArrayList<OrderItem> placeOrder(String username) throws SQLException
   {
     Log.log("OrderDatabaseConn places order in the Database");
@@ -143,6 +157,12 @@ public class OrderDatabaseConn
     return orderItems;
   }
 
+  /**
+   * Returns all data of the customer's order.
+   * That is name of the ordered items, its ingredients, prices, image paths, quantities, unselected ingredients, username of the customer and code of the order
+   * @param username unique identifier of the customer who makes the order
+   * @throws SQLException
+   */
   public ArrayList<OrderItem> getUncollectedOrder(String username)
       throws SQLException
   {
@@ -208,6 +228,12 @@ public class OrderDatabaseConn
     return orderItems;
   }
 
+  /**
+   * Cancels the whole order of the customer.
+   * This means all the data about the order are deleted.
+   * @param username unique identifier of the customer who makes the order
+   * @throws SQLException
+   */
   public void cancelOrder(String username) throws SQLException
   {
     Log.log("Order for " + username + " canceled.");

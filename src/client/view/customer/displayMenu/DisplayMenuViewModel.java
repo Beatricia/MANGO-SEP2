@@ -53,6 +53,10 @@ public class DisplayMenuViewModel
     return menuItemWithQuantities;
   }
 
+  /**
+   * Calles the method addToCart in cartModel
+   * @param menuItem instance of MenuItemWithQuantity which is added to cart
+   */
   public void addMenuItemToCart(MenuItemWithQuantity menuItem){
     Log.log("DisplayMenuViewModel: Add item to a cart");
     cartModel.addToCart(menuItem);
