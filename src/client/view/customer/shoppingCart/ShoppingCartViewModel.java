@@ -4,6 +4,8 @@ import client.model.CartModel;
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +22,8 @@ import java.util.List;
 public class ShoppingCartViewModel {
     private ObservableList<CartItem> cartItems;
     private CartModel cartModel;
-    private IntegerProperty quantity;
-
+    private StringProperty price;
+    private StringProperty itemsPrice;
     /**
      * Constructor for the class, initializes the ObservableList cartItems, and adds the class to be a Listener
      * to the CartModel
@@ -32,6 +34,8 @@ public class ShoppingCartViewModel {
         cartItems = FXCollections.observableArrayList();
 
         cartModel.addListener(CartModel.CART_LIST_RECEIVED, this::cartReceived);
+        price = new SimpleStringProperty();
+        itemsPrice = new SimpleStringProperty();
     }
 
     /**
@@ -44,7 +48,17 @@ public class ShoppingCartViewModel {
         Platform.runLater( () -> {
             cartItems.clear();
             cartItems.addAll(cartItemList);
+
+
+            double total = 0;
+            for (int i = 0; i < cartItems.size(); i++)
+            {
+                total += cartItems.get(i).getPrice() * cartItems.get(i).getQuantity();
+            }
+            price.set(total+" dkk");
         });
+
+
     }
 
     /**
@@ -83,5 +97,13 @@ public class ShoppingCartViewModel {
      */
     public void deleteCartItem(CartItem cartItem) {
         cartModel.deleteCartItem(cartItem);
+    }
+
+    public Property<String> getTotalPrice() {
+        return price;
+    }
+
+    public Property<String> getItemsPrice(){
+        return itemsPrice;
     }
 }
