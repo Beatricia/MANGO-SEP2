@@ -4,7 +4,6 @@ import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
 import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -65,6 +64,7 @@ public class ShoppingCartController implements ViewController {
         cartTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             selectedItemChange(newSelection);// the new cart item selected
         });
+
     }
 
     private void listChange(Observable observable) {
@@ -98,17 +98,14 @@ public class ShoppingCartController implements ViewController {
         //imageView.setImage(img);
         SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8, cartItem.getQuantity());
         this.quantitySpinner.setValueFactory(quantityValueFactory);
-        priceLabel.setText(String.valueOf(cartItem.getPrice()*(int)quantitySpinner.getValue()));
+        priceLabel.setText((cartItem.getPrice()*(int)quantitySpinner.getValue())+ " dkk");
         //writing every ingredient in the checkbox on the right side
         ingredientsVBox.getChildren().clear();
-        for (int i = 0; i < ingredients.size(); i++) {
-            String ingredient = ingredients.get(i);
-
+        for (String ingredient : ingredients) {
             CheckBox checkBox = new CheckBox(ingredient);
-            if(cartItem.getUnselectedIngredients().contains(ingredient)){
+            if (cartItem.getUnselectedIngredients().contains(ingredient)) {
                 checkBox.setSelected(false);
-            }
-            else
+            } else
                 checkBox.setSelected(true);
 
             ingredientsVBox.getChildren().add(checkBox);
@@ -118,10 +115,13 @@ public class ShoppingCartController implements ViewController {
     @Override
     public void refresh() {
         viewModel.refresh();
+        //if(cartTable.getItems().isEmpty()){
+            //refreshItemDetails();
+        //}
     }
 
     public void refreshItemDetails(){
-        nameLabel.setText("Name:");
+        nameLabel.setText("Name");
         priceLabel.setText("");
         ingredientsVBox.getChildren().clear();
     }
@@ -133,9 +133,9 @@ public class ShoppingCartController implements ViewController {
     public void onOrderButton() {
         Log.log("Order button has been clicked");
         onSaveButton();
-        refreshItemDetails();
         viewModel.placeOrder();
         JOptionPane.showMessageDialog(null,"Your order can be seen in the MyOrder tab with it's code");
+        refreshItemDetails();
     }
 
     /**

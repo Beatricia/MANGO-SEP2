@@ -21,12 +21,12 @@
           <TableColumn fx:id="quantityColumn" prefWidth="87.33331298828125" text="Quantity" />
         </columns>
       </TableView>
-      <Label layoutX="678.0" layoutY="21.0" text="Total price">
+      <Label layoutX="637.0" layoutY="21.0" text="Total price">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="totalPriceLabel" alignment="CENTER" layoutX="756.0" layoutY="21.0" prefHeight="26.0" prefWidth="56.0" style="-fx-background-color: lightgrey;" text="0">
+      <Label fx:id="totalPriceLabel" alignment="CENTER" layoutX="719.0" layoutY="21.0" prefHeight="26.0" prefWidth="91.0" style="-fx-background-color: lightgrey;" text="0">
          <font>
             <Font size="17.0" />
          </font>
@@ -44,7 +44,7 @@
                   <Font size="29.0" />
                </font>
             </Label>
-            <Label layoutX="219.0" layoutY="114.0" prefHeight="27.0" prefWidth="47.0" text="Price:">
+            <Label layoutX="219.0" layoutY="114.0" prefHeight="27.0" prefWidth="59.0" text="Price  ">
                <font>
                   <Font size="18.0" />
                </font>
