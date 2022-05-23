@@ -1,37 +1,40 @@
-package client.view.employee.DailyMenu;
+package client.view.employee.MenuItems;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
+import client.view.employee.DailyMenu.DailyMenuViewModel;
 import javafx.beans.Observable;
 import javafx.collections.ListChangeListener;
-import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.Node;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
 import shared.Log;
 import transferobjects.MenuItem;
 
 import java.time.LocalDate;
 
-
 /**
  * The class is responsible for the functionality of the graphical user
- * interface that displays the view in which an Employee can add menu items to
- * the daily menu.
+ * interface that displays the view in which an Employee can remove menu items from the system
  * The class implements the ViewController interface
- * @author Uafa
+ * @author Agata
  * @version 1
  */
-public class DailyMenuViewController implements ViewController
+
+public class MenuItemsController implements ViewController
+
 {
-  public ListView<MenuItem> list;
-  public DatePicker datePicker;
-  @FXML Button addButton;
+  public Button removeButton;
+  public ListView list;
 
   private ViewHandler viewHandler;
-  private DailyMenuViewModel viewModel;
+  private MenuItemsViewModel viewModel;
 
   /**
    * Override interface's method.
@@ -41,42 +44,33 @@ public class DailyMenuViewController implements ViewController
    * @param viewModelFactory class needed to get access to DisplayMenuViewModel
    *                         class.
    */
+
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory)
   {
     this.viewHandler = viewHandler;
-    this.viewModel = viewModelFactory.getDailyMenuViewModel();
-
-    addButton.setDisable(true);
+    this.viewModel = viewModelFactory.getMenuItemsViewModel();
 
     list.setItems(viewModel.getMenuItems());
     list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-    //THIS IS HERE SO WE CAN SELECT MULTIPLE MENU ITEMS
-
     list.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
     list.getSelectionModel().getSelectedItems().addListener(this::listenList);
-    datePicker.valueProperty().addListener(this::datePickerListener);
-
-  }
-
-  private void datePickerListener(Observable observable) {
-    enableButton();
   }
 
   /**
-   * Method checks if a date is selected and if it is a valid value. Also checks
-   * if any menu items are selected. If all the conditions are true the add
+   * Method checks if any menu items are selected. If the conditions is true the add
    * button is enabled.
    */
+
   private void enableButton()
   {
-    boolean checkListSize = list.getSelectionModel().getSelectedItems().size()> 0;
-    boolean checkDateSelected = datePicker.getValue() != null && !datePicker.getValue().isBefore(LocalDate.now());
+    if(list.getSelectionModel().getSelectedItems().size()>0)
+    {
+      removeButton.setDisable(false);
+    }
 
-    addButton.setDisable(!checkListSize || !checkDateSelected);
-
-    Log.log("Button to add A DailyMenu is enabled");
+    removeButton.setDisable(true);
   }
 
   /**
@@ -84,6 +78,7 @@ public class DailyMenuViewController implements ViewController
    * private enableButton method
    * @param change any change that might occur in the Observable list
    */
+
   private void listenList(ListChangeListener.Change<? extends MenuItem> change)
   {
     change.next();
@@ -91,8 +86,14 @@ public class DailyMenuViewController implements ViewController
   }
 
   /**
-   * The refresh method used to recall the list of Menu items
+   * Sends an Observable list with the selected menu items to the
+   * view model.
    */
+
+  public void onRemove(ActionEvent actionEvent)
+  {
+    viewModel.removeMenuItem(list.getSelectionModel().getSelectedItems());
+  }
 
 
   @Override public void refresh()
@@ -101,22 +102,12 @@ public class DailyMenuViewController implements ViewController
   }
 
   /**
-   * Sends an Observable list with the selected menu items and date to the
-   * view model.
-   */
-
-  public void onAdd()
-  {
-    Log.log("Add button has been clicked to add a DailyMenu");
-    viewModel.addToDailyMenu(list.getSelectionModel().getSelectedItems(), datePicker.getValue());
-  }
-
-  /**
    * Handle a user click on the list view. When the user clicks on the list view object,
    * this method checks if the click landed on a list item, if yes, then toggles the
    * selection on that list item.
    * @param evt mouse event of the user click
    */
+
   private void multipleSelection(MouseEvent evt)
   {
     Node node = evt.getPickResult().getIntersectedNode();
@@ -150,5 +141,4 @@ public class DailyMenuViewController implements ViewController
       }
     }
   }
-
 }

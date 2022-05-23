@@ -6,6 +6,7 @@ import client.view.customer.displayWeeklyMenu.CustomerWeeklyMenuViewModel;
 import client.view.customer.myOrder.MyOrderViewModel;
 import client.view.customer.shoppingCart.ShoppingCartViewModel;
 import client.view.employee.AddQuantity.AddQuantityViewModel;
+import client.view.employee.MenuItems.MenuItemsViewModel;
 import client.view.employee.WeeklyMenu.WeeklyMenuEmpViewModel;
 import client.view.login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
@@ -38,6 +39,7 @@ public class ViewModelFactory
   private DailyMenuViewModel dailyMenuViewModel;
   private MenuEmplViewModel menuEmplViewModel;
   private WeeklyMenuEmpViewModel weeklyMenuEmpViewModel;
+  private MenuItemsViewModel menuItemsViewModel;
 
   // Admin
   private AcceptEmployeeViewModel acceptEmployeeViewModel;
@@ -171,5 +173,14 @@ public class ViewModelFactory
       myOrderViewModel = new MyOrderViewModel(modelFactory.getOrderModelCustomer());
     }
     return myOrderViewModel;
+  }
+
+  public MenuItemsViewModel getMenuItemsViewModel()
+  {
+    if (menuItemsViewModel == null)
+    {
+      menuItemsViewModel = new MenuItemsViewModel(modelFactory.getMenuModel());
+    }
+    return menuItemsViewModel;
   }
 }
