@@ -144,8 +144,7 @@ public class MenuModelImp implements MenuModel
    * @param menuItems list of menu items to delete
    */
 
-  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems)
-  {
+  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException {
     databaseConn.removeMenuItem(menuItems);
   }
 }

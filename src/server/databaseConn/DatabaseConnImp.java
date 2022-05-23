@@ -241,7 +241,7 @@ public class DatabaseConnImp implements DatabaseConn
     }
     catch (SQLException e){
       if (e.getMessage().startsWith("ERROR: new row for relation \"dailymenuitem\"")){
-        e = new SQLException("The item is sold out :(");
+        throw new SQLException("The item is sold out :(");
       }
       throw formatExceptionMessage(e);
     }
@@ -255,7 +255,7 @@ public class DatabaseConnImp implements DatabaseConn
       cartDatabaseConn.editCartItem(cartItem);
     } catch (SQLException e){
       if (e.getMessage().startsWith("ERROR: new row for relation \"dailymenuitem\"")){
-        e = new SQLException("The available quantity is not enough :(");
+        throw  new SQLException("The available quantity is not enough :(");
       }
       throw formatExceptionMessage(e);
     }
@@ -289,6 +289,18 @@ public class DatabaseConnImp implements DatabaseConn
       throws SQLException
   {
     return orderDatabaseConn.getUncollectedOrder(username);
+  }
+
+  @Override public ArrayList<ArrayList<OrderItem>> getAllUncollectedOrders() throws SQLException {
+    return orderDatabaseConn.getAllUncollectedOrders();
+  }
+
+  @Override public void collectOrder(int orderCode) throws SQLException {
+    orderDatabaseConn.collectOrder(orderCode);
+  }
+
+  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException {
+    throw new SQLException();
   }
 
   @Override public void handlePendingEmployee(String username, boolean accept)

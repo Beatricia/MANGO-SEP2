@@ -57,6 +57,6 @@ public class OrderModelCustomerImpl implements OrderModelCustomer
   @Override public ArrayList<ArrayList<OrderItem>> requestAllUncollectedOrder()
       throws SQLException
   {
-    return databaseConn.getAllUncollectedOrder();
+    return databaseConn.getAllUncollectedOrders();
   }
 }
