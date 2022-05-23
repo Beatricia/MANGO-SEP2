@@ -167,11 +167,12 @@ public class OrderDatabaseConn
       throws SQLException
   {
     ArrayList<OrderItem> orderItems = new ArrayList<>();
+    boolean isCollected = false;
 
     try (Connection connection = DatabaseConnImp.getConnection())
     {
       String sql1 =
-          "SELECT orderitem.ordernumber, orderitem.itemname, orderitem.quantity, menuItem.price, menuItem.imgpath FROM "
+          "SELECT orderitem.ordernumber, orderitem.itemname, orderitem.quantity, menuItem.price, menuItem.imgpath, order.collected FROM "
               + "\"order\", orderitem, menuItem WHERE orderitem.itemname = menuitem.name AND \"order\".ordernumber = orderitem.ordernumber AND \"order\".username = '"
               + username + "'";
 
@@ -189,6 +190,8 @@ public class OrderDatabaseConn
         double price = resultSet1.getDouble("price");
 
         String imgPath = resultSet1.getString("imgPath");
+
+        isCollected = resultSet1.getBoolean("collected");
 
         String sql2 = "SELECT name FROM ingredient WHERE id in (SELECT ingredientId FROM menuItemIngredient WHERE itemName = '" + itemName + "' ) ";
 
@@ -225,7 +228,11 @@ public class OrderDatabaseConn
       }
 
     }
-    return orderItems;
+    if (!isCollected)
+    {
+      return orderItems;
+    }
+    return null;
   }
 
   /**
