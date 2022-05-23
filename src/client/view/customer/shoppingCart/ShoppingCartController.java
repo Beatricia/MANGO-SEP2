@@ -83,6 +83,7 @@ public class ShoppingCartController implements ViewController {
      */
     private void selectedItemChange(CartItem cartItem) {
         if(cartItem==null){
+            refreshItemDetails();
             return;
         }
 
@@ -115,8 +116,8 @@ public class ShoppingCartController implements ViewController {
     @Override
     public void refresh() {
         viewModel.refresh();
-        //if(cartTable.getItems().isEmpty()){
-            //refreshItemDetails();
+      //  if(cartTable.getItems().isEmpty()){
+        //    refreshItemDetails();
         //}
     }
 
@@ -135,7 +136,8 @@ public class ShoppingCartController implements ViewController {
         onSaveButton();
         viewModel.placeOrder();
         JOptionPane.showMessageDialog(null,"Your order can be seen in the MyOrder tab with it's code");
-        refreshItemDetails();
+        refresh();
+        System.out.println("FUCKKKKKKKKKKKKKKKKKKKKKK");
     }
 
     /**
