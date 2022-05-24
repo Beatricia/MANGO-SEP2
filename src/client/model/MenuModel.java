@@ -18,6 +18,7 @@ public interface MenuModel extends PropertyChangeSubject
   String MENU_ITEMS_RECEIVED = "MenuItemsReceived";
   String DAILY_MENU_RECEIVED = "DailyMenuReceived";
   String WEEKLY_MENU_RECEIVED = "WeeklyMenuReceived";
+  String OPENING_HOURS_RECEIVED = "OpeningHoursReceived";
 
   /**
    * The method is used to send to the Client String objects, that are required
@@ -75,4 +76,9 @@ public interface MenuModel extends PropertyChangeSubject
    * @param menuItems the list of MenuItem to delete
    */
   void removeMenuItem(ArrayList<MenuItem> menuItems);
+
+  /**
+   *The method sends a request for the opening hours to the CLient
+   */
+  void requestOpeningHours();
 }

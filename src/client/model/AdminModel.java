@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * An interface which is responsible for handling the connection between the
  * ViewModels and the Networking
- * @author Simon
+ * @author Mango
  */
 public interface AdminModel extends PropertyChangeSubject
 {
@@ -38,11 +38,28 @@ public interface AdminModel extends PropertyChangeSubject
    */
   void declineEmployee(User user);
 
+  /**
+   * This method is responsible for requesting the hours which have been set as
+   * working hours for the canteen
+   */
   void requestOpeningHours();
 
+  /**
+   * This method is responsible for removing an employee from the system
+   * @param username the username of the employee to be removed
+   */
   void removeEmployee(String username);
 
+  /**
+   * This class is responsible for requesting a list of all accepted employees
+   */
   void requestAcceptedEmployees();
 
+  /**
+   * This class is responsible for setting the hours in which the canteen is
+   * working
+   * @param from from when is it open
+   * @param to til when is it open
+   */
   void setOpeningHours(LocalTime from, LocalTime to);
 }

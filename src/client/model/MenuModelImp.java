@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * In this class the information about items is collected into a MenuItem object
  * and send to the Client side of networking. The class is the subject of the
  * MenuEmplViewModel and send it Error objects.
- * @author Uafa
+ * @author Mango
  */
 
 public class MenuModelImp implements MenuModel
@@ -45,6 +45,13 @@ public class MenuModelImp implements MenuModel
     client.addListener(Client.MENU_ITEMS_RECEIVED, this::sendMenuItems);
     client.addListener(Client.DAILY_MENU_RECEIVED, this::sendMenuWithIngredients);
     client.addListener(Client.WEEKLY_MENU_RECEIVED, this::sendWeeklyMenu);
+    client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
+  }
+
+  private void sendOpeningHours(PropertyChangeEvent event)
+  {
+    Log.log("MenuModelImp: OPENING_HOURS_RECEIVED received from server");
+    support.firePropertyChange(OPENING_HOURS_RECEIVED, null, event.getNewValue());
   }
 
   private void sendWeeklyMenu(PropertyChangeEvent event)
@@ -209,6 +216,20 @@ public class MenuModelImp implements MenuModel
   {
     Request request = new Request(Request.REMOVE_MENU_ITEM_REQUEST);
     request.setObject(menuItems);
+
+    Log.log("MenuModelImpl send a new REMOVE_MENU_ITEM_REQUEST request to the Client");
+    client.sendRequest(request);
+  }
+
+  /**
+   * The method sends a request to the Client to get the opening hours of the
+   * canteen
+   */
+  @Override public void requestOpeningHours()
+  {
+    Request request = new Request(Request.OPENING_HOURS_REQUEST);
+
+    Log.log("MenuModelImpl send a new OPENING_HOURS_REQUEST request to the Client");
     client.sendRequest(request);
   }
 

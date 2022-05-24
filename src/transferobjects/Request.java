@@ -30,6 +30,10 @@ public class Request implements Serializable
   public static final String ALL_UNCOLLECTED_ORDERS_REQUEST = "AllUncollectedOrdersRequest";
   public static final String COLLECT_ORDER_REQUEST = "CollectOrderRequest";
   public static final String REMOVE_MENU_ITEM_REQUEST = "RemoveMenuItemRequest";
+  public static final String ALL_ACCEPTED_EMPLOYEES_REQUEST = "AllAcceptedEmployeesRequest";
+  public static final String REMOVE_EMPLOYEE_REQUEST = "RemoveEmployeeRequest";
+  public static final String SET_OPENING_HOURS_REQUEST = "SetOpeningHoursRequest";
+  public static final String OPENING_HOURS_REQUEST = "OpeningHoursRequest";
 
   private String requestName;
   private Object requestObj;

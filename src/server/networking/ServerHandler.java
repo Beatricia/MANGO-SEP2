@@ -36,7 +36,7 @@ public class ServerHandler implements Runnable
   private MenuModel menuModel;
   private AdminModel adminModel;
   private CartModel cartModel;
-  private OrderModelCustomer orderModel;
+  private OrderModel orderModel;
 
 
   /**
@@ -44,7 +44,7 @@ public class ServerHandler implements Runnable
    * @param clientSocket Client Socket to be taken care of.
    * @param userModel User model to forward data to.
    */
-  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel, AdminModel adminModel, CartModel cartModel, OrderModelCustomer orderModel) {
+  public ServerHandler(Socket clientSocket, UserModel userModel, MenuModel menuModel, AdminModel adminModel, CartModel cartModel, OrderModel orderModel) {
     try{
       System.out.printf("Client connected (%s:%s)%n", clientSocket.getInetAddress().getHostAddress(), clientSocket.getPort());
 

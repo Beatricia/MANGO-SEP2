@@ -8,6 +8,7 @@ import util.LogInException;
 import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 //TODO javadocs
@@ -198,6 +199,9 @@ public interface DatabaseConn
    * @throws SQLException when the order was cancelled before this task.
    */
   void collectOrder(int orderCode) throws SQLException;
+
+
+  ArrayList<LocalTime> getOpeningHours();
 
   //endregion
 

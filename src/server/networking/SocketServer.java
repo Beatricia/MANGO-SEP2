@@ -4,12 +4,10 @@ import server.databaseConn.DatabaseConn;
 import server.databaseConn.DatabaseConnImp;
 import server.model.*;
 import shared.Log;
-import transferobjects.OrderItem;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDate;
 
 /**
  * The class which is responsible for initializing the <code>DatabaseConn</code>, the model, and accept
@@ -33,7 +31,7 @@ public class SocketServer
       MenuModel menuModel = new MenuModelImp(databaseConn);
       AdminModel adminModel = new AdminModelImp(databaseConn);
       CartModel cartModel = new CartModelImpl(databaseConn);
-      OrderModelCustomer orderModel = new OrderModelCustomerImpl(databaseConn);
+      OrderModel orderModel = new OrderModelImpl(databaseConn);
 
       while(true){
 

@@ -4,6 +4,7 @@ import server.databaseConn.DatabaseConn;
 import transferobjects.User;
 
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -52,5 +53,25 @@ public class AdminModelImp implements AdminModel
   @Override public void declineEmployee(User user) throws SQLException
   {
     databaseConn.handlePendingEmployee(user.getUsername(),false);
+  }
+
+  @Override public void removeEmployee(String username)
+  {
+    databaseConn.removeEmployee(username);
+  }
+
+  @Override public ArrayList<User> requestAcceptedEmployees()
+  {
+    return databaseConn.getAcceptedEmployees();
+  }
+
+  @Override public void setOpeningHours(ArrayList<LocalTime> openingHours)
+  {
+    databaseConn.setOpeningHours(openingHours.get(0), openingHours.get(1));
+  }
+
+  @Override public ArrayList<LocalTime> requestOpeningHours()
+  {
+    return databaseConn.getOpeningHours();
   }
 }

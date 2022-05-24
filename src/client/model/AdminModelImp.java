@@ -9,13 +9,14 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  * A class that connects the view model and the Client side of networking.
  * In this class the information about pending employees is passed through
  * as well as information about if admin did accept or decline one particular employee
  *
- * @author Simon
+ * @author Mango
  */
 public class AdminModelImp implements AdminModel
 {
@@ -79,24 +80,65 @@ public class AdminModelImp implements AdminModel
     client.sendRequest(request);
   }
 
+  /**
+   * The method sends a OPENING_HOURS_REQUEST request object to the Client
+   * to get the opening hours.
+   */
   @Override
-  public void requestOpeningHours() {
+  public void requestOpeningHours()
+  {
+    Request request = new Request(Request.OPENING_HOURS_REQUEST);
 
+    Log.log("AdminModelImpl sends an OPENING_HOURS_REQUEST object to the Client");
+    client.sendRequest(request);
   }
 
+  /**
+   * The method sends a REMOVE_EMPLOYEE_REQUEST request to the client to remove
+   * a specified employee
+   * @param username the username of the employee to be removed
+   */
   @Override
-  public void removeEmployee(String username) {
+  public void removeEmployee(String username)
+  {
+    Request request = new Request(Request.REMOVE_EMPLOYEE_REQUEST);
+    request.setObject(username);
 
+    Log.log("AdminModelImpl sends an REMOVE_EMPLOYEE_REQUEST object to the Client");
+    client.sendRequest(request);
   }
 
+  /**
+   * The method sends a ALL_ACCEPTED_EMPLOYEES_REQUEST request object to the
+   * Client to get all the accepted employees
+   */
   @Override
-  public void requestAcceptedEmployees() {
+  public void requestAcceptedEmployees()
+  {
+    Request request = new Request(Request.ALL_ACCEPTED_EMPLOYEES_REQUEST);
 
+    Log.log("AdminModelImpl sends an ALL_ACCEPTED_EMPLOYEES_REQUEST object to the Client");
+    client.sendRequest(request);
   }
 
+  /**
+   * The method creates an ArrayList to hold the two LocalTime values and
+   * send it to the client in a SET_OPENING_HOURS_REQUEST request object
+   * @param from from when is it open
+   * @param to til when is it open
+   */
   @Override
-  public void setOpeningHours(LocalTime from, LocalTime to) {
+  public void setOpeningHours(LocalTime from, LocalTime to)
+  {
+    ArrayList<LocalTime> openingHours = new ArrayList<>();
+    openingHours.add(from);
+    openingHours.add(to);
 
+    Request request = new Request(Request.SET_OPENING_HOURS_REQUEST);
+    request.setObject(openingHours);
+
+    Log.log("AdminModelImpl sends an SET_OPENING_HOURS_REQUEST object to the Client");
+    client.sendRequest(request);
   }
 
   /**

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Interface responsible for connecting the networking part of the Server with Database connection.
  */
-public interface OrderModelCustomer
+public interface OrderModel
 {
   /**
    * The method used to delete order connected to the given name
@@ -37,6 +37,13 @@ public interface OrderModelCustomer
    * @return the list of list with orderItems
    * @throws SQLException
    */
-
   ArrayList<ArrayList<OrderItem>> requestAllUncollectedOrder() throws SQLException;
+
+  /**
+   * Starts a Thread which is asleep during the opening hours. Once the canteen
+   * is closed the thread marks all orders as collected and removes them from
+   * the MyOrder view in the customer
+   * @throws SQLException
+   */
+  void setClosingTimer() throws SQLException;
 }
