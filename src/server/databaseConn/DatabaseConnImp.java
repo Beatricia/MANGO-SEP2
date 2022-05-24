@@ -299,25 +299,6 @@ public class DatabaseConnImp implements DatabaseConn
     orderDatabaseConn.collectOrder(orderCode);
   }
 
-  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException {
-    throw new SQLException();
-  }
-
-  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems)
-  {
-
-  }
-
-  @Override public void collectOrder(int orderCode)
-  {
-
-  }
-
-  @Override public ArrayList<ArrayList<OrderItem>> getAllUncollectedOrder()
-  {
-    return null;
-  }
-
   @Override
   public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException
   {
