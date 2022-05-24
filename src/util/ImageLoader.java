@@ -227,7 +227,7 @@ public class ImageLoader
       //check if the image folder exists (if not, then create it
       File directory = new File(IMAGE_FOLDER);
       if(!directory.exists())
-        directory.mkdir();
+        directory.mkdirs();
 
       File file = new File(IMAGE_FOLDER + name);
       ImageIO.write(bufferedImage, format, file);

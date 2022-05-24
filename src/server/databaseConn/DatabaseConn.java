@@ -97,6 +97,11 @@ public interface DatabaseConn
 
   ArrayList<OrderItem> getUncollectedOrder(String username) throws SQLException;
 
+  ArrayList<ArrayList<OrderItem>> getAllUncollectedOrders() throws SQLException;
+
+  void collectOrder(int orderCode) throws SQLException;
+
   //endregion
 
+  void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException;
 }

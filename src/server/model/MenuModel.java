@@ -65,5 +65,5 @@ public interface MenuModel
    * The method is used to delete menu items from database
    * @param menuItems the list of menu items to delete
    */
-  void removeMenuItem(ArrayList<MenuItem> menuItems);
+  void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException;
 }
