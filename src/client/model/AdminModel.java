@@ -4,6 +4,7 @@ import transferobjects.User;
 import util.PropertyChangeSubject;
 
 import java.beans.PropertyChangeEvent;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -16,8 +17,9 @@ public interface AdminModel extends PropertyChangeSubject
 
   public static String  PENDING_EMPLOYEES_RECEIVED = "PendingEmployeesReceived";
   public static String ACCEPTED_EMPLOYEES_RECEIVED= "AcceptedEmployeesReceived";
+  public static String OPENING_HOURS_RECEIVED = "OpeningHoursReceived";
 
-  /**
+    /**
    * Method used for creating and sending a Request object to the database (to receive list of pending employees)
    */
   void requestPendingEmployees();
@@ -35,4 +37,12 @@ public interface AdminModel extends PropertyChangeSubject
    * @param user one particular User object to be declined
    */
   void declineEmployee(User user);
+
+  void requestOpeningHours();
+
+  void removeEmployee(String username);
+
+  void requestAcceptedEmployees();
+
+  void setOpeningHours(LocalTime from, LocalTime to);
 }
