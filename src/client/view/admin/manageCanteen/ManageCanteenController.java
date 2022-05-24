@@ -15,10 +15,10 @@ public class ManageCanteenController implements TabController {
     public TableView<User> employeesTableView;
     public TableColumn<User, String> employeeNameColumn;
     public TableColumn<User, String> employeeUsernameColumn;
-    public SpinnerValueFactory<Integer> fromHourSpinner;
-    public SpinnerValueFactory<Integer> fromMinSpinner;
-    public SpinnerValueFactory<Integer> toHourSpinner;
-    public SpinnerValueFactory<Integer> toMinSpinner;
+    public Spinner<Integer> fromHourSpinner;
+    public Spinner<Integer> fromMinSpinner;
+    public Spinner<Integer> toHourSpinner;
+    public Spinner<Integer> toMinSpinner;
     public Label currentOpeningHoursLabel;
 
     private ManageCanteenViewModel viewModel;
@@ -34,10 +34,10 @@ public class ManageCanteenController implements TabController {
 
         currentOpeningHoursLabel.textProperty().bind(viewModel.getOpeningHours());
 
-        fromHourSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,24);
-        fromMinSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59);
-        toHourSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,24);
-        toMinSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59);
+        fromHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,24));
+        fromMinSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59));
+        toHourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,24));
+        toMinSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,59));
     }
 
     @Override
