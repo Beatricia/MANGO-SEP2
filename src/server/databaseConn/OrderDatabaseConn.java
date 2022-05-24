@@ -335,7 +335,7 @@ public class OrderDatabaseConn
 
         OrderItem orderItem = new OrderItem(itemname, all, price, imgPath, username, quantity, unselected, orderNumber);
 
-        //check if the username is already added to the hashmap (if not then add it)
+        // check if the username is already added to the hashmap (if not then add it)
         if(!itemsSorted.containsKey(username)) {
           itemsSorted.put(username, new ArrayList<>());
         }
