@@ -2,6 +2,7 @@ package client.view.customer.myOrder;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
  * @author Agata
  */
 
-public class MyOrderController implements ViewController
+public class MyOrderController implements TabController
 {
 
   public Label dateLabel;
@@ -42,12 +43,10 @@ public class MyOrderController implements ViewController
 
   /**
    * Initializes the controller
-   * @param viewHandler instance of ViewHandler class, which is responsible for managing the GUI views
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
 
-  @Override public void init(ViewHandler viewHandler,
-      ViewModelFactory viewModelFactory)
+  @Override public void init(ViewModelFactory viewModelFactory)
   {
     viewModel = viewModelFactory.getCustomerMyOrderViewModel();
 

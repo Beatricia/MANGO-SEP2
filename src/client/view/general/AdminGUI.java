@@ -22,7 +22,8 @@ public class AdminGUI extends UserStrategy
    */
   private final static String[] tabs = {
       "displayMenu/DisplayMenuView.fxml", "Daily Menu",
-      "acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees"
+      "acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees",
+          "manageCanteen/ManageCanteenView.fxml", "Manage Canteen"
   };
 
   public AdminGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {

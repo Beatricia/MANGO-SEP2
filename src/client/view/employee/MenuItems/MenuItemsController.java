@@ -2,6 +2,7 @@ package client.view.employee.MenuItems;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import client.view.employee.DailyMenu.DailyMenuViewModel;
 import javafx.beans.Observable;
@@ -27,28 +28,24 @@ import java.time.LocalDate;
  * @version 1
  */
 
-public class MenuItemsController implements ViewController
+public class MenuItemsController implements TabController
 
 {
   public Button removeButton;
   public ListView list;
 
-  private ViewHandler viewHandler;
   private MenuItemsViewModel viewModel;
 
   /**
    * Override interface's method.
    * Initial data that has to be loaded.
    *
-   * @param viewHandler      get instance of the ViewHandler class.
    * @param viewModelFactory class needed to get access to DisplayMenuViewModel
    *                         class.
    */
 
-  @Override public void init(ViewHandler viewHandler,
-      ViewModelFactory viewModelFactory)
+  @Override public void init(ViewModelFactory viewModelFactory)
   {
-    this.viewHandler = viewHandler;
     this.viewModel = viewModelFactory.getMenuItemsViewModel();
 
     list.setItems(viewModel.getMenuItems());

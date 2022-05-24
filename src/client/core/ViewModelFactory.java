@@ -1,6 +1,7 @@
 package client.core;
 
 import client.view.admin.AcceptEmployee.AcceptEmployeeViewModel;
+import client.view.admin.manageCanteen.ManageCanteenViewModel;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
 import client.view.customer.displayWeeklyMenu.CustomerWeeklyMenuViewModel;
 import client.view.customer.myOrder.MyOrderViewModel;
@@ -45,6 +46,7 @@ public class ViewModelFactory
 
   // Admin
   private AcceptEmployeeViewModel acceptEmployeeViewModel;
+  private ManageCanteenViewModel manageCanteenViewModel;
 
 
 
@@ -196,4 +198,12 @@ public class ViewModelFactory
     }
     return menuItemsViewModel;
   }
+
+    public ManageCanteenViewModel getManageCanteenController() {
+    if(manageCanteenViewModel == null)
+    {
+      manageCanteenViewModel = new ManageCanteenViewModel(modelFactory.getAdminModel());
+    }
+    return manageCanteenViewModel;
+    }
 }

@@ -4,6 +4,7 @@ import client.core.ClientFactory;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.model.MenuModelImp;
+import client.view.TabController;
 import client.view.ViewController;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
 import javafx.application.Platform;
@@ -44,7 +45,7 @@ import java.util.List;
  * @author Uafa
  * @version 1
  */
-public class AddQuantityController implements ViewController
+public class AddQuantityController implements TabController
 {
 
   @FXML private VBox menuItemsVBox;
@@ -58,11 +59,9 @@ public class AddQuantityController implements ViewController
   /**
    * Method that initializes the controller
    *
-   * @param viewHandler      instance of ViewHandler class, which is responsible for managing the GUI views
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
-  @Override public void init(ViewHandler viewHandler,
-      ViewModelFactory viewModelFactory)
+  @Override public void init(ViewModelFactory viewModelFactory)
   {
     viewModel = viewModelFactory.getAddQuantityViewModel();
     //viewModel = new TestViewModel();

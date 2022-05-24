@@ -2,6 +2,7 @@ package client.view.employee.AddDish;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -30,14 +31,13 @@ import java.io.IOException;
  * @version 1
  */
 
-public class MenuEmplViewController extends JFrame implements ViewController  {
+public class MenuEmplViewController extends JFrame implements TabController {
     public TextField nameTextField;
     public TextField priceTextField;
     public ImageView imageView;
     public Label errorLabel;
     public TextArea ingredientsAreaField;
 
-    public ViewHandler viewHandler;
     public MenuEmplViewModel viewModel;
 
     private FileChooser fileChooser;
@@ -47,12 +47,10 @@ public class MenuEmplViewController extends JFrame implements ViewController  {
     /**
      * Binding all necessary fields with the MenuEmplViewModel and initializing the view Handler
      * Also setting the place where the image menu should be to a default one
-     * @param viewHandler instance of ViewHandler class, which is responsible for managing the GUI views
      * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
      */
     @Override
-    public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
-        this.viewHandler = viewHandler;
+    public void init(ViewModelFactory viewModelFactory) {
         viewModel = viewModelFactory.getMenuEmplViewModel();
 
         errorLabel.textProperty().bindBidirectional(viewModel.getErrorMessage());

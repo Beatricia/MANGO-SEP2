@@ -2,6 +2,7 @@ package client.view.admin.AcceptEmployee;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 
 import javafx.application.Platform;
@@ -27,7 +28,7 @@ import java.util.*;
  *
  * @author Simon
  */
-public class AcceptEmployeeController implements ViewController
+public class AcceptEmployeeController implements TabController
 {
   @FXML private VBox employeeVBox; //javafx storage to show the pending employees
 
@@ -39,10 +40,9 @@ public class AcceptEmployeeController implements ViewController
   /**
    * This method is responsible for main initializations
    *
-   * @param viewHandler instance of the class viewHandler responsible for view management
    * @param viewModelFactory instance responsible for creating Models
    */
-  @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
+  @Override public void init(ViewModelFactory viewModelFactory) {
 
     viewModel = viewModelFactory.getAcceptEmployeeViewModel();
     viewModel.getEmployeeList().addListener(this::onListChange);

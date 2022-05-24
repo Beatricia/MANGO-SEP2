@@ -16,10 +16,4 @@ public interface ViewController
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
   void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory);
-
-  /**
-   * Refreshes the Pane associated with the controller. Furthermore, this method is called when the
-   * user switches the tabs, and the gui automatically refreshes.
-   */
-  void refresh();
 }

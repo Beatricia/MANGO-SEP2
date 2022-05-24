@@ -97,10 +97,6 @@ public class GeneralViewController implements ViewController
     userStrategy.refreshTab(newTab);
   }
 
-  @Override public void refresh() {
-
-  }
-
   public void refreshButtonPressed() {
     Log.log("GeneralViewController refreshing tab");
     Tab currentTab = tabPane.getSelectionModel().getSelectedItem();

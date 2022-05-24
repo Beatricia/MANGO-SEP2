@@ -2,6 +2,7 @@ package client.view.general;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
@@ -28,7 +29,7 @@ public abstract class UserStrategy
   private final TabPane tabPane; // tabpane the tabs will loaded into
   private final ViewHandler viewHandler;
   private final ViewModelFactory viewModelFactory;
-  private final HashMap<Tab, ViewController> controllers; // Tabs and their controllers
+  private final HashMap<Tab, TabController> controllers; // Tabs and their controllers
 
   /**
    * Initialize the UserStrategy object, throwing NullPointerException if any of the parameter is null
@@ -98,8 +99,8 @@ public abstract class UserStrategy
       e.printStackTrace();
     }
 
-    ViewController controller = loader.getController();
-    controller.init(viewHandler, viewModelFactory);
+    TabController controller = loader.getController();
+    controller.init(viewModelFactory);
 
 
     Tab tab = new Tab();
@@ -115,12 +116,12 @@ public abstract class UserStrategy
   /**
    * Checks if the tab is null, and puts the tab with it's associated controller into the hash map
    * @param tab the tab
-   * @param viewController associated controller
+   * @param tabController associated controller
    */
-  private void registerTab(Tab tab, ViewController viewController){
+  private void registerTab(Tab tab, TabController tabController){
     Log.log("Registering tab " + tab.getText());
-    Objects.requireNonNull(viewController);
-    controllers.put(tab, viewController);
+    Objects.requireNonNull(tabController);
+    controllers.put(tab, tabController);
   }
 
   /**
@@ -129,7 +130,7 @@ public abstract class UserStrategy
    */
   public void refreshTab(Tab tab){
     Log.log("Refreshing tab " + tab.getText());
-    ViewController controller = controllers.get(tab);
+    TabController controller = controllers.get(tab);
 
     try{
       controller.refresh();

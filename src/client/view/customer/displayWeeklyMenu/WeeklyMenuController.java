@@ -2,6 +2,7 @@ package client.view.customer.displayWeeklyMenu;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 
 import client.view.ViewHelpers.NoSelectionModel;
@@ -25,7 +26,7 @@ import java.util.List;
  * @author Greg
  * @version 1
  */
-public class WeeklyMenuController implements ViewController
+public class WeeklyMenuController implements TabController
 {
   @FXML private ListView<MenuItemWithQuantity> mondayList;
   @FXML private ListView<MenuItemWithQuantity> tuesdayList;
@@ -43,7 +44,7 @@ public class WeeklyMenuController implements ViewController
 
 
 
-  @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
+  @Override public void init(ViewModelFactory viewModelFactory) {
     viewModel = viewModelFactory.getCustomerWeeklyMenuViewModel();
 
     mondayList.setItems(viewModel.getMondayList());

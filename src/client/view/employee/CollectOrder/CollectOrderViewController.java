@@ -2,6 +2,7 @@ package client.view.employee.CollectOrder;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Controller for the CollectOrderView
  */
-public class CollectOrderViewController implements ViewController
+public class CollectOrderViewController implements TabController
 {
   @FXML public TableView<ArrayList<OrderItem>> ordersTable;
   @FXML public TableColumn<ArrayList<OrderItem>, String> orderCode;
@@ -37,11 +38,9 @@ public class CollectOrderViewController implements ViewController
 
   /**
    * Method that initalizes the controller
-   * @param viewHandler instance of ViewHandler class, which is responsible for managing the GUI views
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
-  @Override public void init(ViewHandler viewHandler,
-      ViewModelFactory viewModelFactory)
+  @Override public void init(ViewModelFactory viewModelFactory)
   {
     viewModel = viewModelFactory.getCollectOrderViewModel();
 

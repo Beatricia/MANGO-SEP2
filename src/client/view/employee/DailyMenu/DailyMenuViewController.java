@@ -2,6 +2,7 @@ package client.view.employee.DailyMenu;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import javafx.beans.Observable;
 import javafx.collections.ListChangeListener;
@@ -24,27 +25,23 @@ import java.time.LocalDate;
  * @author Uafa
  * @version 1
  */
-public class DailyMenuViewController implements ViewController
+public class DailyMenuViewController implements TabController
 {
   public ListView<MenuItem> list;
   public DatePicker datePicker;
   @FXML Button addButton;
 
-  private ViewHandler viewHandler;
   private DailyMenuViewModel viewModel;
 
   /**
    * Override interface's method.
    * Initial data that has to be loaded.
    *
-   * @param viewHandler      get instance of the ViewHandler class.
    * @param viewModelFactory class needed to get access to DisplayMenuViewModel
    *                         class.
    */
-  @Override public void init(ViewHandler viewHandler,
-      ViewModelFactory viewModelFactory)
+  @Override public void init(ViewModelFactory viewModelFactory)
   {
-    this.viewHandler = viewHandler;
     this.viewModel = viewModelFactory.getDailyMenuViewModel();
 
     addButton.setDisable(true);

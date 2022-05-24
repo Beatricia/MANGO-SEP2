@@ -2,6 +2,7 @@ package client.view.employee.WeeklyMenu;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 //TODO javadocs
 
-public class WeeklyMenuEmpController implements ViewController
+public class WeeklyMenuEmpController implements TabController
 {
   public ListView<MenuItemWithQuantity> mondayList;
   public Label mondayDate;
@@ -38,8 +39,7 @@ public class WeeklyMenuEmpController implements ViewController
   private ArrayList<ListView<MenuItemWithQuantity>> listViews;
 
 
-  @Override public void init(ViewHandler viewHandler,
-      ViewModelFactory viewModelFactory)
+  @Override public void init(ViewModelFactory viewModelFactory)
   {
     viewModel = viewModelFactory.getWeeklyMenuEmpViewModel();
 

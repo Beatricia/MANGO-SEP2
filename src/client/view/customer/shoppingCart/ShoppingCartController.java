@@ -2,6 +2,7 @@ package client.view.customer.shoppingCart;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
@@ -23,7 +24,7 @@ import java.util.List;
  * Controller for ShoppingCartView.fxml
  * @author Beatricia
  */
-public class ShoppingCartController implements ViewController {
+public class ShoppingCartController implements TabController {
     @FXML public TableColumn<CartItem, String> nameColumn;
     @FXML public TableColumn<CartItem, Integer> quantityColumn;
     @FXML public Label totalPriceLabel;
@@ -45,7 +46,7 @@ public class ShoppingCartController implements ViewController {
      * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
      */
     @Override
-    public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
+    public void init(ViewModelFactory viewModelFactory) {
         viewModel = viewModelFactory.getCustomerShoppingCartViewModel();
 
         //right table with all cart items

@@ -50,7 +50,7 @@ public class RegisterViewController implements ViewController
     refresh();
   }
 
-  @Override public void refresh() {
+  public void refresh() {
     firstName.clear();
     lastName.clear();
     username.clear();

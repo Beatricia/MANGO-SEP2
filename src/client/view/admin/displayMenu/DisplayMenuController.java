@@ -2,6 +2,7 @@ package client.view.admin.displayMenu;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.view.TabController;
 import client.view.ViewController;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
 import javafx.application.Platform;
@@ -37,7 +38,7 @@ import java.util.List;
  * @author Greg
  * @version 1
  */
-public class DisplayMenuController implements ViewController
+public class DisplayMenuController implements TabController
 {
   @FXML private VBox menuItemsVBox;
   @FXML private Label dateLabel;
@@ -46,10 +47,9 @@ public class DisplayMenuController implements ViewController
 
   /**
    * Initializes the controller
-   * @param viewHandler instance of ViewHandler class, which is responsible for managing the GUI views
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
-  @Override public void init(ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
+  @Override public void init(ViewModelFactory viewModelFactory) {
     viewModel = viewModelFactory.getDisplayMenuViewModel();
     //viewModel = new TestViewModel();
     viewModel.menuItemWithQuantitiesList().addListener(this::menuItemListChangeListener);

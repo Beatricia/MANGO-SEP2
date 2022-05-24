@@ -45,7 +45,7 @@ public class LoginViewController implements ViewController
     refresh();
   }
 
-  @Override public void refresh() {
+  public void refresh() {
     username.clear();
     password.clear();
     errorLabel.setText("");
