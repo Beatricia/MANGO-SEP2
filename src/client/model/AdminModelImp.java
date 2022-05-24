@@ -8,6 +8,7 @@ import transferobjects.User;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.time.LocalTime;
 
 /**
  * A class that connects the view model and the Client side of networking.
@@ -76,6 +77,26 @@ public class AdminModelImp implements AdminModel
     Log.log(
         "AdminModelImpl sends an EMPLOYEE_IS_DECLINED object to the Client");
     client.sendRequest(request);
+  }
+
+  @Override
+  public void requestOpeningHours() {
+
+  }
+
+  @Override
+  public void removeEmployee(String username) {
+
+  }
+
+  @Override
+  public void requestAcceptedEmployees() {
+
+  }
+
+  @Override
+  public void setOpeningHours(LocalTime from, LocalTime to) {
+
   }
 
   /**
