@@ -16,8 +16,9 @@ public interface AdminModel extends PropertyChangeSubject
 
   public static String  PENDING_EMPLOYEES_RECEIVED = "PendingEmployeesReceived";
   public static String ACCEPTED_EMPLOYEES_RECEIVED= "AcceptedEmployeesReceived";
+  public static String OPENING_HOURS_RECEIVED = "OpeningHoursReceived";
 
-  /**
+    /**
    * Method used for creating and sending a Request object to the database (to receive list of pending employees)
    */
   void requestPendingEmployees();
