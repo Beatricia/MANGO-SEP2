@@ -303,6 +303,21 @@ public class DatabaseConnImp implements DatabaseConn
     throw new SQLException();
   }
 
+  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems)
+  {
+
+  }
+
+  @Override public void collectOrder(int orderCode)
+  {
+
+  }
+
+  @Override public ArrayList<ArrayList<OrderItem>> getAllUncollectedOrder()
+  {
+    return null;
+  }
+
   @Override public void handlePendingEmployee(String username, boolean accept)
       throws SQLException
   {
