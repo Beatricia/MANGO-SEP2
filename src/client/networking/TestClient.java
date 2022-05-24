@@ -1,11 +1,15 @@
 package client.networking;
 
+import client.model.MenuModel;
+import client.model.MenuModelImp;
+import client.model.OrderModelCustomerImp;
 import shared.UserType;
 import transferobjects.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TestClient implements Client
 {
