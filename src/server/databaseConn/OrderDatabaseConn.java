@@ -22,7 +22,7 @@ public class OrderDatabaseConn
 
   /**
    * Method which is called when an order is placed.
-   * First is gets  all the required data from the cart of customer who placed the order,
+   * First its gets all the required data from the cart of customer who placed the order,
    * then it creates an order and order items with the unselected ingredients.
    * All of these data are then inserted into the right tables.
    * Lastly, the method deletes the whole cart.

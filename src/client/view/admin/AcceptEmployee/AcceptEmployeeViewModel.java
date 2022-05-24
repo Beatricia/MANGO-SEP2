@@ -33,7 +33,7 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
   {
     this.adminModel = adminModel;
     users = FXCollections.observableList(new ArrayList<>());
-    adminModel.addListener(AdminModel.ACCEPTED_EMPLOYEES_RECEIVED,this);
+    adminModel.addListener(AdminModel.PENDING_EMPLOYEES_RECEIVED,this);
   }
 
   /**

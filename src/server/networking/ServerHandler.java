@@ -38,7 +38,7 @@ public class ServerHandler implements Runnable
   private MenuModel menuModel;
   private AdminModel adminModel;
   private CartModel cartModel;
-  private OrderModelCustomer orderModel;
+  private OrderModel orderModel;
 
   /**
    * Constructs the ServerHandler object, sets up the base streams.
@@ -48,7 +48,7 @@ public class ServerHandler implements Runnable
    */
   public ServerHandler(Socket clientSocket, UserModel userModel,
       MenuModel menuModel, AdminModel adminModel, CartModel cartModel,
-      OrderModelCustomer orderModel)
+      OrderModel orderModel)
   {
     try
     {
@@ -377,10 +377,7 @@ public class ServerHandler implements Runnable
    */
   public void closeClient(Exception e)
   {
-
     e.printStackTrace();
-    // todo fire "Closing" event here for the connection pool (later)
-    //      so the pool can remove it form the list when the connection is closed
 
     // Close streams
     closeObject(toClient);
