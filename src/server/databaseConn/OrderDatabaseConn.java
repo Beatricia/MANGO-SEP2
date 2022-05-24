@@ -27,7 +27,7 @@ public class OrderDatabaseConn
    * All of these data are then inserted into the right tables.
    * Lastly, the method deletes the whole cart.
    * @param username unique identifier of the customer who makes the order
-   * @throws SQLException
+   * @throws SQLException on unexpected exception
    */
   public void placeOrder(String username) throws SQLException
   {
@@ -161,7 +161,7 @@ public class OrderDatabaseConn
    * Returns all data of the customer's order.
    * That is name of the ordered items, its ingredients, prices, image paths, quantities, unselected ingredients, username of the customer and code of the order
    * @param username unique identifier of the customer who makes the order
-   * @throws SQLException
+   * @throws SQLException on unexpected exception
    */
   public ArrayList<OrderItem> getUncollectedOrder(String username)
       throws SQLException
@@ -232,7 +232,7 @@ public class OrderDatabaseConn
    * Cancels the whole order of the customer.
    * This means all the data about the order are deleted.
    * @param username unique identifier of the customer who makes the order
-   * @throws SQLException
+   * @throws SQLException on unexpected exception
    */
   public void cancelOrder(String username) throws SQLException
   {

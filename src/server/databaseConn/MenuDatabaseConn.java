@@ -50,6 +50,11 @@ class MenuDatabaseConn
     }
   }
 
+  /**
+   * Add a list of MenuItemWithQuantity to their assigned days.
+   * @param menuItems menu items to be added to the daily menu
+   * @throws SQLException on unexpected exception
+   */
   public void addDailyMenu(ArrayList<MenuItemWithQuantity> menuItems) throws
       SQLException
   {
@@ -58,11 +63,9 @@ class MenuDatabaseConn
     {
       String sql = "INSERT INTO dailyMenuItem (date, name, quantity) VALUES ";
 
-
-
-      for (int i = 0; i < menuItems.size(); i++)
-      {
-        sql += String.format("('%s', '%s', '%s'),", menuItems.get(i).getDate(), menuItems.get(i).getName(), menuItems.get(i).getQuantity());
+      for (MenuItemWithQuantity menuItem : menuItems) {
+        sql += String.format("('%s', '%s', '%s'),", menuItem.getDate(), menuItem.getName(),
+            menuItem.getQuantity());
       }
       sql = sql.substring(0,sql.length()-1);
 
@@ -74,6 +77,11 @@ class MenuDatabaseConn
 
   }
 
+  /**
+   * Gets a list of all the menu items registered in the system.
+   * @return the list containing all the menu items.
+   * @throws SQLException if any error happens during setting up the database connection
+   */
   public ArrayList<MenuItem> getListOfMenuItems() throws SQLException
   {
     ArrayList<MenuItem> menuItems = new ArrayList<>();
@@ -101,6 +109,12 @@ class MenuDatabaseConn
     return menuItems;
   }
 
+  /**
+   * Get a list of MenuItemWithQuantity for a specific date
+   * @param date the date to get the menu items from
+   * @return a list containing the MenuItemWithQuantity objects on the specific date
+   * @throws SQLException if any error happens during setting up the database connection
+   */
   public ArrayList<MenuItemWithQuantity> getDailyMenuItemList(LocalDate date)
       throws SQLException
   {
@@ -153,6 +167,13 @@ class MenuDatabaseConn
     return dailyItems;
   }
 
+  /**
+   * Add quantity to a menu item which is enrolled in the daily menu
+   * @param date date on which the menu item is enrolled in.
+   * @param name name of the menu item
+   * @param quantity quantity
+   * @throws SQLException if any error happens during setting up the database connection
+   */
   public void addQuantity(LocalDate date, String name, int quantity)
       throws SQLException
   {

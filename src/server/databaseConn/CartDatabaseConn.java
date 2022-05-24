@@ -21,7 +21,7 @@ public class CartDatabaseConn
    * the cartItem table with the cart id value.
    * @param cartItemName the name of the item to be added to the cartItem table
    * @param username  the username of the Client used to get the cart id
-   * @throws SQLException
+   * @throws SQLException on unexpected exception
    */
   public void addItemToCart(String cartItemName, String username)
       throws SQLException
@@ -52,7 +52,7 @@ public class CartDatabaseConn
    * updateUnselectedIngredientsTable.
    *
    * @param cartItem the cart item that has to be edited
-   * @throws SQLException
+   * @throws SQLException on unexpected exception
    */
   public void editCartItem(CartItem cartItem) throws SQLException
   {
@@ -88,7 +88,7 @@ public class CartDatabaseConn
    * (The table has a TRIGGER which automatically deletes all the unselected
    * items for this item from the cartUnselectedIngredient table)
    * @param cartItem  the cart item that should be deleted
-   * @throws SQLException
+   * @throws SQLException on unexpected exception
    */
   public void removeCartItem(CartItem cartItem) throws SQLException
   {
@@ -116,7 +116,7 @@ public class CartDatabaseConn
    * unselected ingredients are represented by an empty ArrayList)
    * @param username
    * @return an Arraylist with all the CartItem object in the shopping cart
-   * @throws SQLException
+   * @throws SQLException on unexpected exception
    */
   public ArrayList<CartItem> getCartList(String username) throws SQLException
   {
