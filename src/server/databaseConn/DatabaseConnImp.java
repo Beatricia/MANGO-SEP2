@@ -275,9 +275,9 @@ public class DatabaseConnImp implements DatabaseConn
     return cartDatabaseConn.getCartList(username);
   }
 
-  @Override public ArrayList<OrderItem> placeOrder(String username) throws SQLException
+  @Override public void placeOrder(String username) throws SQLException
   {
-    return orderDatabaseConn.placeOrder(username);
+    orderDatabaseConn.placeOrder(username);
   }
 
   @Override public void cancelOrder(String username) throws SQLException

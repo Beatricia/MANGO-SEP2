@@ -258,7 +258,7 @@ public class CartDatabaseConn
     {
 
       //First delete all the unwanted ing that were there
-      String sqlT0Delete = "DELETE from " +  CART_UNSELECTED_INGREDIENTS_TABLE + " WHERE cartId = " + cartId + " ;";
+      String sqlT0Delete = "DELETE from " +  CART_UNSELECTED_INGREDIENTS_TABLE + " WHERE cartId = " + cartId + " AND itemname = '" + cartItem.getName() + "';";
 
       PreparedStatement statementToDelete = connection.prepareStatement(sqlT0Delete);
 

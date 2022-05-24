@@ -26,10 +26,9 @@ public class OrderDatabaseConn
    * @param username unique identifier of the customer who makes the order
    * @throws SQLException
    */
-  public ArrayList<OrderItem> placeOrder(String username) throws SQLException
+  public void placeOrder(String username) throws SQLException
   {
     Log.log("OrderDatabaseConn places order in the Database");
-    ArrayList<OrderItem> orderItems = new ArrayList<>();
 
     try (Connection connection = DatabaseConnImp.getConnection())
     {
@@ -37,8 +36,8 @@ public class OrderDatabaseConn
       //getting needed values for creating an order item
 
       String sql1 =
-          "SELECT cart.cartid, cartItem.itemname, cartItem.quantity, menuItem.price, menuItem.imgpath FROM "
-              + "cart, cartItem, menuItem WHERE cart.cartid = cartitem.cartid and cartitem.itemname = menuItem.name AND cart.username = '"
+          "SELECT cart.cartid, cartItem.itemname, cartItem.quantity FROM "
+              + "cart, cartItem WHERE cart.cartid = cartitem.cartid AND cart.username = '"
               + username + "'";
 
       PreparedStatement statement1 = connection.prepareStatement(sql1);
@@ -55,29 +54,10 @@ public class OrderDatabaseConn
 
         int quantity = resultSet1.getInt("quantity");
 
-        double price = resultSet1.getDouble("price");
-
-        String imgPath = resultSet1.getString("imgpath");
-
-        //to get ingredients of a meal
-        String sql2 = "SELECT name FROM ingredient WHERE id in (SELECT ingredientId FROM menuItemIngredient WHERE itemName = '" + itemName + "' ) ";
-
-        PreparedStatement statement2 = connection.prepareStatement(sql2);
-
-        ResultSet resultSet2 = statement2.executeQuery();
-
-        ArrayList<String> ingredients = new ArrayList<>();
-
-        while (resultSet2.next())
-        {
-          String ingredientName = resultSet2.getString("name");
-          ingredients.add(ingredientName);
-        }
-
         // to get ingredients unselected by the customer
         String sql3 = "SELECT ingredient.name "
             + "FROM cartitemunselectedingredients, ingredient "
-            + "WHERE cartitemunselectedingredients.ingredientid = ingredient.id and cartitemunselectedingredients.cartid = '" + code + "'";
+            + "WHERE cartitemunselectedingredients.ingredientid = ingredient.id and cartitemunselectedingredients.cartid = '" + code + "' AND cartitemunselectedingredients.itemname = '" + itemName + "'";
 
         PreparedStatement statement3 = connection.prepareStatement(sql3);
 
@@ -89,9 +69,6 @@ public class OrderDatabaseConn
           String ingredientName = resultSet3.getString("name");
           unselectedIngredients.add(ingredientName);
         }
-
-        OrderItem orderItem = new OrderItem(itemName, ingredients, price, imgPath, username, quantity, unselectedIngredients, code);
-        orderItems.add(orderItem);
 
         // deleting cart item and unselectedingredients tables
 
@@ -111,13 +88,34 @@ public class OrderDatabaseConn
 
         LocalDate date = LocalDate.now(); //IDK if the sql6 is gonna work but whatever
 
-        //create new order
 
-        String sql6 = "INSERT INTO \"order\" VALUES (" + code + ", '" + username +"', '" + date +"', 'false')";
 
-        PreparedStatement statement6 = connection.prepareStatement(sql6);
+        //checks if order already exists
 
-        statement6.execute();
+        String sqlCheck = "SELECT ordernumber from \"order\"";
+
+        PreparedStatement statementCheck = connection.prepareStatement(sqlCheck);
+
+        ResultSet resultSetCheck = statementCheck.executeQuery();
+
+        int codeCheck = 0;
+
+        while (resultSetCheck.next()){
+          codeCheck = resultSetCheck.getInt("ordernumber");
+        }
+
+        if(code != codeCheck){
+
+          //create new order
+
+          String sql6 = "INSERT INTO \"order\" VALUES (" + code + ", '" + username
+              + "', '" + date + "', 'false')";
+
+
+          PreparedStatement statement6 = connection.prepareStatement(sql6);
+
+          statement6.execute();
+        }
 
         //insert into orderitem
 
@@ -129,6 +127,7 @@ public class OrderDatabaseConn
 
 
         //inserting into unselectedingredients table
+        System.out.println("THERE IS THAT MANY UNSELECTED INGREDIENTS: " + unselectedIngredients.size() + "-----------------------------------------------------------------");
         for (String unselectedIngredient: unselectedIngredients
              )
         {
@@ -153,8 +152,6 @@ public class OrderDatabaseConn
         }
       }
     }
-
-    return orderItems;
   }
 
   /**

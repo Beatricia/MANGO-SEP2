@@ -91,7 +91,7 @@ public interface DatabaseConn
 
   //region ORDER
 
-  ArrayList<OrderItem> placeOrder(String username) throws SQLException;
+  void placeOrder(String username) throws SQLException;
 
   void cancelOrder(String username) throws SQLException;
 
