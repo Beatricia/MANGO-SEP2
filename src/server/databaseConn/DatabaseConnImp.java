@@ -318,6 +318,13 @@ public class DatabaseConnImp implements DatabaseConn
     return null;
   }
 
+  @Override
+  public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending the removed menu item(s) to the MenuDatabaseConn");
+     menuDatabaseConn.removeMenuItem(menuItems);
+  }
+
   @Override public void handlePendingEmployee(String username, boolean accept)
       throws SQLException
   {
