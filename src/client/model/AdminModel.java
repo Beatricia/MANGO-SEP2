@@ -4,6 +4,7 @@ import transferobjects.User;
 import util.PropertyChangeSubject;
 
 import java.beans.PropertyChangeEvent;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -36,4 +37,12 @@ public interface AdminModel extends PropertyChangeSubject
    * @param user one particular User object to be declined
    */
   void declineEmployee(User user);
+
+  void requestOpeningHours();
+
+  void removeEmployee(String username);
+
+  void requestAcceptedEmployees();
+
+  void setOpeningHours(LocalTime from, LocalTime to);
 }
