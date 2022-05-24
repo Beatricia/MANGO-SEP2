@@ -21,9 +21,9 @@ public interface Client extends PropertyChangeSubject
   String CART_LIST_RECEIVED = "CartListReceived";
   String ORDER_RECEIVED = "OrderReceived";
   String IMAGE_RECEIVED = "ImageReceived";
+  String ALL_UNCOLLECTED_ORDERS_RECEIVED = "AllUncollectedOrdersReceived";
 
-
-    /**
+  /**
    * The method is used to send to the Server the LoginRequest object
    *    when a person loggs in it is called
    * @param request the LoginRequest to be sent

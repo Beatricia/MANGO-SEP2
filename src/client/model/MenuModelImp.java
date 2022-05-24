@@ -189,7 +189,7 @@ public class MenuModelImp implements MenuModel
   }
 
   /**
-   * Creating a request with the list of the menu items to be deleted from the system, which is sent to the client
+   * Creating a request with the list of the menu items to be deleted from the system from dailyMenu, which is sent to the client
    * @param listOfMenuItemsToDelete the list of menu items to be deleted
    */
   @Override
@@ -200,6 +200,17 @@ public class MenuModelImp implements MenuModel
     client.sendRequest(request);
   }
 
+  /**
+   * Creating a request with the list of the menu items to be deleted from the system, which is sent to the client
+   * @param menuItems the list of menu items to be deleted
+   */
+
+  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems)
+  {
+    Request request = new Request(Request.REMOVE_MENU_ITEM_REQUEST);
+    request.setObject(menuItems);
+    client.sendRequest(request);
+  }
 
   /**
    * Using the PropertyChangeSubject object adds a listener for a specific event

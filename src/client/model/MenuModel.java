@@ -69,4 +69,10 @@ public interface MenuModel extends PropertyChangeSubject
    */
 
   void deleteMenuItemFromWeeklyMenu(ArrayList<MenuItemWithQuantity> listOfMenuItemsToDelete);
+
+  /**
+   * The method is used to delete Menu items from database
+   * @param menuItems the list of MenuItem to delete
+   */
+  void removeMenuItem(ArrayList<MenuItem> menuItems);
 }

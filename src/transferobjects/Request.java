@@ -27,7 +27,9 @@ public class Request implements Serializable
   public static final String CUSTOMER_UNCOLLECTED_ORDER_REQUEST = "OrderRequest";
   public static final String CANCEL_ORDER = "CancelOrder";
   public static final String PLACE_ORDER = "PlaceOrder";
-
+  public static final String ALL_UNCOLLECTED_ORDERS_REQUEST = "AllUncollectedOrdersRequest";
+  public static final String COLLECT_ORDER_REQUEST = "CollectOrderRequest";
+  public static final String REMOVE_MENU_ITEM_REQUEST = "RemoveMenuItemRequest";
 
   private String requestName;
   private Object requestObj;

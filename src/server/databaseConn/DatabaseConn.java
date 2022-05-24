@@ -96,7 +96,15 @@ public interface DatabaseConn
   void cancelOrder(String username) throws SQLException;
 
   ArrayList<OrderItem> getUncollectedOrder(String username) throws SQLException;
+  void removeMenuItem(ArrayList<MenuItem> menuItems);
+  void collectOrder(int orderCode);
+  ArrayList<ArrayList<OrderItem>> getAllUncollectedOrder();
+
+  ArrayList<ArrayList<OrderItem>> getAllUncollectedOrders() throws SQLException;
+
+  void collectOrder(int orderCode) throws SQLException;
 
   //endregion
 
+  void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException;
 }

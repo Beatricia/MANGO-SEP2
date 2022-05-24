@@ -77,7 +77,6 @@ public class MenuModelImp implements MenuModel
     return databaseConn.getListOfMenuItems();
   }
 
-
   /**
    * Adding the list of daily menu items to the database
    * @param dailyMenuItem
@@ -89,7 +88,7 @@ public class MenuModelImp implements MenuModel
   }
 
   /**
-   * Asking the database for the daily menu items for the current date
+   * Request the database for the daily menu items for the current date
    * @return a list with the menu item with quantity for the current date
    */
   @Override
@@ -138,5 +137,14 @@ public class MenuModelImp implements MenuModel
     for (MenuItemWithQuantity item : listOfItemsToDelete) {
       databaseConn.deleteMenuItemFromDailyMenu(item.getDate(), item.getName());
     }
+  }
+
+  /**
+   * The method is used to delete menu items from database
+   * @param menuItems list of menu items to delete
+   */
+
+  @Override public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException {
+    databaseConn.removeMenuItem(menuItems);
   }
 }

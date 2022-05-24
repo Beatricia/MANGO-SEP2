@@ -26,7 +26,9 @@ public class OrderItem extends CartItem{
      * @param unselectedIngredients the unselected ingredients
      * @param code                  the order's code
      */
-    public OrderItem(String name, ArrayList<String> ingredients, double price, String imgPath, String username, int quantity, ArrayList<String> unselectedIngredients, int code) {
+    public OrderItem(String name, ArrayList<String> ingredients, double price, String imgPath,
+        String username, int quantity, ArrayList<String> unselectedIngredients, int code) {
+
         super(name, ingredients, price, imgPath, username, quantity, unselectedIngredients);
         this.code=code;
         date = LocalDate.now();
@@ -38,6 +40,25 @@ public class OrderItem extends CartItem{
      */
     public int getCode(){
         return  code;
+    }
+
+    public double getPrice()
+    {
+        return super.getPrice();
+    }
+
+
+    public String getUnselected()
+    {
+        String str= "";
+        ArrayList<String> ing = getUnselectedIngredients();
+
+        for (int i = 0; i < ing.size(); i++)
+        {
+           str += ing.get(i) + ", ";
+        }
+
+       return str.substring(0, str.length()-2);
     }
 
 }
