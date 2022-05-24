@@ -35,6 +35,16 @@ public class AdminModelImp implements AdminModel
     this.client = client;
     client.addListener(Client.PENDING_EMPLOYEES_RECEIVED,
         this::updatePendingEmployees);
+     client.addListener(Client.ACCEPTED_EMPLOYEES_RECEIVED,
+         this::sendAcceptedEmployees);
+
+     client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
+  }
+
+  private void sendOpeningHours(PropertyChangeEvent event)
+  {
+    Log.log("AdminModelImp fires an OPENING_HOURS_RECEIVED to the view model");
+    propertyChangeSupport.firePropertyChange(OPENING_HOURS_RECEIVED, null, event.getNewValue());
   }
 
   /**
@@ -154,6 +164,12 @@ public class AdminModelImp implements AdminModel
     propertyChangeSupport.firePropertyChange(PENDING_EMPLOYEES_RECEIVED, -1,
         e.getNewValue());
 
+  }
+
+  private void sendAcceptedEmployees(PropertyChangeEvent event)
+  {
+    Log.log("AdminModelImpl fires an ACCEPTED_EMPLOYEES_RECEIVED");
+    propertyChangeSupport.firePropertyChange(ACCEPTED_EMPLOYEES_RECEIVED, null, event.getNewValue());
   }
 
   /**
