@@ -177,4 +177,14 @@ public class SocketClient implements Client{
         Log.log("SocketClient fires an ORDER_RECEIVED event");
         support.firePropertyChange(ORDER_RECEIVED, null, request.getObject());
     }
+
+    public void allAcceptedEmployeesReceived(Request request)
+    {
+        support.firePropertyChange(ACCEPTED_EMPLOYEES_RECEIVED,null,request.getObject());
+    }
+
+    public void openingHoursReceived(Request request)
+    {
+        support.firePropertyChange(OPENING_HOURS_RECEIVED,null,request.getObject());
+    }
 }

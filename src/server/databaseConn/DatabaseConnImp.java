@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -297,6 +298,19 @@ public class DatabaseConnImp implements DatabaseConn
 
   @Override public void collectOrder(int orderCode) throws SQLException {
     orderDatabaseConn.collectOrder(orderCode);
+  }
+
+  @Override public void setOpeningHours(LocalTime from, LocalTime to)
+      throws SQLException
+  {
+    Log.log("DatabaseConnImp: calls setOpeningHours in aDmInDataBaseCoNnEcTiOn");
+    adminDataBaseConnection.setOpeningHours(from, to);
+  }
+
+  @Override public ArrayList<LocalTime> getOpeningHours() throws SQLException
+  {
+    Log.log("DatabaseConnImp: calls getOpeningHours in adminDatabaseConnection");
+    return adminDataBaseConnection.getOpeningHours();
   }
 
   @Override

@@ -205,4 +205,12 @@ public interface DatabaseConn
 
   //endregion
 
+  //region SET OPENING HOURS
+
+  void setOpeningHours(LocalTime from, LocalTime to) throws SQLException;
+
+  ArrayList<LocalTime> getOpeningHours() throws SQLException;
+
+  //endregion
+
 }
