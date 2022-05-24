@@ -346,4 +346,30 @@ public class DatabaseConnImp implements DatabaseConn
       throw formatExceptionMessage(e);
     }
   }
+
+  @Override
+  public void removeEmployee(String username) throws SQLException {
+    try
+    {
+      Log.log("DatabaseConnImp: Sending a removeEmployee request to the AdminDatabaseConn");
+      adminDataBaseConnection.removeEmployee(username);
+    }
+    catch (SQLException e)
+    {
+      throw formatExceptionMessage(e); //look again
+    }
+  }
+
+  @Override
+  public ArrayList<User> getAcceptedEmployees() throws SQLException {
+    try
+    {
+      Log.log("DatabaseConnImp: Sending a getAcceptedEmployee request to the AdminDatabaseConn");
+      return adminDataBaseConnection.getAllAcceptedEmployees();
+    }
+    catch (SQLException e)
+    {
+      throw formatExceptionMessage(e); // look again
+    }
+  }
 }

@@ -290,7 +290,7 @@ public class ServerHandler implements Runnable
         .equals(Request.CUSTOMER_UNCOLLECTED_ORDER_REQUEST))
     {
       Log.log("ServerHandler received CART_LIST_REQUEST");
-      ArrayList<OrderItem> uncollectedOrder = orderModel.getUncollectedOrder(
+     ArrayList<OrderItem> uncollectedOrder = orderModel.getUncollectedOrder(
           (String) request.getObject());
       request.setObject(uncollectedOrder);
       sendObject(request);
@@ -298,7 +298,7 @@ public class ServerHandler implements Runnable
     else if (request.getRequestName().equals(Request.CANCEL_ORDER))
     {
       Log.log("ServerHandler received CANCEL_ORDER");
-      orderModel.cancelOrder((String) request.getObject());
+     // orderModel.cancelOrder((String) request.getObject());
     }
     else if (request.getRequestName().equals(Request.PLACE_ORDER))
     {
