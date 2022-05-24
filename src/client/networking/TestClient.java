@@ -9,6 +9,7 @@ import transferobjects.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class TestClient implements Client

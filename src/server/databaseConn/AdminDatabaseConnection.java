@@ -1,5 +1,6 @@
 package server.databaseConn;
 
+import javafx.util.converter.LocalTimeStringConverter;
 import shared.UserType;
 import transferobjects.User;
 
@@ -7,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /** A class handling database connection for requests made by admin
@@ -64,6 +66,41 @@ public class AdminDatabaseConnection {
             }
             return pendingEmployees;
         }
+    }
+
+    public void setOpeningHours(LocalTime from, LocalTime to)
+        throws SQLException
+    {
+        try(Connection connection = DatabaseConnImp.getConnection()) {
+            String sql = "UPDATE openinghours SET \"from\" = '" + from + "', \"to\" = '" + to + "' WHERE \"from\" = (SELECT \"from\" FROM openinghours ORDER BY \"from\" LIMIT 1)";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.execute();
+        }
+    }
+
+    public ArrayList<LocalTime> getOpeningHours() throws SQLException
+    {
+        ArrayList<LocalTime> openingHours = new ArrayList<>();
+
+        try(Connection connection = DatabaseConnImp.getConnection()) {
+            String sql = "SELECT \"from\", \"to\" FROM openinghours";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+                LocalTime from = LocalTime.parse(resultSet.getString("from"));
+
+                LocalTime to = LocalTime.parse(resultSet.getString("to"));
+
+                openingHours.add(from);
+                openingHours.add(to);
+            }
+        }
+        return openingHours;
     }
 }
 
