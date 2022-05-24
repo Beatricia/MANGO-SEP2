@@ -26,7 +26,9 @@ public class OrderItem extends CartItem{
      * @param unselectedIngredients the unselected ingredients
      * @param code                  the order's code
      */
-    public OrderItem(String name, ArrayList<String> ingredients, double price, String imgPath, String username, int quantity, ArrayList<String> unselectedIngredients, int code) {
+    public OrderItem(String name, ArrayList<String> ingredients, double price, String imgPath,
+        String username, int quantity, ArrayList<String> unselectedIngredients, int code) {
+
         super(name, ingredients, price, imgPath, username, quantity, unselectedIngredients);
         this.code=code;
         date = LocalDate.now();
