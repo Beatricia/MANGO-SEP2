@@ -82,7 +82,7 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
    * @param e event caught from the admin
    */
   public void updateEmployeeList(PropertyChangeEvent e){
-    if (e.getPropertyName().equals(Request.PENDING_USER_REQUEST)){
+    if (e.getPropertyName().equals(AdminModel.PENDING_EMPLOYEES_RECEIVED)){
       users.clear();
       users.addAll((ArrayList<User>)e.getNewValue());
     }

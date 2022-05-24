@@ -14,6 +14,9 @@ import java.util.ArrayList;
 public interface AdminModel extends PropertyChangeSubject
 {
 
+  public static String  PENDING_EMPLOYEES_RECEIVED = "PendingEmployeesReceived";
+  public static String ACCEPTED_EMPLOYEES_RECEIVED= "AcceptedEmployeesReceived";
+
   /**
    * Method used for creating and sending a Request object to the database (to receive list of pending employees)
    */

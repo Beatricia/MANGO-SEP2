@@ -24,6 +24,7 @@ public class EmployeeGUI extends UserStrategy
       "DailyMenu/DailyMenuView.fxml",  "Add to daily menu",
       "AddQuantity/AddQuantityView.fxml", "Add quantity",
       "WeeklyMenu/WeeklyMenuEmp.fxml", "Weekly Menu",
+      "CollectOrder/CollectOrderView.fxml", "Collect order",
   };
 
   public EmployeeGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {

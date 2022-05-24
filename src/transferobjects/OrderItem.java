@@ -42,4 +42,23 @@ public class OrderItem extends CartItem{
         return  code;
     }
 
+    public double getPrice()
+    {
+        return super.getPrice();
+    }
+
+
+    public String getUnselected()
+    {
+        String str= "";
+        ArrayList<String> ing = getUnselectedIngredients();
+
+        for (int i = 0; i < ing.size(); i++)
+        {
+           str += ing.get(i) + ", ";
+        }
+
+       return str.substring(0, str.length()-2);
+    }
+
 }

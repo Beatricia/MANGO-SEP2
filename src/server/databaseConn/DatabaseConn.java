@@ -2,8 +2,10 @@ package server.databaseConn;
 
 import shared.UserType;
 import transferobjects.*;
+import transferobjects.MenuItem;
 import util.LogInException;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -97,11 +99,13 @@ public interface DatabaseConn
 
   ArrayList<OrderItem> getUncollectedOrder(String username) throws SQLException;
 
-  ArrayList<ArrayList<OrderItem>> getAllUncollectedOrders() throws SQLException;
+  //endregion
 
-  void collectOrder(int orderCode) throws SQLException;
+  //region remove menu item (Employee)
+
+  void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException;
 
   //endregion
 
-  void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException;
+
 }

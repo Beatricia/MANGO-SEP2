@@ -7,6 +7,7 @@ import client.view.customer.myOrder.MyOrderViewModel;
 import client.view.customer.shoppingCart.ShoppingCartViewModel;
 import client.view.employee.AddQuantity.AddQuantityViewModel;
 import client.view.employee.MenuItems.MenuItemsViewModel;
+import client.view.employee.CollectOrder.CollectOrderViewModel;
 import client.view.employee.WeeklyMenu.WeeklyMenuEmpViewModel;
 import client.view.login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
@@ -40,6 +41,7 @@ public class ViewModelFactory
   private MenuEmplViewModel menuEmplViewModel;
   private WeeklyMenuEmpViewModel weeklyMenuEmpViewModel;
   private MenuItemsViewModel menuItemsViewModel;
+  private CollectOrderViewModel collectOrderViewModel;
 
   // Admin
   private AcceptEmployeeViewModel acceptEmployeeViewModel;
@@ -173,6 +175,17 @@ public class ViewModelFactory
       myOrderViewModel = new MyOrderViewModel(modelFactory.getOrderModelCustomer());
     }
     return myOrderViewModel;
+  }
+
+  public CollectOrderViewModel getCollectOrderViewModel()
+  {
+    if(collectOrderViewModel == null)
+    {
+      Log.log("ViewModelFactory: CollectOrder ViewModel created");
+
+      collectOrderViewModel = new CollectOrderViewModel(modelFactory.getOrderModelCustomer());
+    }
+    return collectOrderViewModel;
   }
 
   public MenuItemsViewModel getMenuItemsViewModel()

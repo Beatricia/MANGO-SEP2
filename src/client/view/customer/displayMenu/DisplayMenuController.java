@@ -2,8 +2,11 @@ package client.view.customer.displayMenu;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
+import client.model.CartModelImpl;
+import client.model.OrderModelCustomerImp;
 import client.view.ViewController;
 
+import client.view.customer.shoppingCart.ShoppingCartController;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.embed.swing.SwingFXUtils;
@@ -206,7 +209,14 @@ public class DisplayMenuController implements ViewController
     }};
 
     Button addMenuItemToCart = new Button(){{
-      setText("Add");
+      if (CartModelImpl.isItemInShoppingCart(itemName)){
+        setDisable(true);
+        setText("Added");
+      }
+      else
+      {
+        setText("Add");
+      }
       setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
