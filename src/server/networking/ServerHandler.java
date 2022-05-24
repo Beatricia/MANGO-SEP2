@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 //TODO protocol
 
@@ -315,6 +316,28 @@ public class ServerHandler implements Runnable
       Log.log("ServerHandler received REMOVE_MENU_ITEM_REQUEST");
       ArrayList<MenuItem> menuItems = (ArrayList<MenuItem>) request.getObject();
       menuModel.removeMenuItem(menuItems);
+    }
+    else if (request.getRequestName().equals(Request.ALL_ACCEPTED_EMPLOYEES_REQUEST))
+    {
+      ArrayList<User> acceptedEmployees = adminModel.requestAcceptedEmployees();
+      request.setObject(acceptedEmployees);
+      sendObject(request);
+    }
+    else if (request.getRequestName().equals(Request.REMOVE_EMPLOYEE_REQUEST))
+    {
+      String username = (String) request.getObject();
+      adminModel.removeEmployee(username);
+    }
+    else if (request.getRequestName().equals(Request.SET_OPENING_HOURS_REQUEST))
+    {
+      ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) request.getObject();
+      adminModel.setOpeningHours(openingHours);
+    }
+    else if (request.getRequestName().equals(Request.OPENING_HOURS_REQUEST))
+    {
+      ArrayList<LocalTime> openingHours =  adminModel.requestOpeningHours();
+      request.setObject(openingHours);
+      sendObject(request);
     }
   }
 
