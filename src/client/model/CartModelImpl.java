@@ -1,6 +1,7 @@
 package client.model;
 
 import client.networking.Client;
+import javafx.collections.ObservableList;
 import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.Request;
@@ -8,13 +9,17 @@ import transferobjects.Request;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 //TODO javadocs
 
 public class CartModelImpl implements CartModel{
     private Client client;
     private final PropertyChangeSupport support;
+
+    private static List<CartItem> itemsInShoppingCart;
 
     public CartModelImpl(Client client){
         support = new PropertyChangeSupport(this);
@@ -25,6 +30,7 @@ public class CartModelImpl implements CartModel{
 
     private void cartListReceived(PropertyChangeEvent evt) {
         Object cartItems = evt.getNewValue();
+        itemsInShoppingCart = (List<CartItem>) cartItems;
         support.firePropertyChange(CartModel.CART_LIST_RECEIVED, null, cartItems);
     }
 
@@ -78,4 +84,28 @@ public class CartModelImpl implements CartModel{
     @Override public void addListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
+
+    /**
+     * Checks is item sent through argument is in the customer's cart
+     * @param itemName name of the item to check
+     * @return true if item is in the cart, else false
+     */
+    public static boolean isItemInShoppingCart(String itemName){
+
+        boolean isIn = false;
+
+        if (itemsInShoppingCart != null){
+            for (CartItem item:itemsInShoppingCart
+            )
+            {
+                if(item.getName().equals(itemName)){
+                    isIn = true;
+                }
+            }
+        }
+
+        return isIn;
+    }
 }
+
+

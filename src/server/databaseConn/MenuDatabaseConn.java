@@ -66,7 +66,6 @@ class MenuDatabaseConn
       }
       sql = sql.substring(0,sql.length()-1);
 
-      System.out.println("///////////////" + sql);
       PreparedStatement statement = connection.prepareStatement(sql);
       statement.execute();
       Log.log("MenuDatabaseConn adds DailyMenuItem to database");
@@ -185,4 +184,29 @@ class MenuDatabaseConn
     }
 
   }
+
+    public void removeMenuItem(ArrayList<MenuItem> menuItems)
+            throws SQLException {
+    try(Connection connection = DatabaseConnImp.getConnection()){
+
+      String menuItemsArray = "'{";
+      for (int i = 0; i < menuItems.size(); i++) {
+        if(i==0){
+          menuItemsArray += menuItems.get(i).getName();
+        }
+        else {
+          menuItemsArray += "," + menuItems.get(i).getName();
+        }
+      }
+      menuItemsArray+="}'";
+
+      String sql = "SELECT deleteMenuItem('" + menuItemsArray + "'::varchar[]);";
+
+      PreparedStatement statement = connection.prepareStatement(sql);
+
+      statement.executeQuery();
+
+      Log.log("MenuDataBaseConn delete menu items" + " from database");
+    }
+    }
 }

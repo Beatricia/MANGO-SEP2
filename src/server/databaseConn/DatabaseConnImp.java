@@ -275,9 +275,9 @@ public class DatabaseConnImp implements DatabaseConn
     return cartDatabaseConn.getCartList(username);
   }
 
-  @Override public ArrayList<OrderItem> placeOrder(String username) throws SQLException
+  @Override public void placeOrder(String username) throws SQLException
   {
-    return orderDatabaseConn.placeOrder(username);
+    orderDatabaseConn.placeOrder(username);
   }
 
   @Override public void cancelOrder(String username) throws SQLException
@@ -316,6 +316,13 @@ public class DatabaseConnImp implements DatabaseConn
   @Override public ArrayList<ArrayList<OrderItem>> getAllUncollectedOrder()
   {
     return null;
+  }
+
+  @Override
+  public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending the removed menu item(s) to the MenuDatabaseConn");
+     menuDatabaseConn.removeMenuItem(menuItems);
   }
 
   @Override public void handlePendingEmployee(String username, boolean accept)
