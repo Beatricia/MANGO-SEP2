@@ -88,7 +88,7 @@ public class AdminModelImp implements AdminModel
 
     Log.log("AdminModelImpl fires a PENDING_USER_REQUEST property");
 
-    propertyChangeSupport.firePropertyChange(Request.PENDING_USER_REQUEST, -1,
+    propertyChangeSupport.firePropertyChange(PENDING_EMPLOYEES_RECEIVED, -1,
         e.getNewValue());
 
   }
