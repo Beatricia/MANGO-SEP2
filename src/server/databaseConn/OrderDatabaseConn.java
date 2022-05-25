@@ -32,11 +32,23 @@ public class OrderDatabaseConn
    */
   public void placeOrder(String username) throws SQLException
   {
+    /*
+        Table of Contents:
+         - 1: get all the cart items with their ingredients from the cart tables
+         - 2: check if the cart is empty (if empty: throw exception)
+         - 3: insert new order (if customer has uncollected order: throw exception (by sql trigger))
+         - 4: get new order's number
+         - 5: remove all items and unselected ingredients from the cart
+         - 6: add the items from step 1 into the order items and unselected ingredients
+     */
+
+
+
     Log.log("OrderDatabaseConn places order in the Database");
 
     try(Connection conn = DatabaseConnImp.getConnection()){
 
-      //getting the cart items with unselected ingredients
+      // 1: getting the cart items with unselected ingredients
       String sql =
           "SELECT c.cartid, ci.itemname, ci.quantity, ARRAY_AGG(cu.ingredientid) "
               + "FROM cart c "
@@ -49,20 +61,20 @@ public class OrderDatabaseConn
       statement.setString(1, username);
       ResultSet cartItems = statement.executeQuery();
 
-      // check if there are any items in the cart
+      // 2: check if there are any items in the cart
       if(!cartItems.next())
         throw new SQLException("No items in the cart");
 
 
-      // creating a new order (this throws an exception if the customer already has an uncollected
-      // order (due to the oneOrderPerCustomer trigger)
+      // 3: creating a new order (this throws an exception if the customer already has an uncollected
+      //    order (due to the oneOrderPerCustomer trigger)
       String createNewOrderSql = "INSERT INTO \"order\"(username) VALUES (?);";
       statement = conn.prepareStatement(createNewOrderSql);
       statement.setString(1, username);
       statement.execute();
 
 
-      // get the new order's number
+      // 4: get the new order's number
       String getNewOrderNumber = "SELECT ordernumber FROM \"order\" "
           + "WHERE collected = FALSE AND username = ?;";
       statement = conn.prepareStatement(getNewOrderNumber);
@@ -75,7 +87,7 @@ public class OrderDatabaseConn
 
 
 
-      //remove items and ingredients from the cart
+      // 5: remove items and ingredients from the cart
       String deleteIngredients = "DELETE FROM cartitemunselectedingredients WHERE cartid = ?;";
       statement = conn.prepareStatement(deleteIngredients);
       statement.setInt(1, cartId);
@@ -87,7 +99,7 @@ public class OrderDatabaseConn
       statement.execute();
 
 
-      //add the cartitems to the order
+      // 6: add the cartitems to the order
       do {
         String itemName = cartItems.getString("itemname");
         int quantity = cartItems.getInt("quantity");
@@ -102,7 +114,6 @@ public class OrderDatabaseConn
         statement.execute();
 
         // insert unselected ingredients (itemname, ordernumber, ingredientid)
-
         if(unselectedIngredients.size() > 0){
           String insertUnselectedIngredients = "INSERT INTO orderitemunselectedingredients(itemname, ordernumber, ingredientid) VALUES ";
           List<String> inputs = unselectedIngredients.stream()
