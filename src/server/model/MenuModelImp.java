@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 /**
  * Class responsible for connecting the networking part of the Server with Database connection and sending Menu Items into the Database.
- * @author Simon
+ * @author Mango
  * @version 1
  */
 public class MenuModelImp implements MenuModel

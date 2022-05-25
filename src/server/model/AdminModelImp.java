@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * Class responsible for connecting the networking part of the Server with Database connection.
- * @author Simon
+ * @author Mango
  * @version 1
  */
 
@@ -27,7 +27,7 @@ public class AdminModelImp implements AdminModel
 
   /**
    * Receiving a list of all employee-users waiting to be accepted
-   * @return ArrayList of Users received from Databaseconn
+   * @return ArrayList of Users received from DatabaseConn
    */
 
   @Override public ArrayList<User> requestPendingEmployees() throws SQLException
@@ -55,18 +55,38 @@ public class AdminModelImp implements AdminModel
     databaseConn.handlePendingEmployee(user.getUsername(),false);
   }
 
+
+  /**
+   * The method is used to send a username to the DatabaseConn so the employee
+   * with that username can be removed from the system
+   * @param username employee that has to be deleted
+   */
   @Override public void removeEmployee(String username) throws SQLException {
     databaseConn.removeEmployee(username);
   }
 
+  /**
+   * The method connects to the DatabaseConn to get a list of all employee
+   * accounts that have been accepted
+   * @return list of accepted employees
+   */
   @Override public ArrayList<User> requestAcceptedEmployees() throws SQLException {
     return databaseConn.getAcceptedEmployees();
   }
 
+  /**
+   * The method connects to DatabaseConn to set the opening hours of the canteen
+   * @param openingHours the hours to be set as working
+   */
   @Override public void setOpeningHours(ArrayList<LocalTime> openingHours) throws SQLException {
     databaseConn.setOpeningHours(openingHours.get(0), openingHours.get(1));
   }
 
+  /**
+   * The method connects to DatabaseConn to get an ArrayList containing the
+   * opening and closing time of the canteen
+   * @return an ArrayList with the opening and closing time of the canteen
+   */
   @Override public ArrayList<LocalTime> requestOpeningHours() throws SQLException {
     return databaseConn.getOpeningHours();
   }

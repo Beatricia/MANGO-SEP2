@@ -49,10 +49,5 @@ public interface CartModel
   void placeOrder(String username) throws SQLException;
 
 
-  /**
-   * Starts a Thread which is asleep during the opening hours. Once the canteen
-   * is closed the thread empties the customers' shopping cart.
-   * @throws SQLException
-   */
-  void setClosingTimer() throws SQLException;
+
 }

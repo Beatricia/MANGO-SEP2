@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Class responsible for connecting the networking part of the Server with Database connection and sending Order Items into the Database.
+ * @author Mango
  */
 public class OrderModelImpl implements OrderModel
 {
@@ -65,74 +66,6 @@ public class OrderModelImpl implements OrderModel
     return databaseConn.getAllUncollectedOrders();
   }
 
-  /**
-   * Starts a Thread which is asleep during the opening hours. Once the canteen
-   * is closed the thread marks all orders as collected and removes them from
-   * the MyOrder view in the customer
-   * @throws SQLException
-   */
-  @Override public void setClosingTimer() throws SQLException
-  {
-    ArrayList<LocalTime> time = databaseConn.getOpeningHours();
-   // LocalTime opening = time.get(0);
-    LocalTime closing = time.get(1);
-
-
-    //have to get All uncollected orders and mark them as collected
-    Runnable runnable = () -> {
-      try
-      {
-       if(closing.isBefore(LocalTime.now()))
-       {
-         waitTime = (1000*60*60*24) - (toMilliSeconds(LocalTime.now()) - toMilliSeconds(closing));
-          Thread.sleep(waitTime);
-        }
-        else
-       {
-         waitTime = toMilliSeconds(closing) - toMilliSeconds(LocalTime.now());
-         Thread.sleep(waitTime);
-       }
-          ArrayList<ArrayList<OrderItem>> orders = databaseConn.getAllUncollectedOrders();
-
-        try
-        {
-          for (ArrayList<OrderItem> order : orders)
-          {
-            //because all the orderItems in the list have the same code
-            databaseConn.collectOrder(order.get(0).getCode());
-          }
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-      }
-      catch (InterruptedException | SQLException e)
-      {
-        e.printStackTrace();
-      }
-      try
-      {
-        setClosingTimer();
-      }
-      catch (SQLException e)
-      {
-        e.printStackTrace();
-      }
-    };
-
-    timeThread = new Thread(runnable);
-    timeThread.start();
-
-  }
-
-  private long toMilliSeconds(LocalTime time)
-  {
-    long hoursToMin = (time.getHour()*60);
-    long minToSec = ((hoursToMin + time.getMinute()) *60);
-
-    return (minToSec * 1000);
-  }
 
 
 }

@@ -213,5 +213,7 @@ public interface DatabaseConn
   ArrayList<LocalTime> getOpeningHours() throws SQLException;
 
 
+  void emptyAllCarts();
+
   //endregion
 }

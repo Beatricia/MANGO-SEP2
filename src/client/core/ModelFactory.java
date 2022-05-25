@@ -1,6 +1,8 @@
 package client.core;
 
 import client.model.*;
+import server.model.ClosingRoutineModel;
+import server.model.ClosingRoutineModelImpl;
 import shared.Log;
 
 //TODO javadocs
@@ -78,4 +80,6 @@ public class ModelFactory
     }
     return customerOrderModel;
   }
+
+
 }

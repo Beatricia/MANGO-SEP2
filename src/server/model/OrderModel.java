@@ -39,11 +39,5 @@ public interface OrderModel
    */
   ArrayList<ArrayList<OrderItem>> requestAllUncollectedOrder() throws SQLException;
 
-  /**
-   * Starts a Thread which is asleep during the opening hours. Once the canteen
-   * is closed the thread marks all orders as collected and removes them from
-   * the MyOrder view in the customer
-   * @throws SQLException
-   */
-  void setClosingTimer() throws SQLException;
+
 }
