@@ -94,18 +94,10 @@ public class CartModelImpl implements CartModel{
     @Override public boolean isItemInShoppingCart(String itemName){
 
         requestCartList();
-
-        //Idk about this ask?
-        try
-        {
-            Thread.sleep(500);
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
         Log.log("CartModelImp: Checks if item is in cart.");
         boolean isIn = false;
+
+        //somehow wait here
 
         if (itemsInShoppingCart != null){
             for (CartItem item:itemsInShoppingCart
