@@ -36,13 +36,13 @@ public class ShoppingCartController implements TabController {
     public ScrollPane ingredientsScrollPane;
     public VBox ingredientsVBox;
     public Pane detailsPane;
+    public Label goToOrderLabel;
     private String lastSelectedItem;
 
     private ShoppingCartViewModel viewModel;
 
     /**
      * Initializes the controller
-     * @param viewHandler instance of ViewHandler class, which is responsible for managing the GUI views
      * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
      */
     @Override
@@ -66,6 +66,7 @@ public class ShoppingCartController implements TabController {
             selectedItemChange(newSelection);// the new cart item selected
         });
 
+        goToOrderLabel.setText("");
     }
 
     private void listChange(Observable observable) {
@@ -136,9 +137,9 @@ public class ShoppingCartController implements TabController {
         Log.log("Order button has been clicked");
         onSaveButton();
         viewModel.placeOrder();
-        JOptionPane.showMessageDialog(null,"Your order can be seen in the MyOrder tab with it's code");
+
+        goToOrderLabel.setText("Your order can be seen in the MyOrder tab with it's code");
         refresh();
-        System.out.println("FUCKKKKKKKKKKKKKKKKKKKKKK");
     }
 
     /**
