@@ -300,6 +300,12 @@ public class DatabaseConnImp implements DatabaseConn
     orderDatabaseConn.collectOrder(orderCode);
   }
 
+  /**
+   * Calling the setOpeningHours method in adminDataBaseConnection
+   * @param from LocalTime object which stores the opening time of the canteen
+   * @param to LocalTime object which stores the closing time of the canteen
+   * @throws SQLException when the table does not exist
+   */
   @Override public void setOpeningHours(LocalTime from, LocalTime to)
       throws SQLException
   {
@@ -307,6 +313,11 @@ public class DatabaseConnImp implements DatabaseConn
     adminDataBaseConnection.setOpeningHours(from, to);
   }
 
+  /**
+   * Calling the getOpeningHours method in adminDataBaseConnection
+   * @return an arrayList of LocalTime objects representing opening and closing time of the canteen
+   * @throws SQLException when the table does not exist
+   */
   @Override public ArrayList<LocalTime> getOpeningHours() throws SQLException
   {
     Log.log("DatabaseConnImp: calls getOpeningHours in adminDatabaseConnection");

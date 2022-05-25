@@ -2,6 +2,7 @@ package client.model;
 
 import client.networking.Client;
 import javafx.collections.ObservableList;
+import shared.Log;
 import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.Request;
@@ -19,7 +20,7 @@ public class CartModelImpl implements CartModel{
     private Client client;
     private final PropertyChangeSupport support;
 
-    private static List<CartItem> itemsInShoppingCart;
+    private List<CartItem> itemsInShoppingCart;
 
     public CartModelImpl(Client client){
         support = new PropertyChangeSupport(this);
@@ -86,13 +87,17 @@ public class CartModelImpl implements CartModel{
     }
 
     /**
-     * Checks is item sent through argument is in the customer's cart
+     * Updates the cart and checks if item sent through argument is in the customer's cart
      * @param itemName name of the item to check
      * @return true if item is in the cart, else false
      */
-    public static boolean isItemInShoppingCart(String itemName){
+    @Override public boolean isItemInShoppingCart(String itemName){
 
+        requestCartList();
+        Log.log("CartModelImp: Checks if item is in cart.");
         boolean isIn = false;
+
+        //somehow wait here
 
         if (itemsInShoppingCart != null){
             for (CartItem item:itemsInShoppingCart
