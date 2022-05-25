@@ -55,23 +55,19 @@ public class AdminModelImp implements AdminModel
     databaseConn.handlePendingEmployee(user.getUsername(),false);
   }
 
-  @Override public void removeEmployee(String username)
-  {
+  @Override public void removeEmployee(String username) throws SQLException {
     databaseConn.removeEmployee(username);
   }
 
-  @Override public ArrayList<User> requestAcceptedEmployees()
-  {
+  @Override public ArrayList<User> requestAcceptedEmployees() throws SQLException {
     return databaseConn.getAcceptedEmployees();
   }
 
-  @Override public void setOpeningHours(ArrayList<LocalTime> openingHours)
-  {
+  @Override public void setOpeningHours(ArrayList<LocalTime> openingHours) throws SQLException {
     databaseConn.setOpeningHours(openingHours.get(0), openingHours.get(1));
   }
 
-  @Override public ArrayList<LocalTime> requestOpeningHours()
-  {
+  @Override public ArrayList<LocalTime> requestOpeningHours() throws SQLException {
     return databaseConn.getOpeningHours();
   }
 }

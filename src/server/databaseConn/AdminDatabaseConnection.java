@@ -102,5 +102,39 @@ public class AdminDatabaseConnection {
         }
         return openingHours;
     }
+
+    public void removeEmployee(String username) throws SQLException {
+        try(Connection connection = DatabaseConnImp.getConnection()) {
+            String sql = "DELETE\n" +
+                    "FROM employee\n" +
+                    "WHERE username = '" + username + "';";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.executeQuery();
+        }
+    }
+
+    public ArrayList<User> getAllAcceptedEmployees() throws SQLException{
+        ArrayList<User> acceptedEmployees = new ArrayList<>();
+        try(Connection connection = DatabaseConnImp.getConnection()) {
+
+            String sql = "SELECT username, firstName, lastName\n" +
+                    "    FROM employee\n" +
+                    "        WHERE employee.accepted = true;";
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+                String userName = resultSet.getString("username");
+                String firstName = resultSet.getString("firstname");
+                String lastName = resultSet.getString("lastname");
+
+                User user = new User(userName, UserType.EMPLOYEE, firstName, lastName);
+                acceptedEmployees.add(user);
+            }
+        }
+        return acceptedEmployees;
+    }
 }
 

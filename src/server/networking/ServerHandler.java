@@ -38,7 +38,7 @@ public class ServerHandler implements Runnable
   private MenuModel menuModel;
   private AdminModel adminModel;
   private CartModel cartModel;
-  private OrderModelCustomer orderModel;
+  private OrderModel orderModel;
 
   /**
    * Constructs the ServerHandler object, sets up the base streams.
@@ -48,7 +48,7 @@ public class ServerHandler implements Runnable
    */
   public ServerHandler(Socket clientSocket, UserModel userModel,
       MenuModel menuModel, AdminModel adminModel, CartModel cartModel,
-      OrderModelCustomer orderModel)
+      OrderModel orderModel)
   {
     try
     {
@@ -290,7 +290,7 @@ public class ServerHandler implements Runnable
         .equals(Request.CUSTOMER_UNCOLLECTED_ORDER_REQUEST))
     {
       Log.log("ServerHandler received CART_LIST_REQUEST");
-      ArrayList<OrderItem> uncollectedOrder = orderModel.getUncollectedOrder(
+     ArrayList<OrderItem> uncollectedOrder = orderModel.getUncollectedOrder(
           (String) request.getObject());
       request.setObject(uncollectedOrder);
       sendObject(request);
@@ -298,7 +298,7 @@ public class ServerHandler implements Runnable
     else if (request.getRequestName().equals(Request.CANCEL_ORDER))
     {
       Log.log("ServerHandler received CANCEL_ORDER");
-      orderModel.cancelOrder((String) request.getObject());
+     // orderModel.cancelOrder((String) request.getObject());
     }
     else if (request.getRequestName().equals(Request.PLACE_ORDER))
     {
@@ -377,10 +377,7 @@ public class ServerHandler implements Runnable
    */
   public void closeClient(Exception e)
   {
-
     e.printStackTrace();
-    // todo fire "Closing" event here for the connection pool (later)
-    //      so the pool can remove it form the list when the connection is closed
 
     // Close streams
     closeObject(toClient);

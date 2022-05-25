@@ -52,6 +52,10 @@ public interface DatabaseConn
   void handlePendingEmployee(String userName, boolean accept) throws SQLException;
 
   ArrayList<User> getAllPendingEmployees() throws SQLException;
+
+  void removeEmployee(String username) throws SQLException;
+
+  ArrayList<User> getAcceptedEmployees() throws SQLException;
   //endregion
 
   //region MENU
@@ -200,9 +204,6 @@ public interface DatabaseConn
    */
   void collectOrder(int orderCode) throws SQLException;
 
-
-  ArrayList<LocalTime> getOpeningHours();
-
   //endregion
 
   //region SET OPENING HOURS
@@ -211,6 +212,6 @@ public interface DatabaseConn
 
   ArrayList<LocalTime> getOpeningHours() throws SQLException;
 
-  //endregion
 
+  //endregion
 }
