@@ -319,17 +319,20 @@ public class ServerHandler implements Runnable
     }
     else if (request.getRequestName().equals(Request.ALL_ACCEPTED_EMPLOYEES_REQUEST))
     {
+      Log.log("ServerHandler received ALL_ACCEPTED_EMPLOYEES_REQUEST");
       ArrayList<User> acceptedEmployees = adminModel.requestAcceptedEmployees();
       request.setObject(acceptedEmployees);
       sendObject(request);
     }
     else if (request.getRequestName().equals(Request.REMOVE_EMPLOYEE_REQUEST))
     {
+      Log.log("ServerHandler received REMOVE_EMPLOYEE_REQUEST");
       String username = (String) request.getObject();
       adminModel.removeEmployee(username);
     }
     else if (request.getRequestName().equals(Request.SET_OPENING_HOURS_REQUEST))
     {
+      Log.log("ServerHandler received SET_OPENING_HOURS_REQUEST");
       ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) request.getObject();
       adminModel.setOpeningHours(openingHours);
     }

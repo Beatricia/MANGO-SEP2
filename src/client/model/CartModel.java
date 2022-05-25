@@ -15,4 +15,10 @@ public interface CartModel extends PropertyChangeSubject
   void deleteCartItem(CartItem cartItem);
   void requestCartList();
   void placeOrder();
+  /**
+   * Updates the cart and checks if item sent through argument is in the customer's cart
+   * @param itemName name of the item to check
+   * @return true if item is in the cart, else false
+   */
+  boolean isItemInShoppingCart(String itemName);
 }

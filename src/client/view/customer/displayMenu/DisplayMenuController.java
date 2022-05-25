@@ -3,6 +3,7 @@ package client.view.customer.displayMenu;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.model.CartModelImpl;
+import client.model.MenuModel;
 import client.model.OrderModelCustomerImp;
 import client.view.TabController;
 import client.view.ViewController;
@@ -32,6 +33,7 @@ import transferobjects.MenuItemWithQuantity;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -59,6 +61,9 @@ public class DisplayMenuController implements TabController
     viewModel = viewModelFactory.getDisplayMenuViewModel();
     //viewModel = new TestViewModel();
     viewModel.menuItemWithQuantitiesList().addListener(this::menuItemListChangeListener);
+
+    viewModel.addListener(MenuModel.OPENING_HOURS_RECEIVED, this::canteenStateChanged);
+
 
     LocalDate localDate = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
@@ -90,6 +95,24 @@ public class DisplayMenuController implements TabController
         menuItemsVBox.getChildren().clear();
       }
     });
+  }
+
+  /**
+   * Listener for DisplayMenuViewModel. If change called OPENING_HOURS_RECEIVED is received it disables the daily menu vBox if canteen is closed
+   * or it enables the vBox if the canteen is open
+   * @param propertyChangeEvent Change in the opening state of the canteen
+   */
+  private void canteenStateChanged(PropertyChangeEvent propertyChangeEvent){
+    boolean canteenClosed = (boolean) propertyChangeEvent.getNewValue();
+
+    if (canteenClosed){
+      menuItemsVBox.setDisable(true);
+      System.out.println("VBOX disabled");
+    }
+    else {
+      menuItemsVBox.setDisable(false);
+      System.out.println("VBOX enabled");
+    }
   }
 
   /**
@@ -208,8 +231,10 @@ public class DisplayMenuController implements TabController
       getChildren().add(priceLabel);
     }};
 
+    //TODO ADD BUTTON
     Button addMenuItemToCart = new Button(){{
-      if (CartModelImpl.isItemInShoppingCart(itemName)){
+      Log.log("DisplayMenuController: Checks if item is in cart.");
+      if (viewModel.isItemInShoppingCart(itemName)){
         setDisable(true);
         setText("Added");
       }

@@ -68,6 +68,12 @@ public class AdminDatabaseConnection {
         }
     }
 
+    /**
+     * Setting both opening and closing time of the canteen in the Database
+     * @param from LocalTime object which stores the opening time of the canteen
+     * @param to LocalTime object which stores the closing time of the canteen
+     * @throws SQLException when the table does not exist
+     */
     public void setOpeningHours(LocalTime from, LocalTime to)
         throws SQLException
     {
@@ -80,6 +86,11 @@ public class AdminDatabaseConnection {
         }
     }
 
+    /**
+     * Getting the opening hours of canteen from the Database
+     * @return an arrayList of LocalTime objects representing opening and closing time of the canteen
+     * @throws SQLException when the table does not exist
+     */
     public ArrayList<LocalTime> getOpeningHours() throws SQLException
     {
         ArrayList<LocalTime> openingHours = new ArrayList<>();

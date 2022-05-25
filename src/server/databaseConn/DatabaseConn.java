@@ -208,8 +208,19 @@ public interface DatabaseConn
 
   //region SET OPENING HOURS
 
+  /**
+   * Calling the setOpeningHours method in adminDataBaseConnection
+   * @param from LocalTime object which stores the opening time of the canteen
+   * @param to LocalTime object which stores the closing time of the canteen
+   * @throws SQLException when the table does not exist
+   */
   void setOpeningHours(LocalTime from, LocalTime to) throws SQLException;
 
+  /**
+   * Calling the getOpeningHours method in adminDataBaseConnection
+   * @return an arrayList of LocalTime objects representing opening and closing time of the canteen
+   * @throws SQLException when the table does not exist
+   */
   ArrayList<LocalTime> getOpeningHours() throws SQLException;
 
 
