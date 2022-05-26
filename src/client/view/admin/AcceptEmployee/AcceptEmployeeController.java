@@ -1,9 +1,7 @@
 package client.view.admin.AcceptEmployee;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
 
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;

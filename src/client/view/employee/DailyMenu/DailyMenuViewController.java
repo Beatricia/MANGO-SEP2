@@ -1,9 +1,7 @@
 package client.view.employee.DailyMenu;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
 import javafx.beans.Observable;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;

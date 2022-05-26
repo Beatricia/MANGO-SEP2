@@ -1,6 +1,5 @@
 package client.view.admin.manageCanteen;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
 import javafx.event.ActionEvent;
@@ -8,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import transferobjects.User;
 
-import javax.swing.*;
 import java.time.LocalTime;
 
 public class ManageCanteenController implements TabController {
