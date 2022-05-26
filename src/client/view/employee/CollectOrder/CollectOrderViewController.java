@@ -108,6 +108,7 @@ public class CollectOrderViewController implements TabController
   {
     ArrayList<OrderItem> orderItems = ordersTable.getSelectionModel().selectedItemProperty().get();
     viewModel.cancelOrder(orderItems.get(0).getCode());
+    refresh();
 
   }
 }
