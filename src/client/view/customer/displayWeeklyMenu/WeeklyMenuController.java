@@ -3,11 +3,13 @@ package client.view.customer.displayWeeklyMenu;
 import client.core.ViewModelFactory;
 import client.view.TabController;
 
-import client.view.ViewHelpers.NoSelectionModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
+import javafx.scene.control.MultipleSelectionModel;
 import transferobjects.MenuItemWithQuantity;
 
 import java.util.Arrays;
@@ -51,8 +53,7 @@ public class WeeklyMenuController implements TabController
     List<ListView<MenuItemWithQuantity>> menuLists =
         Arrays.asList(mondayList, tuesdayList, wednesdayList, thursdayList, fridayList);
 
-    NoSelectionModel<MenuItemWithQuantity> selectionModel =
-        new NoSelectionModel<>();
+    NoSelectionModel<MenuItemWithQuantity> selectionModel = new NoSelectionModel<>();
 
     for (ListView<MenuItemWithQuantity> menuList : menuLists){
       menuList.setSelectionModel(selectionModel);
@@ -67,5 +68,31 @@ public class WeeklyMenuController implements TabController
 
   @Override public void refresh() {
     viewModel.refresh();
+  }
+
+
+
+
+  /**
+   * SelectionModel without selection
+   * @param <T> type of the selectable item
+   */
+  public static class NoSelectionModel<T> extends MultipleSelectionModel<T>
+  {
+    @Override public ObservableList<Integer> getSelectedIndices() {return FXCollections.observableArrayList();}
+    @Override public ObservableList<T> getSelectedItems() {return FXCollections.observableArrayList();}
+    @Override public void selectIndices(int i, int... ints) {}
+    @Override public void selectAll() {}
+    @Override public void selectFirst() {}
+    @Override public void selectLast() {}
+    @Override public void clearAndSelect(int i) {}
+    @Override public void select(int i) {}
+    @Override public void select(Object o) {}
+    @Override public void clearSelection(int i) {}
+    @Override public void clearSelection() {}
+    @Override public boolean isSelected(int i) {return false;}
+    @Override public boolean isEmpty() {return true;}
+    @Override public void selectPrevious() {}
+    @Override public void selectNext() {}
   }
 }
