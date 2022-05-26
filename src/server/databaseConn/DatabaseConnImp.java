@@ -324,6 +324,11 @@ public class DatabaseConnImp implements DatabaseConn
     return adminDataBaseConnection.getOpeningHours();
   }
 
+  @Override public void emptyAllCarts()
+  {
+
+  }
+
   @Override
   public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException
   {

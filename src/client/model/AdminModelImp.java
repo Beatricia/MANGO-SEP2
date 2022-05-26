@@ -35,10 +35,8 @@ public class AdminModelImp implements AdminModel
     this.client = client;
     client.addListener(Client.PENDING_EMPLOYEES_RECEIVED,
         this::updatePendingEmployees);
-     client.addListener(Client.ACCEPTED_EMPLOYEES_RECEIVED,
-         this::sendAcceptedEmployees);
-
-     client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
+    client.addListener(Client.ACCEPTED_EMPLOYEES_RECEIVED, this::sendAcceptedEmployees);
+    client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
   }
 
   private void sendOpeningHours(PropertyChangeEvent event)

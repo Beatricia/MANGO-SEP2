@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import shared.Log;
 import transferobjects.OrderItem;
 
 import java.beans.PropertyChangeEvent;
@@ -26,6 +27,8 @@ public class CollectOrderViewModel
    */
   public CollectOrderViewModel(OrderModelCustomer orderModelCustomer)
   {
+    Log.log("CollectOrderViewModel: Oder marked as collected");
+
     this.orderModel = orderModelCustomer;
     uncollectedOrders = FXCollections.observableArrayList();
 
@@ -41,6 +44,7 @@ public class CollectOrderViewModel
    */
   private void ordersReceived(PropertyChangeEvent event)
   {
+    Log.log("CollectOrderViewModel: All uncollected orders received");
 
     ArrayList<ArrayList<OrderItem>> orders = (ArrayList<ArrayList<OrderItem>>) event.getNewValue();
 
@@ -63,9 +67,9 @@ public class CollectOrderViewModel
   /**
    * The method request all uncollected orders from the OrderModel
    */
-  public void requestUncollectedOrders()
+  public void requestAllUncollectedOrders()
   {
-    orderModel.requestUncollectedOrder();
+    orderModel.requestAllUncollectedOrders();
   }
 
   /**

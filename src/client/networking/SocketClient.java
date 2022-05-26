@@ -187,4 +187,9 @@ public class SocketClient implements Client{
     {
         support.firePropertyChange(OPENING_HOURS_RECEIVED,null,request.getObject());
     }
+
+    public void allUncollectedOrdersReceived(Request request){
+        Log.log("SocketClient fires an ALL_UNCOLLECTED_ORDERS_RECEIVED event");
+        support.firePropertyChange(ALL_UNCOLLECTED_ORDERS_RECEIVED, null, request.getObject());
+    }
 }

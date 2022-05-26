@@ -43,10 +43,12 @@ public class MenuItemsController implements TabController
     this.viewModel = viewModelFactory.getMenuItemsViewModel();
 
     list.setItems(viewModel.getMenuItems());
-    list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
     list.addEventFilter(MouseEvent.MOUSE_PRESSED, this::multipleSelection);
     list.getSelectionModel().getSelectedItems().addListener(this::listenList);
+
+    removeButton.setDisable(true);
   }
 
   /**
@@ -60,8 +62,11 @@ public class MenuItemsController implements TabController
     {
       removeButton.setDisable(false);
     }
+    else {
+      removeButton.setDisable(true);
+    }
 
-    removeButton.setDisable(true);
+
   }
 
   /**
@@ -84,6 +89,7 @@ public class MenuItemsController implements TabController
   public void onRemove(ActionEvent actionEvent)
   {
     viewModel.removeMenuItem(list.getSelectionModel().getSelectedItems());
+    refresh();
   }
 
 

@@ -40,6 +40,7 @@ public class OrderModelCustomerImp implements OrderModelCustomer
 
   private void allUncollectedOrders(PropertyChangeEvent event)
   {
+    Log.log("OrderModelCustomerImp: All uncollected orders received");
     support.firePropertyChange(ALL_UNCOLLECTED_ORDERS_RECEIVED, null,event.getNewValue());
   }
 

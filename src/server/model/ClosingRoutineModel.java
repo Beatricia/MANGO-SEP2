@@ -16,5 +16,5 @@ public interface ClosingRoutineModel
    * collected, and removes them from the MyOrder view in the customer
    * @throws SQLException
    */
-  void setClosingTimer() throws SQLException;
+  void setClosingTimer();
 }

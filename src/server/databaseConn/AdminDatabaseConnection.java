@@ -120,7 +120,7 @@ public class AdminDatabaseConnection {
                     "FROM employee\n" +
                     "WHERE username = '" + username + "';";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.executeQuery();
+            statement.execute();
         }
     }
 

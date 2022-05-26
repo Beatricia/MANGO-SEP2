@@ -32,6 +32,10 @@ public class SocketServer
       AdminModel adminModel = new AdminModelImp(databaseConn);
       CartModel cartModel = new CartModelImpl(databaseConn);
       OrderModel orderModel = new OrderModelImpl(databaseConn);
+      ClosingRoutineModel closingRoutineModel = new ClosingRoutineModelImpl(databaseConn);
+
+
+      closingRoutineModel.setClosingTimer();
 
       while(true){
 
@@ -39,7 +43,7 @@ public class SocketServer
         Socket clientSocket = serverSocket.accept();
         Log.log("SocketServer accepts a new socket");
         // Init server socket handler
-        ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel, cartModel, orderModel);
+        ServerHandler handler = new ServerHandler(clientSocket, userModel, menuModel, adminModel, cartModel, orderModel, closingRoutineModel);
         // put the handler on a different thread
         Thread handlerThread = new Thread(handler);
         Log.log("SocketServer puts handler into another thread");

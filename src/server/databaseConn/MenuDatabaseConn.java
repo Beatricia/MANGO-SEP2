@@ -210,7 +210,7 @@ class MenuDatabaseConn
             throws SQLException {
     try(Connection connection = DatabaseConnImp.getConnection()){
 
-      String menuItemsArray = "'{";
+      String menuItemsArray = "{";
       for (int i = 0; i < menuItems.size(); i++) {
         if(i==0){
           menuItemsArray += menuItems.get(i).getName();
@@ -219,7 +219,7 @@ class MenuDatabaseConn
           menuItemsArray += "," + menuItems.get(i).getName();
         }
       }
-      menuItemsArray+="}'";
+      menuItemsArray+="}";
 
       String sql = "SELECT deleteMenuItem('" + menuItemsArray + "'::varchar[]);";
 
@@ -227,7 +227,14 @@ class MenuDatabaseConn
 
       statement.executeQuery();
 
+
+
       Log.log("MenuDataBaseConn delete menu items" + " from database");
+    }
+    catch (SQLException e){
+      String errorMessage = "Item cannot be deleted because it was previously used";
+
+      throw new SQLException(errorMessage);
     }
     }
 }

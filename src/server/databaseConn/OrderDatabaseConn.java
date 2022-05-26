@@ -3,10 +3,9 @@ package server.databaseConn;
 import shared.Log;
 import transferobjects.OrderItem;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.Serializable;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
  * @author Simon
  * @version 1.0
  */
-public class OrderDatabaseConn
+public class OrderDatabaseConn implements Serializable
 {
 
   /**
@@ -67,9 +66,10 @@ public class OrderDatabaseConn
 
       // 3: creating a new order (this throws an exception if the customer already has an uncollected
       //    order (due to the oneOrderPerCustomer trigger)
-      String createNewOrderSql = "INSERT INTO \"order\"(username) VALUES (?);";
+      String createNewOrderSql = "INSERT INTO \"order\"(username, date) VALUES (?, ?);";
       statement = conn.prepareStatement(createNewOrderSql);
       statement.setString(1, username);
+      statement.setDate(2, Date.valueOf(LocalDate.now()));
       try{
         statement.execute();
       } catch (SQLException e) {

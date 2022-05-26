@@ -26,7 +26,7 @@ public class ManageCanteenController implements TabController {
     {
         viewModel = viewModelFactory.getManageCanteenController();
 
-        employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         employeeUsernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         employeesTableView.setItems(viewModel.getAcceptedEmployee());
 
@@ -40,7 +40,7 @@ public class ManageCanteenController implements TabController {
 
     @Override
     public void refresh() {
-
+        viewModel.requestAcceptedEmployees();
     }
 
 

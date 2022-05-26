@@ -101,7 +101,7 @@ public class CollectOrderViewController implements TabController
    */
   @Override public void refresh()
   {
-    viewModel.requestUncollectedOrders();
+    viewModel.requestAllUncollectedOrders();
   }
 
   /**

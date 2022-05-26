@@ -52,6 +52,10 @@ public class ManageCanteenViewModel {
         adminModel.removeEmployee(username);
     }
 
+    public void requestAcceptedEmployees(){
+        adminModel.requestAcceptedEmployees();
+    }
+
     public ObservableList<User> getAcceptedEmployee(){
         return acceptedEmployees;
     }

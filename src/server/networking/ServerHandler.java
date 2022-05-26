@@ -40,6 +40,7 @@ public class ServerHandler implements Runnable
   private AdminModel adminModel;
   private CartModel cartModel;
   private OrderModel orderModel;
+  private ClosingRoutineModel closingRoutineModel;
 
   /**
    * Constructs the ServerHandler object, sets up the base streams.
@@ -49,7 +50,7 @@ public class ServerHandler implements Runnable
    */
   public ServerHandler(Socket clientSocket, UserModel userModel,
       MenuModel menuModel, AdminModel adminModel, CartModel cartModel,
-      OrderModel orderModel)
+      OrderModel orderModel, ClosingRoutineModel closingRoutineModel)
   {
     try
     {
@@ -65,6 +66,7 @@ public class ServerHandler implements Runnable
       this.adminModel = adminModel;
       this.cartModel = cartModel;
       this.orderModel = orderModel;
+      this.closingRoutineModel = closingRoutineModel;
 
     }
     catch (IOException e)
@@ -86,6 +88,7 @@ public class ServerHandler implements Runnable
     {
       Log.log("ServerHandler Object sent: " + o);
       // Send the object here
+      toClient.reset();
       toClient.writeObject(o);
     }
     catch (IOException | NullPointerException e)
@@ -336,11 +339,20 @@ public class ServerHandler implements Runnable
       Log.log("ServerHandler received SET_OPENING_HOURS_REQUEST");
       ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) request.getObject();
       adminModel.setOpeningHours(openingHours);
+
+      closingRoutineModel.setClosingTimer();
     }
     else if (request.getRequestName().equals(Request.OPENING_HOURS_REQUEST))
     {
       ArrayList<LocalTime> openingHours =  adminModel.requestOpeningHours();
       request.setObject(openingHours);
+      sendObject(request);
+    }
+    else if (request.getRequestName().equals(Request.ALL_UNCOLLECTED_ORDERS_REQUEST)){
+      Log.log("ServeHandler: ALL_UNCOLLECTED_ORDERS_REQUEST received");
+
+      ArrayList<ArrayList<OrderItem>> uncollectedOrders = orderModel.requestAllUncollectedOrder();
+      request.setObject(uncollectedOrders);
       sendObject(request);
     }
   }

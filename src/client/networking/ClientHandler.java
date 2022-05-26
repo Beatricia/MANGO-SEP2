@@ -101,11 +101,18 @@ public class ClientHandler implements Runnable
           }
           else if(request.getRequestName().equals(Request.ALL_ACCEPTED_EMPLOYEES_REQUEST))
           {
+            Log.log("ClientHandler ALL_ACCEPTED_EMPLOYEES_REQUEST received from server");
             client.allAcceptedEmployeesReceived(request);
           }
           else if (request.getRequestName().equals(Request.OPENING_HOURS_REQUEST))
           {
+            Log.log("ClientHandler OPENING_HOURS_REQUEST received from server");
             client.openingHoursReceived(request);
+          }
+          else  if (request.getRequestName().equals(Request.ALL_UNCOLLECTED_ORDERS_REQUEST)){
+            Log.log("ClientHandler ALL_UNCOLLECTED_ORDERS_REQUEST received from server");
+
+            client.allUncollectedOrdersReceived(request);
           }
         }
         else if(obj instanceof ImageRequest)
