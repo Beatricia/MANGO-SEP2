@@ -23,7 +23,7 @@ public class EmployeeGUI extends UserStrategy
       "AddDish/MenuEmpl.fxml",         "Add items to the menu",
       "DailyMenu/DailyMenuView.fxml",  "Add to daily menu",
       "AddQuantity/AddQuantityView.fxml", "Add quantity",
-      "WeeklyMenu/WeeklyMenuEmp.fxml", "Weekly Menu",
+      "WeeklyMenu/WeeklyMenuEmp-test.fxml", "Weekly Menu",
       "CollectOrder/CollectOrderView.fxml", "Collect order",
       "MenuItems/MenuItems.fxml", "Menu Items",
   };
