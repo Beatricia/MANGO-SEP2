@@ -16,7 +16,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 
-//TODO javadocs
 
 /**
  * Controller for MyOrderView.fxml

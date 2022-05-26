@@ -3,7 +3,6 @@ package client.view.employee.AddDish;
 import client.core.ViewModelFactory;
 import client.view.TabController;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -17,10 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-//TODO javadocs
 
 /**
  * Class responsible for connecting MenuEmpl.fxml with the MenuEmplViewModel and therefore providing functionality to the GUI.
@@ -38,7 +34,6 @@ public class MenuEmplViewController extends JFrame implements TabController {
 
     public MenuEmplViewModel viewModel;
 
-    private FileChooser fileChooser;
     private File filePath;
     private Image image;
 
@@ -52,11 +47,6 @@ public class MenuEmplViewController extends JFrame implements TabController {
         viewModel = viewModelFactory.getMenuEmplViewModel();
 
         errorLabel.textProperty().bindBidirectional(viewModel.getErrorMessage());
-
-        //setting the default image for the menu item
-        /*image = new Image(String.valueOf(getClass().getResource("defaultImage/default.png")));
-        imageView.setImage(image);*/
-
         refresh();
     }
 
@@ -73,10 +63,9 @@ public class MenuEmplViewController extends JFrame implements TabController {
     }
 
     /**
-     * Adding a new item to the database with it's name, ingredients and price
-     * @param actionEvent from GUI(Button click)
+     * Adding a new item to the database with its name, ingredients and price
      */
-    public void addButton(ActionEvent actionEvent) {
+    public void addButton() {
 
         Log.log("Add dish button has been clicked in the MenuEmpl view");
         try{
@@ -86,23 +75,21 @@ public class MenuEmplViewController extends JFrame implements TabController {
         } catch (NullPointerException e){
             errorLabel.setText("Please select an image!");
         }
-
     }
 
     /**
      * Importing a picture from the PC
-     * @param actionEvent from GUI(Button click)
      */
-    public void selectButton(ActionEvent actionEvent) throws FileNotFoundException {
+    public void selectButton() {
         //create new file chooser
-        fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         //add extension filter, the user can only select png, jpeg
 
         fileChooser.setTitle("Select a picture");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("img","*.PNG","*.JPEG", "*.JPG"));
         this.filePath = fileChooser.showOpenDialog(new Stage());
 
-        //Set to user's directory or go to the default C drive if cannot access
+        //Set to user's directory or go to the default C drive if you cannot access
         String userDirectoryString = System.getProperty("user.home");
         File userDirectory = new File(userDirectoryString);
         if(!userDirectory.canRead()){

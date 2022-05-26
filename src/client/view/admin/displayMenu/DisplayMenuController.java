@@ -28,8 +28,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-//TODO javadocs refresh
-
 /**
  * Controller for DisplayMenuView
  *
@@ -49,7 +47,6 @@ public class DisplayMenuController implements TabController
    */
   @Override public void init(ViewModelFactory viewModelFactory) {
     viewModel = viewModelFactory.getDisplayMenuViewModel();
-    //viewModel = new TestViewModel();
     viewModel.menuItemWithQuantitiesList().addListener(this::menuItemListChangeListener);
 
     LocalDate localDate = LocalDate.now();
@@ -128,6 +125,9 @@ public class DisplayMenuController implements TabController
     lastHBox.getChildren().add(menuItemPane);
   }
 
+  /**
+   * Refreshing the daily menu items
+   */
   @Override public void refresh() {
     viewModel.requestDailyMenuItems();
   }

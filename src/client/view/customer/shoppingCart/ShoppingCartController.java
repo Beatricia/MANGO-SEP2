@@ -12,11 +12,9 @@ import javafx.scene.layout.VBox;
 import shared.Log;
 import transferobjects.CartItem;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO javadocs
 
 /**
  * Controller for ShoppingCartView.fxml
@@ -29,7 +27,7 @@ public class ShoppingCartController implements TabController {
     @FXML public ImageView imageView;
     @FXML public Label nameLabel;
     @FXML public Label priceLabel;
-    @FXML public Spinner quantitySpinner;
+    @FXML public Spinner<Integer> quantitySpinner;
     public TableView<CartItem> cartTable;
     public ScrollPane ingredientsScrollPane;
     public VBox ingredientsVBox;
@@ -99,15 +97,13 @@ public class ShoppingCartController implements TabController {
         //imageView.setImage(img);
         SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8, cartItem.getQuantity());
         this.quantitySpinner.setValueFactory(quantityValueFactory);
-        priceLabel.setText((cartItem.getPrice()*(int)quantitySpinner.getValue())+ " dkk");
+        priceLabel.setText((cartItem.getPrice()*quantitySpinner.getValue())+ " dkk");
+
         //writing every ingredient in the checkbox on the right side
         ingredientsVBox.getChildren().clear();
         for (String ingredient : ingredients) {
             CheckBox checkBox = new CheckBox(ingredient);
-            if (cartItem.getUnselectedIngredients().contains(ingredient)) {
-                checkBox.setSelected(false);
-            } else
-                checkBox.setSelected(true);
+            checkBox.setSelected(!cartItem.getUnselectedIngredients().contains(ingredient));
 
             ingredientsVBox.getChildren().add(checkBox);
         }
@@ -116,12 +112,12 @@ public class ShoppingCartController implements TabController {
     @Override
     public void refresh() {
         viewModel.refresh();
-      //  if(cartTable.getItems().isEmpty()){
-        //    refreshItemDetails();
-        //}
     }
 
-    public void refreshItemDetails(){
+    /**
+     * Refreshing the item details to be empty
+     */
+    private void refreshItemDetails(){
         nameLabel.setText("Name");
         priceLabel.setText("");
         ingredientsVBox.getChildren().clear();
@@ -152,7 +148,7 @@ public class ShoppingCartController implements TabController {
         if(cartItem == null) {
             return;
         }
-        cartItem.setQuantity((Integer) quantitySpinner.getValue());
+        cartItem.setQuantity(quantitySpinner.getValue());
         cartItem.getUnselectedIngredients().clear();
 
         for (int i = 0; i < ingredientsVBox.getChildren().size(); i++) {

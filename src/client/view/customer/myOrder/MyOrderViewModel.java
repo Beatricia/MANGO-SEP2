@@ -10,8 +10,6 @@ import shared.Log;
 import transferobjects.OrderItem;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +43,7 @@ public class MyOrderViewModel
   }
 
   /**
-   * Calling the requestUncolectedOrder on the orderMenu
+   * Calling the requestUncollectedOrder on the orderMenu
    */
   public void refresh()
   {
@@ -55,7 +53,7 @@ public class MyOrderViewModel
 
   /**
    * The method is used to return total price of order items
-   * @return
+   * @return the total price
    */
 
   public StringProperty getTotalPrice()
@@ -66,7 +64,7 @@ public class MyOrderViewModel
 
   /**
    * The method is used to return orderCode
-   * @return
+   * @return the order code
    */
 
   public StringProperty getOrderCode()
@@ -97,9 +95,8 @@ public class MyOrderViewModel
       }
 
       double priceDouble = 0;
-      for (int i = 0; i < orderItemsList.size(); i++)
-      {
-        priceDouble += orderItemsList.get(i).getPrice() * orderItemsList.get(i).getQuantity();
+      for (OrderItem orderItem : orderItemsList) {
+        priceDouble += orderItem.getPrice() * orderItem.getQuantity();
       }
       price.set(priceDouble + " dkk");
     });
@@ -107,7 +104,7 @@ public class MyOrderViewModel
 
   /**
    * Getting the ObservableList of type orderItem
-   * @return
+   * @return list
    */
   public ObservableList<OrderItem> getAllOrderItems()
   {

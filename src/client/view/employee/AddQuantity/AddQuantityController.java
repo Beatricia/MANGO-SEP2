@@ -55,7 +55,6 @@ public class AddQuantityController implements TabController
   @Override public void init(ViewModelFactory viewModelFactory)
   {
     viewModel = viewModelFactory.getAddQuantityViewModel();
-    //viewModel = new TestViewModel();
 
     viewModel.dailyMenuItemsList().addListener(this::menuItemListChangeListener);
 
@@ -76,8 +75,6 @@ public class AddQuantityController implements TabController
    */
   @FXML public void onSet()
   {
-    //TODO have to go through all menu items take what is in the text field
-    // create the menu item objects and send it to the viewModel
     Log.log("Set button has been clicked to set quantity");
     ArrayList<MenuItemWithQuantity> menuItemWithQuantities = new ArrayList<>();
 

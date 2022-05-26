@@ -1,14 +1,9 @@
 package client.view.customer.displayMenu;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
-import client.model.CartModelImpl;
 import client.model.MenuModel;
-import client.model.OrderModelCustomerImp;
 import client.view.TabController;
-import client.view.ViewController;
 
-import client.view.customer.shoppingCart.ShoppingCartController;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.embed.swing.SwingFXUtils;
@@ -59,7 +54,6 @@ public class DisplayMenuController implements TabController
    */
   @Override public void init(ViewModelFactory viewModelFactory) {
     viewModel = viewModelFactory.getDisplayMenuViewModel();
-    //viewModel = new TestViewModel();
     viewModel.menuItemWithQuantitiesList().addListener(this::menuItemListChangeListener);
 
     viewModel.addListener(MenuModel.OPENING_HOURS_RECEIVED, this::canteenStateChanged);
@@ -72,7 +66,7 @@ public class DisplayMenuController implements TabController
   }
 
   /**
-   * Calles the method addMenuItemToCart in viewModel
+   * Calls the method addMenuItemToCart in viewModel
    * @param menuItem instance of MenuItemWithQuantity which is added to cart
    */
   private static void addMenuItemToCart(MenuItemWithQuantity menuItem){

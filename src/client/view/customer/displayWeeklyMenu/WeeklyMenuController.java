@@ -15,8 +15,6 @@ import transferobjects.MenuItemWithQuantity;
 import java.util.Arrays;
 import java.util.List;
 
-//TODO javadocs
-
 /**
  * Controller for the WeeklyMenuView.fxml
  *
@@ -40,7 +38,10 @@ public class WeeklyMenuController implements TabController
   CustomerWeeklyMenuViewModel viewModel;
 
 
-
+  /**
+   * Method that initializes the controller
+   * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
+   */
   @Override public void init(ViewModelFactory viewModelFactory) {
     viewModel = viewModelFactory.getCustomerWeeklyMenuViewModel();
 
@@ -66,6 +67,9 @@ public class WeeklyMenuController implements TabController
     fridayDate.textProperty().bind(viewModel.fridayDateProperty());
   }
 
+  /**
+   * Refreshing the weekly menu
+   */
   @Override public void refresh() {
     viewModel.refresh();
   }

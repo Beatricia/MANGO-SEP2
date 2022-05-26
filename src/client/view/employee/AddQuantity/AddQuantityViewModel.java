@@ -4,14 +4,10 @@ import client.model.MenuModel;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
-import util.PropertyChangeSubject;
 
 import java.beans.PropertyChangeEvent;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +36,7 @@ public class AddQuantityViewModel
   /**
    * Whenever a Daily Menu is received this method adds all the items to an
    * ObservableList<MenuItemWithQuantity> list
-   * @param event the PropertyChangeEvent that occured
+   * @param event the PropertyChangeEvent that occurred
    */
   private void menuReceived(PropertyChangeEvent event)
   {

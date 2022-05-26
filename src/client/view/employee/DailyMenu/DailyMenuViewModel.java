@@ -25,16 +25,19 @@ public class DailyMenuViewModel
 
   /**
    * Constructor for the class
-   * @param menuModel The model that items have to be send to
+   * @param menuModel The model that items have to be sent to
    */
   public DailyMenuViewModel(MenuModel menuModel)
   {
     model = menuModel;
 
     model.addListener(MenuModel.MENU_ITEMS_RECEIVED, this::fillInMenuItems);
-
   }
 
+  /**
+   * When a new propertyChange is fired all the menu items will be filled in
+   * @param event the list of all menu items
+   */
   private void fillInMenuItems(PropertyChangeEvent event)
   {
     Platform.runLater(
@@ -77,7 +80,6 @@ public class DailyMenuViewModel
   /**
    * The method used to call the request for Menu Items from database
    */
-
   public void requestList()
   {
     model.requestMenuItems();

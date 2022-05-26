@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 /**
  * A View Model class, which connects the MenuModel and the MenuEmpl view. This
  * class listens to the Model to get any ErrorMessage objects that have to be
- * displayed in the view. Also this class send the provided in the view
+ * displayed in the view. Also, this class send the provided in the view
  * information about the Items to the model.
  *
  * @author Uafa
@@ -87,7 +87,7 @@ public class MenuEmplViewModel
         menuModel.addItem(name, separateIngredients(ingredients),
             Double.parseDouble(price), imgPath);
       }
-      catch (NumberFormatException e) // idk what about this but it did not catch the letters
+      catch (NumberFormatException e)
       {
         printErrorMessage("Incorrect price format");
       }

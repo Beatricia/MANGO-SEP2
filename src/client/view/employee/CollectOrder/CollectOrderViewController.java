@@ -33,7 +33,7 @@ public class CollectOrderViewController implements TabController
   private CollectOrderViewModel viewModel;
 
   /**
-   * Method that initalizes the controller
+   * Method that initializes the controller
    * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
    */
   @Override public void init(ViewModelFactory viewModelFactory)
@@ -44,20 +44,16 @@ public class CollectOrderViewController implements TabController
     ordersTable.setItems(viewModel.getAllOrders());
     ordersTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-
-
     orderCode.setCellValueFactory(itemList -> {
       ArrayList<OrderItem> orderItems = itemList.getValue();
       return new SimpleObjectProperty<>(orderItems == null ? null: orderItems.get(0).getCode()+"");
     });
 
-
     orderPrice.setCellValueFactory(itemList -> {
       ArrayList<OrderItem> orderItems = itemList.getValue();
       double total = 0;
-      for (int i = 0; i < orderItems.size(); i++)
-      {
-        total += orderItems.get(i).getPrice() * orderItems.get(i).getQuantity();
+      for (OrderItem orderItem : orderItems) {
+        total += orderItem.getPrice() * orderItem.getQuantity();
       }
       return new SimpleObjectProperty<>(total+"");
      });

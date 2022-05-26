@@ -4,7 +4,6 @@ import client.model.AdminModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Log;
-import transferobjects.Request;
 import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;

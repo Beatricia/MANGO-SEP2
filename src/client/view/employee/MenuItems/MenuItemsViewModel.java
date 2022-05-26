@@ -22,7 +22,7 @@ public class MenuItemsViewModel
 
   /**
    * Constructor for the class
-   * @param menuModel The model that items have to be send to
+   * @param menuModel The model that items have to be sent to
    */
 
   public MenuItemsViewModel(MenuModel menuModel)

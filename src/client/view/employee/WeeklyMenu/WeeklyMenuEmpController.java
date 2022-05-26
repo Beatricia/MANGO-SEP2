@@ -16,7 +16,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-//TODO javadocs
+/**
+ * The class is responsible for the functionality of the graphical user
+ * interface that displays the weekly menu for employee
+ */
 
 public class WeeklyMenuEmpController implements TabController
 {
@@ -37,6 +40,10 @@ public class WeeklyMenuEmpController implements TabController
   private ArrayList<ListView<MenuItemWithQuantity>> listViews;
 
 
+  /**
+   * Initial data that has to be loaded.
+   * @param viewModelFactory instance of ViewModelFactory class, where ViewModels are created
+   */
   @Override public void init(ViewModelFactory viewModelFactory)
   {
     viewModel = viewModelFactory.getWeeklyMenuEmpViewModel();
@@ -66,6 +73,9 @@ public class WeeklyMenuEmpController implements TabController
     deleteButton.setDisable(true);
   }
 
+  /**
+   * Enabling the button for deleting items
+   */
   private void enableButton()
   {
     for (ListView<MenuItemWithQuantity> list : listViews)
@@ -81,6 +91,10 @@ public class WeeklyMenuEmpController implements TabController
     Log.log("Button to delete items from daily menu is enabled");
   }
 
+  /**
+   *
+   * @param change
+   */
   private void listenList(ListChangeListener.Change<? extends MenuItem> change)
   {
     change.next();
@@ -92,16 +106,17 @@ public class WeeklyMenuEmpController implements TabController
     viewModel.refresh();
   }
 
-  public void onDelete(ActionEvent actionEvent)
+  /**
+   * When the delete button is pressed a list of menu items with quantity in send tot the viewModel
+   */
+  public void onDelete()
   {
     ArrayList<MenuItemWithQuantity> listToDelete = new ArrayList<>();
 
-
-    for (int i = 0; i < listViews.size(); i++)
-    {
-      ObservableList<MenuItemWithQuantity> items = listViews.get(i).getSelectionModel().getSelectedItems();
+    for (ListView<MenuItemWithQuantity> listView : listViews) {
+      ObservableList<MenuItemWithQuantity> items = listView.getSelectionModel().getSelectedItems();
       listToDelete.addAll(items);
-      listViews.get(i).getItems().removeAll(items);
+      listView.getItems().removeAll(items);
     }
 
     viewModel.deleteItems(listToDelete);
@@ -109,6 +124,10 @@ public class WeeklyMenuEmpController implements TabController
     Log.log("Delete button has been clicked to delete items from weeklyMenu");
   }
 
+  /**
+   *
+   * @param evt
+   */
   private void multipleSelection(MouseEvent evt)
   {
     Node node = evt.getPickResult().getIntersectedNode();
@@ -150,7 +169,6 @@ public class WeeklyMenuEmpController implements TabController
 
   private void enableSelectItems()
   {
-
     LocalDate date = LocalDate.now();
     DayOfWeek dayOfWeek = date.getDayOfWeek();
     int day = dayOfWeek.getValue();

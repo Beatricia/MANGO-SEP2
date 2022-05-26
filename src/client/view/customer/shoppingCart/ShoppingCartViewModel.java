@@ -2,8 +2,6 @@ package client.view.customer.shoppingCart;
 
 import client.model.CartModel;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,7 +10,6 @@ import javafx.collections.ObservableList;
 import transferobjects.CartItem;
 
 import java.beans.PropertyChangeEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,9 +48,8 @@ public class ShoppingCartViewModel {
 
 
             double total = 0;
-            for (int i = 0; i < cartItems.size(); i++)
-            {
-                total += cartItems.get(i).getPrice() * cartItems.get(i).getQuantity();
+            for (CartItem cartItem : cartItems) {
+                total += cartItem.getPrice() * cartItem.getQuantity();
             }
             price.set(total+" dkk");
         });
@@ -63,7 +59,7 @@ public class ShoppingCartViewModel {
 
     /**
      * Getting the ObservableList of type CartItem
-     * @return
+     * @return the cart items
      */
     public ObservableList<CartItem> getAllCartItems(){
         return cartItems;
@@ -101,9 +97,5 @@ public class ShoppingCartViewModel {
 
     public Property<String> getTotalPrice() {
         return price;
-    }
-
-    public Property<String> getItemsPrice(){
-        return itemsPrice;
     }
 }

@@ -2,8 +2,6 @@ package client.view.employee.CollectOrder;
 
 import client.model.OrderModelCustomer;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Log;
@@ -33,7 +31,6 @@ public class CollectOrderViewModel
     uncollectedOrders = FXCollections.observableArrayList();
 
     orderModel.addListener(OrderModelCustomer.ALL_UNCOLLECTED_ORDERS_RECEIVED, this:: ordersReceived);
-
   }
 
   /**
@@ -75,7 +72,7 @@ public class CollectOrderViewModel
   /**
    * The method takes the code of an order and send it to the OrderModel so the
    * order can be canceled.
-   * @param orderCode
+   * @param orderCode the order's code
    */
   public void cancelOrder(int orderCode)
   {

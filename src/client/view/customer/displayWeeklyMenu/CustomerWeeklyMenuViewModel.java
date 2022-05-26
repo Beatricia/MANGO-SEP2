@@ -6,12 +6,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import util.DateHelper;
 
 import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -74,9 +72,6 @@ public class CustomerWeeklyMenuViewModel
   private void weeklyMenuReceived(PropertyChangeEvent propertyChangeEvent) {
     ArrayList<MenuItemWithQuantity> menuItemWithQuantities =
         (ArrayList<MenuItemWithQuantity>) propertyChangeEvent.getNewValue();
-
-
-
     Platform.runLater(() -> {
       setUpDates();
       mondayList.clear();
@@ -85,7 +80,6 @@ public class CustomerWeeklyMenuViewModel
       thursdayList.clear();
       fridayList.clear();
     });
-
 
     Platform.runLater(() -> {
       for (MenuItemWithQuantity item : menuItemWithQuantities){
