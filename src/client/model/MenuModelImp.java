@@ -48,12 +48,21 @@ public class MenuModelImp implements MenuModel
     client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
   }
 
+  /**
+   * The method fires an OPENING_HOURS_RECEIVED with the opening hours of the
+   * canteen
+   * @param event the event received
+   */
   private void sendOpeningHours(PropertyChangeEvent event)
   {
     Log.log("MenuModelImp: OPENING_HOURS_RECEIVED received from server");
     support.firePropertyChange(OPENING_HOURS_RECEIVED, null, event.getNewValue());
   }
 
+  /**
+   * The method fires an WEEKLY_MENU_RECEIVED with a list of the weekly menu
+   * @param event the event received
+   */
   private void sendWeeklyMenu(PropertyChangeEvent event)
   {
     Log.log("MenuModelImp: WEEKLY_MENU_REQUEST received from server");

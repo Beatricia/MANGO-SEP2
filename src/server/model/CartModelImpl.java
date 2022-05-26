@@ -17,8 +17,6 @@ import java.util.ArrayList;
 public class CartModelImpl implements CartModel
 {
   private DatabaseConn databaseConn;
-  private Thread timeThread;
-  private long waitTime = 0;
 
   /**
    * Constructor for the class

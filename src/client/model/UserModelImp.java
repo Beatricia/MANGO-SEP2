@@ -42,6 +42,10 @@ public class UserModelImp implements UserModel
     client.addListener(ERROR_RECEIVED, this::sendError);
   }
 
+  /**
+   * A method used to get the username of the user
+   * @return the username of the user
+   */
   public static String getUsername() {
     return loggedInUser.getUsername();
   }

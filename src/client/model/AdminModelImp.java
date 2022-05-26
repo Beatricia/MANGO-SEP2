@@ -39,15 +39,7 @@ public class AdminModelImp implements AdminModel
     client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
   }
 
-  /**
-   * The method fires an OPENING_HOURS_RECEIVED event to its listeners
-   * @param event the event that occurred in the Client
-   */
-  private void sendOpeningHours(PropertyChangeEvent event)
-  {
-    Log.log("AdminModelImp fires an OPENING_HOURS_RECEIVED to the view model");
-    propertyChangeSupport.firePropertyChange(OPENING_HOURS_RECEIVED, null, event.getNewValue());
-  }
+
 
   /**
    * Method used for creating and sending a Request object to the database
@@ -93,6 +85,15 @@ public class AdminModelImp implements AdminModel
     client.sendRequest(request);
   }
 
+  /**
+   * The method fires an OPENING_HOURS_RECEIVED event to its listeners
+   * @param event the event that occurred in the Client
+   */
+  private void sendOpeningHours(PropertyChangeEvent event)
+  {
+    Log.log("AdminModelImp fires an OPENING_HOURS_RECEIVED to the view model");
+    propertyChangeSupport.firePropertyChange(OPENING_HOURS_RECEIVED, null, event.getNewValue());
+  }
   /**
    * The method sends a OPENING_HOURS_REQUEST request object to the Client
    * to get the opening hours.

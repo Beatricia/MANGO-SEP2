@@ -16,8 +16,7 @@ import java.util.ArrayList;
 public class OrderModelImpl implements OrderModel
 {
   private DatabaseConn databaseConn;
-  private long waitTime = 0;
-  private Thread timeThread;
+
 
   /**
    * Constructor which is assigning database connection
