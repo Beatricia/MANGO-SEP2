@@ -313,4 +313,18 @@ public class CartDatabaseConn
       return Integer.parseInt(cartId);
     }
   }
+
+  public void emptyAllCarts() throws SQLException
+  {
+    String deleteFromCartIngredients = "DELETE FROM cartitemunselectedingredients;";
+    String deleteFromCartItems = "DELETE FROM cartItem;";
+
+    PreparedStatement statement;
+    try(Connection conn = DatabaseConnImp.getConnection()){
+      statement = conn.prepareStatement(deleteFromCartIngredients);
+      statement.execute();
+      statement = conn.prepareStatement(deleteFromCartItems);
+      statement.execute();
+    }
+  }
 }
