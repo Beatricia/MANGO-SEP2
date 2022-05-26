@@ -13,7 +13,6 @@ import java.net.SocketException;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
-//TODO protocol
 
 /**
  * <p>The <code>ServerHandler</code> is having a role of handling a client connection on the server side
@@ -46,7 +45,6 @@ public class ServerHandler implements Runnable
    * Constructs the ServerHandler object, sets up the base streams.
    *
    * @param clientSocket Client Socket to be taken care of.
-   * @param userModel    User model to forward data to.
    */
   public ServerHandler(Socket clientSocket, UserModel userModel,
       MenuModel menuModel, AdminModel adminModel, CartModel cartModel,

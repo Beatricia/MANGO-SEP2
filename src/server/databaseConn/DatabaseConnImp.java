@@ -13,7 +13,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//TODO javadocs
 
 /**
  * A concrete implementation of the {@link DatabaseConn}.
@@ -29,6 +28,11 @@ public class DatabaseConnImp implements DatabaseConn
   private final AdminDatabaseConnection adminDataBaseConnection;
   private final CartDatabaseConn cartDatabaseConn;
   private final OrderDatabaseConn orderDatabaseConn;
+
+  /**
+   * Contractor for a class
+   * initialize all needed subclasses
+   */
 
   public DatabaseConnImp()
   {
@@ -184,6 +188,11 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
+  /**
+   * Add a list of MenuItemWithQuantity to their assigned days.
+   * @param menuItems menu items to be added to the daily menu
+   * @throws SQLException on unexpected exception
+   */
   @Override public void addDailyMenu(
       ArrayList<MenuItemWithQuantity> menuItems) throws SQLException
   {
@@ -198,6 +207,11 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
+  /**
+   * Gets a list of all the menu items registered in the system.
+   * @return the list containing all the menu items.
+   * @throws SQLException if any error happens during setting up the database connection
+   */
   @Override public ArrayList<MenuItem> getListOfMenuItems() throws SQLException
   {
     try
@@ -211,6 +225,12 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
+  /**
+   * Get a list of MenuItemWithQuantity for a specific date
+   * @param date the date to get the menu items from
+   * @return a list containing the MenuItemWithQuantity objects on the specific date
+   * @throws SQLException if any error happens during setting up the database connection
+   */
   @Override public ArrayList<MenuItemWithQuantity> gatDailyMenuItemList(LocalDate date)
       throws SQLException
   {
@@ -218,6 +238,13 @@ public class DatabaseConnImp implements DatabaseConn
     return menuDatabaseConn.getDailyMenuItemList(date);
   }
 
+  /**
+   * Add quantity to a menu item which is enrolled in the daily menu
+   * @param date date on which the menu item is enrolled in.
+   * @param name name of the menu item
+   * @param quantity quantity
+   * @throws SQLException if any error happens during setting up the database connection
+   */
   @Override public void addQuantity(LocalDate date, String name, int quantity)
       throws SQLException
   {
@@ -225,6 +252,12 @@ public class DatabaseConnImp implements DatabaseConn
     menuDatabaseConn.addQuantity(date, name, quantity);
   }
 
+  /**
+   * The method is used to delete menu item from daily menu by given date and name
+   * @param date the daily menu's day
+   * @param name menu item's name
+   * @throws SQLException
+   */
   @Override public void deleteMenuItemFromDailyMenu(LocalDate date, String name)
       throws SQLException
   {
@@ -232,6 +265,14 @@ public class DatabaseConnImp implements DatabaseConn
     menuDatabaseConn.deleteMenuItemFromDailyMenu(date,name);
   }
 
+  /**
+   * The method calls teh private method getCartIdFromUsername to get the cart
+   * id, and inserts the item that has the name given as a parameter into
+   * the cartItem table with the cart id value.
+   * @param cartItemName the name of the item to be added to the cartItem table
+   * @param username  the username of the Client used to get the cart id
+   * @throws SQLException on unexpected exception
+   */
   @Override
   public void addItemToCart(String cartItemName, String username) throws SQLException
   {
@@ -248,6 +289,17 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
+  /**
+   * Called whenever a new quantity value is set for the item in cart or/and
+   * whenever an ingredient is unselected from the view. The method calls the
+   * private getCartIdFromUsername method to get te cart id using the
+   * provided in the cart item username, first edits the quantity, then checks
+   * if there are any unselected ingredients, if yes calls te private method
+   * updateUnselectedIngredientsTable.
+   *
+   * @param cartItem the cart item that has to be edited
+   * @throws SQLException on unexpected exception
+   */
   @Override
   public void editCartItem(CartItem cartItem) throws SQLException
   {
@@ -262,6 +314,13 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
+  /**
+   * The method deletes the specified cart item from the cartItem table
+   * (The table has a TRIGGER which automatically deletes all the unselected
+   * items for this item from the cartUnselectedIngredient table)
+   * @param cartItem  the cart item that should be deleted
+   * @throws SQLException on unexpected exception
+   */
   @Override
   public void removeCartItem(CartItem cartItem) throws SQLException
   {
@@ -269,6 +328,19 @@ public class DatabaseConnImp implements DatabaseConn
     cartDatabaseConn.removeCartItem(cartItem);
   }
 
+  /**
+   * The method first calls the private method getCartIdFromUsername to get
+   * the cart id with the username given as a parameter. Secondly, the itemName
+   * and quantity are selected from the cartItem. Next the price and image path
+   * are extracted from the menuItemTable. Lastly, the getAllIngredients
+   * private method is called to obtain all the ingredients of the menu item,
+   * and with all that information a new CartItem object is created and added
+   * an ArrayList, which is returned (when creating the CartItem object the
+   * unselected ingredients are represented by an empty ArrayList)
+   * @param username user's username to get the cart list
+   * @return an Arraylist with all the CartItem object in the shopping cart
+   * @throws SQLException on unexpected exception
+   */
   @Override
   public ArrayList<CartItem> getCartList(String username) throws SQLException
   {
@@ -276,26 +348,58 @@ public class DatabaseConnImp implements DatabaseConn
     return cartDatabaseConn.getCartList(username);
   }
 
+  /**
+   * Method which is called when an order is placed.
+   * First is gets  all the required data from the cart of customer who placed the order,
+   * then it creates an order and order items with the unselected ingredients.
+   * All of these data are then inserted into the right tables.
+   * Lastly, the method deletes the whole cart.
+   * @param username unique identifier of the customer who makes the order
+   * @throws SQLException on unexpected exception
+   */
   @Override public void placeOrder(String username) throws SQLException
   {
     orderDatabaseConn.placeOrder(username);
   }
 
+  /**
+   * Cancels the whole order of the customer.
+   * This means all the data about the order are deleted.
+   * @param username unique identifier of the customer who makes the order
+   * @throws SQLException on unexpected exception
+   */
   @Override public void cancelOrder(String username) throws SQLException
   {
     orderDatabaseConn.cancelOrder(username);
   }
 
+  /**
+   * Returns all data of the customer's order.
+   * That is name of the ordered items, its ingredients, prices, image paths, quantities, unselected ingredients, username of the customer and code of the order
+   * @param username unique identifier of the customer who makes the order
+   * @throws SQLException on unexpected exception
+   */
   @Override public ArrayList<OrderItem> getUncollectedOrder(String username)
       throws SQLException
   {
     return orderDatabaseConn.getUncollectedOrder(username);
   }
 
+  /**
+   * Gets all the uncollected orders from all the customers and returns a list of each customer's
+   * list of order items.
+   * @return a list of each customer's list of order items.
+   * @throws SQLException when an unexpected exception happens
+   */
   @Override public ArrayList<ArrayList<OrderItem>> getAllUncollectedOrders() throws SQLException {
     return orderDatabaseConn.getAllUncollectedOrders();
   }
 
+  /**
+   * Mark an uncollected order as collected by the employee.
+   * @param orderCode the order's code to mark it collected.
+   * @throws SQLException when the order was cancelled before this task.
+   */
   @Override public void collectOrder(int orderCode) throws SQLException {
     orderDatabaseConn.collectOrder(orderCode);
   }
@@ -324,11 +428,20 @@ public class DatabaseConnImp implements DatabaseConn
     return adminDataBaseConnection.getOpeningHours();
   }
 
+  /**
+   * Calling the emptyAllCarts method in cartDataBaseConnection
+   * @throws SQLException
+   */
   @Override public void emptyAllCarts() throws SQLException
   {
     cartDatabaseConn.emptyAllCarts();
   }
 
+  /**
+   * The method is used to delete menu item from the system
+   * @param menuItems menu item to delete
+   * @throws SQLException
+   */
   @Override
   public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException
   {
@@ -336,6 +449,12 @@ public class DatabaseConnImp implements DatabaseConn
      menuDatabaseConn.removeMenuItem(menuItems);
   }
 
+  /**
+   * Accept the employee with specific username
+   * @param username employee's username
+   * @param accept employee's status
+   * @throws SQLException
+   */
   @Override public void handlePendingEmployee(String username, boolean accept)
       throws SQLException
   {
@@ -350,6 +469,11 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
+  /**
+   * Gets a list of all pending employees from the database
+   * @return the list containing user objects
+   * @throws SQLException
+   */
   @Override public ArrayList<User> getAllPendingEmployees() throws SQLException
   {
     try
@@ -363,6 +487,11 @@ public class DatabaseConnImp implements DatabaseConn
     }
   }
 
+  /**
+   * Sends the username of employee which should be deleted from the system
+   * @param username employee's username
+   * @throws SQLException
+   */
   @Override
   public void removeEmployee(String username) throws SQLException {
     try
@@ -375,6 +504,12 @@ public class DatabaseConnImp implements DatabaseConn
       throw formatExceptionMessage(e); //look again
     }
   }
+  /**
+   * Gets a list of all employees from the database
+   * @return the list containing all employees
+   * @throws SQLException
+   */
+
 
   @Override
   public ArrayList<User> getAcceptedEmployees() throws SQLException {

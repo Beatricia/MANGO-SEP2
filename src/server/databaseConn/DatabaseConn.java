@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-//TODO javadocs
 
 /**
  * Abstract Model for accessing the Database.
@@ -49,11 +48,35 @@ public interface DatabaseConn
   //endregion
 
   //region ADMIN
+
+  /**
+   * Accept the employee with specific username
+   * @param userName employee's username
+   * @param accept employee's status
+   * @throws SQLException
+   */
   void handlePendingEmployee(String userName, boolean accept) throws SQLException;
 
+  /**
+   * Gets a list of all pending employees from the database
+   * @return the list containing user objects
+   * @throws SQLException
+   */
   ArrayList<User> getAllPendingEmployees() throws SQLException;
 
+  /**
+   * Sends the username of employee which should be deleted from the system
+   * @param username employee's username
+   * @throws SQLException
+   */
+
   void removeEmployee(String username) throws SQLException;
+
+  /**
+   * Gets a list of all employees from the database
+   * @return the list containing all employees
+   * @throws SQLException
+   */
 
   ArrayList<User> getAcceptedEmployees() throws SQLException;
   //endregion
@@ -102,9 +125,21 @@ public interface DatabaseConn
    */
   void addQuantity(LocalDate date, String name, int quantity) throws SQLException;
 
+  /**
+   * The method is used to delete menu item from daily menu by given date and name
+   * @param date the daily menu's day
+   * @param name menu item's name
+   * @throws SQLException
+   */
+
   void deleteMenuItemFromDailyMenu(LocalDate date, String name)
       throws SQLException;
 
+  /**
+   * The method is used to delete menu item from the system
+   * @param menuItems menu item to delete
+   * @throws SQLException
+   */
   void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException;
 
   //endregion
@@ -223,7 +258,10 @@ public interface DatabaseConn
    */
   ArrayList<LocalTime> getOpeningHours() throws SQLException;
 
-
+  /**
+   * Calling the emptyAllCarts method in cartDataBaseConnection
+   * @throws SQLException
+   */
   void emptyAllCarts() throws SQLException;
 
   //endregion

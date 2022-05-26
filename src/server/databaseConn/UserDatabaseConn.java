@@ -10,9 +10,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Locale;
-//TODO javadocs
 class UserDatabaseConn
 {
+
+  /**
+   * Insert a new user to database with the specified username, password, first name and last name.
+   *
+   * @param firstName first name
+   * @param lastName  last name
+   * @param username  username
+   * @param password  password
+   * @param userType  type of the user
+   * @return A user object representing the registered user if the register was successful
+   * @throws SQLException When the user has not provided the correct data
+   */
   public User register(String firstName, String lastName, String username,
       String password, UserType userType) throws SQLException, LogInException
   {
@@ -48,6 +59,15 @@ class UserDatabaseConn
     }
   }
 
+  /**
+   * Returns the user object when the given username and password match with data stored in the database
+   *
+   * @param username username
+   * @param password password
+   * @return A user object representing the logged-in user if the log-in was successful
+   * @throws SQLException   When an unexpected sql exception happens
+   * @throws LogInException When the user has not provided the correct data
+   */
   public User login(String username, String password)
       throws LogInException, SQLException
   {

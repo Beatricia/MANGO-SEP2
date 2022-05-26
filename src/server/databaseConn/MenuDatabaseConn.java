@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-//TODO javadocs
-
 class MenuDatabaseConn
 {
   //Table names
@@ -190,6 +188,13 @@ class MenuDatabaseConn
     }
   }
 
+  /**
+   * Deletes menu item from a daily menu for a given day
+   * @param date the day from which the item should be deleted
+   * @param name name of the item
+   * @throws SQLException
+   */
+
   public void deleteMenuItemFromDailyMenu(LocalDate date, String name)
       throws SQLException
   {
@@ -205,6 +210,12 @@ class MenuDatabaseConn
     }
 
   }
+
+  /**
+   * Removes menu items from the system
+   * @param menuItems the list containing menu items to delete
+   * @throws SQLException
+   */
 
     public void removeMenuItem(ArrayList<MenuItem> menuItems)
             throws SQLException {

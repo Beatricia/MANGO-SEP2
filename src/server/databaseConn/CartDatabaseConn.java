@@ -176,6 +176,13 @@ public class CartDatabaseConn
     return cartItems;
   }
 
+  /**
+   * The method is used to get a list of all unselected ingredients of the item, which
+   * has the name given as a parameter, and it's stored in cart with given id.
+   * @param itemName the name of the item
+   * @param cartId id of the cart where the item is located
+   * @return an ArrayList that contains all ingredients the menu item has
+   */
   private ArrayList<String> getUnselectedIngredients(String itemName, int cartId)
       throws SQLException
   {
@@ -314,6 +321,10 @@ public class CartDatabaseConn
     }
   }
 
+  /**
+   * deletes all items stored in the cart table in the database
+   * @throws SQLException
+   */
   public void emptyAllCarts() throws SQLException
   {
     String deleteFromCartIngredients = "DELETE FROM cartitemunselectedingredients;";

@@ -114,6 +114,11 @@ public class AdminDatabaseConnection {
         return openingHours;
     }
 
+    /**
+     * Removes a User object from database by a given username
+     * @param username employee's username
+     * @throws SQLException
+     */
     public void removeEmployee(String username) throws SQLException {
         try(Connection connection = DatabaseConnImp.getConnection()) {
             String sql = "DELETE\n" +
@@ -123,6 +128,12 @@ public class AdminDatabaseConnection {
             statement.execute();
         }
     }
+
+    /**
+     * Gets a list with all accepted employees
+     * @return the list containing all accepted employees
+     * @throws SQLException
+     */
 
     public ArrayList<User> getAllAcceptedEmployees() throws SQLException{
         ArrayList<User> acceptedEmployees = new ArrayList<>();
