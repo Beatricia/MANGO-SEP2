@@ -3,13 +3,10 @@ package client.view.login;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.ViewController;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import shared.Log;
-
-//TODO javadocs
 
 /**
  * The class which is responsible for the functionality of
@@ -45,6 +42,9 @@ public class LoginViewController implements ViewController
     refresh();
   }
 
+  /**
+   * Refreshing the username, password and error label to be empty
+   */
   public void refresh() {
     username.clear();
     password.clear();
@@ -53,10 +53,8 @@ public class LoginViewController implements ViewController
 
   /**
    * LogIn method to get particular user object.(When logg in button pressed)
-   * @param actionEvent event which call login method from LoginViewModel.
    */
-
-  public void onLogIn(ActionEvent actionEvent)
+  public void onLogIn()
   {
     Log.log("LoginViewController logg in button pressed");
     viewModel.login(username.getText(), password.getText());
@@ -67,8 +65,7 @@ public class LoginViewController implements ViewController
   /**
    * Opens a RegisterView
    */
-
-  public void onRegister(ActionEvent actionEvent)
+  public void onRegister()
   {
     Log.log("LoginViewController register button pressed");
     errorLabel.setText("");
