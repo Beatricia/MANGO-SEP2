@@ -7,11 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /** A class handling database connection for order requests made by customer
  * @author Simon
@@ -31,131 +31,108 @@ public class OrderDatabaseConn
    */
   public void placeOrder(String username) throws SQLException
   {
+    /*
+        Table of Contents:
+         - 1: get all the cart items with their ingredients from the cart tables
+         - 2: check if the cart is empty (if empty: throw exception)
+         - 3: insert new order (if customer has uncollected order: throw exception (by sql trigger))
+         - 4: get new order's number
+         - 5: remove all items and unselected ingredients from the cart
+         - 6: add the items from step 1 into the order items and unselected ingredients
+     */
+
+
+
     Log.log("OrderDatabaseConn places order in the Database");
 
-    try (Connection connection = DatabaseConnImp.getConnection())
-    {
+    try(Connection conn = DatabaseConnImp.getConnection()){
 
-      //getting needed values for creating an order item
+      // 1: getting the cart items with unselected ingredients
+      String sql =
+          "SELECT c.cartid, ci.itemname, ci.quantity, ARRAY_AGG(cu.ingredientid) "
+              + "FROM cart c "
+              + " JOIN cartitem ci ON c.cartid = ci.cartid "
+              + " LEFT OUTER JOIN cartitemunselectedingredients cu ON ci.cartid = cu.cartid AND ci.itemname = cu.itemname "
+              + "WHERE c.username = ? "
+              + "GROUP BY c.cartid, ci.itemname, ci.quantity;";
 
-      String sql1 =
-          "SELECT cart.cartid, cartItem.itemname, cartItem.quantity FROM "
-              + "cart, cartItem WHERE cart.cartid = cartitem.cartid AND cart.username = '"
-              + username + "'";
+      PreparedStatement statement = conn.prepareStatement(sql);
+      statement.setString(1, username);
+      ResultSet cartItems = statement.executeQuery();
 
-      PreparedStatement statement1 = connection.prepareStatement(sql1);
-
-      ResultSet resultSet1 = statement1.executeQuery();
-
-
-      while (resultSet1.next())
-      {
-
-        int code = resultSet1.getInt("cartid");
-
-        String itemName = resultSet1.getString("itemname");
-
-        int quantity = resultSet1.getInt("quantity");
-
-        // to get ingredients unselected by the customer
-        String sql3 = "SELECT ingredient.name "
-            + "FROM cartitemunselectedingredients, ingredient "
-            + "WHERE cartitemunselectedingredients.ingredientid = ingredient.id and cartitemunselectedingredients.cartid = '" + code + "' AND cartitemunselectedingredients.itemname = '" + itemName + "'";
-
-        PreparedStatement statement3 = connection.prepareStatement(sql3);
-
-        ResultSet resultSet3 = statement3.executeQuery();
-
-        ArrayList<String> unselectedIngredients = new ArrayList<>();
-
-        while (resultSet3.next()){
-          String ingredientName = resultSet3.getString("name");
-          unselectedIngredients.add(ingredientName);
-        }
-
-        // deleting cart item and unselectedingredients tables
-
-        String sql4 = "DELETE FROM cartitem WHERE cartid = " + code + "AND itemname = '" + itemName + "'"; // deletes the cartitem with specific order number (code) and item name
-
-        PreparedStatement statement4 = connection.prepareStatement(sql4);
-
-        statement4.execute();
-
-        String sql5 = "DELETE FROM cartitemunselectedingredients WHERE cartid = " + code + "AND itemname = '" + itemName + "'"; // deletes unselectedingredients for this item
-
-        PreparedStatement statement5 = connection.prepareStatement(sql5);
-
-        statement5.execute();
-
-        // inserting into orderitem and unselectedingredients tables
-
-        LocalDate date = LocalDate.now(); //IDK if the sql6 is gonna work but whatever
+      // 2: check if there are any items in the cart
+      if(!cartItems.next())
+        throw new SQLException("No items in the cart");
 
 
-
-        //checks if order already exists
-
-        String sqlCheck = "SELECT ordernumber from \"order\"";
-
-        PreparedStatement statementCheck = connection.prepareStatement(sqlCheck);
-
-        ResultSet resultSetCheck = statementCheck.executeQuery();
-
-        int codeCheck = 0;
-
-        while (resultSetCheck.next()){
-          codeCheck = resultSetCheck.getInt("ordernumber");
-        }
-
-        if(code != codeCheck){
-
-          //create new order
-
-          String sql6 = "INSERT INTO \"order\" VALUES (" + code + ", '" + username
-              + "', '" + date + "', 'false')";
-
-
-          PreparedStatement statement6 = connection.prepareStatement(sql6);
-
-          statement6.execute();
-        }
-
-        //insert into orderitem
-
-        String sql7 = "INSERT INTO orderitem VALUES ('" + itemName + "', " + code + ", " + quantity + ")";
-
-        PreparedStatement statement7 = connection.prepareStatement(sql7);
-
-        statement7.execute();
-
-
-        //inserting into unselectedingredients table
-        System.out.println("THERE IS THAT MANY UNSELECTED INGREDIENTS: " + unselectedIngredients.size() + "-----------------------------------------------------------------");
-        for (String unselectedIngredient: unselectedIngredients
-             )
-        {
-          String sql8 = "SELECT id FROM ingredient WHERE name = '" + unselectedIngredient + "'";
-
-          PreparedStatement statement8 = connection.prepareStatement(sql8);
-
-          ResultSet resultSet8 = statement8.executeQuery();
-
-          while (resultSet8.next())
-          {
-
-            int ingredientId = resultSet8.getInt("id");
-
-            String sql9 = "INSERT INTO orderitemunselectedingredients VALUES ('"
-                + itemName + "', " + code + ", " + ingredientId + ")";
-
-            PreparedStatement statement9 = connection.prepareStatement(sql9);
-
-            statement9.execute();
-          }
-        }
+      // 3: creating a new order (this throws an exception if the customer already has an uncollected
+      //    order (due to the oneOrderPerCustomer trigger)
+      String createNewOrderSql = "INSERT INTO \"order\"(username) VALUES (?);";
+      statement = conn.prepareStatement(createNewOrderSql);
+      statement.setString(1, username);
+      try{
+        statement.execute();
+      } catch (SQLException e) {
+        throw new SQLException("You already have an uncollected order!");
       }
+
+
+      // 4: get the new order's number
+      String getNewOrderNumber = "SELECT ordernumber FROM \"order\" "
+          + "WHERE collected = FALSE AND username = ?;";
+      statement = conn.prepareStatement(getNewOrderNumber);
+      statement.setString(1, username);
+      ResultSet newOrderNumberRes = statement.executeQuery();
+      newOrderNumberRes.next();
+
+      int newOrderNum = newOrderNumberRes.getInt("ordernumber");
+      int cartId = cartItems.getInt("cartid");
+
+
+
+      // 5: remove items and ingredients from the cart
+      String deleteIngredients = "DELETE FROM cartitemunselectedingredients WHERE cartid = ?;";
+      statement = conn.prepareStatement(deleteIngredients);
+      statement.setInt(1, cartId);
+      statement.execute();
+
+      String deleteCartItems = "DELETE FROM cartitem WHERE cartid = ?;";
+      statement = conn.prepareStatement(deleteCartItems);
+      statement.setInt(1, cartId);
+      statement.execute();
+
+
+      // 6: add the cartitems to the order
+      do {
+        String itemName = cartItems.getString("itemname");
+        int quantity = cartItems.getInt("quantity");
+        List<String> unselectedIngredients = OrderDatabaseConn.convertStringToList(cartItems.getString("array_agg"));
+
+        // insert order item
+        String insertItem = "INSERT INTO orderitem(itemname, ordernumber, quantity) VALUES (?, ?, ?);";
+        statement = conn.prepareStatement(insertItem);
+        statement.setString(1, itemName);
+        statement.setInt(2, newOrderNum);
+        statement.setInt(3, quantity);
+        statement.execute();
+
+        // insert unselected ingredients (itemname, ordernumber, ingredientid)
+        if(unselectedIngredients.size() > 0){
+          String insertUnselectedIngredients = "INSERT INTO orderitemunselectedingredients(itemname, ordernumber, ingredientid) VALUES ";
+          List<String> inputs = unselectedIngredients.stream()
+              .map(
+                  ingredientId -> String.format("('%s',%s,%s)", itemName, newOrderNum, ingredientId)
+              )
+              .collect(Collectors.toList());
+
+          insertUnselectedIngredients += String.join(",", inputs);
+          statement = conn.prepareStatement(insertUnselectedIngredients);
+          statement.execute();
+        }
+      } while (cartItems.next());
     }
   }
+
 
   /**
    * Returns all data of the customer's order.
@@ -173,31 +150,24 @@ public class OrderDatabaseConn
       String sql1 =
           "SELECT orderitem.ordernumber, orderitem.itemname, orderitem.quantity, menuItem.price, menuItem.imgpath FROM "
               + "\"order\", orderitem, menuItem WHERE orderitem.itemname = menuitem.name AND \"order\".ordernumber = orderitem.ordernumber AND \"order\".username = '"
-              + username + "'";
+              + username + "' and \"order\".collected = false";
 
       PreparedStatement statement1 = connection.prepareStatement(sql1);
-
       ResultSet resultSet1 = statement1.executeQuery();
 
       while (resultSet1.next()){
         int code = resultSet1.getInt("ordernumber");
-
         String itemName = resultSet1.getString("itemname");
-
         int quantity = resultSet1.getInt("quantity");
-
         double price = resultSet1.getDouble("price");
-
         String imgPath = resultSet1.getString("imgPath");
 
         String sql2 = "SELECT name FROM ingredient WHERE id in (SELECT ingredientId FROM menuItemIngredient WHERE itemName = '" + itemName + "' ) ";
-
         PreparedStatement statement2 = connection.prepareStatement(sql2);
-
         ResultSet resultSet2 = statement2.executeQuery();
 
-        ArrayList<String> ingredients = new ArrayList<>();
 
+        ArrayList<String> ingredients = new ArrayList<>();
         while (resultSet2.next())
         {
           String ingredientName = resultSet2.getString("name");
@@ -206,11 +176,12 @@ public class OrderDatabaseConn
 
         // to get ingredients unselected by the customer
         String sql3 = "SELECT ingredient.name "
-            + "FROM cartitemunselectedingredients, ingredient "
-            + "WHERE cartitemunselectedingredients.ingredientid = ingredient.id and cartitemunselectedingredients.cartid = '" + code + "'";
+            + "FROM orderitemunselectedingredients, ingredient "
+            + "WHERE orderitemunselectedingredients.ingredientid = ingredient.id "
+            + "and orderitemunselectedingredients.itemname = '" + itemName + "'"
+            + "and orderitemunselectedingredients.ordernumber = '" + code + "'";
 
         PreparedStatement statement3 = connection.prepareStatement(sql3);
-
         ResultSet resultSet3 = statement3.executeQuery();
 
         ArrayList<String> unselectedIngredients = new ArrayList<>();
@@ -239,10 +210,8 @@ public class OrderDatabaseConn
     Log.log("Order for " + username + " canceled.");
     try (Connection connection = DatabaseConnImp.getConnection())
     {
-      String sql1 = "SELECT ordernumber from \"order\" WHERE username = '" + username + "'";
-
+      String sql1 = "SELECT ordernumber from \"order\" WHERE collected = FALSE AND username = '" + username + "'";
       PreparedStatement statement1 = connection.prepareStatement(sql1);
-
       ResultSet resultSet1 = statement1.executeQuery();
 
       while (resultSet1.next()){
@@ -252,25 +221,18 @@ public class OrderDatabaseConn
 
         //deletes the unselected ingredients
         String sql4 = "DELETE FROM orderitemunselectedingredients WHERE ordernumber = " + orderNumber;
-
         PreparedStatement statement4 = connection.prepareStatement(sql4);
-
         statement4.execute();
 
         //deletes items from orderitem table with specified order number
         String sql3 = "DELETE FROM orderitem WHERE ordernumber = " + orderNumber;
-
         PreparedStatement statement3 = connection.prepareStatement(sql3);
-
         statement3.execute();
 
         //deletes items from table order with specified order item
         String sql2 = "DELETE FROM \"order\" WHERE ordernumber = " + orderNumber;
-
         PreparedStatement statement2 = connection.prepareStatement(sql2);
-
         statement2.execute();
-
       }
     }
   }
@@ -292,7 +254,7 @@ public class OrderDatabaseConn
         +              "  WHERE m3.name = oi.itemname) as allingr "         // end of selecting all the ingredients
         +        "FROM \"order\" o "
         +        "  JOIN orderitem oi ON o.ordernumber = oi.ordernumber "
-        +        "  LEFT OUTER JOIN orderitemunselectedingredients ou ON o.ordernumber = ou.ordernumber "
+        +        "  LEFT OUTER JOIN orderitemunselectedingredients ou ON o.ordernumber = ou.ordernumber AND ou.itemname = oi.itemname "
         +        "  LEFT OUTER JOIN ingredient i ON ou.ingredientid = i.id "
         +        "  LEFT OUTER JOIN menuitem m ON oi.itemname = m.name "
         +        "WHERE collected = FALSE "
@@ -343,7 +305,7 @@ public class OrderDatabaseConn
    * @param text the text to convert to list.
    * @return the list extracted from the text.
    */
-  private static ArrayList<String> convertStringToList(String text){
+  public static ArrayList<String> convertStringToList(String text){
 
     // sql list comes in this format: {item1,item2,item3}
     // so we split them and convert it to ArrayList. (if there isn't any item in the list,

@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -298,7 +299,7 @@ public class ServerHandler implements Runnable
     else if (request.getRequestName().equals(Request.CANCEL_ORDER))
     {
       Log.log("ServerHandler received CANCEL_ORDER");
-     // orderModel.cancelOrder((String) request.getObject());
+      orderModel.cancelOrder((String) request.getObject());
     }
     else if (request.getRequestName().equals(Request.PLACE_ORDER))
     {
@@ -319,17 +320,20 @@ public class ServerHandler implements Runnable
     }
     else if (request.getRequestName().equals(Request.ALL_ACCEPTED_EMPLOYEES_REQUEST))
     {
+      Log.log("ServerHandler received ALL_ACCEPTED_EMPLOYEES_REQUEST");
       ArrayList<User> acceptedEmployees = adminModel.requestAcceptedEmployees();
       request.setObject(acceptedEmployees);
       sendObject(request);
     }
     else if (request.getRequestName().equals(Request.REMOVE_EMPLOYEE_REQUEST))
     {
+      Log.log("ServerHandler received REMOVE_EMPLOYEE_REQUEST");
       String username = (String) request.getObject();
       adminModel.removeEmployee(username);
     }
     else if (request.getRequestName().equals(Request.SET_OPENING_HOURS_REQUEST))
     {
+      Log.log("ServerHandler received SET_OPENING_HOURS_REQUEST");
       ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) request.getObject();
       adminModel.setOpeningHours(openingHours);
     }
@@ -377,7 +381,8 @@ public class ServerHandler implements Runnable
    */
   public void closeClient(Exception e)
   {
-    e.printStackTrace();
+    if(!(e instanceof SocketException && e.getMessage().equals("Connection reset")))
+      e.printStackTrace();
 
     // Close streams
     closeObject(toClient);

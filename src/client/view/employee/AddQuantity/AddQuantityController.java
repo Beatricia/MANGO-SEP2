@@ -1,16 +1,9 @@
 package client.view.employee.AddQuantity;
 
-import client.core.ClientFactory;
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
-import client.model.MenuModelImp;
 import client.view.TabController;
-import client.view.ViewController;
-import client.view.customer.displayMenu.DisplayMenuViewModel;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -25,13 +18,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import shared.Log;
-import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;

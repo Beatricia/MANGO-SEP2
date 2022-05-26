@@ -1,21 +1,15 @@
 package client.view.employee.MenuItems;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
-import client.view.employee.DailyMenu.DailyMenuViewModel;
-import javafx.beans.Observable;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.input.MouseEvent;
-import shared.Log;
 import transferobjects.MenuItem;
 
 import java.time.LocalDate;

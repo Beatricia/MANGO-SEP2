@@ -1,12 +1,8 @@
 package client.view.employee.CollectOrder;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

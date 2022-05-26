@@ -68,5 +68,6 @@
                </content></ScrollPane>
          </children>
       </Pane>
+      <Label fx:id="goToOrderLabel" layoutX="23.0" layoutY="603.0" text="Your order can be seen in the MyOrder tab with it's code" />
    </children>
 </AnchorPane>

@@ -1,9 +1,7 @@
 package client.view.employee.AddDish;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;

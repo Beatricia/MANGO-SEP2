@@ -1,9 +1,7 @@
 package client.view.employee.WeeklyMenu;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

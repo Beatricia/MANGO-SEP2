@@ -1,17 +1,12 @@
 package client.view.customer.displayWeeklyMenu;
 
-import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
 
 import client.view.ViewHelpers.NoSelectionModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
 
 import transferobjects.MenuItemWithQuantity;
 
