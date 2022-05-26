@@ -10,9 +10,6 @@ import transferobjects.ErrorMessage;
 import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
-import java.time.LocalDate;
-
-//TODO javadocs
 
 /**
  * Class responsible for connecting the RegisterViewController and UserModel interface.
@@ -39,6 +36,10 @@ public class RegisterViewModel
     userModel.addListener(UserModel.ERROR_RECEIVED, this::errorReceived);
   }
 
+  /**
+   * When a new error message is received the printingErrorMessage method is called with a new value
+   * @param event the new value for the error message
+   */
   private void errorReceived(PropertyChangeEvent event)
   {
     ErrorMessage errorMess = (ErrorMessage) event.getNewValue();
@@ -47,11 +48,18 @@ public class RegisterViewModel
     printErrorMessage(errorMess.getMessage());
   }
 
+  /**
+   * Setting the value of the errorMessage to the new error
+   * @param message the new error message
+   */
   private void printErrorMessage(String message)
   {
     Platform.runLater(() -> errorMessage.setValue("Error: " + message));
   }
 
+  /**
+   *
+   */
   private void loggedInReceived(PropertyChangeEvent event)
   {
     Log.log("RegisterViewModel received Login");
@@ -66,7 +74,6 @@ public class RegisterViewModel
    * @param password       password of the user
    * @param passwordRepeat to check the password
    * @param userType       type of the user
-   * @return User object
    */
   public User register(String firstName, String lastName, String username,
       String password, String passwordRepeat, UserType userType)

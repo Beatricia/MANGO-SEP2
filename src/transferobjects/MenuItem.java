@@ -66,10 +66,18 @@ public class MenuItem implements Serializable
     return price;
   }
 
+  /**
+   * Getting the image path
+   * @return the image path
+   */
   public String getImgPath(){
     return imgPath;
   }
 
+  /**
+   * A string representation with a name
+   * @return the name
+   */
   public String toString()
   {
     return name;

@@ -5,8 +5,6 @@ import client.core.ViewModelFactory;
 import javafx.scene.control.TabPane;
 import shared.Log;
 
-//TODO javadocs
-
 /**
  * AdminGUI is part of the strategy pattern, specifically this is the strategy when the user
  * is an Administrator
@@ -18,7 +16,7 @@ public class AdminGUI extends UserStrategy
   private final static String BASE_PATH = "src/client/view/admin/";
 
   /**
-   * All the tabs to load when the logged in user is the admin
+   * All the tabs to load when the logged-in user is the admin
    */
   private final static String[] tabs = {
       "displayMenu/DisplayMenuView.fxml", "Daily Menu",

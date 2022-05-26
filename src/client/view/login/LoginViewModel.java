@@ -10,8 +10,6 @@ import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
 
-//TODO javadocs
-
 /**
  * The class which providing methods for LoginViewModel.
  * @author Agata
@@ -41,6 +39,10 @@ public class LoginViewModel
     userModel.addListener(UserModel.ERROR_RECEIVED, this::errorReceived);
   }
 
+  /**
+   * Receiving a new log in
+   * @param propertyChangeEvent the new user
+   */
   private void loggedInReceived(PropertyChangeEvent propertyChangeEvent)
   {
     User user = (User) propertyChangeEvent.getNewValue();
@@ -48,6 +50,10 @@ public class LoginViewModel
     System.out.println("Message from LoginViewModel: "+user);
   }
 
+  /**
+   * Receiving a new error
+   * @param propertyChangeEvent the new error
+   */
   private void errorReceived(PropertyChangeEvent propertyChangeEvent)
   {
     ErrorMessage errorMes =(ErrorMessage) propertyChangeEvent.getNewValue();
@@ -55,6 +61,10 @@ public class LoginViewModel
     displayError(errorMes.getMessage());
   }
 
+  /**
+   * Setting the value for the error to the new value
+   * @param message the new message for the error
+   */
   private void displayError(String message){
     Log.log("LoginViewModel the error from the model is displayed");
     Platform.runLater(() -> error.setValue(message));
@@ -65,7 +75,6 @@ public class LoginViewModel
    * @param username user's username
    * @param password user's password
    */
-
   public void login(String username, String password)
   {
     if (username.equals("") || password.equals(""))
@@ -90,7 +99,6 @@ public class LoginViewModel
    * Gets the username StringProperty
    * @return username StringProperty
    */
-
   public StringProperty getUsername()
   {
     return username;
@@ -100,7 +108,6 @@ public class LoginViewModel
    * Gets the password StringProperty
    * @return password StringProperty
    */
-
   public StringProperty getPassword()
   {
     return password;
@@ -110,7 +117,6 @@ public class LoginViewModel
    * Gets the error StringProperty
    * @return error StringProperty
    */
-
   public StringProperty getError()
   {
     return error;

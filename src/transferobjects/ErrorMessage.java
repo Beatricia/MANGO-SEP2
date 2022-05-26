@@ -34,8 +34,6 @@ public class ErrorMessage implements Serializable
     return message;
   }
 
-
-
   public String toString()
   {
     return message;

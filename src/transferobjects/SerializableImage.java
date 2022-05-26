@@ -63,6 +63,10 @@ public class SerializableImage implements Serializable
     return image;
   }
 
+  /**
+   * getting the image format
+   * @return the format
+   */
   public String getFormat()
   {
     return format;

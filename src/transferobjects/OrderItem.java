@@ -42,12 +42,20 @@ public class OrderItem extends CartItem{
         return  code;
     }
 
+    /**
+     * Getting the price
+     * @return the price
+     */
     public double getPrice()
     {
         return super.getPrice();
     }
 
 
+    /**
+     * Getting the unselected ingredients
+     * @return the ingredients without a comma
+     */
     public String getUnselected()
     {
         String str= "";

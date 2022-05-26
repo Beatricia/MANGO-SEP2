@@ -4,7 +4,6 @@ import java.util.ArrayList;
 /**
  * The class representing a CartItem that inherits the CartItem
  * It contains a username, quantity and an array list of unselected ingredients
- * @author
  * @version 1
  */
 

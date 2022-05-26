@@ -11,13 +11,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import shared.Log;
 import shared.UserType;
 import transferobjects.User;
-
-import java.time.LocalDateTime;
 
 /**
  * Controller for the GeneralView. The main responsibility for this class is to refresh the

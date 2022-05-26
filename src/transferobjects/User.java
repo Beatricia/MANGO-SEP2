@@ -18,7 +18,6 @@ public class User implements Serializable
   private UserType userType;
   private String firstName;
   private String lastName;
-  //private static final long serialVersionUID = 6529685098267757690L; -- test purposes - Simon
 
   /**
    * Construct the User object
@@ -85,6 +84,7 @@ public class User implements Serializable
     return String.format("%s %s (%s)", firstName, lastName, username);
   }
 
+  //TODO:Javadocs
   @Override public boolean equals(Object o)
   {
     if (this == o)
