@@ -5,10 +5,7 @@ import client.view.TabController;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import shared.Log;
 import transferobjects.OrderItem;
@@ -17,6 +14,7 @@ import javax.swing.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Optional;
 
 //TODO javadocs
 
@@ -103,15 +101,17 @@ public class MyOrderController implements TabController
   {
     Log.log("MyOrderController: button canceled was pressed");
 
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setContentText("Do you really want to cancel your order?");
+    Optional<ButtonType> optional = alert.showAndWait();
 
-    int resultButton = JOptionPane.YES_NO_OPTION;
-    int result = JOptionPane.showConfirmDialog(null, "Do you really want to cancel your order? ","Warning",resultButton);
-
-    if (result == JOptionPane.YES_OPTION)
-    {
-      viewModel.cancelOrder();
-      refresh();
+    if(optional.isPresent()){
+      if(optional.get().getButtonData().isCancelButton())
+        return;
     }
+
+    viewModel.cancelOrder();
+    refresh();
   }
 
 }
