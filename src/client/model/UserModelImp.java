@@ -10,12 +10,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-//TODO javadocs
+
 
 /**
  * A class that implements the UserModel interface. Used to connect the
  * ViewModel objects with the networking.
- * @author Uafa
+ * @author Mango
+ * @version 1
  */
 
 public class UserModelImp implements UserModel
@@ -45,6 +46,10 @@ public class UserModelImp implements UserModel
     return loggedInUser.getUsername();
   }
 
+  /**
+   * The method fires a LOGGED_IN_RECEIVED event with a User object
+   * @param event the event received
+   */
   private void sendLogin(PropertyChangeEvent event)
   {
     User user = (User) event.getNewValue();
@@ -54,9 +59,13 @@ public class UserModelImp implements UserModel
     support.firePropertyChange(LOGGED_IN_RECEIVED, null, user);
   }
 
+  /**
+   * The method fires an ERROR_RECEIVED event with the body of the error message
+   * @param event the event received
+   */
   private void sendError(PropertyChangeEvent event){
-    support.firePropertyChange(ERROR_RECEIVED, null, event.getNewValue());
     Log.log("UserModelImp fires a ERROR_RECEIVED event");
+    support.firePropertyChange(ERROR_RECEIVED, null, event.getNewValue());
   }
 
   /**

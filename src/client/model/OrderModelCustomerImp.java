@@ -103,10 +103,21 @@ public class OrderModelCustomerImp implements OrderModelCustomer
     client.sendRequest(request);
   }
 
+
+  /**
+   * Using the PropertyChangeSubject object adds a listener for a specific event
+   * @param event  event to be listened
+   * @param listener listener to be added
+   */
   @Override public void addListener(String event, PropertyChangeListener listener) {
     support.addPropertyChangeListener(event, listener);
   }
 
+  /**
+   * Using the PropertyChangeSubject object adds a listener for all types of
+   * events
+   * @param listener listener to be added
+   */
   @Override public void addListener(PropertyChangeListener listener) {
     support.addPropertyChangeListener(listener);
   }

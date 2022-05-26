@@ -6,7 +6,6 @@ import transferobjects.*;
 import transferobjects.MenuItem;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
  * and send to the Client side of networking. The class is the subject of the
  * MenuEmplViewModel and send it Error objects.
  * @author Mango
+ * @version 1
  */
 
 public class MenuModelImp implements MenuModel
@@ -83,7 +83,7 @@ public class MenuModelImp implements MenuModel
 
   /**
    * Fires an event with the list of menu items and ingredients to the ViewModel
-   * @param event
+   * @param event the event received
    */
   private void sendMenuWithIngredients(PropertyChangeEvent event)
   {

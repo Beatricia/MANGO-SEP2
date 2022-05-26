@@ -39,6 +39,10 @@ public class AdminModelImp implements AdminModel
     client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
   }
 
+  /**
+   * The method fires an OPENING_HOURS_RECEIVED event to its listeners
+   * @param event the event that occurred in the Client
+   */
   private void sendOpeningHours(PropertyChangeEvent event)
   {
     Log.log("AdminModelImp fires an OPENING_HOURS_RECEIVED to the view model");
@@ -46,7 +50,8 @@ public class AdminModelImp implements AdminModel
   }
 
   /**
-   * Method used for creating and sending a Request object to the database (to receive list of pending employees)
+   * Method used for creating and sending a Request object to the database
+   * (to receive list of pending employees)
    */
   @Override public void requestPendingEmployees()
   {
@@ -59,8 +64,8 @@ public class AdminModelImp implements AdminModel
   }
 
   /**
-   * This method is responsible for creating and sending a new Request object to the database (to accept an employee)
-   *
+   * This method is responsible for creating and sending a new Request
+   * object to the database (to accept an employee)
    * @param user one particular User object to be accepted
    */
   @Override public void acceptEmployee(User user)
@@ -164,6 +169,10 @@ public class AdminModelImp implements AdminModel
 
   }
 
+  /**
+   * The method fires an ACCEPTED_EMPLOYEES_RECEIVED event
+   * @param event the event received
+   */
   private void sendAcceptedEmployees(PropertyChangeEvent event)
   {
     Log.log("AdminModelImpl fires an ACCEPTED_EMPLOYEES_RECEIVED");

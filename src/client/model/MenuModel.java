@@ -10,6 +10,9 @@ import java.util.ArrayList;
 /**
  * An interface which is responsible for handling the connection between the
  * ViewModels and the Networking
+ *
+ * @author Mango
+ * @version 1
  */
 
 public interface MenuModel extends PropertyChangeSubject
