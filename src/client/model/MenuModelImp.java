@@ -4,6 +4,7 @@ import client.networking.Client;
 import shared.Log;
 import transferobjects.*;
 import transferobjects.MenuItem;
+import util.ImageTools;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,8 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-
+import java.util.IllegalFormatException;
 
 /**
  * A class that connects the view model and the Client side of networking.
@@ -117,21 +117,19 @@ public class MenuModelImp implements MenuModel
       //read image from the client computer
       BufferedImage bufferedImage = ImageIO.read(new File(imgPath));
 
-      //get image format (png, jpg)
-      String format = imgPath.substring(imgPath.lastIndexOf(".") + 1);
+      String format = "png";
 
-      //create image path for our application (now the server and the client can read the images from here)
-      String appImgPath = "Resources/MenuItemImages/" + name + "." + format;
+      SerializableImage serializableImage = new SerializableImage(bufferedImage, format);
 
-      //save the image to this path so we can later read it back
-      ImageIO.write(bufferedImage,format, new File(appImgPath));
-      //SerializableImage serializableImage = new SerializableImage(bufferedImage, format);
-
-      MenuItem item = new MenuItem(name, ingredients, price, appImgPath);
-      //item.setImage(serializableImage);
+      MenuItem item = new MenuItem(name, ingredients, price, null);
       Log.log("MenuModelImpl created a new MenuItem and set its image path");
 
-      client.addItem(item); //added the image path here
+      Object[] arr = {item, serializableImage};
+      Request request = new Request(Request.ADD_MENU_ITEM);
+
+      request.setObject(arr);
+      client.sendRequest(request);
+
     } catch (IOException e) {
       PropertyChangeEvent evt = new PropertyChangeEvent(this, "", null, new ErrorMessage(e.getMessage()));
       sendError(evt);
