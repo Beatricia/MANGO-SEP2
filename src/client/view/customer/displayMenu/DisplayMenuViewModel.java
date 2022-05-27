@@ -50,6 +50,8 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
 
     menuModel.addListener(MenuModel.DAILY_MENU_RECEIVED, this::menuReceived);
     menuModel.addListener(MenuModel.OPENING_HOURS_RECEIVED, this::openingHoursReceived);
+
+    cartModel.addListener(CartModel.IS_ITEM_IN_CART, this::isItemInShoppingCartReceived);
   }
 
   private void menuReceived(PropertyChangeEvent propertyChangeEvent) {
@@ -121,12 +123,14 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
 
   /**
    * Calls isItemInShoppingCart in cartModel
-   * @param itemName name of the item to check
-   * @return true if item is in the cart, else false
    */
-  public boolean isItemInShoppingCart(String itemName){
+  public void itemsInShoppingCartRequest(){
     Log.log("DisplayMenuViewModel: Calls isItemInShoppingCart in cartModel");
-    return cartModel.isItemInShoppingCart(itemName);
+    cartModel.requestCartList();
+  }
+
+  public void isItemInShoppingCartReceived(PropertyChangeEvent propertyChangeEvent){
+    propertyChangeSupport.firePropertyChange(CartModel.IS_ITEM_IN_CART, null, propertyChangeEvent);
   }
 
   @Override public void addListener(String event,

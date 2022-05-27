@@ -4,6 +4,9 @@ import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 import util.PropertyChangeSubject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * An interface responsible to connect all the shopping cart's functionality to
  * the Client
@@ -14,6 +17,7 @@ import util.PropertyChangeSubject;
 public interface CartModel extends PropertyChangeSubject
 {
   String CART_LIST_RECEIVED = "CartListReceived";
+  String IS_ITEM_IN_CART = "IsItemInCart";
 
   /**
    *The method takes a MenuItemWithQuantity object and send it to the Client
@@ -52,5 +56,5 @@ public interface CartModel extends PropertyChangeSubject
    * @param itemName name of the item to check
    * @return true if item is in the cart, else false
    */
-  boolean isItemInShoppingCart(String itemName);
+  void isItemInShoppingCart(List<CartItem> itemsInCart);
 }

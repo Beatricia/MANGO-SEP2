@@ -51,6 +51,7 @@ public class CartModelImpl implements CartModel
   {
     Object cartItems = evt.getNewValue();
     itemsInShoppingCart = (List<CartItem>) cartItems;
+    isItemInShoppingCart(itemsInShoppingCart);
     support.firePropertyChange(CartModel.CART_LIST_RECEIVED, null, cartItems);
   }
 
@@ -128,6 +129,27 @@ public class CartModelImpl implements CartModel
   }
 
   /**
+   * Updates the cart and checks if item sent through argument is in the customer's cart
+   *
+   * @param itemsInCart name of the item to check
+   */
+  @Override public void isItemInShoppingCart(List<CartItem> itemsInCart)
+  {
+
+    Log.log("CartModelImp: Fires a propertyChange");
+
+    ArrayList<String> itemsInCartNames = new ArrayList<>();
+
+    for (CartItem cartItem:itemsInCart
+         )
+    {
+      itemsInCartNames.add(cartItem.getName());
+    }
+    support.firePropertyChange(IS_ITEM_IN_CART, null, itemsInCartNames);
+  }
+
+
+  /**
    * Using the PropertyChangeSubject object adds a listener for specific types
    * of events
    *
@@ -138,35 +160,6 @@ public class CartModelImpl implements CartModel
       PropertyChangeListener listener)
   {
     support.addPropertyChangeListener(event, listener);
-  }
-
-  /**
-   * Updates the cart and checks if item sent through argument is in the customer's cart
-   *
-   * @param itemName name of the item to check
-   * @return true if item is in the cart, else false
-   */
-  @Override public boolean isItemInShoppingCart(String itemName)
-  {
-
-    requestCartList();
-    Log.log("CartModelImp: Checks if item is in cart.");
-    boolean isIn = false;
-
-    //somehow wait here
-
-    if (itemsInShoppingCart != null)
-    {
-      for (CartItem item : itemsInShoppingCart)
-      {
-        if (item.getName().equals(itemName))
-        {
-          isIn = true;
-        }
-      }
-    }
-
-    return isIn;
   }
 
   /**

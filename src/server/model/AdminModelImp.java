@@ -2,6 +2,8 @@ package server.model;
 
 import server.databaseConn.DatabaseConn;
 import shared.Log;
+import transferobjects.OrderItem;
+import transferobjects.Statistics;
 import transferobjects.User;
 
 import java.sql.SQLException;
@@ -92,5 +94,16 @@ public class AdminModelImp implements AdminModel
   @Override public ArrayList<LocalTime> requestOpeningHours() throws SQLException {
     Log.log("AdminModelImp: request opening hours");
     return databaseConn.getOpeningHours();
+  }
+
+  @Override public ArrayList<ArrayList<OrderItem>> requestPurchaseHistory()
+      throws SQLException
+  {
+    return null;
+  }
+
+  @Override public Statistics requestStatistics() throws SQLException
+  {
+    return null;
   }
 }
