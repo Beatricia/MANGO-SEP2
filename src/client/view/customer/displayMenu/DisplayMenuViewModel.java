@@ -3,14 +3,9 @@ package client.view.customer.displayMenu;
 import client.model.CartModel;
 import client.model.MenuModel;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Log;
-import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 import util.PropertyChangeSubject;
 
@@ -18,10 +13,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 //TODO javadocs
 
@@ -37,6 +30,9 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
   private MenuModel menuModel;
   private CartModel cartModel;
   private boolean canteenIsClosed = true;
+  private LocalTime openingHour;
+  private LocalTime closingHour;
+  ArrayList<LocalTime> openingHours = new ArrayList<>();
 
   private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
@@ -47,6 +43,8 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
 
     menuModel.addListener(MenuModel.DAILY_MENU_RECEIVED, this::menuReceived);
     menuModel.addListener(MenuModel.OPENING_HOURS_RECEIVED, this::openingHoursReceived);
+
+    cartModel.addListener(CartModel.IS_ITEM_IN_CART, this::itemInShoppingCartReceived);
   }
 
   private void menuReceived(PropertyChangeEvent propertyChangeEvent) {
@@ -82,52 +80,54 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
   }
 
   /**
-   * Listener for MenuModel. If change called OPENING_HOURS_RECEIVED is received opening hours are updated and new Thread is started.
-   * The thread checks if the current time is within the opening hours (canteen is open) or outside (canteen is closed).
-   * Whenever there is a change in the canteen's opening state a propertyChange is fired.
+   * Listener for MenuModel. If change called OPENING_HOURS_RECEIVED is received opening hours are updated.
    * @param propertyChangeEvent Update of the opening hours
    */
   public void openingHoursReceived(PropertyChangeEvent propertyChangeEvent)
   {
-    //Uafi needs to fire it in ArrayList<LocalTime>
-    ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) propertyChangeEvent.getNewValue();
+    openingHours = (ArrayList<LocalTime>) propertyChangeEvent.getNewValue();
 
-    LocalTime open = openingHours.get(0);
+    openingHour = openingHours.get(0);
+    closingHour = openingHours.get(1);
 
-    LocalTime close = openingHours.get(1);
-
-    System.out.println(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
-
-    Thread openingHoursThread = new Thread(()->{
-      while (true){
-        if (LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")).equals(open.toString())){
-          canteenIsClosed = false;
-          propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, - 1,  canteenIsClosed);
-        }
-        else if (LocalTime.now().isAfter(open) && LocalTime.now().isBefore(close)){
-          if (canteenIsClosed){
-            canteenIsClosed = false;
-            propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, - 1,  canteenIsClosed);
-          }
-        }
-        else if (LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")).equals(close.toString())){
-          canteenIsClosed = true;
-          propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, - 1,  canteenIsClosed);
-        }
-      }
-    });
-
-    openingHoursThread.start();
   }
 
   /**
-   * Calls isItemInShoppingCart in cartModel
-   * @param itemName name of the item to check
-   * @return true if item is in the cart, else false
+   * Calls requestOpeningHours method.
+   * Checks if the time now is within or outside of the opening hours.
+   * If within, changes the canteenIsClosed to false, else to true, and fires propertyChange
    */
-  public boolean isItemInShoppingCart(String itemName){
+  public void isCanteenClosed(){
+    requestOpeningHours();
+
+    if (openingHour != null && closingHour != null)
+    {
+      if (LocalTime.now().isAfter(openingHour) && LocalTime.now().isBefore(closingHour)){
+        canteenIsClosed = false;
+        propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, null,  canteenIsClosed);
+      }
+      else {
+        canteenIsClosed = true;
+        propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, null,  canteenIsClosed);
+      }
+    }
+
+  }
+
+  /**
+   * Calls requestCartList in cartModel
+   */
+  public void itemsInShoppingCartRequest(){
     Log.log("DisplayMenuViewModel: Calls isItemInShoppingCart in cartModel");
-    return cartModel.isItemInShoppingCart(itemName);
+    cartModel.requestCartList();
+  }
+
+  /**
+   * Fires propertyChangeEvent with event name IS_ITEM_IN_CART
+   * @param propertyChangeEvent event caught
+   */
+  public void itemInShoppingCartReceived(PropertyChangeEvent propertyChangeEvent){
+    propertyChangeSupport.firePropertyChange(CartModel.IS_ITEM_IN_CART, null, propertyChangeEvent);
   }
 
   @Override public void addListener(String event,

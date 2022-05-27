@@ -1,6 +1,7 @@
 package client.view.customer.displayMenu;
 
 import client.core.ViewModelFactory;
+import client.model.CartModel;
 import client.imageHandler.ClientImageLoader;
 import client.model.MenuModel;
 import client.view.TabController;
@@ -24,6 +25,7 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
 import shared.Log;
+import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 
 import javax.imageio.ImageIO;
@@ -34,6 +36,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,10 +47,13 @@ import java.util.List;
  */
 public class DisplayMenuController implements TabController
 {
+  @FXML private Label canteenClosedText;
   @FXML private VBox menuItemsVBox;
   @FXML private Label dateLabel;
 
   private static DisplayMenuViewModel viewModel;
+  private static ArrayList<String>  itemsInCart;
+  private static ArrayList<Button> buttons;
 
   /**
    * Initializes the controller
@@ -56,14 +62,17 @@ public class DisplayMenuController implements TabController
   @Override public void init(ViewModelFactory viewModelFactory) {
     viewModel = viewModelFactory.getDisplayMenuViewModel();
     viewModel.menuItemWithQuantitiesList().addListener(this::menuItemListChangeListener);
-
     viewModel.addListener(MenuModel.OPENING_HOURS_RECEIVED, this::canteenStateChanged);
+    viewModel.addListener(CartModel.IS_ITEM_IN_CART, this::itemsInShoppingCartReceived);
 
 
     LocalDate localDate = LocalDate.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     String dateText = localDate.getDayOfWeek() + " - " + localDate.format(formatter);
     dateLabel.setText(dateText);
+    buttons = new ArrayList<>();
+    itemsInCart = new ArrayList<>();
+    canteenClosedText.setText("");
   }
 
   /**
@@ -103,11 +112,11 @@ public class DisplayMenuController implements TabController
 
     if (canteenClosed){
       menuItemsVBox.setDisable(true);
-      System.out.println("VBOX disabled");
+      canteenClosedText.setText("Canteen is closed");
     }
     else {
       menuItemsVBox.setDisable(false);
-      System.out.println("VBOX enabled");
+      canteenClosedText.setText("");
     }
   }
 
@@ -164,9 +173,51 @@ public class DisplayMenuController implements TabController
     lastHBox.getChildren().add(menuItemPane);
   }
 
+  /**
+   * Refreshes Display Menu tab.
+   */
   @Override public void refresh() {
+    buttons.clear();
     viewModel.requestDailyMenuItems();
     viewModel.requestOpeningHours();
+    viewModel.isCanteenClosed();
+    viewModel.itemsInShoppingCartRequest();
+  }
+
+  /**
+   * This method listens to the viewModel. When change is caught, itemsIcCart list is updated and method checkButtons is called.
+   * @param propertyChangeEvent event changed
+   */
+  private void itemsInShoppingCartReceived(PropertyChangeEvent propertyChangeEvent){
+    PropertyChangeEvent propertyChangeEvent1 = (PropertyChangeEvent) propertyChangeEvent.getNewValue();
+    itemsInCart = (ArrayList<String>) propertyChangeEvent1.getNewValue();
+
+
+    checkButtons(itemsInCart);
+  }
+
+
+  /**
+   * This method checks if any of the items on Daily menu are in the customer's cart.
+   * If yes, it disables its button.
+   * @param itemNames The list of names of items in cart
+   */
+  private void checkButtons(ArrayList<String> itemNames){
+    Platform.runLater(()-> {
+      for (String itemName:itemNames
+      )
+      {
+        for (int i = 0; i < buttons.size(); i++)
+        {
+          String buttonItemName = buttons.get(i).getText();
+          if (buttonItemName.contains(itemName)){
+            buttons.get(i).setDisable(true);
+            buttons.get(i).setText("Added");
+          }
+        }
+      }
+    });
+
   }
 
 
@@ -231,24 +282,20 @@ public class DisplayMenuController implements TabController
     //TODO ADD BUTTON
     Button addMenuItemToCart = new Button(){{
       Log.log("DisplayMenuController: Checks if item is in cart.");
-      if (viewModel.isItemInShoppingCart(itemName)){
-        setDisable(true);
-        setText("Added");
-      }
-      else
-      {
-        setText("Add");
-      }
+        setText("Add " + itemName);
+
       setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event) {
           addMenuItemToCart(menuItemWithQuantity);
-
           setDisable(true);
           setText("Added");
         }
       });
+
     }};
+
+    buttons.add(addMenuItemToCart);
 
     VBox buttonVBox = new VBox(){{ // (4)
       setAlignment(Pos.TOP_RIGHT);
