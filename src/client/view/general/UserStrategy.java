@@ -3,11 +3,11 @@ package client.view.general;
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
 import client.view.TabController;
-import client.view.ViewController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Window;
 import shared.Log;
 
 import java.io.IOException;
@@ -26,14 +26,18 @@ import java.util.Objects;
  */
 public abstract class UserStrategy
 {
-  private final TabPane tabPane; // tabpane the tabs will loaded into
+  private final static int TAB_PANE_MENU_HEIGHT = 32;
+  private final static int GENERAL_WINDOW_PLUS_HEIGHT = 134;
+
+
+  private final TabPane tabPane; // tab pane the tabs will be loaded into
   private final ViewHandler viewHandler;
   private final ViewModelFactory viewModelFactory;
   private final HashMap<Tab, TabController> controllers; // Tabs and their controllers
 
   /**
    * Initialize the UserStrategy object, throwing NullPointerException if any of the parameter is null
-   * @param tabPane tabpane the tabs will be loaded into it
+   * @param tabPane tab pane the tabs will be loaded into it
    * @param viewHandler view handler
    * @param viewModelFactory view model factory
    * @throws NullPointerException if any of the parameter is null
@@ -48,9 +52,15 @@ public abstract class UserStrategy
   }
 
   /**
-   * Base method for loading tabs, must be overriden. This method should be called outside of the Strategy pattern.
+   * Base method for loading tabs, must be overridden. This method should be called outside the Strategy pattern.
    */
   public abstract void loadTabs();
+
+  /**
+   * Gets the main window's width
+   * @return the main window's width
+   */
+  public abstract int getWindowWidth();
 
   /**
    * Inner helper method loading tabs from the disk. The tabs' path and name should be in the array
@@ -137,6 +147,22 @@ public abstract class UserStrategy
     } catch (Exception e){
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Set the window's and the tab pane's preferred width and height. Adds the Tab pane menu height to the tab height
+   * to calculate the full tab pane height. Adds the General Window's extra height to the window height
+   * to calculate the full window height
+   * @param width the preferred width
+   * @param height the preferred height
+   */
+  protected void setWindowSize(int width, int height){
+    tabPane.setPrefWidth(width + 15);
+    tabPane.setPrefHeight(height + TAB_PANE_MENU_HEIGHT);
+
+    Window stage = viewHandler.getStage();
+    stage.setWidth(width + 15);
+    stage.setHeight(height + GENERAL_WINDOW_PLUS_HEIGHT);
   }
 
   /**
