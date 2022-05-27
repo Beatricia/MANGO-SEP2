@@ -114,6 +114,16 @@ public class ClientHandler implements Runnable
 
             client.allUncollectedOrdersReceived(request);
           }
+          else if(request.getRequestName().equals(Request.PURCHASE_HISTORY_REQUEST)){
+            Log.log("ClientHandler PURCHASE_HISTORY_REQUEST received from server");
+
+            client.purchaseHistoryReceived(request);
+          }
+          else if(request.getRequestName().equals(Request.STATISTICS_REQUEST)){
+            Log.log("ClientHandler STATISTICS_REQUEST received from server");
+
+            client.statisticsReceived(request);
+          }
         }
         else if(obj instanceof ImageRequest)
         {

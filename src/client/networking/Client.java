@@ -24,6 +24,8 @@ public interface Client extends PropertyChangeSubject
   String ALL_UNCOLLECTED_ORDERS_RECEIVED = "AllUncollectedOrdersReceived";
   String ACCEPTED_EMPLOYEES_RECEIVED = "AcceptedEmployeesReceived";
   String OPENING_HOURS_RECEIVED = "OpeningHoursReceived";
+  String PURCHASE_HISTORY_RECEIVED = "PurchaseHistoryReceived";
+  String STATISTICS_RECEIVED = "StatisticsReceived";
 
     /**
    * The method is used to send to the Server the LoginRequest object

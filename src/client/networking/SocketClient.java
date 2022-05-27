@@ -6,7 +6,6 @@ import transferobjects.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
-import java.util.ArrayList;
 
 //TODO javadocs
 
@@ -180,16 +179,28 @@ public class SocketClient implements Client{
 
     public void allAcceptedEmployeesReceived(Request request)
     {
+        Log.log("SocketClient fires an ACCEPTED_EMPLOYEES_RECEIVED event");
         support.firePropertyChange(ACCEPTED_EMPLOYEES_RECEIVED,null,request.getObject());
     }
 
     public void openingHoursReceived(Request request)
     {
+        Log.log("SocketClient fires an OPENING_HOURS_RECEIVED event");
         support.firePropertyChange(OPENING_HOURS_RECEIVED,null,request.getObject());
     }
 
     public void allUncollectedOrdersReceived(Request request){
         Log.log("SocketClient fires an ALL_UNCOLLECTED_ORDERS_RECEIVED event");
         support.firePropertyChange(ALL_UNCOLLECTED_ORDERS_RECEIVED, null, request.getObject());
+    }
+
+    public void purchaseHistoryReceived(Request request){
+        Log.log("SocketClient fires an ALL_UNCOLLECTED_ORDERS_RECEIVED event");
+        support.firePropertyChange(PURCHASE_HISTORY_RECEIVED, null, request.getObject());
+    }
+
+    public void statisticsReceived(Request request) {
+        Log.log("SocketClient fires an STATISTICS_RECEIVED event");
+        support.firePropertyChange(STATISTICS_RECEIVED, null, request.getObject());
     }
 }

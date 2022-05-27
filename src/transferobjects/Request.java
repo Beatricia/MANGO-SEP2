@@ -34,8 +34,8 @@ public class Request implements Serializable
   public static final String REMOVE_EMPLOYEE_REQUEST = "RemoveEmployeeRequest";
   public static final String SET_OPENING_HOURS_REQUEST = "SetOpeningHoursRequest";
   public static final String OPENING_HOURS_REQUEST = "OpeningHoursRequest";
-  private static final String PURCHASE_HISTORY_REQUEST = "PurchaseHistoryRequest";
-  private static final String STATISTICS_REQUEST = "StatisticsRequest";
+  public static final String PURCHASE_HISTORY_REQUEST = "PurchaseHistoryRequest";
+  public static final String STATISTICS_REQUEST = "StatisticsRequest";
 
   private String requestName;
   private Object requestObj;

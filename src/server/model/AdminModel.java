@@ -1,5 +1,7 @@
 package server.model;
 
+import transferobjects.OrderItem;
+import transferobjects.Statistics;
 import transferobjects.User;
 
 import java.sql.SQLException;
@@ -61,4 +63,7 @@ public interface AdminModel
    */
   ArrayList<LocalTime> requestOpeningHours() throws SQLException;
 
+  ArrayList<ArrayList<OrderItem>> requestPurchaseHistory() throws SQLException;
+
+  Statistics requestStatistics() throws SQLException;
 }

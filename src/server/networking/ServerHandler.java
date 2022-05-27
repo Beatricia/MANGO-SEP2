@@ -353,6 +353,20 @@ public class ServerHandler implements Runnable
       request.setObject(uncollectedOrders);
       sendObject(request);
     }
+    else if(request.getRequestName().equals(Request.PURCHASE_HISTORY_REQUEST)){
+      Log.log("ServeHandler: ALL_UNCOLLECTED_ORDERS_REQUEST received");
+
+      ArrayList<ArrayList<OrderItem>> purchaseHistory = adminModel.requestPurchaseHistory();
+      request.setObject(purchaseHistory);
+      sendObject(request);
+    }
+    else if(request.getRequestName().equals(Request.STATISTICS_REQUEST)){
+      Log.log("ServeHandler: STATISTICS_REQUEST received");
+
+      Statistics statistics = adminModel.requestStatistics();
+      request.setObject(statistics);
+      sendObject(request);
+    }
   }
 
   /**
