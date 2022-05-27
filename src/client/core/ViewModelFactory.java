@@ -13,7 +13,7 @@ import client.view.employee.WeeklyMenu.WeeklyMenuEmpViewModel;
 import client.view.login.LoginViewModel;
 import client.view.employee.AddDish.MenuEmplViewModel;
 import client.view.employee.DailyMenu.DailyMenuViewModel;
-import client.view.Register.RegisterViewModel;
+import client.view.register.RegisterViewModel;
 import shared.Log;
 
 //TODO javadocs

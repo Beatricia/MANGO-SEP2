@@ -1,4 +1,4 @@
-package client.view.Register;
+package client.view.register;
 
 import client.core.ViewHandler;
 import client.core.ViewModelFactory;
