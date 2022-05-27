@@ -35,7 +35,7 @@ public class WeeklyMenuController implements TabController
   @FXML private Label thursdayDate;
   @FXML private Label fridayDate;
 
-  CustomerWeeklyMenuViewModel viewModel;
+  private CustomerWeeklyMenuViewModel viewModel;
 
 
   /**
