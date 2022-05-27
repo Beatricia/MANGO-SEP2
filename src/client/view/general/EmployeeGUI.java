@@ -23,10 +23,12 @@ public class EmployeeGUI extends UserStrategy
       "AddDish/MenuEmpl.fxml",         "Add items to the menu",
       "DailyMenu/DailyMenuView.fxml",  "Add to daily menu",
       "AddQuantity/AddQuantityView.fxml", "Add quantity",
-      "WeeklyMenu/WeeklyMenuEmp-test.fxml", "Weekly Menu",
+      "WeeklyMenu/WeeklyMenuEmp.fxml", "Weekly Menu",
       "CollectOrder/CollectOrderView.fxml", "Collect order",
       "MenuItems/MenuItems.fxml", "Menu Items",
   };
+  private final static int TAB_VIEW_WIDTH = 766;
+  private final static int TAB_VIEW_HEIGHT = 525;
 
   public EmployeeGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
     super(tabPane, viewHandler, viewModelFactory);
@@ -34,6 +36,11 @@ public class EmployeeGUI extends UserStrategy
 
   @Override public void loadTabs() {
     Log.log("EmployeeGUI employee tabs are loading");
+    setWindowSize(TAB_VIEW_WIDTH, TAB_VIEW_HEIGHT);
     loadTabs(BASE_PATH, tabs);
+  }
+
+  @Override public int getWindowWidth() {
+    return TAB_VIEW_WIDTH;
   }
 }

@@ -24,8 +24,9 @@ public class CustomerGUI extends UserStrategy
       "displayWeeklyMenu/WeeklyMenuView.fxml", "Weekly Menu",
       "shoppingCart/ShoppingCartView.fxml", "Shopping Cart",
       "myOrder/MyOrderView.fxml" , "My Order"
-
   };
+  private final static int TAB_VIEW_WIDTH = 834;
+  private final static int TAB_VIEW_HEIGHT = 641;
 
   public CustomerGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
     super(tabPane, viewHandler, viewModelFactory);
@@ -33,6 +34,11 @@ public class CustomerGUI extends UserStrategy
 
   @Override public void loadTabs() {
     Log.log("CustomerGUI customer tabs are loading");
+    setWindowSize(TAB_VIEW_WIDTH, TAB_VIEW_HEIGHT);
     loadTabs(BASE_PATH, tabs);
+  }
+
+  @Override public int getWindowWidth() {
+    return TAB_VIEW_WIDTH;
   }
 }

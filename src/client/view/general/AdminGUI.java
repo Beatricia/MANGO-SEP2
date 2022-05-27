@@ -23,6 +23,8 @@ public class AdminGUI extends UserStrategy
       "acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees",
       "manageCanteen/ManageCanteenView.fxml", "Manage Canteen"
   };
+  private final static int TAB_VIEW_WIDTH = 810;
+  private final static int TAB_VIEW_HEIGHT = 507;
 
   public AdminGUI(TabPane tabPane, ViewHandler viewHandler, ViewModelFactory viewModelFactory) {
     super(tabPane, viewHandler, viewModelFactory);
@@ -30,6 +32,11 @@ public class AdminGUI extends UserStrategy
 
   @Override public void loadTabs() {
     Log.log("AdminGUI admin tabs are loading");
+    setWindowSize(TAB_VIEW_WIDTH, TAB_VIEW_HEIGHT);
     loadTabs(BASE_PATH, tabs);
+  }
+
+  @Override public int getWindowWidth() {
+    return TAB_VIEW_WIDTH;
   }
 }
