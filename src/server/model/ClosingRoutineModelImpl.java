@@ -74,6 +74,7 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
    */
   private void cancelAllOrders() {
     try {
+      Log.log("ClosingRoutineModelImp: Cancelling all orders");
       databaseConn.cancelOrder(null);
     }
     catch (Exception e) {
