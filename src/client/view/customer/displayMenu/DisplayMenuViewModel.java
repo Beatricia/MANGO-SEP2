@@ -3,9 +3,14 @@ package client.view.customer.displayMenu;
 import client.model.CartModel;
 import client.model.MenuModel;
 import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Log;
+import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 import util.PropertyChangeSubject;
 
@@ -16,9 +21,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+//TODO javadocs
 
 /**
  * A class that connects the DisplayMenuController with the MenuModel.
+ *
  *
  * @author Greg, Simon
  */
@@ -31,12 +40,6 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
 
   private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-  /**
-   * Initializing the DisplayMenuViewModel class
-   * Adding the class as a listener to the menuModel
-   * @param menuModel Model to get data from.
-   * @param cartModel Model to get data from.
-   */
   public DisplayMenuViewModel(MenuModel menuModel, CartModel cartModel){
     this.menuModel = menuModel;
     this.cartModel = cartModel;
@@ -46,11 +49,6 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
     menuModel.addListener(MenuModel.OPENING_HOURS_RECEIVED, this::openingHoursReceived);
   }
 
-  /**
-   * When a new property is fired with a new Menu,
-   * all the menu items will be inserted in the list
-   * @param propertyChangeEvent the new menu
-   */
   private void menuReceived(PropertyChangeEvent propertyChangeEvent) {
     List<MenuItemWithQuantity> menuItems = (List<MenuItemWithQuantity>) propertyChangeEvent.getNewValue();
 
@@ -64,23 +62,16 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
     });
   }
 
-  /**
-   * Requesting the daily menu items from the menu model
-   */
   public void requestDailyMenuItems(){
     menuModel.requestDailyMenu();
   }
 
-  /**
-   * Getting the menu item with ingredients
-   * @return an observable list with menu items with ingredients
-   */
   public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList(){
     return menuItemWithQuantities;
   }
 
   /**
-   * Calls the method addToCart in cartModel
+   * Calles the method addToCart in cartModel
    * @param menuItem instance of MenuItemWithQuantity which is added to cart
    */
   public void addMenuItemToCart(MenuItemWithQuantity menuItem){
@@ -96,6 +87,7 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
    */
   public void openingHoursReceived(PropertyChangeEvent propertyChangeEvent)
   {
+    //Uafi needs to fire it in ArrayList<LocalTime>
     ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) propertyChangeEvent.getNewValue();
 
     LocalTime open = openingHours.get(0);
