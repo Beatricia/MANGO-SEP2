@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.customer.displayMenu.DisplayMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.customer.displayMenu.DisplayMenuController">
    <top>
       <VBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="675.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -29,7 +29,7 @@
    <center>
       <ScrollPane prefHeight="446.0" prefWidth="705.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="menuItemsVBox" prefHeight="436.0" prefWidth="765.0">
+            <VBox fx:id="menuItemsVBox" prefHeight="568.0" prefWidth="811.0">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0" />
                </children>

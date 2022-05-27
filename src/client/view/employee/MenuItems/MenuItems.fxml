@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="518.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.employee.MenuItems.MenuItemsController">
+<AnchorPane prefHeight="525.0" prefWidth="766.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.employee.MenuItems.MenuItemsController">
    <children>
       <Label alignment="CENTER" layoutX="290.0" layoutY="52.0" prefHeight="33.0" prefWidth="170.0" text="Menu Items">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <ListView fx:id="list" layoutX="128.0" layoutY="113.0" prefHeight="291.0" prefWidth="494.0" />
-      <Button fx:id="removeButton" layoutX="592.0" layoutY="457.0" mnemonicParsing="false" onAction="#onRemove" prefHeight="28.0" prefWidth="98.0" text="Remove" />
+      <ListView fx:id="list" layoutX="128.0" layoutY="113.0" prefHeight="332.0" prefWidth="494.0" />
+      <Button fx:id="removeButton" layoutX="635.0" layoutY="469.0" mnemonicParsing="false" onAction="#onRemove" prefHeight="28.0" prefWidth="98.0" text="Remove" />
    </children>
 </AnchorPane>
