@@ -66,6 +66,8 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
     menuModel.requestDailyMenu();
   }
 
+  public void requestOpeningHours() { menuModel.requestOpeningHours(); }
+
   public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList(){
     return menuItemWithQuantities;
   }
@@ -138,4 +140,5 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
   {
     propertyChangeSupport.addPropertyChangeListener(listener);
   }
+
 }
