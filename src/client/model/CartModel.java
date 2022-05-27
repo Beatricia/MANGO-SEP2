@@ -52,9 +52,10 @@ public interface CartModel extends PropertyChangeSubject
    */
   void placeOrder();
   /**
-   * Updates the cart and checks if item sent through argument is in the customer's cart
-   * @param itemName name of the item to check
-   * @return true if item is in the cart, else false
+   * Gets all the names of cart items, puts them into an ArrayList
+   * and fires a propertyChange with this ArrayList
+   *
+   * @param itemsInCart list of items in the cart
    */
   void isItemInShoppingCart(List<CartItem> itemsInCart);
 }

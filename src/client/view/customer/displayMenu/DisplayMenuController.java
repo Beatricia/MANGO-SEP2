@@ -172,6 +172,9 @@ public class DisplayMenuController implements TabController
     lastHBox.getChildren().add(menuItemPane);
   }
 
+  /**
+   * Refreshes Display Menu tab.
+   */
   @Override public void refresh() {
     buttons.clear();
     viewModel.requestDailyMenuItems();
@@ -180,7 +183,11 @@ public class DisplayMenuController implements TabController
     viewModel.itemsInShoppingCartRequest();
   }
 
-  public void itemsInShoppingCartReceived(PropertyChangeEvent propertyChangeEvent){
+  /**
+   * This method listens to the viewModel. When change is caught, itemsIcCart list is updated and method checkButtons is called.
+   * @param propertyChangeEvent event changed
+   */
+  private void itemsInShoppingCartReceived(PropertyChangeEvent propertyChangeEvent){
     PropertyChangeEvent propertyChangeEvent1 = (PropertyChangeEvent) propertyChangeEvent.getNewValue();
     itemsInCart = (ArrayList<String>) propertyChangeEvent1.getNewValue();
 
@@ -188,7 +195,13 @@ public class DisplayMenuController implements TabController
     checkButtons(itemsInCart);
   }
 
-  public void checkButtons(ArrayList<String> itemNames){
+
+  /**
+   * This method checks if any of the items on Daily menu are in the customer's cart.
+   * If yes, it disables its button.
+   * @param itemNames The list of names of items in cart
+   */
+  private void checkButtons(ArrayList<String> itemNames){
     Platform.runLater(()-> {
       for (String itemName:itemNames
       )

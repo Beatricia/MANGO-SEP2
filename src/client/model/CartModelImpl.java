@@ -44,7 +44,7 @@ public class CartModelImpl implements CartModel
   /**
    * Private method that fires a CART_LIST_RECEIVED event with a list of
    * cart items
-   *
+   *Also calls the isItemInShoppingCart method
    * @param evt the event that occurred
    */
   private void cartListReceived(PropertyChangeEvent evt)
@@ -129,9 +129,10 @@ public class CartModelImpl implements CartModel
   }
 
   /**
-   * Updates the cart and checks if item sent through argument is in the customer's cart
+   * Gets all the names of cart items, puts them into an ArrayList
+   * and fires a propertyChange with this ArrayList
    *
-   * @param itemsInCart name of the item to check
+   * @param itemsInCart list of items in the cart
    */
   @Override public void isItemInShoppingCart(List<CartItem> itemsInCart)
   {

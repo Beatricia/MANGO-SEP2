@@ -3,14 +3,9 @@ package client.view.customer.displayMenu;
 import client.model.CartModel;
 import client.model.MenuModel;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import shared.Log;
-import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
 import util.PropertyChangeSubject;
 
@@ -18,10 +13,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 //TODO javadocs
 
@@ -51,7 +44,7 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
     menuModel.addListener(MenuModel.DAILY_MENU_RECEIVED, this::menuReceived);
     menuModel.addListener(MenuModel.OPENING_HOURS_RECEIVED, this::openingHoursReceived);
 
-    cartModel.addListener(CartModel.IS_ITEM_IN_CART, this::isItemInShoppingCartReceived);
+    cartModel.addListener(CartModel.IS_ITEM_IN_CART, this::itemInShoppingCartReceived);
   }
 
   private void menuReceived(PropertyChangeEvent propertyChangeEvent) {
@@ -122,14 +115,18 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
   }
 
   /**
-   * Calls isItemInShoppingCart in cartModel
+   * Calls requestCartList in cartModel
    */
   public void itemsInShoppingCartRequest(){
     Log.log("DisplayMenuViewModel: Calls isItemInShoppingCart in cartModel");
     cartModel.requestCartList();
   }
 
-  public void isItemInShoppingCartReceived(PropertyChangeEvent propertyChangeEvent){
+  /**
+   * Fires propertyChangeEvent with event name IS_ITEM_IN_CART
+   * @param propertyChangeEvent event caught
+   */
+  public void itemInShoppingCartReceived(PropertyChangeEvent propertyChangeEvent){
     propertyChangeSupport.firePropertyChange(CartModel.IS_ITEM_IN_CART, null, propertyChangeEvent);
   }
 
