@@ -17,14 +17,14 @@ public class OrderItem extends CartItem{
     /**
      * Constructor for initializing every OrderItem's field and the super class
      *
-     * @param name                  item's name
-     * @param ingredients           list of item's ingredients
-     * @param price                 item's price
-     * @param imgPath               item's image path
-     * @param username              the username of the order's authod
-     * @param quantity              item's quantity
+     * @param name item's name
+     * @param ingredients list of item's ingredients
+     * @param price item's price
+     * @param imgPath item's image path
+     * @param username the username of the order's author
+     * @param quantity item's quantity
      * @param unselectedIngredients the unselected ingredients
-     * @param code                  the order's code
+     * @param code the order's code
      */
     public OrderItem(String name, ArrayList<String> ingredients, double price, String imgPath,
         String username, int quantity, ArrayList<String> unselectedIngredients, int code) {

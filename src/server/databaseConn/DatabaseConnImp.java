@@ -29,6 +29,10 @@ public class DatabaseConnImp implements DatabaseConn
   private final CartDatabaseConn cartDatabaseConn;
   private final OrderDatabaseConn orderDatabaseConn;
 
+
+  private LocalTime openingHour;
+  private LocalTime closingHour;
+
   /**
    * Contractor for a class
    * initialize all needed subclasses
@@ -41,6 +45,15 @@ public class DatabaseConnImp implements DatabaseConn
     adminDataBaseConnection = new AdminDatabaseConnection();
     cartDatabaseConn = new CartDatabaseConn();
     orderDatabaseConn = new OrderDatabaseConn();
+
+    try{
+      ArrayList<LocalTime> hours = adminDataBaseConnection.getOpeningHours();
+      openingHour = hours.get(0);
+      closingHour = hours.get(1);
+    } catch (SQLException ignored){
+      openingHour = LocalTime.of(10, 0);
+      closingHour = LocalTime.of(17, 0);
+    }
   }
 
   /**
@@ -110,6 +123,14 @@ public class DatabaseConnImp implements DatabaseConn
   }
 
     return e;
+  }
+
+
+  private void throwExceptionIfCanteenIsClosed() throws SQLException {
+    LocalTime now = LocalTime.now();
+
+    if(!(openingHour.isBefore(now) && closingHour.isAfter(now)))
+      throw new SQLException("Canteen is closed");
   }
 
   /**
@@ -273,6 +294,7 @@ public class DatabaseConnImp implements DatabaseConn
   @Override
   public void addItemToCart(String cartItemName, String username) throws SQLException
   {
+    throwExceptionIfCanteenIsClosed();
 
     try{
       Log.log("DatabaseConnImp: Sending an addItemToCart request to the CartDatabaseConn");
@@ -300,6 +322,8 @@ public class DatabaseConnImp implements DatabaseConn
   @Override
   public void editCartItem(CartItem cartItem) throws SQLException
   {
+    throwExceptionIfCanteenIsClosed();
+
     try {
       Log.log("DatabaseConnImp: Sending an editCartItem request to the CartDatabaseConn");
       cartDatabaseConn.editCartItem(cartItem);
@@ -321,6 +345,8 @@ public class DatabaseConnImp implements DatabaseConn
   @Override
   public void removeCartItem(CartItem cartItem) throws SQLException
   {
+    throwExceptionIfCanteenIsClosed();
+
     Log.log("DatabaseConnImp: Sending a removeCartItem request to the CartDatabaseConn");
     cartDatabaseConn.removeCartItem(cartItem);
   }
@@ -356,6 +382,8 @@ public class DatabaseConnImp implements DatabaseConn
    */
   @Override public void placeOrder(String username) throws SQLException
   {
+    throwExceptionIfCanteenIsClosed();
+
     orderDatabaseConn.placeOrder(username);
   }
 
@@ -367,6 +395,8 @@ public class DatabaseConnImp implements DatabaseConn
    */
   @Override public void cancelOrder(String username) throws SQLException
   {
+    if(username != null)
+      throwExceptionIfCanteenIsClosed();
     orderDatabaseConn.cancelOrder(username);
   }
 
@@ -412,6 +442,9 @@ public class DatabaseConnImp implements DatabaseConn
   {
     Log.log("DatabaseConnImp: calls setOpeningHours in aDmInDataBaseCoNnEcTiOn");
     adminDataBaseConnection.setOpeningHours(from, to);
+
+    openingHour = from;
+    closingHour = to;
   }
 
   /**
