@@ -75,15 +75,6 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
   private void cancelAllOrders() {
     try {
       databaseConn.cancelOrder(null);
-      /*ArrayList<ArrayList<OrderItem>> orders = databaseConn.getAllUncollectedOrders();
-      Log.log("ClosingRoutineModelImp: All orders cancelled ");
-      for (ArrayList<OrderItem> order : orders) {
-        //because all the orderItems in the list come from the same user
-        try{
-          databaseConn.cancelOrder(order.get(0).getUsername());
-        } catch (SQLException ignored) {
-        }
-      }*/
     }
     catch (Exception e) {
       e.printStackTrace();
