@@ -51,14 +51,6 @@ public class SocketClient implements Client{
         Log.log("SocketClient LoginRequest(register) send to server");
     }
 
-    /**
-     * Sends the MenuItem to the server
-     * @param menuItem object to send to the server
-     */
-    @Override public void addItem(MenuItem menuItem) {
-        clientHandler.send(menuItem);
-        Log.log("SocketClient menuItem send to server");
-    }
 
     /**
      * Sends the Request object to the server

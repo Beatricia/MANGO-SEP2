@@ -1,5 +1,6 @@
 package client.networking;
 
+import shared.Log;
 import client.model.MenuModel;
 import client.model.MenuModelImp;
 import client.model.OrderModelCustomerImp;
@@ -20,7 +21,7 @@ public class TestClient implements Client
     new Thread(() -> {
       try {
         Thread.sleep(2000);
-        support.firePropertyChange(Client.LOGGED_IN_RECEIVED, null, new User("test-user", UserType.EMPLOYEE, "first-test-name", "last-test-name"));
+        support.firePropertyChange(Client.LOGGED_IN_RECEIVED, null, new User("test-user", UserType.ADMINISTRATOR, "first-test-name", "last-test-name"));
       }
       catch (InterruptedException e) {
         e.printStackTrace();
@@ -36,13 +37,11 @@ public class TestClient implements Client
 
   }
 
-  @Override public void addItem(MenuItem menuItem) {
 
-  }
 
   @Override public void sendRequest(Request request)
   {
-
+    Log.log("TestClient Request sent: " + request);
   }
 
   @Override public void sendImageRequest(ImageRequest imageRequest)
