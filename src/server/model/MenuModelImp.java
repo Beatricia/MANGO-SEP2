@@ -2,6 +2,7 @@ package server.model;
 
 import javafx.beans.property.StringProperty;
 import server.databaseConn.DatabaseConn;
+import server.imageHandler.ServerImageHandler;
 import shared.Log;
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
@@ -41,13 +42,17 @@ public class MenuModelImp implements MenuModel
    * Passes the menu item onto the Database connection.
    * @param menuItem which is unwrapped and passed onto the class Databaseconn
    */
-  @Override public void addItem(MenuItem menuItem) throws SQLException
+  @Override public void addItem(MenuItem menuItem, SerializableImage image) throws SQLException
   {
-       String imgPath = menuItem.getImgPath(); //folder + menuItem.getName() + "." + serializableImage.getFormat(); // create image path
+    String imageFileName = ServerImageHandler.saveImage(image);
 
-    databaseConn.addItem(menuItem.getName(), menuItem.getIngredients(),
-        menuItem.getPrice(), imgPath);
-
+    try{
+      databaseConn.addItem(menuItem.getName(), menuItem.getIngredients(),
+          menuItem.getPrice(), imageFileName);
+    } catch (SQLException e){
+      ServerImageHandler.deleteImage(imageFileName);
+      throw e;
+    }
   }
 
   /**
