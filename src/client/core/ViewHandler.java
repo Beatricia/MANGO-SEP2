@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -45,6 +46,8 @@ public class ViewHandler
     Client client = clientFactory.getClient();
     client.addListener(Client.ERROR_RECEIVED, this::onErrorReceived);
     client.addListener(Client.LOGGED_IN_RECEIVED, this::onLoggedInReceived);
+
+    stage.getIcons().add(new Image("file:src/client/view/logo/logo.png"));
   }
 
   /**
@@ -120,6 +123,14 @@ public class ViewHandler
     } catch (IOException e){
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Get the main stage
+   * @return the main stage
+   */
+  public Stage getStage() {
+    return stage;
   }
 
   /**
