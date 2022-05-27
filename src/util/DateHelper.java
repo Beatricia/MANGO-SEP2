@@ -34,4 +34,25 @@ public class DateHelper
       return now.minusDays(dayOfWeekNum - 1); // if not, subtract days till the previous monday
     }
   }
+
+  /**
+   * Gets the current week's monday
+   * @return LocalDate monday object
+   */
+  public static LocalDate getCurrentAvailableMondayForStatistic()
+  {
+    LocalDate now = LocalDate.now();
+
+    DayOfWeek dayOfWeek = now.getDayOfWeek();
+
+
+    // 1: Monday         5: Friday
+    // 2: Tuesday        6: Saturday
+    // 3: Wednesday      7: Sunday
+    // 4: Thursday
+    int dayOfWeekNum = dayOfWeek.getValue();
+
+      return now.minusDays(dayOfWeekNum - 1);
+
+  }
 }
