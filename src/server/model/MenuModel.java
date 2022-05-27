@@ -2,6 +2,7 @@ package server.model;
 
 import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
+import transferobjects.SerializableImage;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public interface MenuModel
    * Passes the menu item onto the Database connection.
    * @param menuItem which is unwrapped and passed onto the class Databaseconn
    */
-  void addItem(MenuItem menuItem) throws SQLException;
+  void addItem(MenuItem menuItem, SerializableImage image) throws SQLException;
 
   /**
    * Retrieves the list of all MenuItems from Databaseconn
