@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 /**
  * Class ImageRequest with a path and a SerializableImage
+ *
+ * @author Greg
+ * @version 1
  */
 public class ImageRequest implements Serializable
 {

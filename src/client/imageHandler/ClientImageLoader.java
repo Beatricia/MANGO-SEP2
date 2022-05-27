@@ -32,14 +32,6 @@ public class ClientImageLoader
     imageLoader = new ClientImageLoader(client);
   }
 
-  /**
-   * Loads the specified image with the original size into the image view
-   * @param imageFileName image file name and extension to load
-   * @param imageView image view to load into the image
-   */
-  public static void loadImage(String imageFileName, ImageView imageView) {
-    loadImage(imageFileName, imageView, -1, -1);
-  }
 
   /**
    * Loads the specified image with the original size into the image view
