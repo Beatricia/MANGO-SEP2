@@ -14,6 +14,9 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Tool class with useful helping method collection for working with images.
+ *
+ * @author Greg
+ * @version 1
  */
 public class ImageTools {
   /**
