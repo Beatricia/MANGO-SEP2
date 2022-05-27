@@ -80,6 +80,9 @@ public class GeneralViewController implements ViewController
     }
 
     Log.log("GeneralViewController user strategy created: " + userStrategy);
+    int windowWidth = userStrategy.getWindowWidth();
+    double buttonX = windowWidth - 90;
+    refreshButton.setLayoutX(buttonX);
 
     userStrategy.loadTabs();
   }
