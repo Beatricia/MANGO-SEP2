@@ -73,7 +73,7 @@ public class ViewHandler
 
     Log.log("ViewHandler: Log-In view opened");
     stage.setScene(loginScene);
-    stage.setTitle("Log in");
+    stage.setTitle("CanEat - Log in");
     stage.show();
   }
 
@@ -92,7 +92,7 @@ public class ViewHandler
 
 
     Log.log("ViewHandler: Register view opened");
-    stage.setTitle("Register");
+    stage.setTitle("CanEat - Register");
     stage.setScene(registerScene);
     stage.show();
   }
@@ -119,6 +119,7 @@ public class ViewHandler
 
       Log.log("ViewHandler: General view opened");
       stage.setScene(generalScene);
+      stage.setTitle("CanEat");
       stage.show();
     } catch (IOException e){
       e.printStackTrace();
