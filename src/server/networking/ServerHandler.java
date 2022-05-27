@@ -1,5 +1,6 @@
 package server.networking;
 
+import server.imageHandler.ServerImageHandler;
 import server.model.*;
 import shared.Log;
 import transferobjects.*;
@@ -167,14 +168,6 @@ public class ServerHandler implements Runnable
 
       handleLoginRequest(request);
     }
-    // in case the received object is a MenuItem object
-    else if (receivedObj instanceof MenuItem)
-    {
-      Log.log("ServerHandler received MenuItem object");
-      MenuItem menuItem = (MenuItem) receivedObj;
-      menuModel.addItem(menuItem);
-    }
-
     else if (receivedObj instanceof Request)
     {
       Request request = (Request) receivedObj;
@@ -183,14 +176,10 @@ public class ServerHandler implements Runnable
     else if (receivedObj instanceof ImageRequest)
     {
       ImageRequest request = (ImageRequest) receivedObj;
+      String fileName = request.getPath();
 
-      String path = request.getPath();
-      String format = path.substring(path.lastIndexOf(".") + 1);
-
-      BufferedImage bufferedImage = ImageIO.read(new File(request.getPath()));
-      SerializableImage serializableImage = new SerializableImage(bufferedImage,
-          format);
-      request.setSerializableImage(serializableImage);
+      SerializableImage image = ServerImageHandler.getImage(fileName);
+      request.setSerializableImage(image);
 
       sendObject(request);
     }
@@ -366,6 +355,15 @@ public class ServerHandler implements Runnable
       Statistics statistics = adminModel.requestStatistics();
       request.setObject(statistics);
       sendObject(request);
+    }
+    else if(request.getRequestName().equals(Request.ADD_MENU_ITEM)){
+      Log.log("ServeHandler: ADD_MENU_ITEM received");
+      Object[] objects = (Object[]) request.getObject();
+
+      MenuItem menuItem = (MenuItem) objects[0];
+      SerializableImage image = (SerializableImage) objects[1];
+
+      menuModel.addItem(menuItem, image);
     }
   }
 
