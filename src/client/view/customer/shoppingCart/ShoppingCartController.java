@@ -1,6 +1,7 @@
 package client.view.customer.shoppingCart;
 
 import client.core.ViewModelFactory;
+import client.imageHandler.ClientImageLoader;
 import client.view.TabController;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
@@ -89,12 +90,6 @@ public class ShoppingCartController implements TabController {
         ArrayList<String> ingredients = cartItem.getIngredients();
         nameLabel.setText(cartItem.getName());
 
-
-
-        Log.log("Image path: " + cartItem.getImgPath());
-
-        //Image img = new Image(cartItem.getImgPath());
-        //imageView.setImage(img);
         SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8, cartItem.getQuantity());
         this.quantitySpinner.setValueFactory(quantityValueFactory);
         priceLabel.setText((cartItem.getPrice()*quantitySpinner.getValue())+ " dkk");
@@ -107,6 +102,8 @@ public class ShoppingCartController implements TabController {
 
             ingredientsVBox.getChildren().add(checkBox);
         }
+
+        ClientImageLoader.loadImage(cartItem.getImgPath(), imageView, 100, 100);
     }
 
     @Override

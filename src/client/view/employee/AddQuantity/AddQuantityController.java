@@ -1,6 +1,7 @@
 package client.view.employee.AddQuantity;
 
 import client.core.ViewModelFactory;
+import client.imageHandler.ClientImageLoader;
 import client.view.TabController;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -276,23 +277,11 @@ public class AddQuantityController implements TabController
       getChildren().addAll(quantityField);
     }};
 
-    //read image from file
-    java.awt.image.BufferedImage menuItemImage = ImageIO.read(new File(imagePath));
-    //resize image
-    java.awt.Image resizedImage = menuItemImage.getScaledInstance(imgSize,
-        imgSize, BufferedImage.SCALE_SMOOTH);
-
-    //convert image to buffered image
-    menuItemImage = toBufferedImage(resizedImage);
-    javafx.scene.image.Image javafxImage = SwingFXUtils.toFXImage(menuItemImage,
-        null);
-
-    ImageView menuItemImageView = new ImageView()
-    {{ // (9)
-      setImage(javafxImage);
+    ImageView menuItemImageView = new ImageView() {{ // (9)
       setPickOnBounds(true);
       setPreserveRatio(true);
     }};
+    ClientImageLoader.loadImage(imagePath, menuItemImageView, imgSize, imgSize);
 
     VBox leftVbox = new VBox()
     {{ // (10)

@@ -1,6 +1,7 @@
 package client.view.admin.displayMenu;
 
 import client.core.ViewModelFactory;
+import client.imageHandler.ClientImageLoader;
 import client.view.TabController;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
 import javafx.application.Platform;
@@ -213,20 +214,12 @@ public class DisplayMenuController implements TabController
       );
     }};
 
-    //read image from file
-    BufferedImage menuItemImage = ImageIO.read(new File(imagePath));
-    //resize image
-    Image resizedImage = menuItemImage.getScaledInstance(imgSize, imgSize, BufferedImage.SCALE_SMOOTH);
 
-    //convert image to buffered image
-    menuItemImage = toBufferedImage(resizedImage);
-    javafx.scene.image.Image javafxImage = SwingFXUtils.toFXImage(menuItemImage, null);
-
-    ImageView menuItemImageView = new ImageView(){{ // (9)
-      setImage(javafxImage);
+    ImageView menuItemImageView = new ImageView() {{ // (9)
       setPickOnBounds(true);
       setPreserveRatio(true);
     }};
+    ClientImageLoader.loadImage(imagePath, menuItemImageView, imgSize, imgSize);
 
     VBox leftVbox = new VBox(){{ // (10)
       getChildren().addAll(
