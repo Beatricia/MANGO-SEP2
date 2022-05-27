@@ -19,6 +19,9 @@ import java.util.List;
  * image is downloaded to the customer's computer, and if yes, the loads it into the imageview.
  * If it is not downloaded, it sends an ImageRequest object to the server, which sends the requested
  * image back. This class then saves that image to the local computer, and finishes loading the image.
+ *
+ * @author Greg
+ * @version 1
  */
 public class ClientImageLoader
 {
@@ -32,14 +35,6 @@ public class ClientImageLoader
     imageLoader = new ClientImageLoader(client);
   }
 
-  /**
-   * Loads the specified image with the original size into the image view
-   * @param imageFileName image file name and extension to load
-   * @param imageView image view to load into the image
-   */
-  public static void loadImage(String imageFileName, ImageView imageView) {
-    loadImage(imageFileName, imageView, -1, -1);
-  }
 
   /**
    * Loads the specified image with the original size into the image view
@@ -168,7 +163,7 @@ public class ClientImageLoader
 
 
 
-  // Private helper classes
+  // Private helper class
 
 
   /**
