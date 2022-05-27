@@ -210,7 +210,12 @@ public class OrderDatabaseConn implements Serializable
     Log.log("Order for " + username + " canceled.");
     try (Connection connection = DatabaseConnImp.getConnection())
     {
-      String sql1 = "SELECT ordernumber from \"order\" WHERE collected = FALSE AND username = '" + username + "'";
+      String sql1 = "SELECT ordernumber from \"order\" WHERE collected = FALSE";
+
+      if(username != null) {
+        sql1 += " AND username = '" + username + "'";
+      }
+
       PreparedStatement statement1 = connection.prepareStatement(sql1);
       ResultSet resultSet1 = statement1.executeQuery();
 

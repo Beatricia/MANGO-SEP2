@@ -18,7 +18,7 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
 {
   private Thread timeThread;
   private long waitTime = 0;
-  private DatabaseConn databaseConn;
+  private final DatabaseConn databaseConn;
   private ArrayList<LocalTime> time;
 
   /**
@@ -27,8 +27,7 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
    * @param databaseConn the database connection class that the model should
    *                     be connected with
    */
-  public ClosingRoutineModelImpl(DatabaseConn databaseConn)
-  {
+  public ClosingRoutineModelImpl(DatabaseConn databaseConn) {
     this.databaseConn = databaseConn;
   }
 
@@ -36,26 +35,20 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
    * Starts a Thread which is asleep during the opening hours. Once the canteen
    * is closed the thread empties all customers' carts, marks all orders as
    * collected, and removes them from the MyOrder view in the customer
-   *
-   * @throws SQLException
    */
-  @Override public void setClosingTimer()
-  {
-    if (timeThread!=null)
-    {
+  @Override public void setClosingTimer() {
+    if (timeThread!=null) {
       timeThread.interrupt();
     }
 
-    try
-    {
+    try {
       time = databaseConn.getOpeningHours();
     }
-    catch (SQLException e)
-    {
+    catch (SQLException e) {
       e.printStackTrace();
     }
 
-    timeThread = new Thread(createThread());
+    timeThread = new Thread(this::timer);
 
     Log.log("ClosingRoutineModelImp: Thread starts");
     timeThread.start();
@@ -65,15 +58,12 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
   /**
    * Private method that empties all shopping carts once the canteen is closed
    */
-  private void emptyAllCarts()
-  {
-    try
-    {
+  private void emptyAllCarts() {
+    try {
       Log.log("ClosingRoutineModelImp: Empty all carts");
       databaseConn.emptyAllCarts();
     }
-    catch (Exception e)
-    {
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
@@ -82,67 +72,53 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
    * Private method that cancels all uncollected orders once the canteen is
    * closed
    */
-  private void cancelAllOrders()
-  {
-    try
-    {
-      ArrayList<ArrayList<OrderItem>> orders = databaseConn.getAllUncollectedOrders();
+  private void cancelAllOrders() {
+    try {
+      databaseConn.cancelOrder(null);
+      /*ArrayList<ArrayList<OrderItem>> orders = databaseConn.getAllUncollectedOrders();
       Log.log("ClosingRoutineModelImp: All orders cancelled ");
-      for (ArrayList<OrderItem> order : orders)
-      {
+      for (ArrayList<OrderItem> order : orders) {
         //because all the orderItems in the list come from the same user
-        databaseConn.cancelOrder(order.get(0).getUsername());
-      }
-
+        try{
+          databaseConn.cancelOrder(order.get(0).getUsername());
+        } catch (SQLException ignored) {
+        }
+      }*/
     }
-    catch (Exception e)
-    {
+    catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   /**
-   * Private method that creates the thread supposed to perform the actions
-   * required when the canteen is closed
-   * @return the thread that is responsible for executing once the canteen is
-   *         closed
+   * After waiting for the next closing time, it empties all the carts and cancels all the
+   * uncollected orders automatically. If this method's thread was not interrupted during the
+   * waiting process, it will call the setClosingTimer method again, to automatically set itself
+   * for the next closing time
    */
-  private Runnable createThread()
-  {
-    LocalTime closing = time.get(1);
-
-    Runnable runnable = () -> {
-      try
-      {
-        if (closing.isBefore(LocalTime.now()))
-        {
-
-          waitTime = (1000 * 60 * 60 * 24) - (toMilliSeconds(LocalTime.now())
-              - toMilliSeconds(closing));
-          Log.log("ClosingRoutineModelImp: Thread waiting: " + waitTime);
-          Thread.sleep(waitTime);
-        }
-        else
-        {
-          waitTime =
-              toMilliSeconds(closing) - toMilliSeconds(LocalTime.now());
-          Log.log("ClosingRoutineModelImp: Thread waiting: " + waitTime);
-          Thread.sleep(waitTime);
-        }
-
-        emptyAllCarts();
-        cancelAllOrders();
-
+  private void timer() {
+    try {
+      LocalTime closing = time.get(1);
+      LocalTime now = LocalTime.now();
+      if (closing.isBefore(now)) {
+        waitTime = (1000 * 60 * 60 * 24) - (toMilliSeconds(now) - toMilliSeconds(closing));
       }
-      catch (InterruptedException e)
-      {
-        e.printStackTrace();
+      else {
+        waitTime = toMilliSeconds(closing) - toMilliSeconds(now);
       }
+      Log.log("ClosingRoutineModelImp: Thread waiting: " + waitTime);
+      Thread.sleep(waitTime);
 
-      setClosingTimer();
+      emptyAllCarts();
+      cancelAllOrders();
 
-    };
-    return runnable;
+    }
+    catch (InterruptedException e) {
+      e.printStackTrace();
+      return;
+    }
+
+    setClosingTimer();
   }
 
   /**
@@ -151,8 +127,7 @@ public class ClosingRoutineModelImpl implements ClosingRoutineModel
    * @param time the time that should be returned in milliseconds
    * @return the time in milliseconds
    */
-  private long toMilliSeconds(LocalTime time)
-  {
+  private long toMilliSeconds(LocalTime time) {
     long hoursToMin = (time.getHour() * 60);
     long minToSec = ((hoursToMin + time.getMinute()) * 60);
 
