@@ -8,6 +8,7 @@ import transferobjects.MenuItem;
 import transferobjects.MenuItemWithQuantity;
 import transferobjects.SerializableImage;
 import util.DateHelper;
+import util.ImageTools;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -133,5 +134,9 @@ public class MenuModelImp implements MenuModel
 
   @Override public void removeMenuItem(ArrayList<MenuItem> menuItems) throws SQLException {
     databaseConn.removeMenuItem(menuItems);
+
+    for (MenuItem m : menuItems){
+      ServerImageHandler.deleteImage(m.getImgPath());
+    }
   }
 }
