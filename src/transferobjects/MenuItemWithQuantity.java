@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class MenuItemWithQuantity extends MenuItem {
   private LocalDate date;
   private int quantity;
+  private boolean isTopThree;
 
   /**
    * The constructor that initializes the super's fields and the date and quantity
@@ -21,6 +22,7 @@ public class MenuItemWithQuantity extends MenuItem {
     super(item.getName(), item.getIngredients(), item.getPrice(), item.getImgPath());
     this.date=date;
     this.quantity=quantity;
+    isTopThree = false;
   }
 
   /**
@@ -45,6 +47,21 @@ public class MenuItemWithQuantity extends MenuItem {
    */
   public int getQuantity(){
     return quantity;
+  }
+
+  /**
+   * Checking if the menu item is in the top three meals
+   * @return true if it is
+   */
+  public boolean isTopThree(){
+    return isTopThree;
+  }
+
+  /**
+   * Marking the menu item as a top three meal
+   */
+  public void setToTopThree(){
+    isTopThree = true;
   }
 
   /**
