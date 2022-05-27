@@ -36,6 +36,7 @@ public class Request implements Serializable
   public static final String OPENING_HOURS_REQUEST = "OpeningHoursRequest";
   public static final String PURCHASE_HISTORY_REQUEST = "PurchaseHistoryRequest";
   public static final String STATISTICS_REQUEST = "StatisticsRequest";
+  public static final String ADD_MENU_ITEM = "AddMenuItem";
 
   private String requestName;
   private Object requestObj;
