@@ -43,6 +43,7 @@ import java.util.List;
  */
 public class DisplayMenuController implements TabController
 {
+  @FXML private Label canteenClosedText;
   @FXML private VBox menuItemsVBox;
   @FXML private Label dateLabel;
 
@@ -63,6 +64,8 @@ public class DisplayMenuController implements TabController
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     String dateText = localDate.getDayOfWeek() + " - " + localDate.format(formatter);
     dateLabel.setText(dateText);
+
+    canteenClosedText.setText("");
   }
 
   /**
@@ -102,11 +105,11 @@ public class DisplayMenuController implements TabController
 
     if (canteenClosed){
       menuItemsVBox.setDisable(true);
-      System.out.println("VBOX disabled");
+      canteenClosedText.setText("Canteen is closed");
     }
     else {
       menuItemsVBox.setDisable(false);
-      System.out.println("VBOX enabled");
+      canteenClosedText.setText("");
     }
   }
 
@@ -166,6 +169,7 @@ public class DisplayMenuController implements TabController
   @Override public void refresh() {
     viewModel.requestDailyMenuItems();
     viewModel.requestOpeningHours();
+    viewModel.isCanteenClosed();
   }
 
 

@@ -37,6 +37,9 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
   private MenuModel menuModel;
   private CartModel cartModel;
   private boolean canteenIsClosed = true;
+  private LocalTime openingHour;
+  private LocalTime closingHour;
+  ArrayList<LocalTime> openingHours = new ArrayList<>();
 
   private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
@@ -82,42 +85,38 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
   }
 
   /**
-   * Listener for MenuModel. If change called OPENING_HOURS_RECEIVED is received opening hours are updated and new Thread is started.
-   * The thread checks if the current time is within the opening hours (canteen is open) or outside (canteen is closed).
-   * Whenever there is a change in the canteen's opening state a propertyChange is fired.
+   * Listener for MenuModel. If change called OPENING_HOURS_RECEIVED is received opening hours are updated.
    * @param propertyChangeEvent Update of the opening hours
    */
   public void openingHoursReceived(PropertyChangeEvent propertyChangeEvent)
   {
-    //Uafi needs to fire it in ArrayList<LocalTime>
-    ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) propertyChangeEvent.getNewValue();
+    openingHours = (ArrayList<LocalTime>) propertyChangeEvent.getNewValue();
 
-    LocalTime open = openingHours.get(0);
+    openingHour = openingHours.get(0);
+    closingHour = openingHours.get(1);
 
-    LocalTime close = openingHours.get(1);
+  }
 
-    System.out.println(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+  /**
+   * Calls requestOpeningHours method.
+   * Checks if the time now is within or outside of the opening hours.
+   * If within, changes the canteenIsClosed to false, else to true, and fires propertyChange
+   */
+  public void isCanteenClosed(){
+    requestOpeningHours();
 
-    Thread openingHoursThread = new Thread(()->{
-      while (true){
-        if (LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")).equals(open.toString())){
-          canteenIsClosed = false;
-          propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, - 1,  canteenIsClosed);
-        }
-        else if (LocalTime.now().isAfter(open) && LocalTime.now().isBefore(close)){
-          if (canteenIsClosed){
-            canteenIsClosed = false;
-            propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, - 1,  canteenIsClosed);
-          }
-        }
-        else if (LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")).equals(close.toString())){
-          canteenIsClosed = true;
-          propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, - 1,  canteenIsClosed);
-        }
+    if (openingHour != null && closingHour != null)
+    {
+      if (LocalTime.now().isAfter(openingHour) && LocalTime.now().isBefore(closingHour)){
+        canteenIsClosed = false;
+        propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, null,  canteenIsClosed);
       }
-    });
+      else {
+        canteenIsClosed = true;
+        propertyChangeSupport.firePropertyChange(MenuModel.OPENING_HOURS_RECEIVED, null,  canteenIsClosed);
+      }
+    }
 
-    openingHoursThread.start();
   }
 
   /**
