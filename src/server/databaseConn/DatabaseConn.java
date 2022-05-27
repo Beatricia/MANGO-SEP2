@@ -79,6 +79,21 @@ public interface DatabaseConn
    */
 
   ArrayList<User> getAcceptedEmployees() throws SQLException;
+
+  /**
+   * Gets a list of all collected orders
+   * @return the list containing all collected orders
+   * @throws SQLException
+   */
+  ArrayList<ArrayList<OrderItem>> requestPurchaseHistory() throws SQLException;
+
+  /**
+   * Gets a Statistic transfer object with information about number of orders, top three dishes and incomes
+   * @return Statistic transfer object
+   * @throws SQLException
+   */
+  Statistics requestStatistic() throws SQLException;
+
   //endregion
 
   //region MENU

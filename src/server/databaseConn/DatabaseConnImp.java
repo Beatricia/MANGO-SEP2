@@ -553,4 +553,30 @@ public class DatabaseConnImp implements DatabaseConn
       throw formatExceptionMessage(e); // look again
     }
   }
+
+  /**
+   * Gets a list of all collected orders
+   * @return the list containing all collected orders
+   * @throws SQLException
+   */
+
+  @Override public ArrayList<ArrayList<OrderItem>> requestPurchaseHistory()
+      throws SQLException
+  {
+    Log.log("DatabaseConnImp: Sending a getPurchaseHistory request to the AdminDatabaseConn");
+    return adminDataBaseConnection.getPurchaseHistory();
+  }
+
+  /**
+   * Gets a Statistic transfer object with information about number of orders, top three dishes and incomes
+   * @return Statistic transfer object
+   * @throws SQLException
+   */
+
+  @Override public Statistics requestStatistic() throws SQLException
+  {
+    Statistics statistics = new Statistics();
+
+    return statistics;
+  }
 }
