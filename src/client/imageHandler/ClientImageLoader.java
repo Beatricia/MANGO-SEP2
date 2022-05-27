@@ -1,17 +1,14 @@
-package util;
+package client.imageHandler;
 
 import client.networking.Client;
-import javafx.embed.swing.SwingFXUtils;
+import util.ImageTools;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import transferobjects.ImageRequest;
 import transferobjects.SerializableImage;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +20,17 @@ import java.util.List;
  * If it is not downloaded, it sends an ImageRequest object to the server, which sends the requested
  * image back. This class then saves that image to the local computer, and finishes loading the image.
  */
-public class ImageLoader
+public class ClientImageLoader
 {
 
   private static final String IMAGE_FOLDER = "Resources/customer/menuImages/";// base path to the customer's image folder
-  private static ImageLoader imageLoader; // image loader instance
+  private static ClientImageLoader imageLoader;
+  public static void setImageLoader(Client client){
+    if(imageLoader != null)
+      return;
+
+    imageLoader = new ClientImageLoader(client);
+  }
 
   /**
    * Loads the specified image with the original size into the image view
@@ -61,15 +64,11 @@ public class ImageLoader
    * if the imageLoader is null
    * @param client client to send the image request to the server
    */
-  public ImageLoader(Client client) {
+  private ClientImageLoader(Client client) {
     this.client = client;
     imagesOnWait = new HashMap<>();
 
-    //if the imageLoader is already set, return (only one imageLoader instance per program
-    if(imageLoader != null)
-      return;
-
-    ImageLoader.imageLoader = this; // set the current ImageLoader instance to the static field
+    ClientImageLoader.imageLoader = this; // set the current ImageLoader instance to the static field
     client.addListener(Client.IMAGE_RECEIVED, this::imageReceived); // add listener on the client image received
   }
 
@@ -83,7 +82,7 @@ public class ImageLoader
    */
   private void loadImageFromFile(String imageFileName, ImageView imageView, int width, int height){
     try{
-      BufferedImage bufferedImage = ImageTools.loadImageFromFile(imageFileName);
+      BufferedImage bufferedImage = ImageTools.loadImageFromFile(IMAGE_FOLDER, imageFileName);
       loadImageIntoView(bufferedImage, imageView, width, height);
 
     } catch (IOException e){
@@ -138,11 +137,11 @@ public class ImageLoader
     // unpack the image request
     String imageFileName = imageRequest.getPath();
     SerializableImage serializableImage = imageRequest.getSerializableImage();
-    BufferedImage bufferedImage = serializableImage.toImage();
+     BufferedImage bufferedImage = serializableImage.toImage();
 
     // try to save the image to file
     try {
-      ImageTools.writeImageToFile(imageFileName, serializableImage.getFormat(), bufferedImage);
+      ImageTools.writeImageToFile(IMAGE_FOLDER, imageFileName, serializableImage.getFormat(), bufferedImage);
     }
     catch (IOException e) {
       e.printStackTrace();
@@ -187,89 +186,4 @@ public class ImageLoader
       this.imageView = imageView;
     }
   }
-
-
-
-  /**
-   * Useful helping method collection for working with images.
-   */
-  private static class ImageTools {
-    /**
-     * Convert a buffered image to fx image
-     * @param image image to convert
-     * @return converted javafx image
-     */
-    public static Image convertToFXImage(BufferedImage image) {
-      return SwingFXUtils.toFXImage(image, null);
-    }
-
-    /**
-     * Load an image from the local computer
-     * @param name name of the file (from the IMAGE_FOLDER folder)
-     * @return loaded image
-     * @throws IOException if an error occurs during reading or when not able to create required ImageInputStream.
-     */
-    public static BufferedImage loadImageFromFile(String name) throws IOException {
-      File file = new File(IMAGE_FOLDER + name);
-      return ImageIO.read(file);
-    }
-
-    /**
-     * Save an image to a file. If the folder is not created, it is automatically created.
-     * @param name name of the image
-     * @param format format of the image
-     * @param bufferedImage image to save to file
-     * @throws IOException if an error occurs during writing or when not able to create required ImageOutputStream.
-     */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-    public static void writeImageToFile(String name, String format, BufferedImage bufferedImage)
-        throws IOException {
-      //check if the image folder exists (if not, then create it
-      File directory = new File(IMAGE_FOLDER);
-      if(!directory.exists())
-        directory.mkdirs();
-
-      File file = new File(IMAGE_FOLDER + name);
-      ImageIO.write(bufferedImage, format, file);
-    }
-
-    /**
-     * Resize a buffered image
-     * @param image image to resize
-     * @param width new width
-     * @param height new height
-     * @return resized image
-     */
-    public static BufferedImage resizeImage(BufferedImage image, int width, int height) {
-      //resize image
-      java.awt.Image resizedImage = image.getScaledInstance(width, height, BufferedImage.SCALE_SMOOTH);
-      return toBufferedImage(resizedImage);
-    }
-
-    /**
-     * Converts a given Image into a BufferedImage
-     *
-     * @param img The Image to be converted
-     * @return The converted BufferedImage
-     */
-    public static BufferedImage toBufferedImage(java.awt.Image img)
-    {
-      if (img instanceof BufferedImage)
-      {
-        return (BufferedImage) img;
-      }
-
-      // Create a buffered image with transparency
-      BufferedImage bImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-      // Draw the image on to the buffered image
-      Graphics2D bGr = bImage.createGraphics();
-      bGr.drawImage(img, 0, 0, null);
-      bGr.dispose();
-
-      // Return the buffered image
-      return bImage;
-    }
-  }
-
 }
