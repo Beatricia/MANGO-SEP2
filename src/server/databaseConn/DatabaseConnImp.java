@@ -82,12 +82,9 @@ public class DatabaseConnImp implements DatabaseConn
    */
   static Connection getConnection() throws SQLException
   {
-    Log.log("DatabaseConnImp: Connection with Database established");
-
     return DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/postgres?currentSchema=caneat",
         "postgres", getPass());
-
   }
 
   /**
