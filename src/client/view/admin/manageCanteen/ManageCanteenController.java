@@ -33,7 +33,7 @@ public class ManageCanteenController implements TabController {
     @Override
     public void init(ViewModelFactory viewModelFactory)
     {
-        viewModel = viewModelFactory.getManageCanteenController();
+        viewModel = viewModelFactory.getManageCanteenViewModel();
 
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         employeeUsernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));

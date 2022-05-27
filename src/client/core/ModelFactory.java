@@ -43,6 +43,10 @@ public class ModelFactory
     return userModel;
   }
 
+  /**
+   * A method that creates a new MenuModelImp object and returns it
+   * @return returns a MenuModelImp object
+   */
   public MenuModel getMenuModel()
   {
     if(menuModel == null)
@@ -53,6 +57,10 @@ public class ModelFactory
     return menuModel;
   }
 
+  /**
+   * A method that creates a new AdminModelImp object and returns it
+   * @return returns a AdminModelImp object
+   */
   public AdminModel getAdminModel() {
     if(adminModel == null)
     {
@@ -62,6 +70,10 @@ public class ModelFactory
     return adminModel;
   }
 
+  /**
+   * A method that creates a new CartModelImpl object and returns it
+   * @return returns a CartModelImpl object
+   */
     public CartModel getCartModel() {
     if(cartModel == null)
     {
@@ -71,6 +83,10 @@ public class ModelFactory
       return cartModel;
     }
 
+  /**
+   * A method that creates a new OrderModelCustomerImp object and returns it
+   * @return returns a OrderModelCustomerImp object
+   */
   public OrderModelCustomer getOrderModelCustomer()
   {
     if (customerOrderModel == null)

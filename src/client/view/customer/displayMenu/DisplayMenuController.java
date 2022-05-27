@@ -97,6 +97,7 @@ public class DisplayMenuController implements TabController
    * @param propertyChangeEvent Change in the opening state of the canteen
    */
   private void canteenStateChanged(PropertyChangeEvent propertyChangeEvent){
+    Log.log("DisplayMenuController: canteen state change received");
     boolean canteenClosed = (boolean) propertyChangeEvent.getNewValue();
 
     if (canteenClosed){
@@ -164,6 +165,7 @@ public class DisplayMenuController implements TabController
 
   @Override public void refresh() {
     viewModel.requestDailyMenuItems();
+    viewModel.requestOpeningHours();
   }
 
 

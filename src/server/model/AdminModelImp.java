@@ -1,6 +1,7 @@
 package server.model;
 
 import server.databaseConn.DatabaseConn;
+import shared.Log;
 import transferobjects.User;
 
 import java.sql.SQLException;
@@ -79,6 +80,7 @@ public class AdminModelImp implements AdminModel
    * @param openingHours the hours to be set as working
    */
   @Override public void setOpeningHours(ArrayList<LocalTime> openingHours) throws SQLException {
+    Log.log("AdminModelImp: Sets opening hours");
     databaseConn.setOpeningHours(openingHours.get(0), openingHours.get(1));
   }
 
@@ -88,6 +90,7 @@ public class AdminModelImp implements AdminModel
    * @return an ArrayList with the opening and closing time of the canteen
    */
   @Override public ArrayList<LocalTime> requestOpeningHours() throws SQLException {
+    Log.log("AdminModelImp: request opening hours");
     return databaseConn.getOpeningHours();
   }
 }

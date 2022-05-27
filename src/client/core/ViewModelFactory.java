@@ -89,7 +89,10 @@ public class ViewModelFactory
     return registerViewModel;
   }
 
-  //bety
+  /**
+   * Using lazy instantiation creates a MenuEmplViewModel object and returns it
+   * @return a MenuEmplViewModel object with the UserModel as its parameter
+   */
   public MenuEmplViewModel getMenuEmplViewModel(){
     if(menuEmplViewModel == null)
     {
@@ -99,6 +102,10 @@ public class ViewModelFactory
     return menuEmplViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a DailyMenuViewModel object and returns it
+   * @return a DailyMenuViewModel object with the UserModel as its parameter
+   */
   public DailyMenuViewModel getDailyMenuViewModel()
   {
     if(dailyMenuViewModel == null)
@@ -110,6 +117,10 @@ public class ViewModelFactory
     return dailyMenuViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a AcceptEmployeeViewModel object and returns it
+   * @return a AcceptEmployeeViewModel object with the UserModel as its parameter
+   */
   public AcceptEmployeeViewModel getAcceptEmployeeViewModel() {
     if(acceptEmployeeViewModel == null)
     {
@@ -120,6 +131,10 @@ public class ViewModelFactory
     return acceptEmployeeViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a DisplayMenuViewModel object and returns it
+   * @return a DisplayMenuViewModel object with the UserModel as its parameter
+   */
   public DisplayMenuViewModel getDisplayMenuViewModel() {
     if(displayMenuViewModel == null){
       Log.log("ViewModelFactory: DisplayMenu ViewModel created");
@@ -129,6 +144,10 @@ public class ViewModelFactory
     return displayMenuViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a AddQuantityViewModel object and returns it
+   * @return a AddQuantityViewModel object with the UserModel as its parameter
+   */
   public AddQuantityViewModel getAddQuantityViewModel()
   {
     if(addQuantityViewModel == null){
@@ -139,6 +158,10 @@ public class ViewModelFactory
     return addQuantityViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a CustomerWeeklyMenuViewModel object and returns it
+   * @return a CustomerWeeklyMenuViewModel object with the UserModel as its parameter
+   */
   public CustomerWeeklyMenuViewModel getCustomerWeeklyMenuViewModel() {
     if(customerWeeklyMenuViewModel == null){
       Log.log("ViewModelFactory: CustomerWeeklyMenu ViewModel created");
@@ -148,6 +171,10 @@ public class ViewModelFactory
     return customerWeeklyMenuViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a WeeklyMenuEmpViewModel object and returns it
+   * @return a WeeklyMenuEmpViewModel object with the UserModel as its parameter
+   */
   public WeeklyMenuEmpViewModel getWeeklyMenuEmpViewModel()
   {
     if (weeklyMenuEmpViewModel == null)
@@ -159,6 +186,10 @@ public class ViewModelFactory
     return weeklyMenuEmpViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a ShoppingCartViewModel object and returns it
+   * @return a ShoppingCartViewModel object with the UserModel as its parameter
+   */
     public ShoppingCartViewModel getCustomerShoppingCartViewModel() {
     if(shoppingCartViewModel == null)
     {
@@ -169,6 +200,10 @@ public class ViewModelFactory
     return shoppingCartViewModel;
     }
 
+  /**
+   * Using lazy instantiation creates a MyOrderViewModel object and returns it
+   * @return a MyOrderViewModel object with the UserModel as its parameter
+   */
   public MyOrderViewModel getCustomerMyOrderViewModel() {
     if(myOrderViewModel == null)
     {
@@ -179,6 +214,10 @@ public class ViewModelFactory
     return myOrderViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a CollectOrderViewModel object and returns it
+   * @return a CollectOrderViewModel object with the UserModel as its parameter
+   */
   public CollectOrderViewModel getCollectOrderViewModel()
   {
     if(collectOrderViewModel == null)
@@ -190,6 +229,10 @@ public class ViewModelFactory
     return collectOrderViewModel;
   }
 
+  /**
+   * Using lazy instantiation creates a MenuItemsViewModel object and returns it
+   * @return a MenuItemsViewModel object with the UserModel as its parameter
+   */
   public MenuItemsViewModel getMenuItemsViewModel()
   {
     if (menuItemsViewModel == null)
@@ -199,7 +242,11 @@ public class ViewModelFactory
     return menuItemsViewModel;
   }
 
-    public ManageCanteenViewModel getManageCanteenController() {
+  /**
+   * Using lazy instantiation creates a ManageCanteenViewModel object and returns it
+   * @return a ManageCanteenViewModel object with the UserModel as its parameter
+   */
+    public ManageCanteenViewModel getManageCanteenViewModel() {
     if(manageCanteenViewModel == null)
     {
       manageCanteenViewModel = new ManageCanteenViewModel(modelFactory.getAdminModel());
