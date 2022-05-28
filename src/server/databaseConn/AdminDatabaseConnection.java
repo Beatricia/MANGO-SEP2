@@ -344,7 +344,7 @@ public class AdminDatabaseConnection
 
                 while (set.next())
                 {
-                    Double price = set1.getDouble("price");
+                    double price = set1.getDouble("price");
                     String imgPath = set1.getString("imgpath");
 
                     MenuItem menuItem = new MenuItem(itemName, ingredients,
@@ -384,7 +384,7 @@ public class AdminDatabaseConnection
                     ordersNumber.add(number);
                 }
 
-                date.plusDays(1);
+                date = date.plusDays(1);
             }
         }
         return ordersNumber;
@@ -417,12 +417,12 @@ public class AdminDatabaseConnection
 
                 while (set.next())
                 {
-                   Double totalPrice = set.getDouble("totalprice");
+                   double totalPrice = set.getDouble("totalprice");
                    sum += totalPrice;
                 }
 
                 incomes.add(sum);
-                date.plusDays(1);
+                date = date.plusDays(1);
             }
         }
         return incomes;

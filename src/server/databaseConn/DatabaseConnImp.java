@@ -575,9 +575,11 @@ public class DatabaseConnImp implements DatabaseConn
 
   @Override public Statistics requestStatistic() throws SQLException
   {
-    Statistics statistics = new Statistics(adminDataBaseConnection.getNumberOfOrders(),
-        adminDataBaseConnection.getTopThreeDishes(),
-        adminDataBaseConnection.getIncome());
+    ArrayList<Integer> numberOfOrders = adminDataBaseConnection.getNumberOfOrders(); // seems right
+    ArrayList<MenuItem> topDishes = adminDataBaseConnection.getTopThreeDishes(); // seems right
+    ArrayList<Double> getIncome = adminDataBaseConnection.getIncome();
+
+    Statistics statistics = new Statistics(numberOfOrders, topDishes, getIncome);
 
     return statistics;
   }
