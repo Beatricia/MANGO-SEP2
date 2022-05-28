@@ -237,4 +237,8 @@ public class OrderItemTest
   @Test public void checkGetCode() {
     assertEquals(2, orderItem.getCode());
   }
+
+  @Test public void checkGetDate() {
+    assertEquals(LocalDate.now(), orderItem.getDate());
+  }
 }
