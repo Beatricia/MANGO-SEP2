@@ -19,17 +19,31 @@ public class MenuItem implements Serializable
   private String imgPath;
 
   /**
-   * Construct the MenuItem object
-   * needed to transfer menu item
-   * @param name item's name
-   * @param ingredients list of item's ingredients
-   * @param price item's price
+   * Construct the MenuItem object needed to transfer menu item.
+   * @param name item's name.
+   * @param ingredients list of item's ingredients, if its null, a new list will be created.
+   * @param price item's price.
+   * @throws NullPointerException if the name is null. (message: item name is null)
+   * @throws IllegalArgumentException if the name is blank (message: item name is blank).
+   * @throws IllegalArgumentException if the price is less than or equal to zero (message: price must be higher than 0).
    */
 
   public MenuItem(String name, ArrayList<String> ingredients, double price, String imgPath)
   {
+    if(name == null)
+      throw new NullPointerException("item name is null");
+    if(name.isBlank())
+      throw new IllegalArgumentException("item name is blank");
+
+    if(ingredients == null)
+      ingredients = new ArrayList<>();
+
+    if(price <= 0)
+      throw new IllegalArgumentException("price must be higher than 0");
+
+
     this.name = name;
-    this.ingredients = ingredients;
+    this.ingredients = new ArrayList<>(ingredients);
     this.price = price;
     this.imgPath = imgPath;
 
@@ -53,7 +67,7 @@ public class MenuItem implements Serializable
 
   public ArrayList<String> getIngredients()
   {
-    return ingredients;
+    return new ArrayList<>(ingredients);
   }
 
   /**

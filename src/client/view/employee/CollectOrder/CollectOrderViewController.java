@@ -84,7 +84,8 @@ public class CollectOrderViewController implements TabController
         return new SimpleObjectProperty<>("");
       }
       else
-        return new SimpleObjectProperty<>(item.getUnselected());});
+        return new SimpleObjectProperty<>(String.join(", ", item.getUnselectedIngredients()));
+    });
 
 
     quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
