@@ -1,6 +1,7 @@
 package server.databaseConn;
 
 import javafx.util.converter.LocalTimeStringConverter;
+import shared.Log;
 import shared.UserType;
 import transferobjects.MenuItem;
 import transferobjects.OrderItem;
@@ -311,6 +312,7 @@ public class AdminDatabaseConnection
                 "SELECT orderItem.itemName, sum(orderItem.quantity) as sum FROM orderItem WHERE orderNumber in "
                     + "(SELECT orderNumber FROM \"order\" WHERE collected = true) GROUP BY itemName ORDER BY sum DESC LIMIT 3";
 
+
             PreparedStatement statement = connection.prepareStatement(
                 sqlTopDishes);
             ResultSet set = statement.executeQuery();
@@ -324,7 +326,8 @@ public class AdminDatabaseConnection
 
                 String sqlIngredients =
                     "SELECT name FROM ingredient WHERE id IN (SELECT ingredientId FROM menuItemIngredient WHERE itemName = '"
-                        + itemName + "'";
+                        + itemName + "')";
+
                 PreparedStatement statementIngredient = connection.prepareStatement(
                     sqlIngredients);
                 ResultSet setIngredient = statementIngredient.executeQuery();
@@ -338,11 +341,12 @@ public class AdminDatabaseConnection
                 String sqlGetMenuItem =
                     "SELECT * FROM menuItem WHERE name = '" + itemName + "'";
 
+
                 PreparedStatement statement1 = connection.prepareStatement(
                     sqlGetMenuItem);
                 ResultSet set1 = statement1.executeQuery();
 
-                while (set.next())
+                while (set1.next())
                 {
                     double price = set1.getDouble("price");
                     String imgPath = set1.getString("imgpath");
@@ -374,6 +378,7 @@ public class AdminDatabaseConnection
                 String sql =
                     "SELECT count(\"order\") FROM \"order\" WHERE collected = true AND date = '"
                         + date + "'";
+
 
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet set = statement.executeQuery();
@@ -409,6 +414,7 @@ public class AdminDatabaseConnection
                     + "WHERE orderItem.itemName = menuItem.name "
                     + "AND orderItem.orderNumber in (SELECT orderNumber FROM \"order\" WHERE date = '" + date +"') "
                     + "GROUP BY orderItem.itemName, menuItem.price";
+
 
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet set = statement.executeQuery();
