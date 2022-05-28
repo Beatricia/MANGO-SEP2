@@ -63,7 +63,17 @@ public interface AdminModel
    */
   ArrayList<LocalTime> requestOpeningHours() throws SQLException;
 
+  /**
+   * Gets the purchase history for all the customers (all collected orders)
+   * @return the purchase history for all the customers (all collected orders)
+   * @throws SQLException when an unexpected exception happens
+   */
   ArrayList<ArrayList<OrderItem>> requestPurchaseHistory() throws SQLException;
 
+  /**
+   * Gets the statistics of the canteen
+   * @return the statistics of the canteen
+   * @throws SQLException when an unexpected exception happens
+   */
   Statistics requestStatistics() throws SQLException;
 }

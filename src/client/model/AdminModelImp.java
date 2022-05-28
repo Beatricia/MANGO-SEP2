@@ -37,8 +37,9 @@ public class AdminModelImp implements AdminModel
         this::updatePendingEmployees);
     client.addListener(Client.ACCEPTED_EMPLOYEES_RECEIVED, this::sendAcceptedEmployees);
     client.addListener(Client.OPENING_HOURS_RECEIVED, this::sendOpeningHours);
+    client.addListener(Client.PURCHASE_HISTORY_RECEIVED, this::purchaseHistoryReceived);
+    client.addListener(Client.STATISTICS_RECEIVED, this::statisticsReceived);
   }
-
 
 
   /**
@@ -156,6 +157,26 @@ public class AdminModelImp implements AdminModel
   }
 
   /**
+   * Request purchase history data.
+   */
+  @Override public void requestPurchaseHistory() {
+    Request request = new Request(Request.PURCHASE_HISTORY_REQUEST);
+
+    Log.log("AdminModelImpl sends an PURCHASE_HISTORY_REQUEST object to the Client");
+    client.sendRequest(request);
+  }
+
+  /**
+   * Request statistics of the canteen.
+   */
+  @Override public void requestStatistics() {
+    Request request = new Request(Request.STATISTICS_REQUEST);
+
+    Log.log("AdminModelImpl sends an STATISTICS_REQUEST object to the Client");
+    client.sendRequest(request);
+  }
+
+  /**
    * This method is responsible for sending a PropertyChange event to the ViewModel
    *
    * @param e event caught from the client
@@ -178,6 +199,24 @@ public class AdminModelImp implements AdminModel
   {
     Log.log("AdminModelImpl fires an ACCEPTED_EMPLOYEES_RECEIVED");
     propertyChangeSupport.firePropertyChange(ACCEPTED_EMPLOYEES_RECEIVED, null, event.getNewValue());
+  }
+
+  /**
+   * Fires a STATISTICS_RECEIVED event
+   * @param event the received event from the client
+   */
+  private void statisticsReceived(PropertyChangeEvent event) {
+    Log.log("AdminModelImpl fires an STATISTICS_RECEIVED");
+    propertyChangeSupport.firePropertyChange(STATISTICS_RECEIVED, null, event.getNewValue());
+  }
+
+  /**
+   * Fires a PURCHASE_HISTORY_RECEIVED event
+   * @param event the received event from the client
+   */
+  private void purchaseHistoryReceived(PropertyChangeEvent event) {
+    Log.log("AdminModelImpl fires an PURCHASE_HISTORY_RECEIVED");
+    propertyChangeSupport.firePropertyChange(PURCHASE_HISTORY_RECEIVED, null, event.getNewValue());
   }
 
   /**

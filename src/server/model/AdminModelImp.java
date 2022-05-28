@@ -99,11 +99,11 @@ public class AdminModelImp implements AdminModel
   @Override public ArrayList<ArrayList<OrderItem>> requestPurchaseHistory()
       throws SQLException
   {
-    return null;
+    return databaseConn.requestPurchaseHistory();
   }
 
   @Override public Statistics requestStatistics() throws SQLException
   {
-    return null;
+    return databaseConn.requestStatistic();
   }
 }

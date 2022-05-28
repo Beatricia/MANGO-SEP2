@@ -15,9 +15,11 @@ import java.util.ArrayList;
 public interface AdminModel extends PropertyChangeSubject
 {
 
-  public static String  PENDING_EMPLOYEES_RECEIVED = "PendingEmployeesReceived";
-  public static String ACCEPTED_EMPLOYEES_RECEIVED= "AcceptedEmployeesReceived";
-  public static String OPENING_HOURS_RECEIVED = "OpeningHoursReceived";
+  String  PENDING_EMPLOYEES_RECEIVED = "PendingEmployeesReceived";
+  String ACCEPTED_EMPLOYEES_RECEIVED= "AcceptedEmployeesReceived";
+  String OPENING_HOURS_RECEIVED = "OpeningHoursReceived";
+  String PURCHASE_HISTORY_RECEIVED = "PurchaseHistoryReceived";
+  String STATISTICS_RECEIVED = "StatisticsReceived";
 
     /**
    * Method used for creating and sending a Request object to the database (to receive list of pending employees)
@@ -51,15 +53,25 @@ public interface AdminModel extends PropertyChangeSubject
   void removeEmployee(String username);
 
   /**
-   * This class is responsible for requesting a list of all accepted employees
+   * This method is responsible for requesting a list of all accepted employees
    */
   void requestAcceptedEmployees();
 
   /**
-   * This class is responsible for setting the hours in which the canteen is
+   * This method is responsible for setting the hours in which the canteen is
    * working
    * @param from from when is it open
    * @param to til when is it open
    */
   void setOpeningHours(LocalTime from, LocalTime to);
+
+  /**
+   * Request purchase history data.
+   */
+  void requestPurchaseHistory();
+
+  /**
+   * Request statistics of the canteen.
+   */
+  void requestStatistics();
 }
