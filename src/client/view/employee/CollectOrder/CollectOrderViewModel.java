@@ -11,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 
 /**
- * A view model class responsible for connecting the CollectOrderViewModel and
+ * A view model class responsible for connecting the CollectOrderViewController and
  * the OrderModel
  */
 public class CollectOrderViewModel

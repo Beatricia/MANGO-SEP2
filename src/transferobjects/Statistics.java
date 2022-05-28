@@ -1,5 +1,6 @@
 package transferobjects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,8 @@ import java.util.ArrayList;
  * @author Beatricia
  */
 
-public class Statistics {
+public class Statistics implements Serializable
+{
     private ArrayList<Integer> numberOfOrders;
     private ArrayList<MenuItem> topThreeMeals;
     private ArrayList<Double> income;

@@ -57,4 +57,9 @@ public class OrderItem extends CartItem{
     {
         return super.getPrice();
     }
+
+    public LocalDate getDate()
+    {
+        return date;
+    }
 }

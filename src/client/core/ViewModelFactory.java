@@ -2,6 +2,7 @@ package client.core;
 
 import client.view.admin.AcceptEmployee.AcceptEmployeeViewModel;
 import client.view.admin.manageCanteen.ManageCanteenViewModel;
+import client.view.admin.purchaseHistory.PurchaseHistoryViewModel;
 import client.view.customer.displayMenu.DisplayMenuViewModel;
 import client.view.customer.displayWeeklyMenu.CustomerWeeklyMenuViewModel;
 import client.view.customer.myOrder.MyOrderViewModel;
@@ -47,7 +48,7 @@ public class ViewModelFactory
   // Admin
   private AcceptEmployeeViewModel acceptEmployeeViewModel;
   private ManageCanteenViewModel manageCanteenViewModel;
-
+  private PurchaseHistoryViewModel purchaseHistoryViewModel;
 
 
   /**
@@ -253,4 +254,17 @@ public class ViewModelFactory
     }
     return manageCanteenViewModel;
     }
+
+  /**
+   * Using lazy instantiation creates a PurchaseHistoryViewModel object and returns it
+   * @return a PurchaseHistoryViewModel object with the UserModel as its parameter
+   */
+  public PurchaseHistoryViewModel getPurchaseHistoryViewModel()
+  {
+    if(purchaseHistoryViewModel == null)
+    {
+      purchaseHistoryViewModel = new PurchaseHistoryViewModel(modelFactory.getAdminModel());
+    }
+    return purchaseHistoryViewModel;
+  }
 }

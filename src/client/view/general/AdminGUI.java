@@ -21,7 +21,8 @@ public class AdminGUI extends UserStrategy
   private final static String[] tabs = {
       "displayMenu/DisplayMenuView.fxml", "Daily Menu",
       "acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees",
-      "manageCanteen/ManageCanteenView.fxml", "Manage Canteen"
+      "manageCanteen/ManageCanteenView.fxml", "Manage Canteen",
+      "purchaseHistory/PurchaseHistoryView.fxml","Purchase History",
   };
   private final static int TAB_VIEW_WIDTH = 810;
   private final static int TAB_VIEW_HEIGHT = 507;
