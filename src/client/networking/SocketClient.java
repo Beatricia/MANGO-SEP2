@@ -145,12 +145,22 @@ public class SocketClient implements Client{
         support.firePropertyChange(DAILY_MENU_RECEIVED, null, request.getObject());
     }
 
+  /**
+   * Fires a WEEKLY_MENU_RECEIVED event when a DailyMenuItemList object has
+   * been received from the server
+   * @param request the Request object
+   */
   public void weeklyMenuReceived(Request request)
   {
       Log.log("SocketClient fires a WEEKLY_MENU_RECEIVED event");
       support.firePropertyChange(WEEKLY_MENU_RECEIVED, null, request.getObject());
   }
 
+  /**
+   * Fires a CART_LIST_RECEIVED event when list of cart objects has
+   * been received from the server
+   * @param request the Request object
+   */
     public void cartListReceived(Request request)
     {
         Log.log("SocketClient fires a CART_LIST_RECEIVED event");
@@ -158,39 +168,74 @@ public class SocketClient implements Client{
 
     }
 
+  /**
+   * Fires a IMAGE_RECEIVED event when a ImageRequest object has
+   * been received from the server
+   * @param imageRequest the Image object with path and serializable image object
+   */
     public void imageRequestReceived(ImageRequest imageRequest){
         Log.log("SocketClient fires an IMAGE_RECEIVED event");
         support.firePropertyChange(IMAGE_RECEIVED, null, imageRequest);
     }
 
+  /**
+   * Fires a ORDER_RECEIVED event when customer's uncollected order has
+   * been received from the server
+   * @param request the Request object
+   */
     public void uncollectedOrderReceived(Request request)
     {
         Log.log("SocketClient fires an ORDER_RECEIVED event");
         support.firePropertyChange(ORDER_RECEIVED, null, request.getObject());
     }
 
+  /**
+   * Fires a ACCEPTED_EMPLOYEES_RECEIVED event when a list of accepted employees has
+   * been received from the server
+   * @param request the Request object
+   */
     public void allAcceptedEmployeesReceived(Request request)
     {
         Log.log("SocketClient fires an ACCEPTED_EMPLOYEES_RECEIVED event");
         support.firePropertyChange(ACCEPTED_EMPLOYEES_RECEIVED,null,request.getObject());
     }
 
+  /**
+   * Fires a OPENING_HOURS_RECEIVED event when a list of opening hours has
+   * been received from the server
+   * @param request the Request object
+   */
     public void openingHoursReceived(Request request)
     {
         Log.log("SocketClient fires an OPENING_HOURS_RECEIVED event");
         support.firePropertyChange(OPENING_HOURS_RECEIVED,null,request.getObject());
     }
 
+  /**
+   * Fires a ALL_UNCOLLECTED_ORDERS_RECEIVED event when a list of all uncollected orders has
+   * been received from the server
+   * @param request the Request object
+   */
     public void allUncollectedOrdersReceived(Request request){
         Log.log("SocketClient fires an ALL_UNCOLLECTED_ORDERS_RECEIVED event");
         support.firePropertyChange(ALL_UNCOLLECTED_ORDERS_RECEIVED, null, request.getObject());
     }
 
+  /**
+   * Fires a PURCHASE_HISTORY_RECEIVED event when a purchase history has
+   * been received from the server
+   * @param request the Request object
+   */
     public void purchaseHistoryReceived(Request request){
         Log.log("SocketClient fires an ALL_UNCOLLECTED_ORDERS_RECEIVED event");
         support.firePropertyChange(PURCHASE_HISTORY_RECEIVED, null, request.getObject());
     }
 
+  /**
+   * Fires a STATISTICS_RECEIVED event when statistics has
+   * been received from the server
+   * @param request the Request object
+   */
     public void statisticsReceived(Request request) {
         Log.log("SocketClient fires an STATISTICS_RECEIVED event");
         support.firePropertyChange(STATISTICS_RECEIVED, null, request.getObject());
