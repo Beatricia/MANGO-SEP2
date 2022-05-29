@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.admin.statistics.StatisticsController">
+   <children>
+      <Label layoutX="51.0" layoutY="33.0" text="Top Menu Items" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="95.0" text="Top 2:" />
+      <Label layoutX="14.0" layoutY="70.0" text="Top 1:" />
+      <Label layoutX="14.0" layoutY="121.0" text="Top 3:" />
+      <Label fx:id="itemTop1" alignment="CENTER" layoutX="63.0" layoutY="70.0" prefHeight="17.0" prefWidth="87.0" text="Item1" />
+      <Label fx:id="itemTop2" alignment="CENTER" layoutX="63.0" layoutY="95.0" prefHeight="17.0" prefWidth="87.0" text="Item2" />
+      <Label fx:id="itemTop3" alignment="CENTER" layoutX="62.0" layoutY="121.0" prefHeight="17.0" prefWidth="87.0" text="Item3" />
+      <BarChart fx:id="barChart" layoutX="103.0" layoutY="158.0" prefHeight="294.0" prefWidth="617.0" title="Income Statistics">
+        <xAxis>
+          <CategoryAxis fx:id="xAxis" side="BOTTOM" label="Days and Number of Orders" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" side="LEFT" label="Income"/>
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>

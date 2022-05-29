@@ -23,6 +23,7 @@ public class AdminGUI extends UserStrategy
       "acceptEmployee/AcceptEmployeeView.fxml", "Handle Employees",
       "manageCanteen/ManageCanteenView.fxml", "Manage Canteen",
       "purchaseHistory/PurchaseHistoryView.fxml","Purchase History",
+      "statistics/statistics.fxml","Statistics",
   };
   private final static int TAB_VIEW_WIDTH = 810;
   private final static int TAB_VIEW_HEIGHT = 507;
