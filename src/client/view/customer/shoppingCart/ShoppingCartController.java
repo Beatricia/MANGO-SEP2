@@ -7,12 +7,18 @@ import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import shared.Log;
 import transferobjects.CartItem;
+import util.ImageTools;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +66,11 @@ public class ShoppingCartController implements TabController {
         this.quantitySpinner.setValueFactory(quantityValueFactory);
 
         cartTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            selectedItemChange(newSelection);// the new cart item selected
+            try {
+                selectedItemChange(newSelection);// the new cart item selected
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         goToOrderLabel.setText("");
@@ -80,7 +90,7 @@ public class ShoppingCartController implements TabController {
      * with name, price, image and all the specified ingredient
      * @param cartItem the cart item to be displayed
      */
-    private void selectedItemChange(CartItem cartItem) {
+    private void selectedItemChange(CartItem cartItem) throws IOException {
         if(cartItem==null){
             refreshItemDetails();
             return;
@@ -114,12 +124,14 @@ public class ShoppingCartController implements TabController {
     /**
      * Refreshing the item details to be empty
      */
-    private void refreshItemDetails(){
+    private void refreshItemDetails() throws IOException {
         nameLabel.setText("Name");
         priceLabel.setText("");
         ingredientsVBox.getChildren().clear();
         SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8);
         this.quantitySpinner.setValueFactory(quantityValueFactory);
+        BufferedImage image = ImageIO.read(new File("src/client/view/employee/AddDish/defaultImage/default.png"));
+        imageView.setImage(ImageTools.convertToFXImage(image));
     }
 
     /**
@@ -166,7 +178,7 @@ public class ShoppingCartController implements TabController {
      * If the remove button is clicked, the current item saved in a cartItemToBeDeleted of type CartItem and sent to the
      * viewModel through the deleteCartItem method
      */
-    public void onRemoveButton() {
+    public void onRemoveButton() throws IOException {
         Log.log("Delete button has been clicked in the shopping cart");
         CartItem cartItemToBeDeleted = cartTable.getSelectionModel().getSelectedItem();
         viewModel.deleteCartItem(cartItemToBeDeleted);
