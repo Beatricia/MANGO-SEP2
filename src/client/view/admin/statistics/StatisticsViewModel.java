@@ -11,6 +11,7 @@ import util.PropertyChangeSubject;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 /**
  * ViewModel of the statistics.fxml view
@@ -66,6 +67,7 @@ public class StatisticsViewModel implements PropertyChangeSubject
         itemTop2.set(statistics.getTopThreeMeals().get(1).getName());
         itemTop3.set(statistics.getTopThreeMeals().get(2).getName());
       } catch (IndexOutOfBoundsException e){
+        e.printStackTrace();
       }
     });
 
