@@ -307,10 +307,10 @@ public class DisplayMenuController implements TabController
 
     ImageView imageView = new ImageView();
     BufferedImage image = ImageIO.read(new File("src/client/view/customer/displayMenu/crownImage/crown.png"));
+    image = ImageTools.resizeImage(image,30,30);
     imageView.setImage(ImageTools.convertToFXImage(image));
     VBox crownVBox = new VBox(){{ //crown
       setAlignment(Pos.CENTER_RIGHT);
-      setPadding(new Insets(20, 0, 0, 0));
       getChildren().add(imageView);
     }};
 
