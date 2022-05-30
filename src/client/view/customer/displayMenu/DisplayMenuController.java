@@ -274,22 +274,25 @@ public class DisplayMenuController implements TabController
     String price = menuItemWithQuantity.getPrice() + " DKK";
     String quantity = menuItemWithQuantity.getQuantity() + "";
     String imagePath = menuItemWithQuantity.getImgPath();
-    int imgSize = 90;
+    int imgSize = 150;
 
 
 
     Label nameLabel = new Label(itemName){{ // (1)
-      setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 24));
+      setHeight(80);
+      setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 18));
       setWrapText(true);
     }};
     Label ingredientsLabel = new Label(ingredients){{ // (2)
+      setWidth(170);
+      setHeight(70);
       setWrapText(true);
     }};
     Label priceLabel = new Label(price); // (3)
 
     VBox priceVbox = new VBox(){{ // (4)
       setAlignment(Pos.TOP_RIGHT);
-      setPadding(new Insets(20, 0, 0, 0));
+      setPadding(new Insets(30, 0, 0, 0));
       getChildren().add(priceLabel);
     }};
 
@@ -306,7 +309,7 @@ public class DisplayMenuController implements TabController
 
     VBox buttonVBox = new VBox(){{ // (6)
       setAlignment(Pos.TOP_RIGHT);
-      setPadding(new Insets(20, 0, 0, 0));
+      setPadding(new Insets(10, 0, 0, 0));
       getChildren().add(addMenuItemToCart);
     }};
 
@@ -324,6 +327,7 @@ public class DisplayMenuController implements TabController
 
     VBox rightVbox = new VBox(){{ // (9)
       setPadding(new Insets(10, 30, 10, 20));
+      setMinWidth(250);
       if (menuItemWithQuantity.isTopThree()){
         getChildren().add(crownVBox);
       }
@@ -341,6 +345,7 @@ public class DisplayMenuController implements TabController
     Label quantityCountLabel = new Label(quantity); // (11)
 
     HBox quantityBox = new HBox(){{ // (12)
+      setHeight(100);
       setAlignment(Pos.CENTER);
       getChildren().addAll(
           quantityTextLabel,
@@ -366,6 +371,10 @@ public class DisplayMenuController implements TabController
 
 
     HBox wrapper = new HBox(){{ // (15)
+      setHeight(256);
+      setWidth(400);
+      setMinWidth(400);
+      setPadding(new Insets(10,10,10,10));
       getChildren().addAll(
           leftVbox,
           rightVbox
