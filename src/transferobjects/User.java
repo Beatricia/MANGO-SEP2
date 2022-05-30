@@ -84,13 +84,18 @@ public class User implements Serializable
     return String.format("%s %s (%s)", firstName, lastName, username);
   }
 
-  //TODO:Javadocs
+  /**
+   * Returns true if the arguments are equal to each other and false otherwise. Consequently, if both arguments are null, true is returned and if exactly one argument is null, false is returned. Otherwise, equality is determined by using the equals method of the first argument.
+   * @param o an object to be compared with the current object for equality
+   * @return true if the arguments are equal to each other and false otherwise
+   */
   @Override public boolean equals(Object o)
   {
     if (this == o)
       return true;
     if (o == null || getClass() != o.getClass())
       return false;
+
     User user = (User) o;
     return Objects.equals(username, user.username) && userType == user.userType
         && Objects.equals(firstName, user.firstName) && Objects.equals(lastName,

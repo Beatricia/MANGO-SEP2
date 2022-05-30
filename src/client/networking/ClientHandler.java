@@ -12,8 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-//TODO protocol
-
 /**
  * A class that is responsible for handling all the new incoming client connections
  *

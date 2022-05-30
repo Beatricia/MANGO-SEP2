@@ -12,8 +12,6 @@ import javafx.scene.control.TextField;
 import shared.Log;
 import shared.UserType;
 
-//TODO javadocs
-
 /**
  * Class responsible for connecting RegisterViewNew.fxml with RegisterViewModel and therefore providing the functionality to the GUI.
  * @author Simon
@@ -50,6 +48,10 @@ public class RegisterViewController implements ViewController
     refresh();
   }
 
+  /**
+   * refreshes the Register view.
+   * clears all text fields and errorMessage
+   */
   public void refresh() {
     firstName.clear();
     lastName.clear();

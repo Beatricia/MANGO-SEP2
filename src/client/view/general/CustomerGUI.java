@@ -5,8 +5,6 @@ import client.core.ViewModelFactory;
 import javafx.scene.control.TabPane;
 import shared.Log;
 
-//TODO javadocs
-
 /**
  * CustomerGUI is part of the strategy pattern, specifically this is the strategy when the user
  * is a customer
@@ -32,12 +30,19 @@ public class CustomerGUI extends UserStrategy
     super(tabPane, viewHandler, viewModelFactory);
   }
 
+  /**
+   * Loads the tabs to the provided tab view.
+   */
   @Override public void loadTabs() {
     Log.log("CustomerGUI customer tabs are loading");
     setWindowSize(TAB_VIEW_WIDTH, TAB_VIEW_HEIGHT);
     loadTabs(BASE_PATH, tabs);
   }
 
+  /**
+   * Gets the main window's width
+   * @return the main window's width
+   */
   @Override public int getWindowWidth() {
     return TAB_VIEW_WIDTH;
   }

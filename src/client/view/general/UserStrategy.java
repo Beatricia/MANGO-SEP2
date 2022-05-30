@@ -52,7 +52,7 @@ public abstract class UserStrategy
   }
 
   /**
-   * Base method for loading tabs, must be overridden. This method should be called outside the Strategy pattern.
+   * Loads the tabs to the provided tab view.
    */
   public abstract void loadTabs();
 

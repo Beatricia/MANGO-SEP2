@@ -16,8 +16,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO javadocs
-
 /**
  * A class that connects the DisplayMenuController with the MenuModel.
  *
@@ -36,6 +34,11 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
 
   private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+  /**
+   * Constructor for the class
+   * @param menuModel The model items have to be sent to
+   * @param cartModel instance of CartModel to get its items for checking
+   */
   public DisplayMenuViewModel(MenuModel menuModel, CartModel cartModel){
     this.menuModel = menuModel;
     this.cartModel = cartModel;
@@ -47,6 +50,10 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
     cartModel.addListener(CartModel.IS_ITEM_IN_CART, this::itemInShoppingCartReceived);
   }
 
+  /**
+   * Method which catches DAILY_MENU_RECEIVED event and updates the menuItemWithQuantities list
+   * @param propertyChangeEvent change received
+   */
   private void menuReceived(PropertyChangeEvent propertyChangeEvent) {
     List<MenuItemWithQuantity> menuItems = (List<MenuItemWithQuantity>) propertyChangeEvent.getNewValue();
 
@@ -60,12 +67,22 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
     });
   }
 
+  /**
+   * Method which calls the requestDailyMenu method in MenuModel
+   */
   public void requestDailyMenuItems(){
     menuModel.requestDailyMenu();
   }
 
+  /**
+   * Method which calls the requestOpeningHours method in MenuModel
+   */
   public void requestOpeningHours() { menuModel.requestOpeningHours(); }
 
+  /**
+   * Method which returns the ObservableList menuItemWithQuantities
+   * @return ObservableList<MenuItemWithQuantity> observable list observed by the DisplayMenuViewController
+   */
   public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList(){
     return menuItemWithQuantities;
   }
