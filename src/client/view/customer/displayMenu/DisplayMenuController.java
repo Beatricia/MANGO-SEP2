@@ -318,7 +318,7 @@ public class DisplayMenuController implements TabController
       setImage(ImageTools.convertToFXImage(resizedImage));
     }};
     VBox crownVBox = new VBox(){{ // (8)
-      setAlignment(Pos.CENTER_RIGHT);
+      setAlignment(Pos.TOP_RIGHT);
       getChildren().add(imageView);
     }};
 
