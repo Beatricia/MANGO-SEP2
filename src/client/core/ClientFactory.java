@@ -33,15 +33,6 @@ public class ClientFactory
         Log.log("--------------------------------------------");
         Log.log("          SERVER IS NOT RUNNING");
         Log.log("--------------------------------------------");
-        Log.log("               ****     ****                   ");
-        Log.log("              *    *   *    *                  ");
-        Log.log("               *    * *    *                  ");
-        Log.log("                *    *    *                   ");
-        Log.log("                 * AGATA *                    ");
-        Log.log("                  *     *                     ");
-        Log.log("                   *   *                    ");
-        Log.log("                    * *                       ");
-        Log.log("                     *                       ");
         System.exit(0);
       }
     }
