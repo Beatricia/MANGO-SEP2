@@ -284,7 +284,7 @@ public class DisplayMenuController implements TabController
 
     Button addMenuItemToCart = new Button(){{
       Log.log("DisplayMenuController: Checks if item is in cart.");
-        setText("Add " + itemName);
+      setText("Add " + itemName);
 
       setOnAction(new EventHandler<ActionEvent>() {
         @Override
