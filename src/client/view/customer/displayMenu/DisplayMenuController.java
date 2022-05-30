@@ -16,6 +16,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -296,46 +297,13 @@ public class DisplayMenuController implements TabController
       getChildren().add(priceLabel);
     }};
 
-    Button addMenuItemToCart = new Button(){{ // (5)
-      setText("Add " + itemName);
-      setOnAction(event -> {
-        addMenuItemToCart(menuItemWithQuantity);
-        setDisable(true);
-        setText("Added");
-      });
-    }};
-
-    buttons.add(addMenuItemToCart);
-
-    VBox buttonVBox = new VBox(){{ // (6)
-      setAlignment(Pos.TOP_RIGHT);
-      setPadding(new Insets(10, 0, 0, 0));
-      getChildren().add(addMenuItemToCart);
-    }};
-
-
-    BufferedImage image = ImageIO.read(new File("src/client/view/customer/displayMenu/crownImage/crown.png"));
-    BufferedImage resizedImage = ImageTools.resizeImage(image,30,30);
-
-    ImageView imageView = new ImageView(){{ // (7)
-      setImage(ImageTools.convertToFXImage(resizedImage));
-    }};
-    VBox crownVBox = new VBox(){{ // (8)
-      setAlignment(Pos.TOP_RIGHT);
-      getChildren().add(imageView);
-    }};
-
     VBox rightVbox = new VBox(){{ // (9)
-      setPadding(new Insets(10, 30, 10, 20));
+      setPadding(new Insets(40, 30, 10, 20));
       setMinWidth(250);
-      if (menuItemWithQuantity.isTopThree()){
-        getChildren().add(crownVBox);
-      }
       getChildren().addAll(
           nameLabel,
           ingredientsLabel,
-          priceVbox,
-          buttonVBox
+          priceVbox
       );
     }};
 
@@ -384,30 +352,6 @@ public class DisplayMenuController implements TabController
     return wrapper;
   }
 
-  /**
-   * Converts a given Image into a BufferedImage
-   *
-   * @param img The Image to be converted
-   * @return The converted BufferedImage
-   */
-  private static BufferedImage toBufferedImage(java.awt.Image img)
-  {
-    if (img instanceof BufferedImage)
-    {
-      return (BufferedImage) img;
-    }
-
-    // Create a buffered image with transparency
-    BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-    // Draw the image on to the buffered image
-    Graphics2D bGr = bimage.createGraphics();
-    bGr.drawImage(img, 0, 0, null);
-    bGr.dispose();
-
-    // Return the buffered image
-    return bimage;
-  }
 }
 
 

@@ -224,79 +224,97 @@ public class AddQuantityController implements TabController
    * for the MenuItemWithQuantity given in the parameter. Also creates a text
    * field for each item so a quantity value can be entered. Menu items and
    * Text fields are stored in a Hashmap and use the menu item's name as a key.
-   * @param menuItem MenuItemWithQuantity object to create the HBox of.
+   * @param menuItemWithQuantity MenuItemWithQuantity object to create the HBox of.
    * @return HBox which includes the information and the image for the MenuItemWithQuantity given in the parameter
    * @throws IOException when there was an error loading the image
    */
-  private HBox createDailyMenuItemBox(MenuItemWithQuantity menuItem)
-      throws IOException
-  {
-    String itemName = menuItem.getName();
-    String ingredients = String.join(", ", menuItem.getIngredients());
-    String price = menuItem.getPrice() + " DKK";
-    String quantity = menuItem.getQuantity() + "";
-    String imagePath = menuItem.getImgPath();
-    int imgSize = 90;
+  private HBox createDailyMenuItemBox(MenuItemWithQuantity menuItemWithQuantity) throws
+      IOException {
 
-    menuItems.put(itemName, menuItem);
+    String itemName = menuItemWithQuantity.getName();
+    String ingredients = String.join(", ", menuItemWithQuantity.getIngredients());
+    String price = menuItemWithQuantity.getPrice() + " DKK";
+    String quantity = menuItemWithQuantity.getQuantity() + "";
+    String imagePath = menuItemWithQuantity.getImgPath();
+    int imgSize = 130;
 
-    Label nameLabel = new Label(itemName)
-    {{ // (1)
-      setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 24));
+    menuItems.put(itemName, menuItemWithQuantity);
+
+    Label nameLabel = new Label(itemName){{ // (1)
+      setHeight(80);
+      setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 18));
       setWrapText(true);
     }};
-    Label ingredientsLabel = new Label(ingredients)
-    {{ // (2)
+    Label ingredientsLabel = new Label(ingredients){{ // (2)
+      setWidth(170);
+      setHeight(70);
       setWrapText(true);
     }};
     Label priceLabel = new Label(price); // (3)
 
-    VBox priceVbox = new VBox()
-    {{ // (4)
+    VBox priceVbox = new VBox(){{ // (4)
       setAlignment(Pos.TOP_RIGHT);
-      setPadding(new Insets(20, 0, 0, 0));
+      setPadding(new Insets(30, 0, 0, 0));
       getChildren().add(priceLabel);
     }};
 
-    VBox rightVbox = new VBox()
-    {{ // (5)
-      setPadding(new Insets(10, 30, 10, 20));
-      getChildren().addAll(nameLabel, ingredientsLabel, priceVbox);
+    VBox rightVbox = new VBox(){{ // (9)
+      setPadding(new Insets(40, 30, 10, 20));
+      setMinWidth(250);
+      getChildren().addAll(
+          nameLabel,
+          ingredientsLabel,
+          priceVbox
+      );
     }};
 
-    TextField quantityField = new TextField();
-    quantityField.setMaxSize(60, 25);
-    quantityField.setPromptText("Quantity");
-    quantityField.setText(quantity);
+
+    TextField quantityField = new TextField(){{
+      setMaxSize(60, 25);
+      setPromptText("Quantity");
+      setText(quantity);
+    }};
 
     textFields.put(itemName, quantityField);
 
-    HBox quantityBox = new HBox()
-    {{ // (8)
+
+    HBox quantityBox = new HBox(){{ // (12)
+      setHeight(100);
       setAlignment(Pos.CENTER);
-      getChildren().addAll(quantityField);
+      getChildren().addAll(
+          quantityField
+      );
     }};
 
-    ImageView menuItemImageView = new ImageView() {{ // (9)
+    ImageView menuItemImageView = new ImageView() {{ // (13)
       setPickOnBounds(true);
       setPreserveRatio(true);
     }};
     ClientImageLoader.loadImage(imagePath, menuItemImageView, imgSize, imgSize);
 
-    VBox leftVbox = new VBox()
-    {{ // (10)
-      getChildren().addAll(menuItemImageView, quantityBox);
+    VBox leftVbox = new VBox(){{ // (14)
+      getChildren().addAll(
+          menuItemImageView,
+          quantityBox
+      );
     }};
 
-    menuItemImageView.setFitHeight(leftVbox.getWidth() - 10);
+    menuItemImageView.setFitWidth(leftVbox.getWidth() - 10);
     menuItemImageView.setFitHeight(leftVbox.getHeight() - 10);
 
-    HBox finalHBox = new HBox()
-    {{ // (11)
-      getChildren().addAll(leftVbox, rightVbox);
+
+    HBox wrapper = new HBox(){{ // (15)
+      setHeight(256);
+      setWidth(355);
+      setMinWidth(355);
+      setPadding(new Insets(10,10,10,10));
+      getChildren().addAll(
+          leftVbox,
+          rightVbox
+      );
     }};
 
-    return finalHBox;
+    return wrapper;
   }
 
   @Override public void refresh()

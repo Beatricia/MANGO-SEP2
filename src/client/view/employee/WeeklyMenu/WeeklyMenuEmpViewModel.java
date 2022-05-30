@@ -17,8 +17,13 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-//TODO javadocs
-
+/**
+ * View Model for Weekly Menu view. Connects the WeeklyMenuEmpController with the model.
+ * All data property can be bound.
+ *
+ * @author Agata
+ * @version 1
+ */
 public class WeeklyMenuEmpViewModel
 {
 
@@ -38,6 +43,10 @@ public class WeeklyMenuEmpViewModel
 
   private final MenuModel menuModel;
 
+  /**
+   * Constructs all the StringProperties, adds a listener to the MenuModel
+   * @param menuModel Menu model
+   */
   public WeeklyMenuEmpViewModel(MenuModel menuModel)
   {
     this.menuModel = menuModel;
@@ -61,6 +70,9 @@ public class WeeklyMenuEmpViewModel
     setUpDates();
   }
 
+  /**
+   * Set the right dates for the date StringProperties
+   */
   private void setUpDates()
   {
     LocalDate dateVar = DateHelper.getCurrentAvailableMonday();
@@ -75,6 +87,10 @@ public class WeeklyMenuEmpViewModel
     }
   }
 
+  /**
+   * Event listener for receiving a weekly menu event from the server
+   * @param propertyChangeEvent event data
+   */
   private void weeklyMenuReceived(PropertyChangeEvent propertyChangeEvent) {
     ArrayList<MenuItemWithQuantity> menuItemWithQuantities =
         (ArrayList<MenuItemWithQuantity>) propertyChangeEvent.getNewValue();
@@ -176,11 +192,18 @@ public class WeeklyMenuEmpViewModel
     return fridayDate;
   }
 
+  /**
+   * Request weekly menu data from the server.
+   */
   public void refresh()
   {
     menuModel.requestWeeklyMenu();
   }
 
+  /**
+   * Delete several items from the system, by forwarding the delete request to the menu model.
+   * @param listToDelete items to be deleted
+   */
   public void deleteItems(ArrayList<MenuItemWithQuantity> listToDelete)
   {
     menuModel.deleteMenuItemFromWeeklyMenu(listToDelete);

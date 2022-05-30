@@ -10,7 +10,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -19,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import transferobjects.MenuItemWithQuantity;
+import util.ImageTools;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -173,27 +176,31 @@ public class DisplayMenuController implements TabController
     String price = menuItemWithQuantity.getPrice() + " DKK";
     String quantity = menuItemWithQuantity.getQuantity() + "";
     String imagePath = menuItemWithQuantity.getImgPath();
-    int imgSize = 90;
+    int imgSize = 150;
 
 
 
     Label nameLabel = new Label(itemName){{ // (1)
-      setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 24));
+      setHeight(80);
+      setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 18));
       setWrapText(true);
     }};
     Label ingredientsLabel = new Label(ingredients){{ // (2)
+      setWidth(170);
+      setHeight(70);
       setWrapText(true);
     }};
     Label priceLabel = new Label(price); // (3)
 
     VBox priceVbox = new VBox(){{ // (4)
       setAlignment(Pos.TOP_RIGHT);
-      setPadding(new Insets(20, 0, 0, 0));
+      setPadding(new Insets(30, 0, 0, 0));
       getChildren().add(priceLabel);
     }};
 
-    VBox rightVbox = new VBox(){{ // (5)
-      setPadding(new Insets(10, 30, 10, 20));
+    VBox rightVbox = new VBox(){{ // (9)
+      setPadding(new Insets(40, 30, 10, 20));
+      setMinWidth(250);
       getChildren().addAll(
           nameLabel,
           ingredientsLabel,
@@ -203,10 +210,11 @@ public class DisplayMenuController implements TabController
 
 
 
-    Label quantityTextLabel = new Label("Quantity: "); // (6)
-    Label quantityCountLabel = new Label(quantity); // (7)
+    Label quantityTextLabel = new Label("Quantity: "); // (10)
+    Label quantityCountLabel = new Label(quantity); // (11)
 
-    HBox quantityBox = new HBox(){{ // (8)
+    HBox quantityBox = new HBox(){{ // (12)
+      setHeight(100);
       setAlignment(Pos.CENTER);
       getChildren().addAll(
           quantityTextLabel,
@@ -214,14 +222,13 @@ public class DisplayMenuController implements TabController
       );
     }};
 
-
-    ImageView menuItemImageView = new ImageView() {{ // (9)
+    ImageView menuItemImageView = new ImageView() {{ // (13)
       setPickOnBounds(true);
       setPreserveRatio(true);
     }};
     ClientImageLoader.loadImage(imagePath, menuItemImageView, imgSize, imgSize);
 
-    VBox leftVbox = new VBox(){{ // (10)
+    VBox leftVbox = new VBox(){{ // (14)
       getChildren().addAll(
           menuItemImageView,
           quantityBox
@@ -232,7 +239,11 @@ public class DisplayMenuController implements TabController
     menuItemImageView.setFitHeight(leftVbox.getHeight() - 10);
 
 
-    HBox wrapper = new HBox(){{ // (11)
+    HBox wrapper = new HBox(){{ // (15)
+      setHeight(256);
+      setWidth(400);
+      setMinWidth(400);
+      setPadding(new Insets(10,10,10,10));
       getChildren().addAll(
           leftVbox,
           rightVbox
@@ -240,31 +251,6 @@ public class DisplayMenuController implements TabController
     }};
 
     return wrapper;
-  }
-
-  /**
-   * Converts a given Image into a BufferedImage
-   *
-   * @param img The Image to be converted
-   * @return The converted BufferedImage
-   */
-  private static BufferedImage toBufferedImage(Image img)
-  {
-    if (img instanceof BufferedImage)
-    {
-      return (BufferedImage) img;
-    }
-
-    // Create a buffered image with transparency
-    BufferedImage bimage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-
-    // Draw the image on to the buffered image
-    Graphics2D bGr = bimage.createGraphics();
-    bGr.drawImage(img, 0, 0, null);
-    bGr.dispose();
-
-    // Return the buffered image
-    return bimage;
   }
 }
 
