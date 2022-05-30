@@ -61,7 +61,7 @@ public class Statistics implements Serializable
      * @param inc the income
      */
     public void setIncome(ArrayList<Double> inc){
-        inc.clear();
+        income.clear();
         income.addAll(inc);
     }
 

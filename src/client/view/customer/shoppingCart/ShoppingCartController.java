@@ -118,6 +118,8 @@ public class ShoppingCartController implements TabController {
         nameLabel.setText("Name");
         priceLabel.setText("");
         ingredientsVBox.getChildren().clear();
+        SpinnerValueFactory<Integer> quantityValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,8);
+        this.quantitySpinner.setValueFactory(quantityValueFactory);
     }
 
     /**
