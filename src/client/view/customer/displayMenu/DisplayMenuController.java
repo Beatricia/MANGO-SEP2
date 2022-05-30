@@ -27,6 +27,7 @@ import javafx.scene.text.FontWeight;
 import shared.Log;
 import transferobjects.CartItem;
 import transferobjects.MenuItemWithQuantity;
+import util.ImageTools;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -281,7 +282,6 @@ public class DisplayMenuController implements TabController
       getChildren().add(priceLabel);
     }};
 
-    //TODO ADD BUTTON
     Button addMenuItemToCart = new Button(){{
       Log.log("DisplayMenuController: Checks if item is in cart.");
         setText("Add " + itemName);
@@ -305,8 +305,20 @@ public class DisplayMenuController implements TabController
       getChildren().add(addMenuItemToCart);
     }};
 
+    ImageView imageView = new ImageView();
+    BufferedImage image = ImageIO.read(new File("src/client/view/customer/displayMenu/crownImage/crown.png"));
+    imageView.setImage(ImageTools.convertToFXImage(image));
+    VBox crownVBox = new VBox(){{ //crown
+      setAlignment(Pos.CENTER_RIGHT);
+      setPadding(new Insets(20, 0, 0, 0));
+      getChildren().add(imageView);
+    }};
+
     VBox rightVbox = new VBox(){{ // (5)
       setPadding(new Insets(10, 30, 10, 20));
+      if (menuItemWithQuantity.isTopThree()){
+        getChildren().add(crownVBox);
+      }
       getChildren().addAll(
           nameLabel,
           ingredientsLabel,

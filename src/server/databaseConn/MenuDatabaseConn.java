@@ -117,10 +117,21 @@ class MenuDatabaseConn
       throws SQLException
   {
     ArrayList<MenuItemWithQuantity> dailyItems = new ArrayList<>();
+    ArrayList<String> topItems = new ArrayList<>();
 
 
     try(Connection connection = DatabaseConnImp.getConnection())
     {
+      String sql3 = "SELECT itemname FROM orderitem GROUP BY itemname ORDER BY sum(quantity) DESC LIMIT 3";
+
+      PreparedStatement statement3 = connection.prepareStatement(sql3);
+
+      ResultSet resultSet3 = statement3.executeQuery();
+
+      while (resultSet3.next()){
+        topItems.add(resultSet3.getString("itemname"));
+      }
+
       String sql1 = "SELECT dailyMenuItem.name, dailyMenuItem.quantity, menuItem.price, menuItem.imgPath FROM dailyMenuItem "
           + "INNER JOIN menuItem ON dailyMenuItem.name = menuItem.name WHERE date = '" + date + "'";
 
@@ -154,8 +165,10 @@ class MenuDatabaseConn
         }
 
           MenuItem menuItem = new MenuItem(name,ingredients,price,path);
-
           MenuItemWithQuantity dailyMenuItem = new MenuItemWithQuantity(menuItem,date,quantity);
+          if (topItems.contains(name)){
+            dailyMenuItem.setToTopThree();
+          }
           dailyItems.add(dailyMenuItem);
       }
     }
