@@ -43,7 +43,7 @@ import java.util.List;
 /**
  * Controller for DisplayMenuView
  *
- * @author Greg
+ * @author Greg, Simon
  * @version 1
  */
 public class DisplayMenuController implements TabController
