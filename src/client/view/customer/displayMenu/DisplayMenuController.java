@@ -284,11 +284,13 @@ public class DisplayMenuController implements TabController
       setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 18));
       setWrapText(true);
     }};
+    Tooltip.install(nameLabel, new Tooltip(itemName));
     Label ingredientsLabel = new Label(ingredients){{ // (2)
       setWidth(170);
       setHeight(70);
       setWrapText(true);
     }};
+    Tooltip.install(ingredientsLabel, new Tooltip(ingredients));
     Label priceLabel = new Label(price); // (3)
 
     VBox priceVbox = new VBox(){{ // (4)
@@ -297,13 +299,46 @@ public class DisplayMenuController implements TabController
       getChildren().add(priceLabel);
     }};
 
+    Button addMenuItemToCart = new Button(){{ // (5)
+      setText("Add " + itemName);
+      setOnAction(event -> {
+        addMenuItemToCart(menuItemWithQuantity);
+        setDisable(true);
+        setText("Added");
+      });
+    }};
+
+    buttons.add(addMenuItemToCart);
+
+    VBox buttonVBox = new VBox(){{ // (6)
+      setAlignment(Pos.TOP_RIGHT);
+      setPadding(new Insets(10, 0, 0, 0));
+      getChildren().add(addMenuItemToCart);
+    }};
+
+
+    BufferedImage image = ImageIO.read(new File("src/client/view/customer/displayMenu/crownImage/crown.png"));
+    BufferedImage resizedImage = ImageTools.resizeImage(image,30,30);
+
+    ImageView imageView = new ImageView(){{ // (7)
+      setImage(ImageTools.convertToFXImage(resizedImage));
+    }};
+    Tooltip.install(imageView, new Tooltip("Most Popular"));
+
+    VBox crownVBox = new VBox(){{ // (8)
+      setAlignment(Pos.TOP_RIGHT);
+      getChildren().add(imageView);
+    }};
+
     VBox rightVbox = new VBox(){{ // (9)
-      setPadding(new Insets(40, 30, 10, 20));
+      setPadding(new Insets(10, 30, 10, 20));
       setMinWidth(250);
       getChildren().addAll(
+          crownVBox,
           nameLabel,
           ingredientsLabel,
-          priceVbox
+          priceVbox,
+          buttonVBox
       );
     }};
 

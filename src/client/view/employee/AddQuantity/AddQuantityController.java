@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -245,11 +246,13 @@ public class AddQuantityController implements TabController
       setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 18));
       setWrapText(true);
     }};
+    Tooltip.install(nameLabel, new Tooltip(itemName));
     Label ingredientsLabel = new Label(ingredients){{ // (2)
       setWidth(170);
       setHeight(70);
       setWrapText(true);
     }};
+    Tooltip.install(ingredientsLabel, new Tooltip(ingredients));
     Label priceLabel = new Label(price); // (3)
 
     VBox priceVbox = new VBox(){{ // (4)

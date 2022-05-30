@@ -185,11 +185,13 @@ public class DisplayMenuController implements TabController
       setFont(Font.font(null, FontWeight.BOLD, FontPosture.REGULAR, 18));
       setWrapText(true);
     }};
+    Tooltip.install(nameLabel, new Tooltip(itemName));
     Label ingredientsLabel = new Label(ingredients){{ // (2)
       setWidth(170);
       setHeight(70);
       setWrapText(true);
     }};
+    Tooltip.install(ingredientsLabel, new Tooltip(ingredients));
     Label priceLabel = new Label(price); // (3)
 
     VBox priceVbox = new VBox(){{ // (4)
