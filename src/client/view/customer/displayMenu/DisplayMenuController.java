@@ -226,26 +226,37 @@ public class DisplayMenuController implements TabController
   createDailyMenuItemBox returns this structure for one MenuItemWithQuantity
 
 
-  -Wrapper HBox- (11)
-┌────────────────────────────────────────────────────────────────┐
-│   -Left VBox- (10)                   -Right VBox- (5)          │
-│ ┌────────────────────────────────┐  ┌────────────────────────┐ │
-│ │    -ImageView- (9)             │  │┌──────────────────────┐│ │
-│ │   ┌───────────────────────┐    │  ││  Crown VBox        X ││ │
-│ │   │                       │    │  │└──────────────────────┘│ │
-│ │   │                       │    │  │ Name Label (1)         │ │
-│ │   │                       │    │  │                        │ │
-│ │   │                       │    │  │  Ingredients Label (2) │ │
-│ │   │                       │    │  │                        │ │
-│ │   │                       │    │  │  -Price VBox- (4)      │ │
-│ │   └───────────────────────┘    │  │ ┌────────────────────┐ │ │
-│ │  -Quantity Box (HBox)- (8)     │  │ │     (3) Price Label│ │ │
-│ │ ┌────────────────────────────┐ │  │ └────────────────────┘ │ │
-│ │ │QuantityLabel: numberLabel  │ │  │         ┌───────┐      │ │
-│ │ └───(6)─────────────(7)──────┘ │  │         │  ADD  │      │ │
-│ │                                │  │         └───────┘      │ │
-│ └────────────────────────────────┘  └────────────────────────┘ │
-└────────────────────────────────────────────────────────────────┘
+
+       -Wrapper Hbox- (15)
+     ┌──────────────────────────────────────────────────────────────────────────┐
+     │   -Left VBox- (14)                       -Right VBox- (9)                │
+     │ ┌───────────────────────────────────┐   ┌──────────────────────────────┐ │
+     │ │  -ImageView- (13)                 │   │                              │ │
+     │ │ ┌────────────────────────────┐    │   │  -Crown VBox- (8)            │ │
+     │ │ │                            │    │   │ ┌──────────────────────────┐ │ │
+     │ │ │                            │    │   │ │                  ┌─────┐ │ │ │
+     │ │ │                            │    │   │ │    (7) ImageView │     │ │ │ │
+     │ │ │                            │    │   │ │                  └─────┘ │ │ │
+     │ │ │                            │    │   │ └──────────────────────────┘ │ │
+     │ │ │                            │    │   │                              │ │
+     │ │ │                            │    │   │  Name Label (1)              │ │
+     │ │ │                            │    │   │                              │ │
+     │ │ │                            │    │   │  Ingredients Label (2)       │ │
+     │ │ │                            │    │   │                              │ │
+     │ │ │                            │    │   │                              │ │
+     │ │ │                            │    │   │ -Price VBox-(4)              │ │
+     │ │ │                            │    │   │ ┌─────────────────────────┐  │ │
+     │ │ └────────────────────────────┘    │   │ │         (3) Price Label │  │ │
+     │ │                                   │   │ └─────────────────────────┘  │ │
+     │ │   -Quantity HBox- (12)            │   │                              │ │
+     │ │  ┌───────────────────────────┐    │   │     -Button VBox- (6)        │ │
+     │ │  │QuantityLabel: number label│    │   │        ┌──────────┐          │ │
+     │ │  └────(10)──────────(11)─────┘    │   │        │Button (5)│          │ │
+     │ │                                   │   │        └──────────┘          │ │
+     │ └───────────────────────────────────┘   └──────────────────────────────┘ │
+     └──────────────────────────────────────────────────────────────────────────┘
+
+
    */
 
   /**
@@ -282,39 +293,36 @@ public class DisplayMenuController implements TabController
       getChildren().add(priceLabel);
     }};
 
-    Button addMenuItemToCart = new Button(){{
-      Log.log("DisplayMenuController: Checks if item is in cart.");
+    Button addMenuItemToCart = new Button(){{ // (5)
       setText("Add " + itemName);
-
-      setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-          addMenuItemToCart(menuItemWithQuantity);
-          setDisable(true);
-          setText("Added");
-        }
+      setOnAction(event -> {
+        addMenuItemToCart(menuItemWithQuantity);
+        setDisable(true);
+        setText("Added");
       });
-
     }};
 
     buttons.add(addMenuItemToCart);
 
-    VBox buttonVBox = new VBox(){{ // (4)
+    VBox buttonVBox = new VBox(){{ // (6)
       setAlignment(Pos.TOP_RIGHT);
       setPadding(new Insets(20, 0, 0, 0));
       getChildren().add(addMenuItemToCart);
     }};
 
-    ImageView imageView = new ImageView();
+
     BufferedImage image = ImageIO.read(new File("src/client/view/customer/displayMenu/crownImage/crown.png"));
-    image = ImageTools.resizeImage(image,30,30);
-    imageView.setImage(ImageTools.convertToFXImage(image));
-    VBox crownVBox = new VBox(){{ //crown
+    BufferedImage resizedImage = ImageTools.resizeImage(image,30,30);
+
+    ImageView imageView = new ImageView(){{ // (7)
+      setImage(ImageTools.convertToFXImage(resizedImage));
+    }};
+    VBox crownVBox = new VBox(){{ // (8)
       setAlignment(Pos.CENTER_RIGHT);
       getChildren().add(imageView);
     }};
 
-    VBox rightVbox = new VBox(){{ // (5)
+    VBox rightVbox = new VBox(){{ // (9)
       setPadding(new Insets(10, 30, 10, 20));
       if (menuItemWithQuantity.isTopThree()){
         getChildren().add(crownVBox);
@@ -329,10 +337,10 @@ public class DisplayMenuController implements TabController
 
 
 
-    Label quantityTextLabel = new Label("Quantity: "); // (6)
-    Label quantityCountLabel = new Label(quantity); // (7)
+    Label quantityTextLabel = new Label("Quantity: "); // (10)
+    Label quantityCountLabel = new Label(quantity); // (11)
 
-    HBox quantityBox = new HBox(){{ // (8)
+    HBox quantityBox = new HBox(){{ // (12)
       setAlignment(Pos.CENTER);
       getChildren().addAll(
           quantityTextLabel,
@@ -340,13 +348,13 @@ public class DisplayMenuController implements TabController
       );
     }};
 
-    ImageView menuItemImageView = new ImageView() {{ // (9)
+    ImageView menuItemImageView = new ImageView() {{ // (13)
       setPickOnBounds(true);
       setPreserveRatio(true);
     }};
     ClientImageLoader.loadImage(imagePath, menuItemImageView, imgSize, imgSize);
 
-    VBox leftVbox = new VBox(){{ // (10)
+    VBox leftVbox = new VBox(){{ // (14)
       getChildren().addAll(
           menuItemImageView,
           quantityBox
@@ -357,7 +365,7 @@ public class DisplayMenuController implements TabController
     menuItemImageView.setFitHeight(leftVbox.getHeight() - 10);
 
 
-    HBox wrapper = new HBox(){{ // (11)
+    HBox wrapper = new HBox(){{ // (15)
       getChildren().addAll(
           leftVbox,
           rightVbox
