@@ -14,7 +14,6 @@ public interface ClosingRoutineModel
    * Starts a Thread which is asleep during the opening hours. Once the canteen
    * is closed the thread empties all customers' carts, marks all orders as
    * collected, and removes them from the MyOrder view in the customer
-   * @throws SQLException
    */
   void setClosingTimer();
 }

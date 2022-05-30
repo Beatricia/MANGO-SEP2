@@ -40,8 +40,8 @@ public class ClientImageLoader
    * Loads the specified image with the original size into the image view
    * @param imageFileName image file name and extension to load
    * @param imageView image view to load into the image
-   * @param width width of the image (if width < 0, both width and height parameter is ignored)
-   * @param height height of the image (if height < 0, both width and height parameter is ignored)
+   * @param width width of the image (if width smaller than 0, both width and height parameter is ignored)
+   * @param height height of the image (if height smaller than 0, both width and height parameter is ignored)
    */
   public static void loadImage(String imageFileName, ImageView imageView, int width, int height) {
     imageLoader.loadImageFromFile(imageFileName, imageView, width, height);

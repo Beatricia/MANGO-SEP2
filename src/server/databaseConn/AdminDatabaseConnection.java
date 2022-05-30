@@ -30,8 +30,8 @@ public class AdminDatabaseConnection implements Serializable
 
     /**
      * Updating the employee table from the database. If the employee is:
-     * accepted -> set the accepted column to true
-     * declined -> delete the employee from the table
+     * if accepted then set the accepted column to true
+     * if declined then delete the employee from the table
      *
      * @param username the username of the employee that it is on hold
      * @param accept   true if the employee is accepted

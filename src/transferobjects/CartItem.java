@@ -27,7 +27,7 @@ public class CartItem extends MenuItem{
      * @throws NullPointerException if the username is null (message: username is null)
      * @throws IllegalArgumentException if the username is blank (message: username is blank)
      * @throws IllegalArgumentException if the quantity is less than or equals to zero (message: quantity is less than or equals to zero)
-     * @throws IllegalArgumentException if the unselected ingredient is not in the ingredients list (message: unselected ingredient >ingredient< is not present in the ingredients list)
+     * @throws IllegalArgumentException if the unselected ingredient is not in the ingredients list (message: unselected ingredient "ingredient" is not present in the ingredients list)
      */
     public CartItem(String name, ArrayList<String> ingredients, double price,
         String imgPath, String username, int quantity, ArrayList<String> unselectedIngredients) {

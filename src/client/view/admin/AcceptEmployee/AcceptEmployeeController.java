@@ -143,7 +143,7 @@ public class AcceptEmployeeController implements TabController
   }
 
   /**
-   * This method is responsible for calling the <code>refresh()<code/> method whenever the <b>Refresh<b/> button is pressed
+   * This method is responsible for calling the <code>refresh()</code> method whenever the <b>Refresh</b> button is pressed
    */
   public void onRefreshButtonPressed() {
     refresh();

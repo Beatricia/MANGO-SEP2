@@ -35,7 +35,7 @@ public class AddQuantityViewModel
 
   /**
    * Whenever a Daily Menu is received this method adds all the items to an
-   * ObservableList<MenuItemWithQuantity> list
+   * obserable list
    * @param event the PropertyChangeEvent that occurred
    */
   private void menuReceived(PropertyChangeEvent event)
@@ -51,7 +51,7 @@ public class AddQuantityViewModel
   }
 
   /**
-   * Returns the ObservableList<MenuItemWithQuantity> that is filled in from the
+   * Returns the observable list that is filled in from the
    * MenuModel
    * @return an ObservableList containing MenuItemWithQuantities
    */

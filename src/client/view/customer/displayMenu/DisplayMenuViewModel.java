@@ -81,7 +81,7 @@ public class DisplayMenuViewModel implements PropertyChangeSubject
 
   /**
    * Method which returns the ObservableList menuItemWithQuantities
-   * @return ObservableList<MenuItemWithQuantity> observable list observed by the DisplayMenuViewController
+   * @return observable list observed by the DisplayMenuViewController
    */
   public ObservableList<MenuItemWithQuantity> menuItemWithQuantitiesList(){
     return menuItemWithQuantities;

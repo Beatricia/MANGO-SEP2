@@ -58,7 +58,7 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
   }
 
   /**
-   * This method is responsible for sending a request to update the <b>users<b/> list
+   * This method is responsible for sending a request to update the <b>users</b> list
    */
   public void refresh()
   {
@@ -66,7 +66,7 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
   }
 
   /**
-   * Method that returns the <b>users<b/> list
+   * Method that returns the <b>users</b> list
    * @return list of User type objects
    */
   public ObservableList<User> getEmployeeList()
@@ -75,7 +75,7 @@ public class AcceptEmployeeViewModel implements PropertyChangeListener
   }
 
   /**
-   * This method is responsible for updating the current <b>users<b/> list
+   * This method is responsible for updating the current <b>users</b> list
    * first clears the whole list and then inserts the one received from the caught event
    *
    * @param e event caught from the admin
