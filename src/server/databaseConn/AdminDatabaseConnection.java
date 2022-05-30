@@ -9,6 +9,7 @@ import transferobjects.Statistics;
 import transferobjects.User;
 import util.DateHelper;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ import java.util.List;
  * @author Beatricia
  * @version 1.0
  */
-public class AdminDatabaseConnection
+public class AdminDatabaseConnection implements Serializable
 {
 
     /**
@@ -228,7 +229,7 @@ public class AdminDatabaseConnection
 
             // put the items in this hashmap first (key is the username, value is a list of the
             // user's uncollected order items
-            HashMap<String, ArrayList<OrderItem>> itemsSorted = new HashMap<>();
+            HashMap<Integer, ArrayList<OrderItem>> itemsSorted = new HashMap<>();
 
             while (set.next())
             {
@@ -249,11 +250,11 @@ public class AdminDatabaseConnection
                     imgPath, username, quantity, unselected, orderNumber);
 
                 // check if the username is already added to the hashmap (if not then add it)
-                if (!itemsSorted.containsKey(username))
+                if (!itemsSorted.containsKey(orderNumber))
                 {
-                    itemsSorted.put(username, new ArrayList<>());
+                    itemsSorted.put(orderNumber, new ArrayList<>());
                 }
-                itemsSorted.get(username).add(orderItem); // add the user's order item to their list
+                itemsSorted.get(orderNumber).add(orderItem); // add the user's order item to their list
             }
 
             // convert the HashMap<String, ArrayList<OrderItem>> to ArrayList<ArrayList<OrderItem>>

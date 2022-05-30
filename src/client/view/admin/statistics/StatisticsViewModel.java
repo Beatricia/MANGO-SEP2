@@ -1,6 +1,7 @@
 package client.view.admin.statistics;
 
 import client.model.AdminModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import shared.Log;
@@ -59,9 +60,14 @@ public class StatisticsViewModel implements PropertyChangeSubject
   {
     Statistics statistics = (Statistics) propertyChangeEvent.getNewValue();
 
-    itemTop1.setValue(statistics.getTopThreeMeals().get(0).getName());
-    itemTop2.setValue(statistics.getTopThreeMeals().get(1).getName());
-    itemTop3.setValue(statistics.getTopThreeMeals().get(2).getName());
+    Platform.runLater(() -> {
+      try{
+        itemTop1.set(statistics.getTopThreeMeals().get(0).getName());
+        itemTop2.set(statistics.getTopThreeMeals().get(1).getName());
+        itemTop3.set(statistics.getTopThreeMeals().get(2).getName());
+      } catch (IndexOutOfBoundsException e){
+      }
+    });
 
     propertyChangeSupport.firePropertyChange(AdminModel.STATISTICS_RECEIVED, null, statistics);
   }

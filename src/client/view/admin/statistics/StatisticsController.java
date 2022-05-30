@@ -3,6 +3,7 @@ package client.view.admin.statistics;
 import client.core.ViewModelFactory;
 import client.model.AdminModel;
 import client.view.TabController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -74,13 +75,15 @@ public class StatisticsController implements TabController
     double incomeThursday = statistics.getIncome().get(3);
     double incomeFriday = statistics.getIncome().get(4);
 
-    barChart.getData().clear();
-    XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-    series1.getData().add(new XYChart.Data<String, Number>("Monday\n" + numberOfOrdersMonday, incomeMonday));
-    series1.getData().add(new XYChart.Data<String, Number>("Tuesday\n" + numberOfOrdersTuesday, incomeTuesday));
-    series1.getData().add(new XYChart.Data<String, Number>("Wednesday\n" + numberOfOrdersWednesday, incomeWednesday));
-    series1.getData().add(new XYChart.Data<String, Number>("Thursday\n" + numberOfOrdersThursday, incomeThursday));
-    series1.getData().add(new XYChart.Data<String, Number>("Friday\n" + numberOfOrdersFriday, incomeFriday));
-    barChart.getData().add(series1);
+    Platform.runLater(() -> {
+      barChart.getData().clear();
+      XYChart.Series<String, Number> series1 = new XYChart.Series<>();
+      series1.getData().add(new XYChart.Data<>("Monday\n" + numberOfOrdersMonday, incomeMonday));
+      series1.getData().add(new XYChart.Data<>("Tuesday\n" + numberOfOrdersTuesday, incomeTuesday));
+      series1.getData().add(new XYChart.Data<>("Wednesday\n" + numberOfOrdersWednesday, incomeWednesday));
+      series1.getData().add(new XYChart.Data<>("Thursday\n" + numberOfOrdersThursday, incomeThursday));
+      series1.getData().add(new XYChart.Data<>("Friday\n" + numberOfOrdersFriday, incomeFriday));
+      barChart.getData().add(series1);
+    });
   }
 }
