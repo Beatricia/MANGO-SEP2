@@ -241,13 +241,14 @@ public class AdminDatabaseConnection implements Serializable
                 String imgPath = set.getString("imgpath");
                 String unselectedIngredients = set.getString("unselectedingr");
                 String allIngredients = set.getString("allIngr");
+                LocalDate date = LocalDate.parse(set.getString("date"));
 
                 ArrayList<String> unselected = convertStringToList(
                     unselectedIngredients);
                 ArrayList<String> all = convertStringToList(allIngredients);
 
                 OrderItem orderItem = new OrderItem(itemname, all, price,
-                    imgPath, username, quantity, unselected, orderNumber);
+                    imgPath, username, quantity, unselected, orderNumber, date);
 
                 // check if the username is already added to the hashmap (if not then add it)
                 if (!itemsSorted.containsKey(orderNumber))

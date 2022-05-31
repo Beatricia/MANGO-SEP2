@@ -34,11 +34,11 @@ public class OrderItem extends CartItem{
      * @throws IllegalArgumentException if the unselected ingredient is not in the ingredients list (message: unselected ingredient "ingredient" is not present in the ingredients list)
      */
     public OrderItem(String name, ArrayList<String> ingredients, double price, String imgPath,
-        String username, int quantity, ArrayList<String> unselectedIngredients, int code) {
+        String username, int quantity, ArrayList<String> unselectedIngredients, int code, LocalDate date) {
 
         super(name, ingredients, price, imgPath, username, quantity, unselectedIngredients);
         this.code=code;
-        date = LocalDate.now();
+        this.date = date;
     }
 
     /**

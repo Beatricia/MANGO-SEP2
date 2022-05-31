@@ -191,7 +191,7 @@ public class OrderDatabaseConn implements Serializable
           unselectedIngredients.add(ingredientName);
         }
 
-        OrderItem orderItem = new OrderItem(itemName, ingredients, price, imgPath, username, quantity, unselectedIngredients, code);
+        OrderItem orderItem = new OrderItem(itemName, ingredients, price, imgPath, username, quantity, unselectedIngredients, code, LocalDate.now());
         orderItems.add(orderItem);
       }
 
@@ -287,7 +287,7 @@ public class OrderDatabaseConn implements Serializable
         ArrayList<String> all = convertStringToList(allIngredients);
 
 
-        OrderItem orderItem = new OrderItem(itemname, all, price, imgPath, username, quantity, unselected, orderNumber);
+        OrderItem orderItem = new OrderItem(itemname, all, price, imgPath, username, quantity, unselected, orderNumber, LocalDate.now());
 
         // check if the username is already added to the hashmap (if not then add it)
         if(!itemsSorted.containsKey(username)) {
