@@ -11,6 +11,7 @@ import transferobjects.User;
 
 import java.beans.PropertyChangeEvent;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,7 +60,11 @@ public class ManageCanteenViewModel {
         Log.log("ManageCanteenViewModel the hours are updating");
         Platform.runLater(() -> {
             if (propertyChangeEvent.getPropertyName().equals(AdminModel.OPENING_HOURS_RECEIVED)) {
-                openingHours.set(propertyChangeEvent.getNewValue() + "");
+                ArrayList<LocalTime> openingHours = (ArrayList<LocalTime>) propertyChangeEvent.getNewValue();
+                String openTime = openingHours.get(0).toString();
+                String closeTime = openingHours.get(1).toString();
+                String openingHoursString = openTime + " - " + closeTime;
+                this.openingHours.set(openingHoursString);
             }
         });
     }
@@ -80,6 +85,15 @@ public class ManageCanteenViewModel {
     public void removeEmployee(String username){
         Log.log("ManageCanteenViewModel sending to the admin model the employee to by removed");
         adminModel.removeEmployee(username);
+    }
+
+    /**
+     * Requesting the opening hours
+     */
+    public void requestOpeningHours()
+    {
+        Log.log("ManageCanteenViewModel requesting from the opening hours");
+        adminModel.requestOpeningHours();
     }
 
     /**

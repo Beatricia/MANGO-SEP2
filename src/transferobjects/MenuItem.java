@@ -43,7 +43,7 @@ public class MenuItem implements Serializable
 
 
     this.name = name;
-    this.ingredients = new ArrayList<>(ingredients);
+    this.ingredients = ingredients;
     this.price = price;
     this.imgPath = imgPath;
 
@@ -67,7 +67,7 @@ public class MenuItem implements Serializable
 
   public ArrayList<String> getIngredients()
   {
-    return new ArrayList<>(ingredients);
+    return ingredients;
   }
 
   /**
