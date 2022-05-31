@@ -50,7 +50,7 @@ public class CartItem extends MenuItem{
 
         setQuantity(quantity);
         this.username = username;
-        this.unselectedIngredients = new ArrayList<>(unselectedIngredients);
+        this.unselectedIngredients = unselectedIngredients;
     }
 
     /**
@@ -86,7 +86,7 @@ public class CartItem extends MenuItem{
      * @return an array list of unselected ingredients
      */
     public ArrayList<String> getUnselectedIngredients(){
-        return new ArrayList<>(unselectedIngredients);
+        return unselectedIngredients;
     }
 
     @Override public String toString()
