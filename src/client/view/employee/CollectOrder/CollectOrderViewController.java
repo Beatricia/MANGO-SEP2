@@ -105,6 +105,8 @@ public class CollectOrderViewController implements TabController
   @Override public void refresh()
   {
     viewModel.requestAllUncollectedOrders();
+    detailsTable.setItems(null);
+    button.setDisable(true);
   }
 
   /**
@@ -116,6 +118,5 @@ public class CollectOrderViewController implements TabController
     ArrayList<OrderItem> orderItems = ordersTable.getSelectionModel().selectedItemProperty().get();
     viewModel.cancelOrder(orderItems.get(0).getCode());
     refresh();
-
   }
 }
