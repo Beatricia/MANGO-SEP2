@@ -325,10 +325,12 @@ public class DisplayMenuController implements TabController
     }};
     Tooltip.install(imageView, new Tooltip("Most Popular"));
 
-    VBox crownVBox = new VBox(){{ // (8)
-      setAlignment(Pos.TOP_RIGHT);
-      getChildren().add(imageView);
-    }};
+      VBox crownVBox = new VBox()
+      {{ // (8)
+        setAlignment(Pos.TOP_RIGHT);
+        if (menuItemWithQuantity.isTopThree())
+        getChildren().add(imageView);
+      }};
 
     VBox rightVbox = new VBox(){{ // (9)
       setPadding(new Insets(10, 30, 10, 20));
