@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="507.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.admin.manageCanteen.ManageCanteenController">
+<AnchorPane prefHeight="507.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.admin.manageCanteen.ManageCanteenController">
    <children>
       <Label layoutX="140.0" layoutY="44.0" prefHeight="28.0" prefWidth="92.0" text="Employees">
          <font>
@@ -70,7 +70,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="currentOpeningHoursLabel" layoutX="630.0" layoutY="351.0" prefHeight="27.0" prefWidth="59.0" text="00:00">
+      <Label fx:id="currentOpeningHoursLabel" layoutX="630.0" layoutY="351.0" prefHeight="27.0" prefWidth="151.0" text="00:00">
          <font>
             <Font size="18.0" />
          </font>

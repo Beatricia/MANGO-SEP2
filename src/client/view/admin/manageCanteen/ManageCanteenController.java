@@ -53,6 +53,7 @@ public class ManageCanteenController implements TabController {
     @Override
     public void refresh() {
         viewModel.requestAcceptedEmployees();
+        viewModel.requestOpeningHours();
     }
 
 
@@ -83,5 +84,6 @@ public class ManageCanteenController implements TabController {
 
             alert.showAndWait();
         }
+        refresh();
     }
 }

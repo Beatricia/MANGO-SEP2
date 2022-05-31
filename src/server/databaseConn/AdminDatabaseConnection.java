@@ -282,6 +282,9 @@ public class AdminDatabaseConnection implements Serializable
         // then the text is exactly this: {NULL}, in this case, just create a new ArrayList)
         ArrayList<String> list;
 
+        if (text == null)
+            return new ArrayList<>();
+
         text = text.substring(1, text.length() - 1); // remove the { }
         if (text.equals("NULL"))
         { // check if list is empty

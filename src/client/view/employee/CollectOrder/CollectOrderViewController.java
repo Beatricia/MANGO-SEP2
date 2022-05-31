@@ -2,6 +2,7 @@ package client.view.employee.CollectOrder;
 
 import client.core.ViewModelFactory;
 import client.view.TabController;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -73,6 +74,10 @@ public class CollectOrderViewController implements TabController
    */
   private void selectedOrderChange(ArrayList<OrderItem> orderItemArrayList)
   {
+    if (orderItemArrayList==null)
+    {
+      return;
+    }
 
     ObservableList<OrderItem> list = FXCollections.observableArrayList(orderItemArrayList);
     detailsTable.setItems(list);
