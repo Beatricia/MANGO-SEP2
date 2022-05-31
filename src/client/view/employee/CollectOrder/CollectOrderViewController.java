@@ -73,23 +73,27 @@ public class CollectOrderViewController implements TabController
    */
   private void selectedOrderChange(ArrayList<OrderItem> orderItemArrayList)
   {
+    if (orderItemArrayList == null){
+      //do nothing
+    }
+    else{
+      ObservableList<OrderItem> list = FXCollections.observableArrayList(orderItemArrayList);
+      detailsTable.setItems(list);
+      itemName.setCellValueFactory(new PropertyValueFactory<>("name"));
+      unselectedIngredients.setCellValueFactory(unselected -> {
+        OrderItem item = unselected.getValue();
+        if(item.getUnselectedIngredients().size() ==0)
+        {
+          return new SimpleObjectProperty<>("");
+        }
+        else
+          return new SimpleObjectProperty<>(String.join(", ", item.getUnselectedIngredients()));
+      });
 
-    ObservableList<OrderItem> list = FXCollections.observableArrayList(orderItemArrayList);
-    detailsTable.setItems(list);
-    itemName.setCellValueFactory(new PropertyValueFactory<>("name"));
-    unselectedIngredients.setCellValueFactory(unselected -> {
-      OrderItem item = unselected.getValue();
-      if(item.getUnselectedIngredients().size() ==0)
-      {
-        return new SimpleObjectProperty<>("");
-      }
-      else
-        return new SimpleObjectProperty<>(String.join(", ", item.getUnselectedIngredients()));
-    });
+      quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+      button.setDisable(false);
+    }
 
-
-    quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-    button.setDisable(false);
   }
 
   /**
@@ -111,5 +115,6 @@ public class CollectOrderViewController implements TabController
     viewModel.cancelOrder(orderItems.get(0).getCode());
     refresh();
 
+    button.setDisable(true);
   }
 }
